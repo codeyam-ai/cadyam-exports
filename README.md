@@ -9,5 +9,5 @@ Static site hosting interactive 2D + 3D HTML drawings exported from CadYam.
 ## Adding a New Export
 
 1. Copy the exported `.html` file into the repository root.
-2. Add an entry to `<ul class="export-list">` in `index.html`.
+2. Run `python3 scripts/update-exports.py` to automatically render its 2D + 3D thumbnail into `thumbnails/` and update `index.html`.
 3. Commit and push to `main`.

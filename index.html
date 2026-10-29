@@ -48,7 +48,7 @@ header {
 }
 main {
   width: 100%;
-  max-width: 880px;
+  max-width: 960px;
   margin: 0 auto;
   padding: 32px 24px 64px;
   flex: 1;
@@ -71,28 +71,47 @@ main {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 20px;
 }
 .export-item a {
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.export-item a:hover,
+.export-item a:focus-visible {
+  border-color: var(--accent);
+  box-shadow: 0 8px 24px rgba(20, 115, 230, 0.12);
+  transform: translateY(-1px);
+  outline: none;
+}
+.export-thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--canvas);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+.export-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.export-body {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
   padding: 16px 20px;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  color: var(--ink);
-  text-decoration: none;
-  transition: border-color 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
-}
-.export-item a:hover,
-.export-item a:focus-visible {
-  border-color: var(--accent);
-  box-shadow: 0 4px 14px rgba(20, 115, 230, 0.08);
-  outline: none;
 }
 .export-info {
   min-width: 0;
@@ -124,6 +143,11 @@ main {
   background: var(--accent);
   color: #fff;
 }
+@media (max-width: 520px) {
+  .export-list {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
 </head>
 <body>
@@ -140,11 +164,14 @@ main {
   <ul class="export-list">
     <li class="export-item">
       <a href="farm-house.html">
-        <div class="export-info">
-          <h3 class="export-title">Farm House</h3>
-          <p class="export-meta">Landscape &amp; Garden · 2D Plan + 3D Model · Exported 29 October 2026</p>
+        <div class="export-thumb"><img src="thumbnails/farm-house.png" alt="Farm House preview" loading="lazy"></div>
+        <div class="export-body">
+          <div class="export-info">
+            <h3 class="export-title">Farm House</h3>
+            <p class="export-meta">Landscape &amp; Garden · Exported 29 October 2026</p>
+          </div>
+          <span class="export-action">Open export &rarr;</span>
         </div>
-        <span class="export-action">Open export &rarr;</span>
       </a>
     </li>
   </ul>
