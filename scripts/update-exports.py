@@ -4,12 +4,17 @@
 import html
 import os
 import re
+import shutil
+import struct
 import subprocess
 import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 THUMB_DIR = ROOT / "thumbnails"
+SITE_BASE_URL = os.environ.get(
+    "CADYAM_EXPORTS_BASE_URL", "https://codeyam-ai.github.io/cadyam-exports"
+).rstrip("/")
 CHROME_PATHS = [
     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
     "google-chrome",
@@ -24,6 +29,17 @@ def find_chrome():
     return None
 
 
+def png_dimensions(path: Path) -> tuple[int, int]:
+    try:
+        header = path.read_bytes()[:24]
+        if len(header) >= 24 and header[:8] == b"\x89PNG\r\n\x1a\n":
+            w, h = struct.unpack(">II", header[16:24])
+            return int(w), int(h)
+    except OSError:
+        pass
+    return 1920, 1200
+
+
 def extract_metadata(export_path: Path):
     content = export_path.read_text(encoding="utf-8", errors="replace")
     title_match = re.search(r"<title>(.*?)</title>", content, re.S)
@@ -35,33 +51,117 @@ def extract_metadata(export_path: Path):
     return title, byline
 
 
+def build_social_meta(
+    title: str,
+    description: str,
+    page_url: str,
+    image_url: str,
+    width: int = 1920,
+    height: int = 1200,
+) -> str:
+    esc_title = html.escape(title, quote=True)
+    esc_desc = html.escape(description, quote=True)
+    esc_page = html.escape(page_url, quote=True)
+    esc_img = html.escape(image_url, quote=True)
+    return "\n".join(
+        [
+            "<!-- cadyam-social-meta:start -->",
+            f'<meta name="description" content="{esc_desc}">',
+            '<meta property="og:type" content="website">',
+            '<meta property="og:site_name" content="CadYam Exports">',
+            f'<meta property="og:title" content="{esc_title}">',
+            f'<meta property="og:description" content="{esc_desc}">',
+            f'<meta property="og:url" content="{esc_page}">',
+            f'<meta property="og:image" content="{esc_img}">',
+            '<meta property="og:image:type" content="image/png">',
+            f'<meta property="og:image:width" content="{width}">',
+            f'<meta property="og:image:height" content="{height}">',
+            f'<meta property="og:image:alt" content="{esc_title} — 3D model preview">',
+            '<meta name="twitter:card" content="summary_large_image">',
+            f'<meta name="twitter:title" content="{esc_title}">',
+            f'<meta name="twitter:description" content="{esc_desc}">',
+            f'<meta name="twitter:image" content="{esc_img}">',
+            "<!-- cadyam-social-meta:end -->",
+        ]
+    )
+
+
+def upgrade_export_html(
+    export_path: Path,
+    title: str,
+    byline: str,
+    thumb_rel: str,
+    width: int,
+    height: int,
+):
+    """Ensure the exported HTML opens in 3D mode by default and includes OG/Twitter meta tags."""
+    content = export_path.read_text(encoding="utf-8", errors="replace")
+    original = content
+
+    # 1. Switch to 3D mode by default after 2D getBBox() + scaleLabels() initialization
+    #    so opening the page starts in 3D view while preserving 2D framing when switching modes.
+    default_3d_tail = '  inspect(null);\n  scaleLabels();\n  if (data.scene) setMode("3d");\n})();'
+    if 'if (data.scene) setMode("3d");' not in content:
+        content = content.replace(
+            "  inspect(null);\n  scaleLabels();\n})();",
+            default_3d_tail,
+            1,
+        )
+
+    # 2. Inject or update Open Graph & Twitter Card meta tags in <head>.
+    page_url = f"{SITE_BASE_URL}/{export_path.name}"
+    image_url = f"{SITE_BASE_URL}/{thumb_rel}"
+    description = f"Interactive 3D model & 2D plan — {byline}"
+    meta_block = build_social_meta(title, description, page_url, image_url, width, height)
+
+    meta_pattern = re.compile(
+        r"<!-- cadyam-social-meta:start -->.*?<!-- cadyam-social-meta:end -->",
+        re.S,
+    )
+    if meta_pattern.search(content):
+        content = meta_pattern.sub(meta_block, content, count=1)
+    else:
+        content = re.sub(
+            r"(<title>.*?</title>)",
+            r"\1\n" + meta_block,
+            content,
+            count=1,
+            flags=re.S,
+        )
+
+    if content != original:
+        export_path.write_text(content, encoding="utf-8")
+
+
 def ensure_thumbnail(export_path: Path) -> str:
     THUMB_DIR.mkdir(exist_ok=True)
     thumb_rel = f"thumbnails/{export_path.stem}.png"
     thumb_path = ROOT / thumb_rel
-    if thumb_path.exists() and thumb_path.stat().st_mtime >= export_path.stat().st_mtime:
+    if thumb_path.exists():
         return thumb_rel
 
     chrome = find_chrome()
     if not chrome:
-        return thumb_rel if thumb_path.exists() else ""
+        return ""
 
     raw_html = export_path.read_text(encoding="utf-8", errors="replace")
     clean_html = raw_html.replace(
         "</style>",
-        "header, .tools, .zoom-controls, #plan-view text { display: none !important; }\n</style>",
+        "header, .tools, .zoom-controls, #inspector, #model-pins { display: none !important; }\n</style>",
         1,
     )
-    with tempfile.NamedTemporaryFile("w", suffix=".html", delete=False, encoding="utf-8") as tmp:
+    tmp_dir = tempfile.mkdtemp(prefix="cadyam-thumb-")
+    tmp_path = os.path.join(tmp_dir, "export.html")
+    with open(tmp_path, "w", encoding="utf-8") as tmp:
         tmp.write(clean_html)
-        tmp_path = tmp.name
 
     try:
         subprocess.run(
             [
                 chrome,
                 "--headless=new",
-                "--window-size=1200,675",
+                f"--user-data-dir={os.path.join(tmp_dir, 'profile')}",
+                "--window-size=1920,1200",
                 f"--screenshot={thumb_path}",
                 f"file://{tmp_path}",
             ],
@@ -70,8 +170,7 @@ def ensure_thumbnail(export_path: Path) -> str:
             stderr=subprocess.DEVNULL,
         )
     finally:
-        if os.path.exists(tmp_path):
-            os.remove(tmp_path)
+        shutil.rmtree(tmp_dir, ignore_errors=True)
 
     return thumb_rel
 
@@ -81,12 +180,19 @@ def build_index():
         p for p in ROOT.glob("*.html") if p.name != "index.html"
     )
     items_html = []
-    for exp in exports:
+    first_thumb = "thumbnails/farm-house.png"
+    first_dims = (1920, 1200)
+    for idx, exp in enumerate(exports):
         title, byline = extract_metadata(exp)
-        thumb_rel = ensure_thumbnail(exp)
+        thumb_rel = ensure_thumbnail(exp) or f"thumbnails/{exp.stem}.png"
+        w, h = png_dimensions(ROOT / thumb_rel)
+        upgrade_export_html(exp, title, byline, thumb_rel, w, h)
+        if idx == 0:
+            first_thumb = thumb_rel
+            first_dims = (w, h)
         thumb_markup = (
             f'<div class="export-thumb"><img src="{html.escape(thumb_rel)}" alt="{html.escape(title)} preview" loading="lazy"></div>'
-            if thumb_rel
+            if (ROOT / thumb_rel).exists()
             else ""
         )
         items_html.append(
@@ -104,6 +210,15 @@ def build_index():
     </li>"""
         )
 
+    index_meta = build_social_meta(
+        "CadYam Exports",
+        "Interactive 3D models & 2D plans exported from CadYam",
+        f"{SITE_BASE_URL}/",
+        f"{SITE_BASE_URL}/{first_thumb}",
+        first_dims[0],
+        first_dims[1],
+    )
+
     index_content = f"""<!doctype html>
 <html lang="en">
 <head>
@@ -111,6 +226,7 @@ def build_index():
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="CadYam">
 <title>CadYam Exports</title>
+{index_meta}
 <style>
 :root {{
   --ink: #1d1d1f;
