@@ -49,7 +49,7 @@ def ensure_thumbnail(export_path: Path) -> str:
     raw_html = export_path.read_text(encoding="utf-8", errors="replace")
     clean_html = raw_html.replace(
         "</style>",
-        "header, .tools, #plan-view text { display: none !important; }\n</style>",
+        "header, .tools, .zoom-controls, #plan-view text { display: none !important; }\n</style>",
         1,
     )
     with tempfile.NamedTemporaryFile("w", suffix=".html", delete=False, encoding="utf-8") as tmp:
