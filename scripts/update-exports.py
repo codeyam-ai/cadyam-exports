@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Generate thumbnails and rebuild index.html for all CadYam HTML exports in the repo root."""
 
+import hashlib
 import html
+import json
 import os
 import re
 import shutil
@@ -12,6 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 THUMB_DIR = ROOT / "thumbnails"
+ASSETS_DIR = ROOT / "assets"
 SITE_BASE_URL = os.environ.get(
     "CADYAM_EXPORTS_BASE_URL", "https://codeyam-ai.github.io/cadyam-exports"
 ).rstrip("/")
@@ -29,7 +32,7 @@ def find_chrome():
     return None
 
 
-def png_dimensions(path: Path) -> tuple[int, int]:
+def image_dimensions(path: Path) -> tuple[int, int]:
     try:
         header = path.read_bytes()[:24]
         if len(header) >= 24 and header[:8] == b"\x89PNG\r\n\x1a\n":
@@ -37,7 +40,14 @@ def png_dimensions(path: Path) -> tuple[int, int]:
             return int(w), int(h)
     except OSError:
         pass
-    return 1920, 1200
+    return 1600, 840
+
+
+def short_file_hash(path: Path) -> str:
+    try:
+        return hashlib.sha256(path.read_bytes()).hexdigest()[:8]
+    except OSError:
+        return "1"
 
 
 def extract_metadata(export_path: Path):
@@ -56,8 +66,9 @@ def build_social_meta(
     description: str,
     page_url: str,
     image_url: str,
-    width: int = 1920,
-    height: int = 1200,
+    image_mime: str = "image/jpeg",
+    width: int = 1600,
+    height: int = 840,
 ) -> str:
     esc_title = html.escape(title, quote=True)
     esc_desc = html.escape(description, quote=True)
@@ -73,7 +84,8 @@ def build_social_meta(
             f'<meta property="og:description" content="{esc_desc}">',
             f'<meta property="og:url" content="{esc_page}">',
             f'<meta property="og:image" content="{esc_img}">',
-            '<meta property="og:image:type" content="image/png">',
+            f'<meta property="og:image:secure_url" content="{esc_img}">',
+            f'<meta property="og:image:type" content="{image_mime}">',
             f'<meta property="og:image:width" content="{width}">',
             f'<meta property="og:image:height" content="{height}">',
             f'<meta property="og:image:alt" content="{esc_title} — 3D model preview">',
@@ -81,20 +93,78 @@ def build_social_meta(
             f'<meta name="twitter:title" content="{esc_title}">',
             f'<meta name="twitter:description" content="{esc_desc}">',
             f'<meta name="twitter:image" content="{esc_img}">',
+            f'<meta name="twitter:image:alt" content="{esc_title} — 3D model preview">',
             "<!-- cadyam-social-meta:end -->",
         ]
     )
+
+
+def externalize_heavy_payload(export_path: Path, content: str) -> str:
+    """Move multi-megabyte inline #plan-view SVG and #drawing JSON into assets/<slug>-data.js.
+
+    Keeping each HTML file ~85 KB ensures iMessage (LPMetadataProvider), Slack,
+    Discord, and X/Twitter never abort metadata fetching due to their ~1 MB HTML
+    response size limits, while a synchronous <script src="assets/<slug>-data.js">
+    restores #plan-view and #drawing before the viewer script executes.
+    """
+    m_plan = re.search(
+        r'(<div id="plan-view">)(<svg\b.*?</svg>\s*)(</div>\s*</section>)',
+        content,
+        re.S,
+    )
+    m_json = re.search(
+        r'<script type="application/json" id="drawing">(.*?)</script>',
+        content,
+        re.S,
+    )
+    if not m_plan or not m_json:
+        return content
+
+    svg_markup = m_plan.group(2)
+    drawing_json = m_json.group(1).strip()
+    if len(svg_markup) + len(drawing_json) < 100_000:
+        return content
+
+    ASSETS_DIR.mkdir(exist_ok=True)
+    asset_rel = f"assets/{export_path.stem}-data.js"
+    asset_path = ROOT / asset_rel
+    js_payload = (
+        "// Auto-extracted by scripts/update-exports.py so HTML stays lightweight for social/iMessage link previews.\n"
+        "(function(){\n"
+        "  var planHost = document.getElementById('plan-view');\n"
+        "  if (planHost) planHost.innerHTML = " + json.dumps(svg_markup) + ";\n"
+        "  var drawingEl = document.getElementById('drawing');\n"
+        "  if (drawingEl) drawingEl.textContent = " + json.dumps(drawing_json) + ";\n"
+        "})();\n"
+    )
+    asset_path.write_text(js_payload, encoding="utf-8")
+
+    loader_tag = f'<script src="{asset_rel}"></script>'
+    updated = (
+        content[: m_plan.start(2)]
+        + content[m_plan.end(2) : m_json.start(1)]
+        + "{}"
+        + content[m_json.end(1) :]
+    )
+    if loader_tag not in updated:
+        updated = updated.replace(
+            '<script type="application/json" id="drawing">{}</script>',
+            '<script type="application/json" id="drawing">{}</script>\n' + loader_tag,
+            1,
+        )
+    return updated
 
 
 def upgrade_export_html(
     export_path: Path,
     title: str,
     byline: str,
-    thumb_rel: str,
+    social_thumb_rel: str,
+    image_mime: str,
     width: int,
     height: int,
 ):
-    """Ensure the exported HTML opens in 3D mode by default and includes OG/Twitter meta tags."""
+    """Ensure the exported HTML opens in 3D mode by default, externalizes multi-MB data, and includes OG/Twitter meta tags."""
     content = export_path.read_text(encoding="utf-8", errors="replace")
     original = content
 
@@ -108,11 +178,17 @@ def upgrade_export_html(
             1,
         )
 
-    # 2. Inject or update Open Graph & Twitter Card meta tags in <head>.
+    # 2. Externalize multi-megabyte inline #plan-view SVG and #drawing JSON into assets/<slug>-data.js
+    #    so the HTML document is ~85 KB and unfurls reliably in iMessage & social media crawlers.
+    content = externalize_heavy_payload(export_path, content)
+
+    # 3. Inject or update Open Graph & Twitter Card meta tags in <head>.
     page_url = f"{SITE_BASE_URL}/{export_path.name}"
-    image_url = f"{SITE_BASE_URL}/{thumb_rel}"
+    image_url = f"{SITE_BASE_URL}/{social_thumb_rel}"
     description = f"Interactive 3D model & 2D plan — {byline}"
-    meta_block = build_social_meta(title, description, page_url, image_url, width, height)
+    meta_block = build_social_meta(
+        title, description, page_url, image_url, image_mime, width, height
+    )
 
     meta_pattern = re.compile(
         r"<!-- cadyam-social-meta:start -->.*?<!-- cadyam-social-meta:end -->",
@@ -180,19 +256,32 @@ def build_index():
         p for p in ROOT.glob("*.html") if p.name != "index.html"
     )
     items_html = []
-    first_thumb = "thumbnails/farm-house.png"
-    first_dims = (1920, 1200)
+    first_social_thumb = "thumbnails/farm-house.jpg"
+    first_social_mime = "image/jpeg"
+    first_dims = (1600, 840)
     for idx, exp in enumerate(exports):
         title, byline = extract_metadata(exp)
-        thumb_rel = ensure_thumbnail(exp) or f"thumbnails/{exp.stem}.png"
-        w, h = png_dimensions(ROOT / thumb_rel)
-        upgrade_export_html(exp, title, byline, thumb_rel, w, h)
+        png_rel = ensure_thumbnail(exp) or f"thumbnails/{exp.stem}.png"
+        jpg_rel = f"thumbnails/{exp.stem}.jpg"
+        w, h = image_dimensions(ROOT / png_rel)
+        if (ROOT / jpg_rel).exists():
+            ver = short_file_hash(ROOT / jpg_rel)
+            social_thumb_rel = f"{jpg_rel}?v={ver}"
+            social_mime = "image/jpeg"
+            card_thumb_rel = f"{jpg_rel}?v={ver}"
+        else:
+            ver = short_file_hash(ROOT / png_rel)
+            social_thumb_rel = f"{png_rel}?v={ver}"
+            social_mime = "image/png"
+            card_thumb_rel = f"{png_rel}?v={ver}"
+        upgrade_export_html(exp, title, byline, social_thumb_rel, social_mime, w, h)
         if idx == 0:
-            first_thumb = thumb_rel
+            first_social_thumb = social_thumb_rel
+            first_social_mime = social_mime
             first_dims = (w, h)
         thumb_markup = (
-            f'<div class="export-thumb"><img src="{html.escape(thumb_rel)}" alt="{html.escape(title)} preview" loading="lazy"></div>'
-            if (ROOT / thumb_rel).exists()
+            f'<div class="export-thumb"><img src="{html.escape(card_thumb_rel)}" alt="{html.escape(title)} preview" loading="lazy"></div>'
+            if (ROOT / png_rel).exists() or (ROOT / jpg_rel).exists()
             else ""
         )
         items_html.append(
@@ -214,7 +303,8 @@ def build_index():
         "CadYam Exports",
         "Interactive 3D models & 2D plans exported from CadYam",
         f"{SITE_BASE_URL}/",
-        f"{SITE_BASE_URL}/{first_thumb}",
+        f"{SITE_BASE_URL}/{first_social_thumb}",
+        first_social_mime,
         first_dims[0],
         first_dims[1],
     )
