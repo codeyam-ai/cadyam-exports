@@ -125,9 +125,11 @@ def externalize_heavy_payload(export_path: Path, content: str) -> str:
         if root_data.exists():
             shutil.move(str(root_data), str(asset_path))
         if asset_path.exists():
-            content = content.replace(
-                f'<script src="{export_path.stem}-data.js"></script>',
-                f'<script src="{asset_rel}"></script>',
+            data_ver = short_file_hash(asset_path)
+            content = re.sub(
+                rf'<script src="(?:assets/)?{re.escape(export_path.stem)}-data\.js(?:\?v=[^"]*)?"></script>',
+                f'<script src="{asset_rel}?v={data_ver}"></script>',
+                content,
             )
         return content
 
