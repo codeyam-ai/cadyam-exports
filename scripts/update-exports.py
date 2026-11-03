@@ -118,6 +118,17 @@ def externalize_heavy_payload(export_path: Path, content: str) -> str:
         re.S,
     )
     if not m_plan or not m_json:
+        ASSETS_DIR.mkdir(exist_ok=True)
+        root_data = ROOT / f"{export_path.stem}-data.js"
+        asset_rel = f"assets/{export_path.stem}-data.js"
+        asset_path = ROOT / asset_rel
+        if root_data.exists():
+            shutil.move(str(root_data), str(asset_path))
+        if asset_path.exists():
+            content = content.replace(
+                f'<script src="{export_path.stem}-data.js"></script>',
+                f'<script src="{asset_rel}"></script>',
+            )
         return content
 
     svg_markup = m_plan.group(2)
@@ -198,7 +209,7 @@ def upgrade_export_html(
         content = meta_pattern.sub(meta_block, content, count=1)
     else:
         content = re.sub(
-            r"(<title>.*?</title>)",
+            r"(<title>.*?</title>)(?:\s*<meta\s+(?:name=\"(?:description|twitter:[^\"]*)\"|property=\"og:[^\"]*\")[^>]*>)*",
             r"\1\n" + meta_block,
             content,
             count=1,
@@ -213,7 +224,29 @@ def ensure_thumbnail(export_path: Path) -> str:
     THUMB_DIR.mkdir(exist_ok=True)
     thumb_rel = f"thumbnails/{export_path.stem}.png"
     thumb_path = ROOT / thumb_rel
+    root_png = ROOT / f"{export_path.stem}.png"
+    if root_png.exists() and not thumb_path.exists():
+        shutil.move(str(root_png), str(thumb_path))
     if thumb_path.exists():
+        jpg_path = ROOT / f"thumbnails/{export_path.stem}.jpg"
+        if not jpg_path.exists():
+            subprocess.run(
+                [
+                    "sips",
+                    "-s",
+                    "format",
+                    "jpeg",
+                    "-s",
+                    "formatOptions",
+                    "88",
+                    str(thumb_path),
+                    "--out",
+                    str(jpg_path),
+                ],
+                check=False,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
         return thumb_rel
 
     chrome = find_chrome()

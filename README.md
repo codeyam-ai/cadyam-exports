@@ -5,6 +5,7 @@ Static site hosting interactive 2D + 3D HTML drawings exported from CadYam.
 ## Exports
 
 - **[Farm House](farm-house.html)** — Landscape & Garden (Exported 2 November 2026)
+- **[Floral Dress](floral-dress.html)** — Fashion (Exported 3 November 2026)
 - **[Luxury House Pond](luxuryhousepond.html)** — Landscape & Garden (Exported 2 November 2026)
 - **[Town Center](town-center.html)** — Landscape & Garden (Exported 2 November 2026)
 
