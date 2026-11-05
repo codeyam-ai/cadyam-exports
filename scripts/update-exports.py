@@ -55,7 +55,8 @@ def extract_metadata(export_path: Path):
     title_match = re.search(r"<title>(.*?)</title>", content, re.S)
     byline_match = re.search(r'<p class="byline">(.*?)</p>', content, re.S)
     title = html.unescape(title_match.group(1).strip()) if title_match else export_path.stem.replace("-", " ").title()
-    byline = html.unescape(byline_match.group(1).strip()) if byline_match else "CadYam Export"
+    raw_byline = re.sub(r"<button\b.*?</button>", "", byline_match.group(1), flags=re.S) if byline_match else "CadYam Export"
+    byline = html.unescape(raw_byline.strip())
     if byline.startswith("CadYam · "):
         byline = byline[len("CadYam · "):]
     return title, byline
@@ -122,6 +123,23 @@ def externalize_heavy_payload(export_path: Path, content: str) -> str:
         root_data = ROOT / f"{export_path.stem}-data.js"
         asset_rel = f"assets/{export_path.stem}-data.js"
         asset_path = ROOT / asset_rel
+        m_story = re.search(
+            r'<script type="application/json" id="story-data">(.*?)</script>',
+            content,
+            re.S,
+        )
+        if m_story and len(m_story.group(1)) > 20_000:
+            story_json = m_story.group(1).strip()
+            asset_path.write_text(
+                f"window.__VIZKIT_STORY__ = {story_json};\n", encoding="utf-8"
+            )
+            data_ver = short_file_hash(asset_path)
+            content = (
+                content[: m_story.start()]
+                + f'<script src="{asset_rel}?v={data_ver}"></script>'
+                + content[m_story.end() :]
+            )
+            return content
         if root_data.exists():
             shutil.move(str(root_data), str(asset_path))
         if asset_path.exists():
@@ -135,7 +153,7 @@ def externalize_heavy_payload(export_path: Path, content: str) -> str:
 
     svg_markup = m_plan.group(2)
     drawing_json = m_json.group(1).strip()
-    if len(svg_markup) + len(drawing_json) < 100_000:
+    if len(svg_markup) + len(drawing_json) < 20_000:
         return content
 
     ASSETS_DIR.mkdir(exist_ok=True)
@@ -231,7 +249,7 @@ def ensure_thumbnail(export_path: Path) -> str:
         shutil.move(str(root_png), str(thumb_path))
     if thumb_path.exists():
         jpg_path = ROOT / f"thumbnails/{export_path.stem}.jpg"
-        if not jpg_path.exists():
+        if not jpg_path.exists() or thumb_path.stat().st_mtime > jpg_path.stat().st_mtime:
             subprocess.run(
                 [
                     "sips",
@@ -256,9 +274,18 @@ def ensure_thumbnail(export_path: Path) -> str:
         return ""
 
     raw_html = export_path.read_text(encoding="utf-8", errors="replace")
-    clean_html = raw_html.replace(
-        "</style>",
-        "header, .tools, .zoom-controls, #inspector, #model-pins { display: none !important; }\n</style>",
+    is_vizkit = 'content="CadYam vizkit"' in raw_html
+    if is_vizkit:
+        clean_html = raw_html
+    else:
+        clean_html = raw_html.replace(
+            "</style>",
+            "header, .tools, .zoom-controls, #inspector, #model-pins { display: none !important; }\n</style>",
+            1,
+        )
+    clean_html = clean_html.replace(
+        "<head>",
+        f'<head>\n<base href="file://{ROOT}/">',
         1,
     )
     tmp_dir = tempfile.mkdtemp(prefix="cadyam-thumb-")
@@ -272,7 +299,8 @@ def ensure_thumbnail(export_path: Path) -> str:
                 chrome,
                 "--headless=new",
                 f"--user-data-dir={os.path.join(tmp_dir, 'profile')}",
-                "--window-size=1920,1200",
+                "--window-size=1600,840" if is_vizkit else "--window-size=1920,1200",
+                "--virtual-time-budget=3500",
                 f"--screenshot={thumb_path}",
                 f"file://{tmp_path}",
             ],
@@ -280,6 +308,25 @@ def ensure_thumbnail(export_path: Path) -> str:
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         )
+        if thumb_path.exists():
+            jpg_path = ROOT / f"thumbnails/{export_path.stem}.jpg"
+            subprocess.run(
+                [
+                    "sips",
+                    "-s",
+                    "format",
+                    "jpeg",
+                    "-s",
+                    "formatOptions",
+                    "88",
+                    str(thumb_path),
+                    "--out",
+                    str(jpg_path),
+                ],
+                check=False,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
     finally:
         shutil.rmtree(tmp_dir, ignore_errors=True)
 

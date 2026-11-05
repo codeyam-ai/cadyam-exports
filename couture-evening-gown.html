@@ -1,0 +1,2952 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="generator" content="CadYam">
+<title>Couture Botanical Evening Gown</title>
+<!-- cadyam-social-meta:start -->
+<meta name="description" content="Interactive 3D model &amp; 2D plan — Fashion · Exported 5 November 2026">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CadYam Exports">
+<meta property="og:title" content="Couture Botanical Evening Gown">
+<meta property="og:description" content="Interactive 3D model &amp; 2D plan — Fashion · Exported 5 November 2026">
+<meta property="og:url" content="https://codeyam-ai.github.io/cadyam-exports/couture-evening-gown.html">
+<meta property="og:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/couture-evening-gown.jpg?v=6d089aa9">
+<meta property="og:image:secure_url" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/couture-evening-gown.jpg?v=6d089aa9">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="840">
+<meta property="og:image:alt" content="Couture Botanical Evening Gown — 3D model preview">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Couture Botanical Evening Gown">
+<meta name="twitter:description" content="Interactive 3D model &amp; 2D plan — Fashion · Exported 5 November 2026">
+<meta name="twitter:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/couture-evening-gown.jpg?v=6d089aa9">
+<meta name="twitter:image:alt" content="Couture Botanical Evening Gown — 3D model preview">
+<!-- cadyam-social-meta:end -->
+<style>
+/* CadYam's palette (the app's theme.rs tokens) and its typeface when installed. */
+:root { --ink: #1d1d1f; --muted: #6b6b76; --line: #e4e4ea; --line-strong: #cfcfd8; --accent: #1473e6; --accent-soft: #e8f1fc; --pick: #e8892b; --page: #f4f4f7; --panel: #fff; --canvas: #eaf0f6; }
+* { box-sizing: border-box; }
+/* The visible viewport's height where the browser knows it (a phone's address bar doesn't cover the page). */
+html, body { margin: 0; height: 100%; height: 100dvh; }
+/* The page itself never scrolls, bounces, pulls to refresh or zooms on a double-tap: the views take every gesture. */
+body { font: 14px/1.4 "Source Sans 3", "Source Sans Pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--ink); background: var(--page); display: flex; flex-direction: column; overflow: hidden; overscroll-behavior: none; touch-action: manipulation; }
+header { display: flex; align-items: center; gap: 16px; padding: 10px 16px; background: var(--panel); border-bottom: 1px solid var(--line); }
+.brand { flex: 1; min-width: 0; }
+header h1 { font-size: 17px; font-weight: 600; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+header .byline { margin: 0; font-size: 12px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Every control stands the same 30px, its label centred, so none sits taller than its neighbours. */
+button, select, summary { font: inherit; border: 1px solid var(--line-strong); background: var(--panel); color: var(--ink); border-radius: 6px; padding: 0 10px; height: 30px; cursor: pointer; }
+button, summary { display: inline-flex; align-items: center; justify-content: center; gap: 6px; white-space: nowrap; }
+button:disabled { cursor: default; color: var(--muted); }
+button:disabled:hover { border-color: var(--line-strong); }
+button:hover, summary:hover { border-color: var(--accent); }
+button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.modes { display: flex; gap: 0; }
+.modes button { border-radius: 0; margin-left: -1px; }
+.modes button:first-of-type { border-radius: 6px 0 0 6px; margin-left: 0; }
+.modes button:last-of-type { border-radius: 0 6px 6px 0; }
+.show { align-items: center; }
+.show span { color: var(--muted); font-size: 12px; margin-right: 6px; }
+main { flex: 1; position: relative; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: minmax(0, 1fr); min-height: 0; }
+body[data-mode="2d"] main, body[data-mode="3d"] main { grid-template-columns: 1fr; }
+body[data-mode="2d"] #model, body[data-mode="3d"] #plan { display: none; }
+section { position: relative; min-width: 0; min-height: 0; background: var(--panel); }
+#plan { background: var(--canvas); border-right: 1px solid var(--line); }
+.tools { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px; z-index: 2; pointer-events: none; }
+.tools > * { pointer-events: auto; }
+.tools summary { box-shadow: 0 1px 2px rgba(29,29,31,.08); }
+.form-badge { display: inline-flex; align-items: center; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--muted); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; box-shadow: 0 1px 2px rgba(29,29,31,.08); cursor: default; }
+.menu { position: relative; }
+.menu summary, .sub summary { list-style: none; user-select: none; }
+.menu summary::-webkit-details-marker, .sub summary::-webkit-details-marker { display: none; }
+.menu > summary::after { content: "▾"; color: var(--muted); }
+.menu[open] > summary { border-color: var(--accent); }
+/* The Options list: one 30px row per setting, its name left and its control right. */
+.menu-list { position: absolute; top: calc(100% + 4px); left: 0; min-width: 240px; max-height: 70vh; overflow: auto; padding: 6px; background: var(--panel); border: 1px solid var(--line-strong); border-radius: 8px; box-shadow: 0 8px 24px rgba(29,29,31,.14); display: flex; flex-direction: column; gap: 2px; font-size: 13px; }
+.menu-list .row { display: flex; align-items: center; gap: 10px; min-height: 30px; height: auto; padding: 0 8px; margin: 0; border: 0; border-radius: 4px; background: none; box-shadow: none; cursor: pointer; font-size: 13px; }
+.menu-list .row:hover { background: var(--accent-soft); }
+.menu-list .field { justify-content: space-between; }
+.menu-list .item { justify-content: flex-start; width: 100%; text-align: left; }
+.menu-list .item.on { background: var(--accent); color: #fff; }
+.menu-list .check input { margin: 0; }
+.menu-list select, .menu-list input[type=date] { height: 26px; font: inherit; font-size: 13px; padding: 0 6px; border: 1px solid var(--line-strong); border-radius: 5px; background: var(--panel); color: var(--ink); }
+.menu-list input[type=range] { width: 120px; margin: 0; }
+.menu-list .sub > summary { justify-content: space-between; }
+.sub > summary::after { content: "▸"; color: var(--muted); }
+.sub[open] > summary::after { content: "▾"; }
+.sub-list { display: flex; flex-direction: column; gap: 2px; padding-left: 12px; }
+.sub-list .link { align-self: flex-start; height: 26px; border: 0; color: var(--accent); padding: 0 8px; background: none; }
+/* The zoom pill, bottom right of each view, as the app's. */
+.zoom-controls { position: absolute; right: 12px; bottom: 12px; z-index: 2; display: flex; align-items: center; padding: 2px; gap: 2px; background: var(--panel); border: 1px solid var(--line-strong); border-radius: 999px; box-shadow: 0 2px 8px rgba(29,29,31,.12); }
+.zoom-controls button { height: 28px; min-width: 30px; padding: 0 8px; border: 0; border-radius: 999px; background: none; font-size: 15px; }
+.zoom-controls button:hover { background: var(--accent-soft); }
+.zoom-controls .pan { font-size: 13px; }
+.zoom-controls .pct { min-width: 54px; font-size: 13px; font-variant-numeric: tabular-nums; }
+.zoom-controls button.on { background: var(--accent); color: #fff; }
+body.panning #plan-view, body.panning #model-view { cursor: grab; }
+#plan-view.dragging, body.panning #model-view.dragging { cursor: grabbing; }
+#plan-view { position: absolute; inset: 0; overflow: hidden; touch-action: none; cursor: grab; }
+#plan-view svg { width: 100%; height: 100%; display: block; }
+/* The plain plan's lines are true scale in mm; on screen they keep a readable width. */
+#plan-view svg:not(.painted) * { vector-effect: non-scaling-stroke; }
+#plan-view svg:not(.painted) [stroke-width], #plan-view svg:not(.painted) g[stroke] > * { stroke-width: 1.25px; }
+#plan-view svg:not(.painted) .picked, #plan-view svg:not(.painted) .picked * { stroke: var(--pick) !important; }
+/* Painted: the canvas's art shows; hairlines keep their canvas width. The plain
+   shapes lie over it unseen, for clicking, and outline what is picked. */
+#plan-view .art { pointer-events: none; }
+#plan-view .art .hair { vector-effect: non-scaling-stroke; }
+#plan-view .art text { font-family: "Source Sans 3", "Source Sans Pro", system-ui, sans-serif; dominant-baseline: alphabetic; }
+#plan-view svg.painted > g:not(.art):not(.pins) * { stroke: transparent; fill: transparent; vector-effect: non-scaling-stroke; stroke-width: 8px; }
+#plan-view svg.painted > g:not(.art):not(.pins) .picked,
+#plan-view svg.painted > g:not(.art):not(.pins) .picked * { stroke: var(--pick); stroke-width: 2.5px; fill: rgba(232,137,43,.12); }
+#plan-view [id^="entity-"] { cursor: pointer; }
+/* Renovation highlights, as the Show view tints them: new work in its accent, demolition dashed. */
+#plan-view .tinted, #plan-view .tinted * { stroke: var(--tint) !important; }
+#plan-view .tinted.phase-demolish, #plan-view .tinted.phase-demolish * { stroke-dasharray: 6 4; }
+/* Over a painted plan a tinted layer's unseen shapes show as a thin outline. */
+#plan-view svg.painted > g.tinted:not(.art):not(.pins) * { stroke-width: 2px; }
+#plan-view .faded { pointer-events: none; }
+#plan-view .unshown { display: none !important; }
+/* Pins, in both views: a numbered marker at the spot, a traced area as a
+   tinted patch, drawn strokes as lines. Done pins are dimmed; a pin behind the
+   model in 3D is faded and dashed, as the app draws it. */
+:root { --pin: #e5484d; }
+#plan-view .pin, #model-pins circle { cursor: pointer; }
+#plan-view .pin circle { fill: var(--pin); stroke: #fff; }
+#plan-view .pin text { fill: #fff; font-weight: 700; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+.pin .area { fill: rgba(229,72,77,.16); stroke: var(--pin); stroke-linejoin: round; }
+.pin .stroke { fill: none; stroke: var(--pin); stroke-linecap: round; stroke-linejoin: round; }
+#plan-view .pin .area, #plan-view .pin .stroke { vector-effect: non-scaling-stroke; }
+#plan-view .pin .area { stroke-width: 2px; }
+#plan-view .pin .stroke { stroke-width: 3px; }
+.pin.done { opacity: .45; }
+.pin.picked .area, .pin.picked .stroke { stroke: var(--pick); }
+#plan-view .pin.picked circle { fill: var(--pick); }
+.pin.picked .area { fill: rgba(232,137,43,.22); }
+body.no-pins .pin, body.no-pins #model-pins { display: none; }
+#model-pins { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; }
+#model-pins circle { pointer-events: auto; }
+#model-pins .area { stroke-width: 2px; }
+#model-pins .stroke { stroke-width: 3px; }
+#model-pins .hidden { opacity: .4; }
+#model-pins .hidden .area, #model-pins .hidden .stroke { stroke-dasharray: 6 5; }
+#model-pins .hidden.done { opacity: .2; }
+#model-pins circle { fill: var(--pin); stroke: #fff; stroke-width: 2px; }
+#model-pins .picked circle { fill: var(--pick); }
+#model-pins text { fill: #fff; font: 700 12px/1 "Source Sans 3", "Source Sans Pro", system-ui, sans-serif; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+aside .pins button { display: block; height: auto; width: 100%; text-align: left; border: 0; border-radius: 6px; padding: 5px 8px; margin: 0 -8px; width: calc(100% + 16px); background: none; }
+aside .pins button:hover { background: var(--accent-soft); }
+aside .pins li.picked button { background: rgba(232,137,43,.14); }
+aside .pins li.done strong { text-decoration: line-through; color: var(--muted); }
+aside .pins .where { display: block; font-size: 12px; color: var(--muted); }
+aside .pin-at { color: var(--muted); margin: 0 0 8px; }
+aside .note { margin: 0 0 10px; white-space: pre-wrap; }
+#model-view { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+.empty[hidden] { display: none; }
+.empty { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--muted); margin: 0; }
+aside { position: absolute; right: 14px; bottom: 56px; width: 280px; max-height: calc(100% - 110px); overflow: auto; padding: 14px 16px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 10px 30px rgba(29,29,31,.16); z-index: 3; }
+aside[hidden] { display: none; }
+aside .close { position: absolute; top: 8px; right: 8px; height: 26px; border: 0; padding: 0 6px; font-size: 18px; line-height: 1.2; color: var(--muted); background: none; }
+aside .close:hover { color: var(--ink); }
+aside h2 { font-size: 16px; font-weight: 600; margin: 0 24px 2px 0; }
+aside .kind { color: var(--muted); margin: 0 0 10px; }
+aside dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 0; }
+aside dt { color: var(--muted); text-transform: capitalize; }
+aside dd { margin: 0; }
+aside h3 { font-size: 13px; margin: 12px 0 6px; }
+aside h3:first-of-type { margin-top: 0; }
+aside .pins { margin: 0; padding-left: 0; list-style: none; }
+aside .pins li { margin-bottom: 2px; }
+/* The Options list and the inspector scroll on their own, never dragging the page or the view under them. */
+.menu-list, aside { overscroll-behavior: contain; -webkit-overflow-scrolling: touch; touch-action: pan-y; }
+/* The walk pad: shown only while walking on a touch screen, bottom left, clear of the zoom pill and the phone's rounded corners. */
+#walk-pad { display: none; position: absolute; left: calc(16px + env(safe-area-inset-left)); bottom: calc(16px + env(safe-area-inset-bottom)); width: 120px; height: 120px; border-radius: 50%; background: rgba(255,255,255,.55); border: 1px solid var(--line-strong); box-shadow: 0 2px 10px rgba(29,29,31,.16); z-index: 2; touch-action: none; }
+body.touch.walking #walk-pad { display: block; }
+#walk-pad .knob { position: absolute; left: 50%; top: 50%; width: 48px; height: 48px; margin: -24px 0 0 -24px; border-radius: 50%; background: var(--accent); box-shadow: 0 2px 6px rgba(20,115,230,.4); pointer-events: none; }
+/* A view's first-touch gesture hint, top centre under its tools; an open Options list drops over it. */
+.touch-hint { position: absolute; left: 50%; top: 60px; transform: translateX(-50%); z-index: 1; display: flex; align-items: center; gap: 6px; max-width: calc(100% - 24px); padding: 6px 6px 6px 12px; background: rgba(29,29,31,.86); color: #fff; border-radius: 8px; font-size: 13px; box-shadow: 0 4px 14px rgba(29,29,31,.2); }
+.touch-hint .close { height: 28px; min-width: 28px; padding: 0 6px; border: 0; background: none; color: #fff; font-size: 18px; }
+/* A touch screen: controls big enough for a finger. */
+@media (pointer: coarse) {
+  button, select, summary { height: 40px; }
+  .zoom-controls button { height: 40px; min-width: 44px; }
+  .menu-list .row { min-height: 40px; }
+  .menu-list select, .menu-list input[type=date] { height: 34px; }
+  aside .close { height: 36px; min-width: 36px; }
+}
+@media (max-width: 760px) {
+  main, body[data-mode] main { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
+  body[data-mode="2d"] main, body[data-mode="3d"] main { grid-template-rows: 1fr; }
+  #plan { border-right: 0; border-bottom: 1px solid var(--line); }
+  aside { left: 10px; right: 10px; bottom: 52px; width: auto; max-height: 45%; }
+  /* A narrow header: one line, the title truncating and the modes kept whole ("Split", not "Split (2D + 3D)"). */
+  header { gap: 10px; padding: 8px calc(10px + env(safe-area-inset-right)) 8px calc(10px + env(safe-area-inset-left)); }
+  header h1 { font-size: 15px; }
+  .modes { flex-wrap: nowrap; flex-shrink: 0; }
+  .modes .wide { display: none; }
+  .show span { display: none; }
+  @media (pointer: coarse) { aside { bottom: 64px; } }
+}
+</style>
+</head>
+<body data-mode="split">
+<header>
+<div class="brand"><h1>Couture Botanical Evening Gown</h1><p class="byline">CadYam · Fashion · Exported 5 November 2026</p></div>
+<nav class="modes"><button data-mode="2d">2D</button><button data-mode="3d">3D</button><button data-mode="split">Split<span class="wide"> (2D + 3D)</span></button></nav>
+</header>
+<main>
+<section id="plan">
+<div class="tools" id="plan-tools"></div>
+<div id="plan-view"></div>
+</section>
+<section id="model">
+<div class="tools" id="model-tools"></div>
+<canvas id="model-view"></canvas>
+<p class="empty" hidden>This drawing has no 3D model.</p>
+</section>
+<aside id="inspector" hidden></aside>
+</main>
+<script type="application/json" id="drawing">{}</script>
+<script src="assets/couture-evening-gown-data.js?v=0cb74ae8"></script>
+<script>
+var FINISH_GLSL = "// Surface finishes, as CadYam's own 3D view works them out per pixel\n// (crates/app/src/ui/view3d/finish.rs): the same patterns, sizes and hash\n// noise, from the world point (mm) and the face's normal alone. `pattern`\n// is the face's Pattern::code (crates/cad-core/src/finish_pattern.rs).\nfloat hash(int x, int y){\n uint h=(uint(x)*0x9E3779B1u)^(uint(y)*0x85EBCA77u);\n h^=h>>15u; h*=0x2C1B3C6Du; h^=h>>12u; h*=0x297A2D39u; h^=h>>15u;\n return float(h>>8u)/16777216.0; }\nfloat noise(float x, float y){\n float fx=floor(x), fy=floor(y); int ix=int(fx), iy=int(fy);\n float u=x-fx, v=y-fy; u=u*u*(3.0-2.0*u); v=v*v*(3.0-2.0*v);\n float top=hash(ix,iy)+(hash(ix+1,iy)-hash(ix,iy))*u;\n float bottom=hash(ix,iy+1)+(hash(ix+1,iy+1)-hash(ix,iy+1))*u;\n return top+(bottom-top)*v; }\nfloat joint(float at, float size, float gap, float dark){\n float d=max(min(at,size-at),0.0); return dark+(1.0-dark)*clamp((d-gap/2.0)/gap,0.0,1.0); }\nfloat running_bond(float s, float t, float w, float h, float gap){\n float row=floor(t/h); s+=mod(row,2.0)<0.5 ? 0.0 : w/2.0; float col=floor(s/w);\n float tone=1.0+0.10*(hash(int(col),int(row))-0.5);\n return tone*joint(s-col*w,w,gap,0.72)*joint(t-row*h,h,gap,0.72); }\nconst float BOARD=140.0; const float BOARD_RUN=2400.0;\n// A sloped face's (along the eave, up the slope) coordinates; x and y on a\n// level face.\nvec2 slope_frame(vec3 p, vec3 n){\n float h=length(n.xy); if (h<1e-3) return p.xy;\n return vec2((-n.y*p.x+n.x*p.y)/h, -(n.x*p.x+n.y*p.y)*n.z/h+p.z*h); }\nfloat pattern_light(int pattern, vec3 p, vec3 n){\n bool flat_=abs(n.z)>0.7;\n float s=flat_ ? p.x : p.x*abs(n.y)+p.y*abs(n.x); float t=flat_ ? p.y : p.z;\n if (pattern==1) {\n  float grain=1.0+0.05*(noise(s/600.0,t/25.0)-0.5); if (!flat_) return grain;\n  float row=floor(t/BOARD); float across=t-row*BOARD;\n  float along=s+hash(int(row),7)*BOARD_RUN; float run=floor(along/BOARD_RUN); float end=along-run*BOARD_RUN;\n  float tone=1.0+0.10*(hash(int(row),int(run))-0.5);\n  return grain*tone*joint(across,BOARD,5.0,0.62)*joint(end,BOARD_RUN,4.0,0.75); }\n if (pattern==2) return 1.0+0.16*(noise(s/900.0,t/900.0)-0.5)+0.10*(noise(s/140.0,t/140.0)-0.5)+0.08*(noise(s/30.0,t/30.0)-0.5);\n if (pattern==3) {\n  float clump=noise(p.x/300.0+p.z/500.0,p.y/300.0-p.z/400.0);\n  return (0.72+0.28*smoothstep(0.25,0.6,clump))*(1.0+0.14*(noise(s/60.0,t/60.0)-0.5)); }\n if (pattern==4) return running_bond(s,t,400.0,200.0,6.0);\n if (pattern==5) return running_bond(s,t,215.0,75.0,5.0);\n if (pattern==6) return joint(mod(s,300.0),300.0,2.5,0.84)*joint(mod(t,300.0),300.0,2.5,0.84);\n if (pattern==7) return 1.0+0.08*(noise(s/90.0,t/90.0)-0.5)+0.08*(noise(s/18.0,t/18.0)-0.5);\n if (pattern==8) {\n  vec2 st=slope_frame(p,n); s=st.x; t=st.y;\n  float course=floor(t/127.0); float up=t-course*127.0; float off=mod(course,2.0)<0.5 ? 0.0 : 152.0;\n  float tab=floor((s+off)/305.0); float across=mod(s+off,305.0);\n  float tone=1.0+0.14*(hash(int(course),int(tab))-0.5);\n  return tone*joint(up,127.0,9.0,0.66)*joint(across,305.0,4.0,0.8); }\n if (pattern==9) {\n  float wave=sin((s*0.8+t*0.6)/140.0+3.0*noise(s/700.0,t/700.0));\n  return wave>0.82 ? 1.13 : (wave< -0.5 ? 0.95 : 1.0); }\n if (pattern==11) return 1.0+0.06*(noise(s/12.0,t/12.0)-0.5);\n if (pattern==12) {\n  float cs=floor(s/2.5), ct=floor(t/2.5); int ci=int(cs), cj=int(ct); float h=hash(ci,cj);\n  if (h<0.66) return 1.0+0.03*(noise(s/9.0,t/9.0)-0.5);\n  float ox=hash(ci,cj+7)*1.2+0.65, oy=hash(ci+7,cj)*1.2+0.65; float dx=s-cs*2.5-ox, dy=t-ct*2.5-oy;\n  float r=0.45+0.35*hash(cj,ci); if (dx*dx+dy*dy>r*r) return 1.0; return h<0.85 ? 0.62 : 0.82; }\n if (pattern==13) {\n  float u=abs(s/3.0-trunc(s/3.0))-0.5, v=abs(t/3.0-trunc(t/3.0))-0.5;\n  return sqrt(u*u+v*v)*3.0<0.85 ? 0.3 : 1.0; }\n if (pattern>=16) {\n  int a=min(pattern-16,2); float along=p[a]; float across=p[(a+1)%3]+p[(a+2)%3];\n  if (abs(n[a])>0.7) return 0.84+0.06*(noise(across/4.0,along/4.0)-0.5);\n  float wobble=2.0*noise(along/900.0,across/60.0);\n  return 1.0+0.09*(noise(along/500.0,across/2.5+wobble)-0.5)+0.04*(noise(along/80.0,across/12.0)-0.5); }\n return 1.0; }\n// Up to a fifth darker at a wall's foot, easing out by knee height.\nfloat contact_light(vec3 p, vec3 n){\n if (uHasFloor==0 || abs(n.z)>0.5) return 1.0;\n return 1.0-0.2*(1.0-smoothstep(0.0,450.0,max(p.z-uFloor,0.0))); }\n";
+// The exported viewer's walk-through, apart from the page so it can be
+// run on its own: the floor under a spot and the app's `Walk::advance`.
+// Lengths are mm, angles degrees, times seconds.
+var CadYamWalk = (function () {
+  "use strict";
+  // The highest step up a walker takes without climbing onto a roof.
+  var STEP_UP = 600;
+
+  function approach(v, target, by) { return Math.abs(target - v) <= by ? target : v + by * Math.sign(target - v); }
+
+  // The walkable surfaces of a model (`pos`: each triangle's corners, Z-up):
+  // triangles facing up, bucketed by plan cell so following the floor
+  // stays cheap on a large site.
+  function ground(pos, size) {
+    var cell = Math.max(1000, size / 128), grid = {};
+    for (var g = 0; g < pos.length / 9; g++) {
+      var q = g * 9;
+      var ux = pos[q + 3] - pos[q], uy = pos[q + 4] - pos[q + 1], uz = pos[q + 5] - pos[q + 2];
+      var vx = pos[q + 6] - pos[q], vy = pos[q + 7] - pos[q + 1], vz = pos[q + 8] - pos[q + 2];
+      var nz = ux * vy - uy * vx, l = Math.hypot(uy * vz - uz * vy, uz * vx - ux * vz, nz);
+      if (!l || Math.abs(nz / l) < 0.6) continue;
+      var x0 = Math.floor(Math.min(pos[q], pos[q + 3], pos[q + 6]) / cell), x1 = Math.floor(Math.max(pos[q], pos[q + 3], pos[q + 6]) / cell);
+      var y0 = Math.floor(Math.min(pos[q + 1], pos[q + 4], pos[q + 7]) / cell), y1 = Math.floor(Math.max(pos[q + 1], pos[q + 4], pos[q + 7]) / cell);
+      for (var gx = x0; gx <= x1; gx++) for (var gy = y0; gy <= y1; gy++) (grid[gx + "," + gy] = grid[gx + "," + gy] || []).push(g);
+    }
+    // Heights of the surfaces at plan point (x, y), up to the cutaway.
+    function surfaces(x, y, cut) {
+      var out = [], list = grid[Math.floor(x / cell) + "," + Math.floor(y / cell)] || [];
+      list.forEach(function (g) {
+        var q = g * 9;
+        var ax = pos[q], ay = pos[q + 1], bx = pos[q + 3], by = pos[q + 4], cx = pos[q + 6], cy = pos[q + 7];
+        var d = (by - cy) * (ax - cx) + (cx - bx) * (ay - cy);
+        if (!d) return;
+        var l1 = ((by - cy) * (x - cx) + (cx - bx) * (y - cy)) / d;
+        var l2 = ((cy - ay) * (x - cx) + (ax - cx) * (y - cy)) / d;
+        var l3 = 1 - l1 - l2;
+        if (l1 < -1e-6 || l2 < -1e-6 || l3 < -1e-6) return;
+        var z = l1 * pos[q + 2] + l2 * pos[q + 5] + l3 * pos[q + 8];
+        if (z <= cut) out.push(z);
+      });
+      return out;
+    }
+    // The floor someone standing at `from` would stand on at (x, y): the
+    // highest surface no more than a step above it, so a slope or a deck
+    // carries them up but a roof or a ceiling doesn't.
+    function floorAt(x, y, from, cut) {
+      var best = null;
+      surfaces(x, y, cut).forEach(function (z) { if (z <= from + STEP_UP && (best === null || z > best)) best = z; });
+      return best === null ? from : best;
+    }
+    return { surfaces: surfaces, floorAt: floorAt };
+  }
+
+  // Move `walk` `ahead` mm forward and `aside` mm right, stepping onto the
+  // floor there (`floorAt(x, y, from)`): up a slope or a deck's step, down
+  // off an edge.
+  // Off the floor, the feet keep their height: the floor beneath is found
+  // from them, so they land on whatever is below (a deck, a roof, the ground).
+  function step(walk, ahead, aside, floorAt) {
+    var x = walk.at[0] + Math.cos(walk.yaw) * ahead + Math.sin(walk.yaw) * aside;
+    var y = walk.at[1] + Math.sin(walk.yaw) * ahead - Math.cos(walk.yaw) * aside;
+    var lift = walk.lift || 0, feet = walk.floor + lift;
+    walk.floor = floorAt(x, y, feet);
+    if (lift > 0 || walk.flying) walk.lift = Math.max(0, feet - walk.floor);
+    walk.at[0] = x; walk.at[1] = y;
+  }
+
+  // Whether the walker's feet are off the floor.
+  function airborne(walk) { return (walk.lift || 0) > 0 || !!walk.flying; }
+
+  // Back on the floor, the gaze no steeper than standing allows.
+  function land(walk, W) {
+    var lim = W.max_pitch * Math.PI / 180;
+    walk.lift = 0; walk.rise = 0; walk.flying = false;
+    walk.pitch = Math.max(-lim, Math.min(lim, walk.pitch));
+  }
+
+  // The app's `Walk::climb`: a tap of Space (`keys.jump`) hops, holding it
+  // (`keys.rise` 1) flies upward, letting go hovers, Shift+Space (`rise`
+  // -1) sinks, and a double-tap while flying drops back to the floor.
+  function climb(walk, keys, dt, W) {
+    dt = Math.max(0, Math.min(W.max_dt, dt));
+    var rise = keys.rise || 0;
+    walk.lift = walk.lift || 0; walk.rise = walk.rise || 0; walk.heldFor = walk.heldFor || 0;
+    walk.sinceTap = (walk.sinceTap === undefined ? Infinity : walk.sinceTap) + dt;
+    if (keys.jump) {
+      if (walk.flying && walk.sinceTap < W.double_tap) {
+        walk.flying = false;
+        walk.heldFor = -W.hold_to_fly;
+      } else {
+        if (!airborne(walk) && rise > 0) walk.rise = W.jump_speed;
+        walk.heldFor = 0;
+      }
+      walk.sinceTap = 0;
+    } else if (rise) {
+      walk.heldFor += dt;
+    } else {
+      walk.heldFor = 0;
+    }
+    if (!walk.flying && rise > 0 && walk.heldFor >= W.hold_to_fly) walk.flying = true;
+    var r0 = walk.rise;
+    if (walk.flying) walk.rise = approach(r0, W.fly_rise * rise, W.fly_rise / W.ease * dt);
+    else if (airborne(walk) || r0 > 0) walk.rise = r0 - W.gravity * dt;
+    walk.lift += (r0 + walk.rise) / 2 * dt;
+    if (walk.lift >= W.max_lift) { walk.lift = W.max_lift; walk.rise = Math.min(walk.rise, 0); }
+    if (walk.lift <= 0 && walk.rise <= 0) land(walk, W);
+  }
+
+  // Whether the walker is still rising, falling or easing in the air.
+  function inAir(walk) { return !!walk.rise || ((walk.lift || 0) > 0 && !walk.flying); }
+
+  // The app's `Walk::advance` (pace `W`): ease the walking and turning
+  // speeds toward what the keys ask for over real time, then move. `pace`
+  // scales the walking speed (and how fast it is reached) for a big site.
+  function advance(walk, keys, dt, W, pace, floorAt) {
+    climb(walk, keys, dt, W);
+    dt = Math.max(0, Math.min(W.max_dt, dt));
+    var speed = (keys.slow ? W.slow_speed : W.speed) * pace, rate = keys.slow ? W.fine_turn_rate : W.turn_rate;
+    var len = Math.hypot(keys.ahead, keys.aside), k = len > 1 ? speed / len : speed;
+    var accel = W.speed * pace / W.ease * dt;
+    var v0 = walk.velocity;
+    walk.velocity = [approach(v0[0], keys.ahead * k, accel), approach(v0[1], keys.aside * k, accel)];
+    var spin0 = walk.spin;
+    walk.spin = approach(spin0, keys.turn * rate, W.turn_rate / W.ease * dt);
+    walk.yaw -= (spin0 + walk.spin) / 2 * dt * Math.PI / 180;
+    step(walk, (v0[0] + walk.velocity[0]) * dt / 2, (v0[1] + walk.velocity[1]) * dt / 2, floorAt);
+  }
+
+  // The first and last grid cell along axis `e` (cells `k` wide from
+  // `from`, the last numbered `top`) each triangle of `pos` reaches.
+  function spanAxis(pos, span, count, e, from, k, top) {
+    for (var s = 0; s < count; s++) {
+      var q = s * 9 + e, v0 = pos[q], v1 = pos[q + 3], v2 = pos[q + 6];
+      var a = v0 < v1 ? (v0 < v2 ? v0 : v2) : (v1 < v2 ? v1 : v2);
+      var b = v0 > v1 ? (v0 > v2 ? v0 : v2) : (v1 > v2 ? v1 : v2);
+      var c0 = Math.floor((a - from) * k), c1 = Math.floor((b - from) * k);
+      span[s * 6 + e * 2] = c0 < 0 ? 0 : c0 > top ? top : c0;
+      span[s * 6 + e * 2 + 1] = c1 < 0 ? 0 : c1 > top ? top : c1;
+    }
+  }
+
+  // Every triangle of a model (`pos`: each triangle's corners) bucketed into
+  // a 3D grid, so a ray tests only the triangles in the cells it crosses
+  // rather than all of them: zooming toward the pointer, a double-click and
+  // whether a pin is hidden all stay quick on a large site.
+  function rays(pos) {
+    var count = Math.floor(pos.length / 9);
+    var lo = [Infinity, Infinity, Infinity], hi = [-Infinity, -Infinity, -Infinity];
+    for (var i = 0; i < count * 9; i += 3) {
+      for (var a = 0; a < 3; a++) {
+        if (pos[i + a] < lo[a]) lo[a] = pos[i + a];
+        if (pos[i + a] > hi[a]) hi[a] = pos[i + a];
+      }
+    }
+    if (!count) return { nearest: function () { return Infinity; } };
+    // A hair of room so a ray grazing the outermost faces still enters.
+    var pad = Math.max(hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2], 1) * 1e-6;
+    for (var p = 0; p < 3; p++) { lo[p] -= pad; hi[p] += pad; }
+    // About two triangles a cell, at most 128 cells along any side; a flat
+    // side (a plan with no height) gets one layer.
+    var ext = [hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2]];
+    var big = Math.max(ext[0], ext[1], ext[2]) || 1, floor = big / 128;
+    var cell = Math.cbrt(Math.max(ext[0], floor) * Math.max(ext[1], floor) * Math.max(ext[2], floor) / Math.max(1, count / 2));
+    cell = Math.max(cell, floor);
+    var dim = ext.map(function (e) { return Math.max(1, Math.min(128, Math.ceil(e / cell))); });
+    var step = ext.map(function (e, a) { return (e || 1) / dim[a]; });
+    function at(v, a) { return Math.max(0, Math.min(dim[a] - 1, Math.floor((v - lo[a]) / step[a]))); }
+    // Each triangle's span of cells, once: [x0, x1, y0, y1, z0, z1].
+    var span = new Int32Array(count * 6);
+    for (var e = 0; e < 3; e++) spanAxis(pos, span, count, e, lo[e], 1 / step[e], dim[e] - 1);
+    // Two passes: count each cell's triangles, then fill one flat list.
+    var nx = dim[0], nxy = dim[0] * dim[1];
+    var cells = nxy * dim[2], start = new Int32Array(cells + 1);
+    for (var g = 0; g < count; g++) {
+      var h = g * 6;
+      for (var z = span[h + 4]; z <= span[h + 5]; z++)
+        for (var y = span[h + 2]; y <= span[h + 3]; y++)
+          for (var x = span[h]; x <= span[h + 1]; x++) start[z * nxy + y * nx + x + 1]++;
+    }
+    for (var c = 0; c < cells; c++) start[c + 1] += start[c];
+    var list = new Int32Array(start[cells]), fill = start.slice(0, cells);
+    for (var t = 0; t < count; t++) {
+      var j = t * 6;
+      for (var zz = span[j + 4]; zz <= span[j + 5]; zz++)
+        for (var yy = span[j + 2]; yy <= span[j + 3]; yy++)
+          for (var xx = span[j]; xx <= span[j + 1]; xx++) list[fill[zz * nxy + yy * nx + xx]++] = t;
+    }
+    span = null;
+    // Each triangle is tested once a ray, however many cells it spans.
+    var seen = new Int32Array(count), stamp = 0;
+
+    // How far along the ray from `o` in unit direction `d` it first meets a
+    // triangle at or below height `cut` (Infinity if it never does, or not
+    // before `far`).
+    function nearest(o, d, cut, far) {
+      if (far === undefined) far = Infinity;
+      // Where the ray is inside the grid's box.
+      var t0 = 0, t1 = far;
+      for (var a = 0; a < 3; a++) {
+        if (Math.abs(d[a]) < 1e-12) {
+          if (o[a] < lo[a] || o[a] > hi[a]) return Infinity;
+          continue;
+        }
+        var u = (lo[a] - o[a]) / d[a], v = (hi[a] - o[a]) / d[a];
+        if (u > v) { var w = u; u = v; v = w; }
+        t0 = Math.max(t0, u); t1 = Math.min(t1, v);
+      }
+      if (t0 > t1) return Infinity;
+      stamp++;
+      if (stamp > 2e9) { seen.fill(0); stamp = 1; }
+      // Walk the cells the ray crosses, nearest first (Amanatides & Woo).
+      var cur = [], dir = [], next = [], delta = [];
+      for (var b = 0; b < 3; b++) {
+        cur[b] = at(o[b] + d[b] * t0, b);
+        dir[b] = d[b] > 0 ? 1 : d[b] < 0 ? -1 : 0;
+        if (!dir[b]) { next[b] = Infinity; delta[b] = Infinity; continue; }
+        var edge = lo[b] + (cur[b] + (dir[b] > 0 ? 1 : 0)) * step[b];
+        next[b] = (edge - o[b]) / d[b];
+        delta[b] = step[b] / Math.abs(d[b]);
+      }
+      var best = Infinity;
+      for (;;) {
+        var id = (cur[2] * dim[1] + cur[1]) * dim[0] + cur[0];
+        for (var k = start[id]; k < start[id + 1]; k++) {
+          var tri = list[k];
+          if (seen[tri] === stamp) continue;
+          seen[tri] = stamp;
+          var hit = meet(tri, o, d);
+          if (hit > 0 && hit < best && o[2] + d[2] * hit <= cut) best = hit;
+        }
+        // Leave the cell across its nearest face.
+        var m = next[0] < next[1] ? (next[0] < next[2] ? 0 : 2) : (next[1] < next[2] ? 1 : 2);
+        // Nothing past this cell can be nearer than a hit already found.
+        if (best <= next[m] || next[m] > t1) break;
+        cur[m] += dir[m];
+        if (cur[m] < 0 || cur[m] >= dim[m]) break;
+        next[m] += delta[m];
+      }
+      return best <= far ? best : Infinity;
+    }
+    // Möller–Trumbore: how far along the ray triangle `g` lies (0 if not).
+    function meet(g, o, d) {
+      var q = g * 9;
+      var e1x = pos[q + 3] - pos[q], e1y = pos[q + 4] - pos[q + 1], e1z = pos[q + 5] - pos[q + 2];
+      var e2x = pos[q + 6] - pos[q], e2y = pos[q + 7] - pos[q + 1], e2z = pos[q + 8] - pos[q + 2];
+      var px = d[1] * e2z - d[2] * e2y, py = d[2] * e2x - d[0] * e2z, pz = d[0] * e2y - d[1] * e2x;
+      var det = e1x * px + e1y * py + e1z * pz;
+      if (Math.abs(det) < 1e-9) return 0;
+      var tx = o[0] - pos[q], ty = o[1] - pos[q + 1], tz = o[2] - pos[q + 2];
+      var u = (tx * px + ty * py + tz * pz) / det;
+      if (u < 0 || u > 1) return 0;
+      var qx = ty * e1z - tz * e1y, qy = tz * e1x - tx * e1z, qz = tx * e1y - ty * e1x;
+      var v = (d[0] * qx + d[1] * qy + d[2] * qz) / det;
+      if (v < 0 || u + v > 1) return 0;
+      return (e2x * qx + e2y * qy + e2z * qz) / det;
+    }
+    return { nearest: nearest };
+  }
+
+  // Corners to fit a camera to: every vertex of a small model; of a large
+  // one, the vertices furthest out along 26 directions (the box's faces,
+  // edges and corners) and an even sample of the rest, so framing the
+  // view weighs a few thousand points rather than every vertex.
+  function outline(pos, most) {
+    var n = Math.floor(pos.length / 3);
+    if (n <= most) return pos;
+    // Thirteen axes, each read both ways: 26 directions.
+    var dirs = [];
+    for (var x = 0; x <= 1; x++) for (var y = -x; y <= 1; y++) for (var z = (x || y) ? -1 : 1; z <= 1; z++) if (x || y || z) dirs.push([x, y, z]);
+    var keep = [];
+    dirs.forEach(function (dir) {
+      var dx = dir[0], dy = dir[1], dz = dir[2], top = -Infinity, bottom = Infinity, hiAt = 0, loAt = 0;
+      for (var i = 0; i < n; i++) {
+        var v = dx * pos[i * 3] + dy * pos[i * 3 + 1] + dz * pos[i * 3 + 2];
+        if (v > top) { top = v; hiAt = i; }
+        if (v < bottom) { bottom = v; loAt = i; }
+      }
+      keep.push(hiAt, loAt);
+    });
+    var stride = Math.ceil(n / most);
+    for (var j = 0; j < n; j += stride) keep.push(j);
+    var out = new Float32Array(keep.length * 3);
+    keep.forEach(function (v, k) { out[k * 3] = pos[v * 3]; out[k * 3 + 1] = pos[v * 3 + 1]; out[k * 3 + 2] = pos[v * 3 + 2]; });
+    return out;
+  }
+
+  return { STEP_UP: STEP_UP, approach: approach, ground: ground, rays: rays, outline: outline, step: step, advance: advance, climb: climb, airborne: airborne, inAir: inAir, land: land };
+})();
+// The exported viewer's pin geometry, apart from the page so it can be run
+// on its own: what a pin covers, and its paths in the plan and over the
+// model. Points are world mm, z up; the plan's SVG runs y down.
+var CadYamPins = (function () {
+  "use strict";
+
+  // Every world point pin `p` covers: its spot, its traced area's corners
+  // and its strokes' points.
+  function points(p) {
+    var pts = [p.spot].concat(p.region || []);
+    (p.strokes || []).forEach(function (s) { pts = pts.concat(s); });
+    return pts;
+  }
+
+  // The box round `pts`: its lowest and highest corner.
+  function bounds(pts) {
+    var lo = pts[0].slice(), hi = pts[0].slice();
+    pts.forEach(function (q) {
+      for (var k = 0; k < 3; k++) { lo[k] = Math.min(lo[k], q[k]); hi[k] = Math.max(hi[k], q[k]); }
+    });
+    return [lo, hi];
+  }
+
+  // An SVG path through `pts` in the plan, joined back to the start when
+  // `closed`.
+  function planPath(pts, closed) {
+    return pts.map(function (q, i) { return (i ? "L" : "M") + q[0] + " " + -q[1]; }).join("") + (closed ? "Z" : "");
+  }
+
+  // The plan view box (x, y, w, h) centred on `pts`: the size of `vb`, or
+  // as much larger as makes them fill no more than 70% of it.
+  function fit(vb, pts) {
+    var b = bounds(pts), lo = b[0], hi = b[1];
+    var f = Math.max(1, (hi[0] - lo[0]) / (vb[2] * 0.7), (hi[1] - lo[1]) / (vb[3] * 0.7));
+    var w = vb[2] * f, h = vb[3] * f;
+    return [(lo[0] + hi[0]) / 2 - w / 2, -(lo[1] + hi[1]) / 2 - h / 2, w, h];
+  }
+
+  // Where world point `q` lands on a `w` × `h` canvas through the camera's
+  // column-major clip matrix `M`; null when it is behind the camera.
+  function project(M, w, h, q) {
+    var cw = M[3] * q[0] + M[7] * q[1] + M[11] * q[2] + M[15];
+    if (cw <= 1e-6) return null;
+    var cx = (M[0] * q[0] + M[4] * q[1] + M[8] * q[2] + M[12]) / cw;
+    var cy = (M[1] * q[0] + M[5] * q[1] + M[9] * q[2] + M[13]) / cw;
+    return [(cx * 0.5 + 0.5) * w, (0.5 - cy * 0.5) * h];
+  }
+
+  // An SVG path through `pts` placed on screen by `place` (a point, or
+  // null when it can't be seen): the line breaks at each unseen point, and
+  // closes only when every point is seen.
+  function screenPath(pts, closed, place) {
+    var d = "", pen = false, all = true;
+    pts.forEach(function (q) {
+      var s = place(q);
+      if (!s) { pen = false; all = false; return; }
+      d += (pen ? "L" : "M") + s[0].toFixed(1) + " " + s[1].toFixed(1);
+      pen = true;
+    });
+    return closed && all ? d + "Z" : d;
+  }
+
+  return { points: points, bounds: bounds, planPath: planPath, fit: fit, project: project, screenPath: screenPath };
+})();
+// The exported viewer's sun, apart from the page so it can be run on its
+// own: the app's solar model (crates/cad-core/src/sun.rs) for the Sun date
+// and time, and the date picker's calendar. Days are of a common year,
+// 1 = January 1, as the app counts them.
+var CadYamSun = (function () {
+  "use strict";
+  var MONTH_START = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+  var RAD = Math.PI / 180;
+
+  // The sun's declination on `day`, in radians (`declination`).
+  function declination(day) {
+    return -23.44 * RAD * Math.cos((360 / 365) * (day + 10) * RAD);
+  }
+
+  // `clock` hours on the site's clocks as local solar time at `lon`
+  // degrees east (`solar_hour`).
+  function solarHour(clock, lon) {
+    var meridian = Math.round(lon / 15) * 15;
+    return clock + (lon - meridian) / 15;
+  }
+
+  // The unit direction toward the sun as (east, north, up) at `lat`
+  // degrees north on `day` at solar `hour` (`sun_direction`).
+  function direction(lat, day, hour) {
+    var d = declination(day), l = lat * RAD, h = (hour - 12) * 15 * RAD;
+    return [
+      -Math.cos(d) * Math.sin(h),
+      Math.sin(d) * Math.cos(l) - Math.cos(d) * Math.cos(h) * Math.sin(l),
+      Math.sin(d) * Math.sin(l) + Math.cos(d) * Math.cos(h) * Math.cos(l)
+    ];
+  }
+
+  // The sun in the drawing's axes (x right, y up the plan, z up) for site
+  // `s` (the page's sunConfig) on `day` at clock hour `clock`
+  // (`sun_in_plan`). On the map the clock is turned to solar time.
+  function inPlan(s, day, clock) {
+    var hour = s.onMap ? solarHour(clock, s.lon) : clock;
+    var v = direction(s.lat, day, hour), b = s.bearing * RAD;
+    return [v[0] * Math.cos(b) - v[1] * Math.sin(b), v[0] * Math.sin(b) + v[1] * Math.cos(b), v[2]];
+  }
+
+  // `hour` as a clock time: `3:00 pm`, `9:30 am` (`hour_label`).
+  function hourLabel(hour) {
+    var mins = Math.round((((hour % 24) + 24) % 24) * 60) % (24 * 60);
+    var h = Math.floor(mins / 60), m = mins % 60;
+    var h12 = h % 12 || 12;
+    return h12 + ":" + (m < 10 ? "0" : "") + m + " " + (h < 12 ? "am" : "pm");
+  }
+
+  // The date picker's value (`2026-09-22`) for `day` of `year`.
+  function dateValue(year, day) {
+    var d = Math.max(1, Math.min(365, Math.round(day)));
+    var m = 11;
+    while (m > 0 && MONTH_START[m] >= d) m--;
+    var two = function (n) { return (n < 10 ? "0" : "") + n; };
+    return year + "-" + two(m + 1) + "-" + two(d - MONTH_START[m]);
+  }
+
+  // The day of the year a date picker's value falls on (29 February counts
+  // as 1 March), or null when it holds no date.
+  function dayOfDate(value) {
+    var p = /^(\d{4,})-(\d{2})-(\d{2})$/.exec(value || "");
+    if (!p) return null;
+    var month = Math.max(1, Math.min(12, Number(p[2])));
+    return Math.min(365, MONTH_START[month - 1] + Math.max(1, Number(p[3])));
+  }
+
+  return {
+    solarHour: solarHour, direction: direction, inPlan: inPlan,
+    hourLabel: hourLabel, dateValue: dateValue, dayOfDate: dayOfDate
+  };
+})();
+// The exported viewer's zoom arithmetic, apart from the page so it can be
+// run on its own: how far a wheel step zooms the plan, and what the zoom
+// pill reads in each view.
+var CadYamZoom = (function () {
+  "use strict";
+
+  // The plan's scale factor for one wheel event (above 1 zooms out). A
+  // wheel that scrolls by lines or pages steps as the app counts them (40
+  // and 400 pixels); a trackpad pinch arrives as Ctrl+wheel of small
+  // deltas, so it counts for more. One event zooms at most about 2.7×.
+  function wheelFactor(deltaY, deltaMode, ctrl) {
+    var dy = (Number(deltaY) || 0) * (deltaMode === 1 ? 40 : deltaMode === 2 ? 400 : 1);
+    var k = ctrl ? 0.01 : 0.004;
+    dy = Math.max(-1 / k, Math.min(1 / k, dy));
+    return Math.exp(dy * k);
+  }
+
+  // The plan's zoom as a percent: 100 is the drawing framed as the page
+  // opens (`home`), larger as the view box (`vb`) narrows.
+  function planPercent(home, vb) {
+    return vb[2] > 0 ? (home[2] / vb[2]) * 100 : null;
+  }
+
+  // The 3D view's zoom as a percent of the framed distance `homeDist`, or
+  // null when zoom means nothing: walking, or before the view is framed.
+  function modelPercent(homeDist, dist, walking) {
+    return walking || !homeDist || !(dist > 0) ? null : (homeDist / dist) * 100;
+  }
+
+  // The pill's reading: `150%`, or `—` when there is none.
+  function label(percent) {
+    return percent == null ? "—" : Math.round(percent) + "%";
+  }
+
+  return { wheelFactor: wheelFactor, planPercent: planPercent, modelPercent: modelPercent, label: label };
+})();
+// The viewer's keyboard camera: which held keys move a view and how far,
+// the held-key tracker, and the frame loop that moves a view while they are
+// down. In 3D the arrows turn (Right swings the near side left, Up tilts
+// toward a top view) and W A S D slide; in 2D both slide.
+var CadYamKeys = (function () {
+  // The keys the camera takes, as lower-case `KeyboardEvent.key` names.
+  var CAMERA_KEYS = ["arrowup", "arrowdown", "arrowleft", "arrowright", "w", "a", "s", "d"];
+
+  // How `held` (lower-case key names to true) moves a view in `mode`
+  // ("3d" or "2d"). Each axis is -1, 0 or 1; a pan of (1, 1) brings more of
+  // the right and top into view.
+  function keyMotion(held, mode) {
+    function axis(plus, minus) { return (held[plus] ? 1 : 0) - (held[minus] ? 1 : 0); }
+    var arrowsX = axis("arrowright", "arrowleft"), arrowsY = axis("arrowup", "arrowdown");
+    var wasdX = axis("d", "a"), wasdY = axis("w", "s");
+    if (mode === "3d") return { turn: arrowsX, tilt: arrowsY, panX: wasdX, panY: wasdY };
+    return {
+      turn: 0,
+      tilt: 0,
+      panX: Math.max(-1, Math.min(1, arrowsX + wasdX)),
+      panY: Math.max(-1, Math.min(1, arrowsY + wasdY))
+    };
+  }
+
+  // A stalled frame moves at most a tenth of a second's worth.
+  function frame(dt) { return Math.max(0, Math.min(0.1, Number(dt) || 0)); }
+
+  // Screen pixels a held key slides either view per second, and with Shift:
+  // the same on-screen speed at any zoom, as the app's arrows pan its plan.
+  var PAN_PX = 600, FINE_PAN_PX = 150;
+  function keyPanPx(dt, slow) { return (slow ? FINE_PAN_PX : PAN_PX) * frame(dt); }
+
+  // The plan's view box `vb` slid for `dt` seconds by a pan of (`x`, `y`)
+  // (see keyMotion) in a view `width` × `height` screen pixels.
+  function pan2dViewBox(vb, x, y, dt, slow, width, height) {
+    var perPx = Math.max(vb[2] / Math.max(1, width), vb[3] / Math.max(1, height));
+    var d = keyPanPx(dt, slow) * perPx;
+    return [vb[0] + x * d, vb[1] - y * d, vb[2], vb[3]];
+  }
+
+  // The dollhouse's [yaw, pitch] in radians after `dt` seconds of a held
+  // turn and tilt: 90° a second, 30° with Shift, the tilt kept between
+  // just under level and nearly straight down.
+  function orbitKeyStep(yaw, pitch, turn, tilt, dt, slow) {
+    var rate = (slow ? 30 : 90) * Math.PI / 180 * frame(dt);
+    return [yaw + turn * rate, Math.max(-0.2, Math.min(1.5, pitch + tilt * rate))];
+  }
+
+  // The camera keys held down on `target` (the window), as a map of
+  // lower-case key names to true, with `shift` while Shift is. A camera key
+  // counts only when `accept(ev)` says a view takes it (that view then
+  // starts its loop); a taken key does not scroll the page. Ctrl, Cmd and
+  // Alt chords are other shortcuts. Losing focus lets everything go.
+  function heldKeys(target, accept) {
+    var held = {};
+    target.addEventListener("keydown", function (ev) {
+      if (ev.key === "Shift") { held.shift = true; return; }
+      if (ev.ctrlKey || ev.metaKey || ev.altKey) return;
+      var key = ev.key.toLowerCase();
+      if (CAMERA_KEYS.indexOf(key) < 0 || !accept(ev)) return;
+      ev.preventDefault();
+      held[key] = true;
+    });
+    target.addEventListener("keyup", function (ev) {
+      delete held[ev.key === "Shift" ? "shift" : ev.key.toLowerCase()];
+    });
+    target.addEventListener("blur", function () {
+      for (var k in held) delete held[k];
+    });
+    return held;
+  }
+
+  // A frame loop for one view: the returned start() begins it if it is not
+  // already going, and `step(dt)` moves the view and answers whether to
+  // carry on. The first frame counts as a sixtieth of a second, so a tap
+  // still nudges. `raf` defaults to requestAnimationFrame.
+  function loop(step, raf) {
+    var running = false, last = 0;
+    function next(f) { (raf || requestAnimationFrame)(f); }
+    function tick(now) {
+      var dt = last ? (now - last) / 1000 : 1 / 60;
+      last = now;
+      if (step(dt)) next(tick);
+      else running = false;
+    }
+    return function () {
+      if (!running) { running = true; last = 0; next(tick); }
+    };
+  }
+
+  return {
+    keyMotion: keyMotion, keyPanPx: keyPanPx, pan2dViewBox: pan2dViewBox,
+    orbitKeyStep: orbitKeyStep, heldKeys: heldKeys, loop: loop
+  };
+})();
+// The exported viewer's touch arithmetic, apart from the page so it can be
+// run on its own: a two-finger pinch-and-slide, telling a double-tap from a
+// single one, and the walk-through pad's push turned into walking.
+var CadYamTouch = (function () {
+  "use strict";
+
+  // Two fingers moving from `prevA`, `prevB` to `nextA`, `nextB` (each
+  // [x, y] in screen pixels): the zoom factor (the spread before over the
+  // spread after, so above 1 zooms out as the views' zoom functions take
+  // it), the new midpoint, and how far the midpoint slid. Fingers that
+  // touch (no spread) zoom nothing.
+  function pinch(prevA, prevB, nextA, nextB) {
+    var before = Math.hypot(prevA[0] - prevB[0], prevA[1] - prevB[1]);
+    var after = Math.hypot(nextA[0] - nextB[0], nextA[1] - nextB[1]);
+    var scale = before > 0 && after > 0 ? before / after : 1;
+    var mid = [(nextA[0] + nextB[0]) / 2, (nextA[1] + nextB[1]) / 2];
+    var was = [(prevA[0] + prevB[0]) / 2, (prevA[1] + prevB[1]) / 2];
+    return { scale: scale, mid: mid, dx: mid[0] - was[0], dy: mid[1] - was[1] };
+  }
+
+  // Tells a double-tap from a single one: a tap within `maxGapMs` and
+  // `maxDistPx` of the last single tap is a double, and the one after that
+  // starts afresh, so a triple tap is a double then a single.
+  function tapper(maxGapMs, maxDistPx) {
+    var gap = maxGapMs == null ? 300 : maxGapMs;
+    var dist = maxDistPx == null ? 24 : maxDistPx;
+    var last = null;
+    return {
+      tap: function (x, y, t) {
+        if (last && t - last.t <= gap && Math.hypot(x - last.x, y - last.y) <= dist) {
+          last = null;
+          return "double";
+        }
+        last = { x: x, y: y, t: t };
+        return "single";
+      },
+      reset: function () { last = null; }
+    };
+  }
+
+  // The walk pad: a thumb `dx`, `dy` pixels off the pad's centre, on a pad
+  // of `radius` pixels. The knob stays on the pad (`x`, `y`), a push inside
+  // the dead zone (a sixth of the radius) walks nowhere, and the rest maps
+  // to walking `ahead` (push up) and `aside` (push right), each -1 to 1.
+  function stick(dx, dy, radius) {
+    var r = radius > 0 ? radius : 1;
+    var len = Math.hypot(dx, dy);
+    var k = len > r ? r / len : 1;
+    var x = dx * k, y = dy * k;
+    var dead = r / 6;
+    if (len <= dead) return { ahead: 0, aside: 0, x: x, y: y };
+    // Past the dead zone, the push grows from 0 at its edge to 1 at the rim.
+    var reach = (Math.min(len, r) - dead) / (r - dead);
+    var ux = dx / len, uy = dy / len;
+    return { ahead: -uy * reach, aside: ux * reach, x: x, y: y };
+  }
+
+  // A tap on a view, told by `recogniser` (a `tapper`): `tap` is
+  // { touch, x, y, t }. A mouse click runs `single` at once; a finger's tap
+  // runs `double` at once when it is the second of two, else `single` once
+  // `waitMs` pass with no second. The wait is what lets a double-tap land on
+  // a phone: picking on the first tap would open the inspector over the
+  // very spot the second tap is aimed at. `timer` ({ set, clear }, the
+  // browser's timeouts unless given) is what waits.
+  function tapOrDouble(recogniser, tap, single, double, waitMs, timer) {
+    if (!tap.touch) { single(); return; }
+    var clock = timer || {
+      set: function (f, ms) { return setTimeout(f, ms); },
+      clear: function (id) { clearTimeout(id); }
+    };
+    clock.clear(recogniser.pending);
+    recogniser.pending = null;
+    if (recogniser.tap(tap.x, tap.y, tap.t) === "double") double();
+    else recogniser.pending = clock.set(single, waitMs == null ? 300 : waitMs);
+  }
+
+  // Which way to walk: the keys' `keyAhead`, `keyAside` (each -1, 0 or 1),
+  // unless a thumb is pushing the walk pad (`stick`, as `stick` returns, or
+  // null) past its dead zone, which then steers instead.
+  function steer(keyAhead, keyAside, stick) {
+    if (stick && (stick.ahead || stick.aside)) return { ahead: stick.ahead, aside: stick.aside };
+    return { ahead: keyAhead, aside: keyAside };
+  }
+
+  return { pinch: pinch, tapper: tapper, stick: stick, tapOrDouble: tapOrDouble, steer: steer };
+})();
+// The exported viewer's 2D plan arithmetic, apart from the page so it can be
+// run on its own: the plan's framing, where a screen point falls on it, how
+// big a painted plan's labels are drawn at a zoom, and telling a tap from a
+// drag.
+var CadYamPlanView = (function () {
+  "use strict";
+
+  // How far a pointer may wander, in screen pixels across and down, and
+  // still be a tap rather than a drag.
+  var TAP_SLOP = 4;
+
+  // A painted plan's view box: its art's bounding box `bb` carried through
+  // the art's transform `mx` (a, d scale; e, f shift), or null when the art
+  // has no size.
+  function artBox(bb, mx) {
+    if (!bb.width || !bb.height) return null;
+    var m = mx || { a: 1, d: 1, e: 0, f: 0 };
+    return [bb.x * m.a + m.e, bb.y * m.d + m.f, bb.width * m.a, bb.height * m.d];
+  }
+
+  // The view box `vb` with a margin of 8% of its longer side all round, so
+  // the drawing sits clear of the tool chips.
+  function padded(vb) {
+    var m = Math.max(vb[2], vb[3]) * 0.08;
+    return [vb[0] - m, vb[1] - m, vb[2] + 2 * m, vb[3] + 2 * m];
+  }
+
+  // Screen pixels per recorded pixel of a painted plan drawn `width` ×
+  // `height` on screen through view box `vb`, its art recorded at `artPx`
+  // pixels a millimetre; 0 while the plan has no size on screen.
+  function labelZoom(width, height, vb, artPx) {
+    if (!width) return 0;
+    return Math.min(width / vb[2], height / vb[3]) / artPx;
+  }
+
+  // The transform that keeps a label its recorded size at zoom `z`.
+  function labelTransform(z) {
+    return "scale(" + 1 / z + ")";
+  }
+
+  // Screen point (cx, cy) on the plan, its box on screen `r` (left, top,
+  // width, height) showing view box `vb` letterboxed: [x, y, plan units a
+  // screen pixel].
+  function toPlan(r, vb, cx, cy) {
+    var s = Math.max(vb[2] / r.width, vb[3] / r.height);
+    var ox = vb[0] + vb[2] / 2 - (r.width * s) / 2;
+    var oy = vb[1] + vb[3] / 2 - (r.height * s) / 2;
+    return [ox + (cx - r.left) * s, oy + (cy - r.top) * s, s];
+  }
+
+  // View box `vb` scaled by `f` about plan point `p`, which stays put.
+  function zoomBox(vb, p, f) {
+    return [p[0] - (p[0] - vb[0]) * f, p[1] - (p[1] - vb[1]) * f, vb[2] * f, vb[3] * f];
+  }
+
+  // The framing `home`'s size, kept centred where view box `vb` is.
+  function resetBox(vb, home) {
+    var cx = vb[0] + vb[2] / 2, cy = vb[1] + vb[3] / 2;
+    return [cx - home[2] / 2, cy - home[3] / 2, home[2], home[3]];
+  }
+
+  // True once a pointer that went down at `start` ({ x, y }) has reached
+  // (x, y) far enough away to be a drag.
+  function moved(start, x, y) {
+    return Math.abs(x - start.x) + Math.abs(y - start.y) > TAP_SLOP;
+  }
+
+  // What lifting a pointer means, with `drag` the gesture so far (null
+  // when none, `moved` once it went past the slop) and `left` the pointers
+  // still down: `tap` when it was a tap with no finger left, `picks` when
+  // that tap is a real release (a cancelled pointer picks nothing).
+  function release(drag, left, type) {
+    var tap = !!drag && !drag.moved && left === 0;
+    return { tap: tap, picks: tap && type === "pointerup" };
+  }
+
+  return {
+    TAP_SLOP: TAP_SLOP,
+    artBox: artBox,
+    padded: padded,
+    labelZoom: labelZoom,
+    labelTransform: labelTransform,
+    toPlan: toPlan,
+    zoomBox: zoomBox,
+    resetBox: resetBox,
+    moved: moved,
+    release: release
+  };
+})();
+// The exported viewer's 3D arithmetic, apart from the page so it can be run
+// on its own: the mesh's per-corner data, the dollhouse and walking
+// cameras, framing the model, rays and picking, the sun's camera, the
+// cutaway and the Show switch's phase uniforms. The page keeps only the
+// WebGL calls and the DOM wiring.
+var CadYamModelView = (function () {
+  "use strict";
+
+  // ── Vectors ─────────────────────────────────────────────────────────
+  function sub(a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; }
+  function cross(a, b) { return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; }
+  function norm(a) { var l = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / l, a[1] / l, a[2] / l]; }
+  function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+  // The camera's side and up for looking along `f`, level with the ground.
+  function basis(f) {
+    var s = norm(cross(f, [0, 0, 1]));
+    return { s: s, u: cross(s, f) };
+  }
+
+  // ── The mesh ────────────────────────────────────────────────────────
+  // The corners' bounding box: { lo, hi }, each [x, y, z].
+  function bounds(pos) {
+    var lo = [Infinity, Infinity, Infinity], hi = [-Infinity, -Infinity, -Infinity];
+    for (var i = 0; i < pos.length / 3; i++) for (var a = 0; a < 3; a++) {
+      lo[a] = Math.min(lo[a], pos[i * 3 + a]); hi[a] = Math.max(hi[a], pos[i * 3 + a]);
+    }
+    return { lo: lo, hi: hi };
+  }
+
+  // Faces meeting at a corner at less than this angle's cosine (about 35°)
+  // share a smoothed normal there; sharper creases stay hard edges.
+  var SMOOTH_COS = 0.819;
+
+  // The key a corner is found by among the corners at the same place, to a
+  // tenth of a millimetre.
+  function cornerKey(pos, i) {
+    return Math.round(pos[i] * 10) + "," + Math.round(pos[i + 1] * 10) + "," + Math.round(pos[i + 2] * 10);
+  }
+
+  // Each corner's normal: the area-weighted average of the faces at that
+  // place turned within SMOOTH_COS of its own face, so curved surfaces (the
+  // dress form, a draped garment) shade smoothly and boxes keep their edges.
+  function smoothNormals(pos) {
+    var triN = pos.length / 9;
+    var unit = new Float32Array(triN * 3), weighted = new Float32Array(triN * 3), at = Object.create(null);
+    for (var t = 0; t < triN; t++) {
+      var p = t * 9;
+      var ux = pos[p + 3] - pos[p], uy = pos[p + 4] - pos[p + 1], uz = pos[p + 5] - pos[p + 2];
+      var vx = pos[p + 6] - pos[p], vy = pos[p + 7] - pos[p + 1], vz = pos[p + 8] - pos[p + 2];
+      var nx = uy * vz - uz * vy, ny = uz * vx - ux * vz, nz = ux * vy - uy * vx;
+      var l = Math.hypot(nx, ny, nz) || 1;
+      weighted[t * 3] = nx; weighted[t * 3 + 1] = ny; weighted[t * 3 + 2] = nz;
+      unit[t * 3] = nx / l; unit[t * 3 + 1] = ny / l; unit[t * 3 + 2] = nz / l;
+      for (var k = 0; k < 3; k++) {
+        var key = cornerKey(pos, p + k * 3);
+        (at[key] || (at[key] = [])).push(t);
+      }
+    }
+    var nrm = new Float32Array(triN * 9);
+    for (var t2 = 0; t2 < triN; t2++) {
+      var fx = unit[t2 * 3], fy = unit[t2 * 3 + 1], fz = unit[t2 * 3 + 2];
+      for (var k2 = 0; k2 < 3; k2++) {
+        var c = t2 * 9 + k2 * 3, list = at[cornerKey(pos, c)], sx = 0, sy = 0, sz = 0;
+        for (var m = 0; m < list.length; m++) {
+          var u3 = list[m] * 3;
+          if (fx * unit[u3] + fy * unit[u3 + 1] + fz * unit[u3 + 2] >= SMOOTH_COS) {
+            sx += weighted[u3]; sy += weighted[u3 + 1]; sz += weighted[u3 + 2];
+          }
+        }
+        var sl = Math.hypot(sx, sy, sz);
+        nrm[c] = sl > 0 ? sx / sl : fx;
+        nrm[c + 1] = sl > 0 ? sy / sl : fy;
+        nrm[c + 2] = sl > 0 ? sz / sl : fz;
+      }
+    }
+    return nrm;
+  }
+
+  // What each corner carries to the shader, from the scene's per-triangle
+  // data: its smoothed normal, colour (0 to 1), owner (plus one, so 0 is no
+  // object), pattern, phase and print.
+  function corners(pos, col, own, pat, tph, prn) {
+    var n = pos.length / 3;
+    var nrm = smoothNormals(pos), rgb = new Float32Array(n * 3), ids = new Float32Array(n);
+    var pats = new Float32Array(n), phs = new Float32Array(n), prs = new Float32Array(n);
+    for (var t = 0; t < n / 3; t++) {
+      var p = t * 9;
+      for (var k = 0; k < 3; k++) {
+        rgb[p + k * 3] = col[t * 3] / 255; rgb[p + k * 3 + 1] = col[t * 3 + 1] / 255; rgb[p + k * 3 + 2] = col[t * 3 + 2] / 255;
+        ids[t * 3 + k] = own[t] + 1;
+        pats[t * 3 + k] = pat[t];
+        phs[t * 3 + k] = tph[t];
+        prs[t * 3 + k] = prn[t];
+      }
+    }
+    return { nrm: nrm, rgb: rgb, ids: ids, pats: pats, phs: phs, prs: prs };
+  }
+
+  // ── Cameras ─────────────────────────────────────────────────────────
+  // The dollhouse as the page opens: from the usual corner, two model
+  // sizes off, not yet framed to the canvas. A model in `box` ({ lo, hi })
+  // much taller than it is wide — a dress form on its stand — is seen from
+  // nearer eye level instead of from above.
+  function home(size, centre, box) {
+    var tall = !!box && (box.hi[2] - box.lo[2]) > Math.max(box.hi[0] - box.lo[0], box.hi[1] - box.lo[1]) * 1.3;
+    return { yaw: tall ? -1.2 : -0.9, pitch: tall ? 0.18 : 0.55, dist: size * 2, target: centre.slice(), framed: false };
+  }
+
+  // The unit direction from the dollhouse's turning point to its eye.
+  function orbitDir(yaw, pitch) {
+    var c = Math.cos(pitch);
+    return [c * Math.cos(yaw), c * Math.sin(yaw), Math.sin(pitch)];
+  }
+
+  // Where the eye stands: walking, `eyeHeight` over the walker's floor;
+  // else `cam.dist` out from its target along the orbit.
+  function eye(cam, walk, eyeHeight) {
+    if (walk.on) return [walk.at[0], walk.at[1], walk.floor + walk.lift + eyeHeight];
+    var o = orbitDir(cam.yaw, cam.pitch);
+    return [cam.target[0] + cam.dist * o[0], cam.target[1] + cam.dist * o[1], cam.target[2] + cam.dist * o[2]];
+  }
+
+  // The unit direction the eye at `from` looks.
+  function forward(cam, walk, from) {
+    if (!walk.on) return norm(sub(cam.target, from));
+    var c = Math.cos(walk.pitch);
+    return [c * Math.cos(walk.yaw), c * Math.sin(walk.yaw), Math.sin(walk.pitch)];
+  }
+
+  // The view's half-extents at unit distance, [across, up], for a `w` × `h`
+  // canvas: walking sees `walkFov` degrees side to side; the dollhouse
+  // (`walkFov` null) 45° across the narrower side, so the model fits
+  // either way up.
+  function lens(w, h, walkFov) {
+    if (walkFov != null) { var tx = Math.tan(walkFov * Math.PI / 360); return [tx, tx * h / w]; }
+    var t = Math.tan(45 * Math.PI / 360);
+    return w >= h ? [t * w / h, t] : [t, t * h / w];
+  }
+
+  // The near and far clipping distances: close in while walking, else in
+  // step with how far the dollhouse stands off.
+  function clip(walking, dist, size) {
+    return [walking ? 50 : Math.max(10, dist * 0.01), size * 20 + dist];
+  }
+
+  // Perspective × view, column-major, for the eye at `e` looking along `f`
+  // through lens `t`, clipped at `near` and `far`.
+  function viewMatrix(e, f, t, near, far) {
+    var b = basis(f), s = b.s, u = b.u, fx = 1 / t[0], fy = 1 / t[1];
+    var A = (far + near) / (near - far), B = 2 * far * near / (near - far);
+    return [
+      fx * s[0], fy * u[0], -A * f[0], f[0],
+      fx * s[1], fy * u[1], -A * f[1], f[1],
+      fx * s[2], fy * u[2], -A * f[2], f[2],
+      -fx * dot(s, e), -fy * dot(u, e), A * dot(f, e) + B, -dot(f, e)
+    ];
+  }
+
+  // The sun's camera, column-major: square on to unit direction `sun`,
+  // framing a sphere of `radius` about `centre` in clip space.
+  function lightMatrix(sun, centre, radius) {
+    var f = [-sun[0], -sun[1], -sun[2]];
+    var s = norm(cross(f, Math.abs(f[2]) > 0.99 ? [0, 1, 0] : [0, 0, 1])), u = cross(s, f), r = radius;
+    return [
+      s[0] / r, u[0] / r, f[0] / r, 0,
+      s[1] / r, u[1] / r, f[1] / r, 0,
+      s[2] / r, u[2] / r, f[2] / r, 0,
+      -dot(s, centre) / r, -dot(u, centre) / r, -dot(f, centre) / r, 1
+    ];
+  }
+
+  // Frame the model from orbit direction `o` through lens `t`: the
+  // distance at which every one of corners `pts` (flat [x, y, z, …]) lies
+  // within 85% of the view, then aimed at the middle of the model as seen
+  // from there and fitted again. `size` stands in for an empty model.
+  function frame(pts, o, t, centre, size) {
+    var f = [-o[0], -o[1], -o[2]], b = basis(f), s = b.s, u = b.u, m = pts.length / 3;
+    function fit(at) {
+      var d = 0;
+      for (var i = 0; i < m; i++) {
+        var c = [pts[i * 3] - at[0], pts[i * 3 + 1] - at[1], pts[i * 3 + 2] - at[2]];
+        var along = dot(c, o);
+        d = Math.max(d, along + Math.abs(dot(c, s)) / (0.85 * t[0]), along + Math.abs(dot(c, u)) / (0.85 * t[1]));
+      }
+      return d || size;
+    }
+    var at = centre.slice(), d = fit(at), x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+    for (var i = 0; i < m; i++) {
+      var c = [pts[i * 3] - at[0], pts[i * 3 + 1] - at[1], pts[i * 3 + 2] - at[2]];
+      var depth = d - dot(c, o);
+      var x = dot(c, s) / depth, y = dot(c, u) / depth;
+      x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y);
+    }
+    if (m) for (var a = 0; a < 3; a++) at[a] += (s[a] * (x0 + x1) / 2 + u[a] * (y0 + y1) / 2) * d;
+    return { target: at, dist: fit(at) };
+  }
+
+  // ── Pointing ────────────────────────────────────────────────────────
+  // The unit ray direction through canvas point (cx, cy), the canvas's box
+  // `r` (left, top, width, height), for an eye looking along `f` through
+  // lens `t`.
+  function rayDir(r, cx, cy, f, t) {
+    var b = basis(f), s = b.s, u = b.u;
+    var nx = ((cx - r.left) / r.width) * 2 - 1, ny = 1 - ((cy - r.top) / r.height) * 2;
+    return norm([0, 1, 2].map(function (a) { return f[a] + s[a] * nx * t[0] + u[a] * ny * t[1]; }));
+  }
+
+  // Off the model, the spot along ray `dir` from `from` as deep as the
+  // dollhouse's turning point (`dist` along `fwd`), so a zoom there feels
+  // like one about the model.
+  function depthAnchor(from, dir, fwd, dist) {
+    var k = dist / Math.max(0.2, dot(dir, fwd));
+    return [0, 1, 2].map(function (a) { return from[a] + dir[a] * k; });
+  }
+
+  // How close a point a `dist` away may stand to the line of sight and
+  // still not hide it: a ray that meets the model nearer than this is
+  // blocked.
+  function clearance(dist) {
+    return dist - Math.max(30, dist * 0.01);
+  }
+
+  // The device pixel to read back for canvas point (cx, cy): the canvas's
+  // box `r`, its pixel ratio `dpr` and its height in device pixels `h`
+  // (WebGL counts rows from the bottom).
+  function pickPixel(r, cx, cy, dpr, h) {
+    return [Math.round((cx - r.left) * dpr), Math.round(h - (cy - r.top) * dpr)];
+  }
+
+  // The object id an RGBA pick pixel encodes (as a string, as the page's
+  // entities are keyed), or null for the background.
+  function pickedId(px) {
+    var id = px[0] + px[1] * 256 + px[2] * 65536;
+    return id > 0 ? String(id - 1) : null;
+  }
+
+  // ── Moving the dollhouse ────────────────────────────────────────────
+  // Move camera `cam` `f` times as far from model point `at` (null keeps
+  // the target), keeping it under the pointer, no further out than 20
+  // model sizes. Close in, it pushes on along `ahead` rather than stall.
+  function zoomAbout(cam, at, f, size, ahead) {
+    var near = Math.max(50, size * 0.002);
+    if (cam.dist * f < near) {
+      var by = cam.dist * (1 - f);
+      for (var a = 0; a < 3; a++) cam.target[a] += ahead[a] * by;
+      return;
+    }
+    if (at) for (var b = 0; b < 3; b++) cam.target[b] = at[b] + (cam.target[b] - at[b]) * f;
+    cam.dist = Math.min(cam.dist * f, size * 20);
+  }
+
+  // The orbit's [yaw, pitch] after a drag of `dx`, `dy` pixels: a drag
+  // across a canvas `width` wide turns about a full circle, and the view
+  // tilts from just under level to nearly straight down.
+  function spin(yaw, pitch, dx, dy, width) {
+    var k = 5.5 / Math.max(300, width);
+    return [yaw - dx * k, Math.max(-0.2, Math.min(1.5, pitch + dy * k))];
+  }
+
+  // The turning point slid so the model follows a drag of `dx`, `dy`
+  // pixels on a canvas `height` tall, seen from `from`.
+  function panTarget(target, from, dist, height, dx, dy) {
+    var f = norm(sub(target, from)), b = basis(f), s = b.s, u = b.u, k = dist / height;
+    return [0, 1, 2].map(function (a) { return target[a] + (-dx * s[a] + dy * u[a]) * k; });
+  }
+
+  // How far to stand off a spot flown to with a double-click.
+  function flyDist(dist, size) {
+    return Math.max(Math.max(50, size * 0.002) * 4, dist * 0.4);
+  }
+
+  // A wheel event's scroll in pixels, lines counting 16 and pages a canvas
+  // `height`, held to 300 either way.
+  function wheelPx(deltaY, deltaMode, height) {
+    var dy = deltaY * (deltaMode === 1 ? 16 : deltaMode === 2 ? height : 1);
+    return Math.max(-300, Math.min(300, dy));
+  }
+
+  // The dollhouse's zoom factor for a wheel scroll of `dy` pixels; a
+  // trackpad pinch (Ctrl+wheel) counts for more.
+  function wheelZoom(dy, ctrl) {
+    return Math.exp(dy * (ctrl ? 0.01 : 0.002));
+  }
+
+  // Looking around while walking: [yaw, pitch] after a drag of `dx`, `dy`
+  // pixels at 0.3° a pixel, no more than `limDeg` up or down.
+  function look(yaw, pitch, dx, dy, limDeg) {
+    var lim = limDeg * Math.PI / 180, k = 0.3 * Math.PI / 180;
+    return [yaw - dx * k, Math.max(-lim, Math.min(lim, pitch - dy * k))];
+  }
+
+  // ── Pins ────────────────────────────────────────────────────────────
+  // Where the dollhouse looks at a pin covering box [a, b]: its middle,
+  // from close enough that the box fills the middle of the view.
+  function pinView(a, b, size) {
+    var reach = Math.hypot(b[0] - a[0], b[1] - a[1], b[2] - a[2]);
+    return {
+      target: [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2],
+      dist: Math.max(reach * 1.8, size * 0.25)
+    };
+  }
+
+  // The yaws to try, in order, for a view of a pin that the model does not
+  // hide: where the dollhouse is, then swinging further round each way.
+  function pinYaws(yaw) {
+    return [0, 1, -1, 2, -2, 3, -3, 4].map(function (k) { return yaw + k * Math.PI / 4; });
+  }
+
+  // ── The site ────────────────────────────────────────────────────────
+  // A model wider than 60 m is a site: walking starts at a run.
+  function isSite(lo, hi) {
+    return Math.max(hi[0] - lo[0], hi[1] - lo[1]) > 60000;
+  }
+
+  // Where walking starts, [x, y]: a site on its own ground at the near
+  // edge; a building from a step back, looking at it.
+  function walkStart(lo, centre, size, site) {
+    return [centre[0], site ? lo[1] + size * 0.02 : lo[1] - size * 0.1];
+  }
+
+  // Only a model with storeys to see into (1.5 m over its floor) offers a
+  // cutaway.
+  function hasCutaway(floor, top) {
+    return top - floor > 1500;
+  }
+
+  // The height the model is cut at: a storey's worth (at most 1.2 m, or
+  // under half the model) over the floor when on, else clear above it.
+  function cutHeight(on, floor, top) {
+    return on ? floor + Math.min(1200, (top - floor) * 0.45) : top + 1;
+  }
+
+  // The Show switch's view as the shader's uniforms: per phase whether it
+  // shows and is tinted, and its tint (0 to 1, nine numbers).
+  function phaseUniforms(view) {
+    var show = [0, 0, 0], tintOn = [0, 0, 0], tints = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    for (var p = 0; p < 3; p++) {
+      show[p] = view.shows[p] ? 1 : 0;
+      tintOn[p] = view.tints[p] ? 1 : 0;
+      for (var a = 0; a < 3; a++) tints[p * 3 + a] = view.tints[p] ? view.tints[p][a] / 255 : 0;
+    }
+    return { show: show, tintOn: tintOn, tints: tints };
+  }
+
+  return {
+    sub: sub, cross: cross, norm: norm, dot: dot, basis: basis,
+    bounds: bounds, corners: corners, smoothNormals: smoothNormals,
+    home: home, orbitDir: orbitDir, eye: eye, forward: forward, lens: lens, clip: clip,
+    viewMatrix: viewMatrix, lightMatrix: lightMatrix, frame: frame,
+    rayDir: rayDir, depthAnchor: depthAnchor, clearance: clearance, pickPixel: pickPixel, pickedId: pickedId,
+    zoomAbout: zoomAbout, spin: spin, panTarget: panTarget, flyDist: flyDist,
+    wheelPx: wheelPx, wheelZoom: wheelZoom, look: look,
+    pinView: pinView, pinYaws: pinYaws,
+    isSite: isSite, walkStart: walkStart, hasCutaway: hasCutaway, cutHeight: cutHeight,
+    phaseUniforms: phaseUniforms
+  };
+})();
+// CadYam's shared WebGL2 pieces for 3D on a web page, used by both the
+// architecture viewer (html_viewer_3d.js) and Data Stories' 3D views
+// (vizkit_3d.js): linking a program, the sun's shadow-map target, and the
+// lighting every lit surface is shaded with — a sky term, the sun's
+// diffuse, and a 3×3 filtered shadow lookup — so a data surface and a
+// house are lit the same way. The camera arithmetic they share lives in
+// html_model_view.js (CadYamModelView).
+var CadYamGl3d = (function () {
+  "use strict";
+
+  // A linked WebGL2 program from vertex and fragment GLSL bodies (the
+  // `#version` line and the fragment's precision are added here), with
+  // `attribs` ({ name: location }) bound before linking. Compile and link
+  // errors go to the console.
+  function program(gl, vs, fs, attribs) {
+    function shader(type, src) {
+      var s = gl.createShader(type);
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      return s;
+    }
+    var p = gl.createProgram();
+    gl.attachShader(p, shader(gl.VERTEX_SHADER, "#version 300 es\n" + vs));
+    gl.attachShader(p, shader(gl.FRAGMENT_SHADER, "#version 300 es\nprecision highp float;\n" + fs));
+    Object.keys(attribs || {}).forEach(function (name) { gl.bindAttribLocation(p, attribs[name], name); });
+    gl.linkProgram(p);
+    if (!gl.getProgramParameter(p, gl.LINK_STATUS)) {
+      gl.getAttachedShaders(p).forEach(function (s) { console.error(gl.getShaderInfoLog(s)); });
+      console.error(gl.getProgramInfoLog(p));
+    }
+    return p;
+  }
+
+  // The shadow map's framebuffer: a `px` square depth texture on unit 1,
+  // compared on lookup so the shader's sampler2DShadow filters it.
+  function shadowTarget(gl, px) {
+    var tex = gl.createTexture();
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.texStorage2D(gl.TEXTURE_2D, 1, gl.DEPTH_COMPONENT24, px, px);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_COMPARE_MODE, gl.COMPARE_REF_TO_TEXTURE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_COMPARE_FUNC, gl.LEQUAL);
+    gl.activeTexture(gl.TEXTURE0);
+    var fb = gl.createFramebuffer();
+    gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.TEXTURE_2D, tex, 0);
+    gl.drawBuffers([gl.NONE]);
+    gl.readBuffer(gl.NONE);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    fb.texture = tex;
+    return fb;
+  }
+
+  // GLSL: how much of the sun reaches a point whose place in the sun's
+  // clip space is `at`, filtered over 3×3 texels of `map`, with a bias
+  // that grows as normal `n` turns from the sun `sun`; and `shade`, a
+  // colour lit by the sky (brighter facing up) and the sun's diffuse,
+  // scaled by `lit`.
+  var LIGHT_GLSL =
+    "float sunlit_at(highp sampler2DShadow map, vec4 at, vec3 n, vec3 sun){\n" +
+    " vec3 p=at.xyz*0.5+0.5; if (p.x<0.0||p.x>1.0||p.y<0.0||p.y>1.0) return 1.0;\n" +
+    " float bias=0.0006+0.0015*(1.0-max(dot(n,sun),0.0)); float k=0.0; vec2 t=1.0/vec2(textureSize(map,0));\n" +
+    " for (int i=-1;i<=1;i++) for (int j=-1;j<=1;j++) k+=texture(map,vec3(p.xy+vec2(i,j)*t,p.z-bias));\n" +
+    " return k/9.0; }\n" +
+    "vec3 shade(vec3 base, vec3 n, vec3 sun, float lit){\n" +
+    " float d=max(dot(n,sun),0.0); float sky=0.5+0.5*n.z;\n" +
+    " return base*(0.38+0.22*sky+0.55*d*(sun.z>0.0 ? lit : 0.0)); }\n";
+
+  return { program: program, shadowTarget: shadowTarget, LIGHT_GLSL: LIGHT_GLSL };
+})();
+// The exported viewer's dress form, apart from the page so it can be run on
+// its own: a Fashion scene's triangles with or without the form, and what
+// the page says about the body the form is shaped to.
+var CadYamFashion = (function () {
+  "use strict";
+
+  // Scene `sc`'s per-triangle arrays, decoded with `bytes` (base64 to a
+  // Uint8Array): corners, colours, owners, patterns, phases and prints. With
+  // `formShown` false, the triangles its `forms` flags as the dress form or
+  // its stand are left out; a scene with no flags keeps every triangle.
+  function triangles(sc, bytes, formShown) {
+    var pos = new Float32Array(bytes(sc.positions).buffer);
+    var col = bytes(sc.colors);
+    var own = new Int32Array(bytes(sc.owners).buffer);
+    var t = own.length;
+    var pat = sc.patterns ? bytes(sc.patterns) : new Uint8Array(t);
+    var tph = sc.phases ? bytes(sc.phases) : new Uint8Array(t);
+    var prn = sc.prints ? bytes(sc.prints) : new Uint8Array(t);
+    var all = { pos: pos, col: col, own: own, pat: pat, tph: tph, prn: prn };
+    if (formShown || !sc.forms) return all;
+    var forms = bytes(sc.forms), keep = [];
+    for (var i = 0; i < t; i++) if (!forms[i]) keep.push(i);
+    var out = {
+      pos: new Float32Array(keep.length * 9), col: new Uint8Array(keep.length * 3),
+      own: new Int32Array(keep.length), pat: new Uint8Array(keep.length),
+      tph: new Uint8Array(keep.length), prn: new Uint8Array(keep.length)
+    };
+    keep.forEach(function (src, k) {
+      for (var a = 0; a < 9; a++) out.pos[k * 9 + a] = pos[src * 9 + a];
+      for (var c = 0; c < 3; c++) out.col[k * 3 + c] = col[src * 3 + c];
+      out.own[k] = own[src]; out.pat[k] = pat[src]; out.tph[k] = tph[src]; out.prn[k] = prn[src];
+    });
+    return out;
+  }
+
+  // Whether scene `sc` has a dress form to hide.
+  function hasForm(sc) { return !!(sc && sc.forms); }
+
+  // The readout over the 3D view: the size the form is shaped to, then its
+  // bust, waist and hip — `Size 10 · Bust 34 in · Waist 27 in · Hip 36 in`.
+  function summary(label, measurements) {
+    var girths = (measurements || []).filter(function (m) {
+      return m.key === "bust" || m.key === "waist" || m.key === "hip";
+    });
+    return [label].concat(girths.map(function (m) { return m.label + " " + m.value; })).join(" · ");
+  }
+
+  // Every measurement, one per line, for the readout's tooltip.
+  function details(measurements) {
+    return (measurements || []).map(function (m) { return m.label + ": " + m.value; }).join("\n");
+  }
+
+  // The size entry of Fashion data `f` named `size`; the one the page
+  // opens on (no `size` of its own) when there is no such size.
+  function sizeEntry(f, size) {
+    var hit = (f.sizes || []).filter(function (s) { return s.size === size; })[0];
+    return hit || { size: f.size, label: f.label, measurements: f.measurements, scene: null };
+  }
+
+  // The Size switch's choices for Fashion data `f`, one `{value, label}`
+  // per graded size; none when there is no other size to switch to.
+  function sizeOptions(f) {
+    var sizes = (f && f.sizes) || [];
+    if (sizes.length < 2) return [];
+    return sizes.map(function (s) { return { value: s.size, label: s.label }; });
+  }
+
+  return {
+    triangles: triangles, hasForm: hasForm, summary: summary, details: details,
+    sizeEntry: sizeEntry, sizeOptions: sizeOptions
+  };
+})();
+// CadYam's exported web viewer: the plan (inline SVG) with pan, zoom and
+// layer switches; the model (WebGL2) with orbit, walk-through, cutaway and
+// sun; a renovation's Show switch driving both; and an inspector both
+// views pick into.
+// One script in three files, joined in order by html.rs: this one (page
+// set-up, menus, touch, pan, zoom pill and inspector), html_viewer_plan.js
+// and html_viewer_3d.js, which closes the function opened here.
+(function () {
+  "use strict";
+  // A saved page loads its plan and model from a companion `<stem>-data.js`
+  // (which sets this global); a page made in one piece carries them inline.
+  var external = window.__CADYAM_EXPORT_DATA__;
+  var inline = document.getElementById("drawing");
+  if (!external && !inline) {
+    document.getElementById("plan-view").textContent =
+      "This page's drawing data didn't load. Keep the -data.js file " +
+      "that was saved with it in the same folder.";
+    return;
+  }
+  var data = external ? external.drawing : JSON.parse(inline.textContent);
+  if (external && external.planSvg) {
+    document.getElementById("plan-view").innerHTML = external.planSvg;
+  }
+  var entities = data.entities || {};
+  var picked = null;
+
+  // ── View modes ──────────────────────────────────────────────────────
+  var modeButtons = document.querySelectorAll(".modes button");
+  function setMode(mode) {
+    document.body.dataset.mode = mode;
+    modeButtons.forEach(function (b) { b.classList.toggle("on", b.dataset.mode === mode); });
+    window.dispatchEvent(new Event("resize"));
+  }
+  modeButtons.forEach(function (b) { b.addEventListener("click", function () { setMode(b.dataset.mode); }); });
+  setMode(data.scene ? "split" : "2d");
+
+  function el(tag, attrs, text) {
+    var e = document.createElement(tag);
+    for (var k in attrs || {}) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  // A switch in a menu: its box, then its name.
+  function chip(parent, label, input) {
+    var l = el("label", { class: "row check" });
+    l.appendChild(input);
+    l.appendChild(document.createTextNode(label));
+    parent.appendChild(l);
+    return input;
+  }
+  // A setting in a menu: its name on the left, its control on the right.
+  // Returns the control, and the name's node as `.caption`.
+  function field(parent, label, input) {
+    var l = el("label", { class: "row field" });
+    var caption = el("span", null, label);
+    l.appendChild(caption);
+    l.appendChild(input);
+    parent.appendChild(l);
+    input.caption = caption;
+    return input;
+  }
+  // A plain action in a menu (Zoom to fit, Reset view), which closes it.
+  function action(parent, label, run) {
+    var b = el("button", { class: "row item" }, label);
+    b.addEventListener("click", function () { run(b); });
+    parent.appendChild(b);
+    return b;
+  }
+  // Each view's one Options button, opening a list of its settings.
+  function optionsMenu(tools) {
+    var menu = el("details", { class: "menu" });
+    menu.appendChild(el("summary", null, "Options"));
+    var list = el("div", { class: "menu-list" });
+    menu.appendChild(list);
+    tools.appendChild(menu);
+    return list;
+  }
+  // A click anywhere outside an open menu closes it.
+  document.addEventListener("click", function (ev) {
+    document.querySelectorAll("details.menu[open]").forEach(function (m) {
+      if (!m.contains(ev.target)) m.open = false;
+    });
+  });
+  function typing(ev) {
+    var t = ev.target.tagName;
+    return t === "INPUT" || t === "SELECT" || t === "TEXTAREA";
+  }
+
+  // ── Touch ───────────────────────────────────────────────────────────
+  // A touch screen (a coarse pointer, or the first finger seen) marks the
+  // body `touch`: the walk pad and the gesture hints are for it alone, and
+  // the Pan button drops its Space-key tooltip. A mouse sees none of it.
+  var coarse = !!(window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
+  function touchy() { return document.body.classList.contains("touch"); }
+  function markTouch() {
+    document.body.classList.add("touch");
+    panButtons.forEach(function (b) { b.title = "Pan"; });
+  }
+  function noteTouch(ev) { if (ev.pointerType === "touch" && !touchy()) markTouch(); }
+  // Two quick taps in one spot: about 300 ms and 24 px apart at most.
+  var TAP_GAP = 300, TAP_REACH = 24;
+  // A tap on a view (pointerup `ev`, told by `recogniser`): see
+  // CadYamTouch.tapOrDouble. Taps are timed by when they happened, not when
+  // they are handled, so a slow first tap never pushes the second out of time.
+  function tapOrDouble(recogniser, ev, single, double) {
+    CadYamTouch.tapOrDouble(recogniser, {
+      touch: ev.pointerType === "touch", x: ev.clientX, y: ev.clientY, t: ev.timeStamp
+    }, single, double, TAP_GAP);
+  }
+  // A view's gesture hint, once per view: a card over it the first time a
+  // finger lands, gone with ×, and not shown again once dismissed (where
+  // the browser lets a page opened from disk remember anything).
+  var hinted = {};
+  function hintDismissed(key) {
+    try { return window.localStorage.getItem("cadyam-hint-" + key) === "1"; } catch (e) { return false; }
+  }
+  function hint(section, key, text) {
+    if (hinted[key] || hintDismissed(key)) return;
+    hinted[key] = true;
+    // One card per view: walking's hint takes the dollhouse's place.
+    section.querySelectorAll(".touch-hint").forEach(function (c) { c.remove(); });
+    var card = el("div", { class: "touch-hint", role: "note" });
+    card.appendChild(el("span", null, text));
+    var close = el("button", { class: "close", "aria-label": "Dismiss", title: "Dismiss" }, "×");
+    close.addEventListener("click", function () {
+      card.remove();
+      try { window.localStorage.setItem("cadyam-hint-" + key, "1"); } catch (e) { /* not remembered */ }
+    });
+    card.appendChild(close);
+    section.appendChild(card);
+  }
+
+  // ── Pan mode ────────────────────────────────────────────────────────
+  // As in the app: the Pan button keeps it on; holding Space turns it on
+  // while held. Dragging then moves the view, and a click picks nothing.
+  // While walking through, Space jumps and flies instead (`spaceFlies`).
+  var panLock = false, spaceHeld = false, spaceFlies = false, panButtons = [];
+  function panning() { return panLock || spaceHeld; }
+  function showPanning() {
+    var on = panning();
+    document.body.classList.toggle("panning", on);
+    panButtons.forEach(function (b) { b.classList.toggle("on", on); b.setAttribute("aria-pressed", String(on)); });
+  }
+  window.addEventListener("keydown", function (ev) {
+    if (ev.key !== " " || typing(ev) || ev.ctrlKey || ev.metaKey || ev.altKey) return;
+    // Not the page scrolling, nor a focused button clicking.
+    ev.preventDefault();
+    if (spaceFlies) return;
+    if (!spaceHeld) { spaceHeld = true; showPanning(); }
+  });
+  window.addEventListener("keyup", function (ev) {
+    if (ev.key !== " ") return;
+    if (!typing(ev)) ev.preventDefault();
+    spaceHeld = false;
+    showPanning();
+  });
+  window.addEventListener("blur", function () { spaceHeld = false; showPanning(); });
+
+  // ── Keyboard camera ─────────────────────────────────────────────────
+  // Held arrows turn the dollhouse and W A S D slide it; over the plan both
+  // slide (see CadYamKeys). In Split the keys go to the view the pointer
+  // was last over or in. Each view registers `camViews[pane]`: `wants()`
+  // (false while walking, which has its own keys) and `start()` (begin its
+  // CadYamKeys.loop).
+  var camPane = null, camViews = {};
+  function camActivePane() {
+    var mode = document.body.dataset.mode;
+    return mode === "split" ? camPane || "3d" : mode;
+  }
+  var camHeld = CadYamKeys.heldKeys(window, function (ev) {
+    var view = camViews[camActivePane()];
+    if (typing(ev) || !view || !view.wants()) return false;
+    view.start();
+    return true;
+  });
+  function camHeldFor(pane) { return camActivePane() === pane ? camHeld : {}; }
+
+  // A view's floating zoom pill, bottom right, as the app's: Pan, zoom out,
+  // the zoom (click for 100%) and zoom in. `view` gives zoomBy(f), reset()
+  // and percent() (null when zoom means nothing, as when walking).
+  function zoomControls(section, view) {
+    var bar = el("div", { class: "zoom-controls", role: "toolbar", "aria-label": "Zoom and pan" });
+    var pan = el("button", { class: "pan", title: coarse ? "Pan" : "Pan (hold Space)", "aria-pressed": "false" }, "Pan");
+    pan.addEventListener("click", function () { panLock = !panLock; showPanning(); });
+    panButtons.push(pan);
+    var out = el("button", { title: "Zoom out", "aria-label": "Zoom out" }, "−");
+    var pct = el("button", { class: "pct", title: "Zoom to 100%" }, "100%");
+    var inn = el("button", { title: "Zoom in", "aria-label": "Zoom in" }, "+");
+    out.addEventListener("click", function () { view.zoomBy(1.25); });
+    inn.addEventListener("click", function () { view.zoomBy(0.8); });
+    pct.addEventListener("click", function () { view.reset(); });
+    [pan, out, pct, inn].forEach(function (b) { bar.appendChild(b); });
+    section.appendChild(bar);
+    return {
+      update: function () {
+        var p = view.percent();
+        pct.textContent = CadYamZoom.label(p);
+        pct.disabled = p == null;
+      }
+    };
+  }
+
+  // ── Inspector ───────────────────────────────────────────────────────
+  var inspector = document.getElementById("inspector");
+  // The pin picked, by number, when a pin rather than an object is.
+  var pickedPin = null;
+  // Pins with a place in the drawing (a spot, an area or strokes): the
+  // views draw these. A note on the app itself is only listed.
+  var placed = data.pins.filter(function (p) { return p.spot; });
+  function pinOf(number) { return data.pins.filter(function (p) { return p.number === number; })[0]; }
+  function pinList() {
+    if (!data.pins.length) return null;
+    var box = el("div");
+    box.appendChild(el("h3", null, "Pins"));
+    var ul = el("ul", { class: "pins" });
+    data.pins.forEach(function (p) {
+      var li = el("li", { class: (p.done ? "done" : "") + (p.number === pickedPin ? " picked" : "") });
+      var b = el("button", { title: p.spot ? "Show this pin" : "A note on the app, not on the drawing" });
+      b.appendChild(el("strong", null, p.number + ". " + p.name));
+      var where = [];
+      if (!p.spot) where.push("Note on the app");
+      if (p.done) where.push("Done");
+      if (where.length) b.appendChild(el("span", { class: "where" }, where.join(" · ")));
+      if (p.note) b.appendChild(el("div", null, p.note));
+      b.addEventListener("click", function () { showPin(p.number); });
+      li.appendChild(b);
+      ul.appendChild(li);
+    });
+    box.appendChild(ul);
+    return box;
+  }
+  // The pin's markers in both views, highlighted when it is the one picked.
+  function markPins() {
+    document.querySelectorAll(".pin[data-pin]").forEach(function (n) {
+      n.classList.toggle("picked", Number(n.dataset.pin) === pickedPin);
+    });
+  }
+  // Pick pin `number`: name it and its note in the inspector and frame it
+  // in both views.
+  function showPin(number) {
+    var p = pinOf(number);
+    if (!p) return;
+    picked = null;
+    pickedPin = number;
+    render();
+    highlightPlan(null);
+    model.select(null);
+    markPins();
+    if (p.spot) {
+      framePlan(p);
+      model.frame(p);
+    }
+  }
+  // A card over the views that opens on a pick and closes with ×; with
+  // nothing picked it lists the drawing's pins, when it has any.
+  function inspect(id) {
+    picked = id;
+    pickedPin = null;
+    render();
+    highlightPlan(id);
+    model.select(id);
+    markPins();
+  }
+  function render() {
+    inspector.textContent = "";
+    var e = picked != null ? entities[picked] : null;
+    var pin = pickedPin != null ? pinOf(pickedPin) : null;
+    var close = el("button", { class: "close", "aria-label": "Close", title: "Close" }, "×");
+    close.addEventListener("click", function () { inspect(null); });
+    inspector.appendChild(close);
+    if (pin) {
+      inspector.appendChild(el("h2", null, pin.name));
+      var at = "Pin " + pin.number + (pin.done ? " · done" : "") + (pin.spot ? "" : " · note on the app");
+      inspector.appendChild(el("p", { class: "pin-at" }, at));
+      if (pin.note) inspector.appendChild(el("p", { class: "note" }, pin.note));
+    }
+    if (e) {
+      var id = picked;
+      inspector.appendChild(el("h2", null, e.name));
+      inspector.appendChild(el("p", { class: "kind" }, (e.kind || "Shape") + " · #" + id));
+      var dl = el("dl");
+      var rows = [["size", e.size]];
+      if (e.layer) rows.push(["layer", e.layer]);
+      if (e.phase && e.phase !== "existing") rows.push(["phase", e.phase]);
+      rows = rows.concat(e.attrs);
+      rows.forEach(function (r) { dl.appendChild(el("dt", null, r[0])); dl.appendChild(el("dd", null, r[1])); });
+      inspector.appendChild(dl);
+    }
+    var pins = pinList();
+    if (pins) inspector.appendChild(pins);
+    inspector.hidden = !e && !pin && (!pins || pinsClosed);
+    if (!e && !pin && pins) pinsClosed = true;
+  }
+  var pinsClosed = false;
+
+  // (Viewer script, part 2 of 3: the 2D plan — follows html_viewer_controls.js.)
+  // ── 2D plan ─────────────────────────────────────────────────────────
+  var planView = document.getElementById("plan-view");
+  var svg = planView.querySelector("svg");
+  var planTools = document.getElementById("plan-tools");
+  var NS = "http://www.w3.org/2000/svg";
+  var vb = svg.getAttribute("viewBox").split(/\s+/).map(Number);
+  if (svg.classList.contains("painted")) {
+    // The painting reaches past the plain plan's box (walls' faces, labels).
+    var artG = svg.querySelector(":scope > g.art");
+    var t = artG.transform.baseVal.consolidate();
+    vb = CadYamPlanView.artBox(artG.getBBox(), t && t.matrix) || vb;
+  }
+  // A margin round the drawing, clear of the tool chips.
+  vb = CadYamPlanView.padded(vb);
+  var home = vb.slice();
+  svg.setAttribute("viewBox", vb.join(" "));
+  svg.removeAttribute("width");
+  svg.removeAttribute("height");
+  // The canvas's painting of the plan, when the app exported one: its labels
+  // stay their canvas size at any zoom, as the canvas's do.
+  var art = svg.querySelector(":scope > g.art");
+  var artPx = art ? Number(art.getAttribute("data-px-per-mm")) : 0;
+  var labels = art ? art.querySelectorAll("g.label > text") : [];
+  // Where the plan sits on screen, measured once and again only when the
+  // page changes size: measuring on every pointer move forces the browser
+  // to lay the page out again mid-drag.
+  var svgBox = null;
+  function planBox() {
+    if (!svgBox || !svgBox.width) svgBox = svg.getBoundingClientRect();
+    return svgBox;
+  }
+  function remeasure() { svgBox = null; labelZoom = 0; scaleLabels(); }
+  window.addEventListener("resize", remeasure);
+  window.addEventListener("scroll", function () { svgBox = null; }, true);
+  if (window.ResizeObserver) new ResizeObserver(remeasure).observe(svg);
+  // The zoom the labels were last scaled for: a pan leaves it alone, so
+  // panning touches no label.
+  var labelZoom = 0;
+  function scaleLabels() {
+    if (!labels.length) return;
+    var r = planBox();
+    // Screen pixels per recorded pixel.
+    var z = CadYamPlanView.labelZoom(r.width, r.height, vb, artPx);
+    if (!z || z === labelZoom) return;
+    labelZoom = z;
+    var t = CadYamPlanView.labelTransform(z);
+    labels.forEach(function (n) { n.setAttribute("transform", t); });
+  }
+  var planZoom = null;
+  // The view box is written once a frame, however many pointer or wheel
+  // events arrive in it.
+  var viewQueued = false;
+  function setViewBox() {
+    if (viewQueued) return;
+    viewQueued = true;
+    requestAnimationFrame(function () {
+      viewQueued = false;
+      svg.setAttribute("viewBox", vb.join(" "));
+      scaleLabels();
+      if (planZoom) planZoom.update();
+    });
+  }
+  function toPlan(cx, cy) { return CadYamPlanView.toPlan(planBox(), vb, cx, cy); }
+  function zoomPlan(cx, cy, f) {
+    vb = CadYamPlanView.zoomBox(vb, toPlan(cx, cy), f);
+    setViewBox();
+  }
+  planView.addEventListener("wheel", function (ev) {
+    ev.preventDefault();
+    zoomPlan(ev.clientX, ev.clientY, CadYamZoom.wheelFactor(ev.deltaY, ev.deltaMode, ev.ctrlKey));
+  }, { passive: false });
+  // The zoom pill's steps go about the middle of the view.
+  function planMiddle() {
+    var r = planBox();
+    return [r.left + r.width / 2, r.top + r.height / 2];
+  }
+  planZoom = zoomControls(document.getElementById("plan"), {
+    zoomBy: function (f) { var c = planMiddle(); zoomPlan(c[0], c[1], f); },
+    // 100% is the drawing framed as the page opens, kept centred where it is.
+    reset: function () {
+      vb = CadYamPlanView.resetBox(vb, home);
+      setViewBox();
+    },
+    percent: function () { return CadYamZoom.planPercent(home, vb); }
+  });
+  planZoom.update();
+  // Held arrows or W A S D slide the plan.
+  camViews["2d"] = {
+    wants: function () { return true; },
+    start: CadYamKeys.loop(function (dt) {
+      var m = CadYamKeys.keyMotion(camHeldFor("2d"), "2d");
+      if (!m.panX && !m.panY) return false;
+      var r = planBox();
+      vb = CadYamKeys.pan2dViewBox(vb, m.panX, m.panY, dt, !!camHeld.shift, r.width, r.height);
+      setViewBox();
+      return true;
+    })
+  };
+  ["pointerenter", "pointerdown"].forEach(function (t) {
+    planView.addEventListener(t, function () { camPane = "2d"; });
+  });
+  var planPointers = {};
+  var planDrag = null;
+  var planTap = CadYamTouch.tapper(TAP_GAP, TAP_REACH);
+  planView.addEventListener("pointerdown", function (ev) {
+    noteTouch(ev);
+    if (ev.pointerType === "touch") hint(document.getElementById("plan"), "plan", "Drag to pan · Pinch to zoom · Double-tap to zoom in");
+    var second = Object.keys(planPointers).length > 0;
+    planPointers[ev.pointerId] = [ev.clientX, ev.clientY];
+    planView.setPointerCapture(ev.pointerId);
+    planView.classList.add("dragging");
+    // A second finger makes it a pinch: lifting either is never a tap.
+    if (second && planDrag) planDrag.moved = true;
+    else planDrag = { x: ev.clientX, y: ev.clientY, moved: false, target: ev.target };
+  });
+  planView.addEventListener("pointermove", function (ev) {
+    if (!planPointers[ev.pointerId]) return;
+    var ids = Object.keys(planPointers);
+    if (ids.length === 2) {
+      // Pinch and slide at once: zoom about the fingers' midpoint, then
+      // carry the plan along as the midpoint moves.
+      var other = planPointers[ids[0] == ev.pointerId ? ids[1] : ids[0]];
+      var g = CadYamTouch.pinch(planPointers[ev.pointerId], other, [ev.clientX, ev.clientY], other);
+      if (g.scale !== 1) zoomPlan(g.mid[0], g.mid[1], g.scale);
+      var ps = toPlan(0, 0)[2];
+      vb[0] -= g.dx * ps;
+      vb[1] -= g.dy * ps;
+      setViewBox();
+    } else if (planDrag) {
+      var s = toPlan(0, 0)[2];
+      var dx = ev.clientX - planPointers[ev.pointerId][0];
+      var dy = ev.clientY - planPointers[ev.pointerId][1];
+      if (CadYamPlanView.moved(planDrag, ev.clientX, ev.clientY)) planDrag.moved = true;
+      vb[0] -= dx * s;
+      vb[1] -= dy * s;
+      setViewBox();
+    }
+    planPointers[ev.pointerId] = [ev.clientX, ev.clientY];
+  });
+  function planUp(ev) {
+    delete planPointers[ev.pointerId];
+    if (!Object.keys(planPointers).length) planView.classList.remove("dragging");
+    if (CadYamPlanView.release(planDrag, Object.keys(planPointers).length, ev.type).picks) {
+      // A tap picks what it lands on; a finger's double-tap zooms in 2×
+      // about it instead.
+      var target = planDrag.target, x = ev.clientX, y = ev.clientY;
+      tapOrDouble(planTap, ev, function () {
+        if (panning()) return;
+        var pinHit = target.closest && target.closest(".pin[data-pin]");
+        var hit = target.closest && target.closest('[id^="entity-"]');
+        if (pinHit) showPin(Number(pinHit.dataset.pin));
+        else inspect(hit ? hit.id.split("-")[1] : null);
+      }, function () { zoomPlan(x, y, 0.5); });
+    }
+    // The finger left after a pinch carries on panning from where it is.
+    if (!Object.keys(planPointers).length) planDrag = null;
+  }
+  planView.addEventListener("pointerup", planUp);
+  planView.addEventListener("pointercancel", planUp);
+
+  function entityNodes(id) {
+    return svg.querySelectorAll('[id="entity-' + id + '"], [id^="entity-' + id + '-"], [data-e="' + id + '"]');
+  }
+  function highlightPlan(id) {
+    svg.querySelectorAll(".picked").forEach(function (n) { n.classList.remove("picked"); });
+    if (id != null) entityNodes(id).forEach(function (n) { if (n.id) n.classList.add("picked"); });
+  }
+
+  // The plan's Options: Zoom to fit, Pins and Layers.
+  var planOptions = optionsMenu(planTools);
+  action(planOptions, "Zoom to fit", function (b) {
+    vb = home.slice();
+    setViewBox();
+    b.closest("details").open = false;
+  });
+
+  // The kinds switched off in Layers. (A renovation's phases are the Show
+  // switch's, below.)
+  var hiddenKinds = {};
+  function applyVisibility() {
+    Object.keys(entities).forEach(function (id) {
+      var hide = !!hiddenKinds[entities[id].kindId];
+      entityNodes(id).forEach(function (n) { n.style.display = hide ? "none" : ""; });
+    });
+  }
+
+  // Layers: a fold in the Options listing each kind of object by its name.
+  var planLayers = null;
+  if (data.layers.length > 1) {
+    var menu = el("details", { class: "sub" });
+    var summary = el("summary", { class: "row" }, "Layers");
+    menu.appendChild(summary);
+    var list = el("div", { class: "sub-list" });
+    var boxes = [];
+    function count() {
+      var off = boxes.filter(function (b) { return !b.checked; }).length;
+      summary.textContent = off ? "Layers · " + off + " hidden" : "Layers";
+    }
+    var all = el("button", { class: "link" }, "Show all");
+    all.addEventListener("click", function () {
+      boxes.forEach(function (b) { b.checked = true; });
+      hiddenKinds = {};
+      count();
+      applyVisibility();
+    });
+    list.appendChild(all);
+    data.layers.forEach(function (l) {
+      var box = el("input", { type: "checkbox" });
+      box.checked = true;
+      box.addEventListener("change", function () {
+        hiddenKinds[l.id] = !box.checked;
+        count();
+        applyVisibility();
+      });
+      boxes.push(box);
+      chip(list, l.label, box);
+    });
+    menu.appendChild(list);
+    planLayers = menu;
+  }
+
+  // Pins: a traced area as a tinted patch, drawn strokes as lines and a
+  // numbered dot at the spot, sized to the drawing; seen from above.
+  function svgEl(tag, attrs) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+  // Pin `p`'s group in either view, named with its note on hover.
+  function pinGroup(p) {
+    var g = svgEl("g", { class: "pin" + (p.done ? " done" : ""), "data-pin": p.number });
+    var title = svgEl("title", {});
+    title.textContent = p.name + (p.note ? " — " + p.note : "");
+    g.appendChild(title);
+    return g;
+  }
+  if (placed.length) {
+    var pinLayer = svgEl("g", { class: "pins" });
+    var r = Math.max(home[2], home[3]) / 70;
+    placed.forEach(function (p) {
+      var g = pinGroup(p);
+      if (p.region) g.appendChild(svgEl("path", { class: "area", d: CadYamPins.planPath(p.region, true) }));
+      (p.strokes || []).forEach(function (s) { g.appendChild(svgEl("path", { class: "stroke", d: CadYamPins.planPath(s, false) })); });
+      g.appendChild(svgEl("circle", { cx: p.spot[0], cy: -p.spot[1], r: r, "stroke-width": r / 6 }));
+      var t = svgEl("text", { x: p.spot[0], y: -p.spot[1], "font-size": r * 1.1 });
+      t.textContent = p.number;
+      g.appendChild(t);
+      pinLayer.appendChild(g);
+    });
+    svg.appendChild(pinLayer);
+  }
+  // Centre the plan on pin `p`, zooming out when what it covers would not fit.
+  function framePlan(p) {
+    vb = CadYamPins.fit(vb, CadYamPins.points(p));
+    setViewBox();
+  }
+
+  // Pins on or off in both views, from a chip in each.
+  var pinBoxes = [];
+  function showPins(on) {
+    document.body.classList.toggle("no-pins", !on);
+    pinBoxes.forEach(function (b) { b.checked = on; });
+  }
+  function pinsChip(parent) {
+    if (!placed.length) return;
+    var box = chip(parent, "Pins", el("input", { type: "checkbox" }));
+    box.checked = true;
+    box.addEventListener("change", function () { showPins(box.checked); });
+    pinBoxes.push(box);
+  }
+  pinsChip(planOptions);
+  if (planLayers) planOptions.appendChild(planLayers);
+
+  // (Viewer script, part 3 of 3: the 3D model, the Show switch and start-up —
+  // follows html_viewer_plan.js and closes the function the first part opened.)
+  // ── 3D model ────────────────────────────────────────────────────────
+  // Surface finishes: the GLSL in html_viewer_finish.glsl, which the page
+  // writes into FINISH_GLSL ahead of this script.
+  var FINISH = FINISH_GLSL;
+  var model = make3d();
+
+  // ── Show (renovations) ──────────────────────────────────────────────
+  // One switch for the whole page, with the app's views and rules as the
+  // export wrote them: what each view shows, tints and fades, by phase.
+  var PHASES = ["existing", "proposed", "demolish"];
+  function css(rgb) { return "rgb(" + rgb.join(",") + ")"; }
+  // The plan keeps each phase on layers of its own (`layer-deck-proposed`),
+  // so a view acts on whole layers — walls and rooms carry no object ids.
+  function layerPhase(g) {
+    var m = /-(proposed|demolish)$/.exec(g.id);
+    return m ? PHASES.indexOf(m[1]) : 0;
+  }
+  function showView(view) {
+    document.body.dataset.show = view.name;
+    showButtons.forEach(function (b) { b.classList.toggle("on", b.dataset.view === view.name); });
+    svg.querySelectorAll(':scope > g[id^="layer-"]').forEach(function (g) {
+      var p = layerPhase(g), tint = view.tints[p];
+      g.classList.toggle("phase-" + PHASES[p], p > 0);
+      g.classList.toggle("tinted", !!tint);
+      g.style.setProperty("--tint", tint ? css(tint) : "");
+      g.classList.toggle("faded", !view.shows[p] && view.fade > 0);
+      g.classList.toggle("unshown", !view.shows[p] && !(view.fade > 0));
+      g.style.opacity = view.shows[p] ? "" : String(view.fade);
+    });
+    // A painted plan's art is grouped by object, so each group follows its
+    // object's phase.
+    svg.querySelectorAll(":scope > g.art g[data-e]").forEach(function (g) {
+      var e = entities[g.getAttribute("data-e")];
+      var p = PHASES.indexOf((e && e.phase) || "existing");
+      g.classList.toggle("unshown", !view.shows[p] && !(view.fade > 0));
+      g.style.opacity = view.shows[p] ? "" : String(view.fade);
+    });
+    model.show(view, data.phases.tint);
+    if (picked != null && entities[picked]) {
+      var pp = PHASES.indexOf(entities[picked].phase || "existing");
+      if (!view.shows[pp]) inspect(null);
+    }
+  }
+  var showButtons = [];
+  if (data.phases) {
+    var showNav = el("nav", { class: "modes show" });
+    showNav.appendChild(el("span", null, "Show"));
+    data.phases.views.forEach(function (v) {
+      var b = el("button", { "data-view": v.name }, v.label);
+      b.addEventListener("click", function () { showView(v); });
+      showNav.appendChild(b);
+      showButtons.push(b);
+    });
+    var header = document.querySelector("header");
+    header.insertBefore(showNav, header.querySelector(".modes"));
+    showView(data.phases.views.filter(function (v) { return v.name === data.phases.view; })[0] || data.phases.views[0]);
+  }
+
+  function bytes(b64) {
+    var s = atob(b64), out = new Uint8Array(s.length);
+    for (var i = 0; i < s.length; i++) out[i] = s.charCodeAt(i);
+    return out;
+  }
+
+  // ── The model's WebGL resources ─────────────────────────────────────
+  // A linked WebGL2 program from vertex and fragment GLSL bodies (see
+  // gl3d_shared.js, shared with Data Stories' 3D views). Every program
+  // reads its corners from location 0 and phases from 1.
+  function glProgram(gl, vs, fs) {
+    return CadYamGl3d.program(gl, vs, fs, { aPos: 0, aPh: 1 });
+  }
+
+  // The model's two programs: `prog` draws it lit, shadowed, tinted and
+  // patterned (or, picking, as object ids); `depthProg` is the sun's view,
+  // depth only, to tell what each point is hidden behind.
+  function modelPrograms(gl) {
+    var prog = glProgram(gl,
+      "in vec3 aPos; in vec3 aNrm; in vec3 aCol; in float aId; in float aPat; in float aPh; in float aPrint;\n" +
+      "uniform mat4 uMvp; uniform mat4 uLight; uniform vec3 uSun; uniform float uTexel;\n" +
+      "out vec3 vNrm; out vec3 vCol; out float vId; out vec3 vWorld; out vec4 vShadow; flat out int vPat; flat out int vPh;\n" +
+      "flat out int vPrint;\n" +
+      "void main(){ vNrm=aNrm; vCol=aCol; vId=aId; vWorld=aPos; vPat=int(aPat+0.5); vPh=int(aPh+0.5); vPrint=int(aPrint+0.5);\n" +
+      // Looked up a texel or two off the face toward the sun, so a face doesn't shadow itself.
+      " vec3 toward=aNrm*(dot(aNrm,uSun)<0.0 ? -1.0 : 1.0);\n" +
+      " vShadow=uLight*vec4(aPos+toward*uTexel*1.5,1.0);\n" +
+      " gl_Position=uMvp*vec4(aPos,1.0); }",
+      "in vec3 vNrm; in vec3 vCol; in float vId; in vec3 vWorld; in vec4 vShadow; flat in int vPat; flat in int vPh;\n" +
+      "uniform vec3 uSun; uniform float uCut; uniform float uSel; uniform int uPick;\n" +
+      "uniform int uShadows; uniform highp sampler2DShadow uShadowMap; uniform float uFloor; uniform int uHasFloor;\n" +
+      // Each phase shows or not, and is tinted toward its colour or not,
+      // as the Show switch's view says.
+      "uniform vec3 uShow; uniform vec3 uTintOn; uniform vec3 uTint[3]; uniform float uTintK;\n" +
+      // A printed face's colour from its print's baked picture, laid as
+      // the app lays a print: up an upright face, along x on a level one,
+      // turned and repeated in real millimetres (along, across, cos, sin).
+      "flat in int vPrint; uniform highp sampler2DArray uPrints; uniform vec4 uPrintAt[16];\n" +
+      "vec3 print_colour(vec3 w, vec3 n, vec3 c){ if (vPrint==0) return c;\n" +
+      " vec4 q=uPrintAt[vPrint-1]; vec3 a=abs(n);\n" +
+      " vec2 p=a.z>=max(a.x,a.y) ? w.xy : (a.x>=a.y ? w.zy : w.zx);\n" +
+      " vec2 u=vec2(p.x*q.z-p.y*q.w, p.x*q.w+p.y*q.z);\n" +
+      " return texture(uPrints, vec3(u.x/q.x, -u.y/q.y, float(vPrint-1))).rgb; }\n" +
+      "out vec4 o;\n" + FINISH + CadYamGl3d.LIGHT_GLSL +
+      "float sunlit(vec3 n){ if (uShadows==0) return 1.0; return sunlit_at(uShadowMap, vShadow, n, uSun); }\n" +
+      "void main(){ if (vWorld.z > uCut || uShow[vPh] < 0.5) discard;\n" +
+      " if (uPick==1) { float i=vId; o=vec4(mod(i,256.0),mod(floor(i/256.0),256.0),floor(i/65536.0),255.0)/255.0; return; }\n" +
+      " vec3 n=normalize(gl_FrontFacing ? vNrm : -vNrm);\n" +
+      " float lit=uSun.z>0.0 && dot(n,uSun)>0.0 ? sunlit(n) : 0.0;\n" +
+      " vec3 base=mix(print_colour(vWorld,vNrm,vCol),uTint[vPh],uTintOn[vPh]*uTintK);\n" +
+      " vec3 c=shade(base,n,uSun,lit);\n" +
+      " c*=pattern_light(vPat,vWorld,vNrm)*contact_light(vWorld,vNrm);\n" +
+      " if (uSel>0.0 && abs(vId-uSel)<0.5) c=mix(c,vec3(1.0,0.48,0.0),0.55);\n" +
+      " o=vec4(c,1.0); }");
+    var depthProg = glProgram(gl,
+      "in vec3 aPos; in float aPh; uniform mat4 uLight; out float vZ; flat out int vPh;\n" +
+      "void main(){ vZ=aPos.z; vPh=int(aPh+0.5); gl_Position=uLight*vec4(aPos,1.0); }",
+      "in float vZ; flat in int vPh; uniform float uCut; uniform vec3 uShow; out vec4 o;\n" +
+      "void main(){ if (vZ > uCut || uShow[vPh] < 0.5) discard; o=vec4(1.0); }");
+    return { prog: prog, depthProg: depthProg };
+  }
+
+  // Per-corner data `arr`, `size` floats a corner, fed to `prog`'s
+  // attribute `name` (skipped when the program does not read it).
+  function glAttr(gl, prog, name, arr, size) {
+    var b = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, b);
+    gl.bufferData(gl.ARRAY_BUFFER, arr, gl.STATIC_DRAW);
+    var loc = gl.getAttribLocation(prog, name);
+    if (loc >= 0) {
+      gl.enableVertexAttribArray(loc);
+      gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 0, 0);
+    }
+    return b;
+  }
+
+  // Prints: each baked picture a layer of one repeating texture array on
+  // unit 2 (one blank layer when there are none, so the sampler is whole),
+  // with each one's period and turn in uPrintAt.
+  function uploadPrints(gl, tiles, U) {
+    var tpx = tiles.length ? tiles[0].px : 1;
+    gl.activeTexture(gl.TEXTURE2);
+    gl.bindTexture(gl.TEXTURE_2D_ARRAY, gl.createTexture());
+    gl.texImage3D(gl.TEXTURE_2D_ARRAY, 0, gl.RGBA8, tpx, tpx, Math.max(tiles.length, 1), 0, gl.RGBA,
+      gl.UNSIGNED_BYTE, null);
+    var printAt = new Float32Array(64);
+    tiles.forEach(function (tile, i) {
+      gl.texSubImage3D(gl.TEXTURE_2D_ARRAY, 0, 0, 0, i, tpx, tpx, 1, gl.RGBA, gl.UNSIGNED_BYTE, bytes(tile.rgba));
+      printAt.set([tile.along, tile.across, tile.cos, tile.sin], i * 4);
+    });
+    gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.uniform1i(U.uPrints, 2);
+    gl.uniform4fv(U.uPrintAt, printAt);
+  }
+
+  // The shadow map's framebuffer: a `px` square depth texture on unit 1
+  // (see gl3d_shared.js).
+  function shadowTarget(gl, px) { return CadYamGl3d.shadowTarget(gl, px); }
+
+  function make3d() {
+    var V = CadYamModelView;
+    var none = { select: function () {}, show: function () {}, frame: function () {} };
+    var canvas = document.getElementById("model-view");
+    var section = document.getElementById("model");
+    var empty = section.querySelector(".empty");
+    var gl = data.scene && canvas.getContext("webgl2", { antialias: true, preserveDrawingBuffer: true });
+    if (!gl) {
+      canvas.hidden = true;
+      empty.hidden = false;
+      if (data.scene) empty.textContent = "This browser can't show 3D (WebGL2 is off).";
+      return none;
+    }
+    // The scene drawn: the page's own, or a Fashion size the Size switch
+    // picked; a dress form's body and stand left out while it is hidden.
+    var pos, col, own, pat, tph, prn, n, mesh;
+    var shownScene = data.scene, formShown = true;
+    function unpack(sc) {
+      var t = CadYamFashion.triangles(sc, bytes, formShown);
+      pos = t.pos; col = t.col; own = t.own; pat = t.pat; tph = t.tph; prn = t.prn;
+      n = pos.length / 3;
+      mesh = V.corners(pos, col, own, pat, tph, prn);
+    }
+    unpack(shownScene);
+    var box = V.bounds(pos), lo = box.lo, hi = box.hi;
+    var progs = modelPrograms(gl), prog = progs.prog, depthProg = progs.depthProg;
+    gl.useProgram(prog);
+    var buffers = [];
+    function upload() {
+      buffers.forEach(function (b) { gl.deleteBuffer(b); });
+      buffers = [["aPos", pos, 3], ["aNrm", mesh.nrm, 3], ["aCol", mesh.rgb, 3], ["aId", mesh.ids, 1],
+        ["aPat", mesh.pats, 1], ["aPh", mesh.phs, 1], ["aPrint", mesh.prs, 1]].map(function (a) {
+        return glAttr(gl, prog, a[0], a[1], a[2]);
+      });
+    }
+    upload();
+    // Draw `sc` from now on — the same camera, sun and settings — with the
+    // dress form shown or not.
+    function reload(sc) {
+      shownScene = sc;
+      unpack(sc);
+      gl.useProgram(prog);
+      upload();
+      rayGrid = null;
+      shadowKey = null;
+      redraw();
+    }
+    // A Fashion drawing's dress form controls: a badge naming the body the
+    // form is shaped to, a graded stack's Size switch (`onSize` gets the
+    // picked size's entry, to refit the form), and a "Dress form" chip in
+    // `tools` (`onFormShown` gets whether it shows).
+    function formTools(tools, F, onSize, onFormShown) {
+      var modelTools = document.getElementById("model-tools");
+      var badge = el("span", { class: "form-badge", id: "form-badge" });
+      var showBody = function (entry) {
+        badge.textContent = "Form: " + CadYamFashion.summary(entry.label, entry.measurements);
+        badge.title = CadYamFashion.details(entry.measurements);
+      };
+      var choices = CadYamFashion.sizeOptions(F);
+      if (choices.length) {
+        var sizeSel = el("select", {
+          id: "form-size", "aria-label": "Size",
+          title: "See the pattern in another size, on that size's body"
+        });
+        choices.forEach(function (c) { sizeSel.appendChild(el("option", { value: c.value }, c.label)); });
+        sizeSel.value = F.size;
+        sizeSel.addEventListener("change", function () {
+          var entry = CadYamFashion.sizeEntry(F, sizeSel.value);
+          showBody(entry);
+          onSize(entry);
+          sizeSel.blur();
+        });
+        modelTools.appendChild(sizeSel);
+      }
+      modelTools.appendChild(badge);
+      showBody(CadYamFashion.sizeEntry(F, F.size));
+      if (CadYamFashion.hasForm(data.scene)) {
+        var formBox = chip(tools, "Dress form", el("input", { type: "checkbox", id: "form-shown" }));
+        formBox.checked = true;
+        formBox.addEventListener("change", function () { onFormShown(formBox.checked); });
+      }
+    }
+    var U = {};
+    ["uMvp", "uSun", "uCut", "uSel", "uPick", "uLight", "uTexel", "uShadows", "uShadowMap", "uFloor", "uHasFloor",
+      "uShow", "uTintOn", "uTint", "uTintK", "uPrints", "uPrintAt"].forEach(function (u) {
+      U[u] = gl.getUniformLocation(prog, u);
+    });
+    var D = {
+      uLight: gl.getUniformLocation(depthProg, "uLight"),
+      uCut: gl.getUniformLocation(depthProg, "uCut"),
+      uShow: gl.getUniformLocation(depthProg, "uShow")
+    };
+    gl.uniform1i(U.uShadowMap, 1);
+    uploadPrints(gl, data.scene.printTiles || [], U);
+    gl.uniform1f(U.uFloor, data.scene.floor == null ? 0 : data.scene.floor);
+    gl.uniform1i(U.uHasFloor, data.scene.floor == null ? 0 : 1);
+    gl.enable(gl.DEPTH_TEST);
+    // Every phase, untinted, until a Show view says otherwise.
+    var phaseShow = [1, 1, 1], tintOn = [0, 0, 0], tints = new Float32Array(9), tintK = 0;
+
+    // The shadow map: the scene's depth as the sun sees it, redrawn only
+    // when the sun or the cutaway moves.
+    var SHADOW = 2048;
+    var shadowFb = shadowTarget(gl, SHADOW);
+    var shadowKey = null;
+
+    var size = Math.max(hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2]) || 1;
+    var centre = [(lo[0] + hi[0]) / 2, (lo[1] + hi[1]) / 2, (lo[2] + hi[2]) / 2];
+    var floor = Math.max(lo[2], Math.min(0, hi[2]));
+    // The app's walk-through pace (mm, degrees and seconds), so the page
+    // walks as CadYam does; a site wider than 60 m starts at a run.
+    var W = data.walk;
+    var site = V.isSite(lo, hi);
+    var SPEEDS = [["Walk", 1], ["Run", 4], ["Fly", 12]];
+    var pace = site ? 4 : 1;
+    var cam = V.home(size, centre, box);
+    var walk = { on: false, at: [0, 0, 0], yaw: Math.PI / 2, pitch: 0, floor: floor, velocity: [0, 0], spin: 0, lift: 0, rise: 0, flying: false };
+    var cut = V.cutHeight(false, floor, hi[2]), sel = 0, shadows = true;
+    // Where and when the sun stands: the site, and the day of the year and
+    // clock hour the Sun date and time pick, as the app's view options do.
+    var S = data.scene.sunConfig || { lat: 40, lon: 0, onMap: false, bearing: 0, day: 265, hour: 15 };
+    var sunDay = S.day, sunHour = S.hour;
+    // The drawing's own sun until the date or time moves it.
+    var sunMoved = !data.scene.sun;
+    function sunDir() {
+      if (!sunMoved) return V.norm(data.scene.sun);
+      return V.norm(CadYamSun.inPlan(S, sunDay, sunHour));
+    }
+    // The sun's camera: square on to the sun, framing the whole model.
+    var radius = Math.hypot(hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2]) / 2 || 1;
+    function drawShadows(sun, light) {
+      // A phase the Show switch hides casts no shadow.
+      var key = sun.join() + "|" + cut + "|" + phaseShow.join();
+      if (key === shadowKey) return;
+      shadowKey = key;
+      gl.bindFramebuffer(gl.FRAMEBUFFER, shadowFb);
+      gl.viewport(0, 0, SHADOW, SHADOW);
+      gl.clear(gl.DEPTH_BUFFER_BIT);
+      gl.useProgram(depthProg);
+      gl.uniformMatrix4fv(D.uLight, false, light);
+      gl.uniform1f(D.uCut, cut);
+      gl.uniform3fv(D.uShow, phaseShow);
+      gl.enable(gl.POLYGON_OFFSET_FILL);
+      gl.polygonOffset(2, 4);
+      gl.drawArrays(gl.TRIANGLES, 0, n);
+      gl.disable(gl.POLYGON_OFFSET_FILL);
+      gl.useProgram(prog);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    }
+
+    // Walking sees W.fov side to side; the dollhouse 45° across the narrower side.
+    function lens(w, h) { return V.lens(w, h, walk.on ? W.fov : null); }
+    // The corners framing weighs: all of a small model's, a large one's
+    // outermost and a sample (see html_walk.js).
+    var hull = null;
+    // Every corner of the model (not its box, so a sloping site fills the
+    // view) within 85% of it (see html_model_view.js).
+    function frame(w, h) {
+      if (!hull) hull = CadYamWalk.outline(pos, 8000);
+      var f = V.frame(hull, orbitDir(), lens(w, h), centre, size);
+      cam.target = f.target;
+      cam.dist = f.dist;
+      cam.framed = true;
+      homeDist = cam.dist;
+    }
+    // How far the framed view stands off: the zoom pill's 100%.
+    var homeDist = 0;
+    function orbitDir() { return V.orbitDir(cam.yaw, cam.pitch); }
+
+    // The floor under a spot, up to the cutaway (see html_walk.js).
+    var ground = CadYamWalk.ground(pos, size);
+    function surfaces(x, y) { return ground.surfaces(x, y, cut); }
+    function floorAt(x, y, from) { return ground.floorAt(x, y, from, cut); }
+    function placeWalker() {
+      // A site starts on its own ground at the near edge; a building from
+      // a step back, looking at it.
+      var xy = V.walkStart(lo, centre, size, site);
+      walk.at = [xy[0], xy[1], 0];
+      var under = surfaces(xy[0], xy[1]);
+      walk.floor = under.length ? Math.min.apply(null, under) : floor;
+      walk.yaw = Math.PI / 2; walk.pitch = 0; walk.velocity = [0, 0]; walk.spin = 0;
+      CadYamWalk.land(walk, W);
+    }
+    placeWalker();
+
+    function eye() { return V.eye(cam, walk, W.eye); }
+    function forward() { return V.forward(cam, walk, eye()); }
+    function matrix(w, h) {
+      var c = V.clip(walk.on, cam.dist, size);
+      return V.viewMatrix(eye(), forward(), lens(w, h), c[0], c[1]);
+    }
+    // The ray from the eye through canvas point (cx, cy), and the nearest
+    // spot on the model it meets (or the ground, or nothing).
+    function rayAt(cx, cy) {
+      var r = canvas.getBoundingClientRect();
+      return { from: eye(), dir: V.rayDir(r, cx, cy, forward(), lens(r.width, r.height)) };
+    }
+    function hitAt(cx, cy) {
+      var ray = rayAt(cx, cy), o = ray.from, d = ray.dir, best = nearest(o, d);
+      if (best === Infinity) return null;
+      return [o[0] + d[0] * best, o[1] + d[1] * best, o[2] + d[2] * best];
+    }
+    // How far along the ray from `o` in unit direction `d` it first meets
+    // the model below the cutaway (Infinity if it never does).
+    // Only the triangles in the cells the ray crosses are tried (see
+    // html_walk.js); `far` stops the search past that distance.
+    var rayGrid = null;
+    function nearest(o, d, far) {
+      if (!rayGrid) rayGrid = CadYamWalk.rays(pos);
+      return rayGrid.nearest(o, d, cut, far);
+    }
+    // True when the model hides world point `at` from `from`: something
+    // stands clearly nearer along the line between them.
+    function blocked(from, at) {
+      var v = V.sub(at, from), dist = Math.hypot(v[0], v[1], v[2]);
+      if (!dist) return false;
+      var clear = V.clearance(dist);
+      return clear > 0 && nearest(from, V.norm(v), clear) < clear;
+    }
+
+    // Pins over the model: an SVG laid on the canvas, each pin's area,
+    // strokes and numbered marker projected from the camera on every draw,
+    // so they stay crisp and clickable. One the model hides is faded.
+    var overlay = null, pinNodes = [];
+    if (placed.length) {
+      overlay = svgEl("svg", { id: "model-pins" });
+      placed.forEach(function (p) {
+        var g = pinGroup(p);
+        var area = p.region ? svgEl("path", { class: "area" }) : null;
+        if (area) g.appendChild(area);
+        var strokes = (p.strokes || []).map(function () { return g.appendChild(svgEl("path", { class: "stroke" })); });
+        var dot = g.appendChild(svgEl("circle", { r: 11 }));
+        var label = g.appendChild(svgEl("text", {}));
+        label.textContent = p.number;
+        dot.addEventListener("click", function () { showPin(p.number); });
+        overlay.appendChild(g);
+        pinNodes.push({ pin: p, g: g, area: area, strokes: strokes, dot: dot, label: label });
+      });
+      section.insertBefore(overlay, empty);
+    }
+    var pinsAt = "";
+    function placePins(w, h) {
+      if (!overlay) return;
+      var M = matrix(w, h);
+      // A redraw that left the camera where it was (a pick, a tint, the
+      // cutaway) leaves the pins where they are.
+      var key = w + "," + h + "," + cut + "," + M.join(",");
+      if (key === pinsAt) return;
+      pinsAt = key;
+      function project(q) { return CadYamPins.project(M, w, h, q); }
+      function path(pts, closed) { return CadYamPins.screenPath(pts, closed, project); }
+      pinNodes.forEach(function (n) {
+        if (n.area) n.area.setAttribute("d", path(n.pin.region, true));
+        n.strokes.forEach(function (s, i) { s.setAttribute("d", path(n.pin.strokes[i], false)); });
+        var s = project(n.pin.spot);
+        n.dot.style.display = n.label.style.display = s ? "" : "none";
+        if (s) {
+          n.dot.setAttribute("cx", s[0]); n.dot.setAttribute("cy", s[1]);
+          n.label.setAttribute("x", s[0]); n.label.setAttribute("y", s[1]);
+        }
+      });
+      // Which pins the model hides, once the view settles: a ray per pin
+      // is still too much for every frame of a drag.
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(function () {
+        var from = eye();
+        pinNodes.forEach(function (n) { n.g.classList.toggle("hidden", blocked(from, n.pin.spot)); });
+      }, 120);
+    }
+    var hideTimer = 0;
+    // Turn the dollhouse to look at pin `p` from about where it is, close
+    // enough that what it covers fills the middle of the view, swinging
+    // round the model when the pin is hidden from this side.
+    function framePin(p) {
+      var box = CadYamPins.bounds(CadYamPins.points(p)), view = V.pinView(box[0], box[1], size);
+      var c = view.target;
+      if (walk.on) {
+        walk.yaw = Math.atan2(c[1] - walk.at[1], c[0] - walk.at[0]);
+        walk.pitch = 0;
+        redraw();
+        return;
+      }
+      cam.target = c;
+      cam.dist = view.dist;
+      var yaw = cam.yaw, yaws = V.pinYaws(yaw);
+      for (var i = 0; i < yaws.length; i++) {
+        cam.yaw = yaws[i];
+        if (!blocked(eye(), p.spot)) break;
+        if (i === yaws.length - 1) cam.yaw = yaw;
+      }
+      cam.moved = true;
+      cam.framed = true;
+      redraw();
+    }
+    var fb = null, fbTex = null, fbDepth = null, fbW = 0, fbH = 0;
+    function draw(pick) {
+      var w = canvas.clientWidth, h = canvas.clientHeight;
+      if (!w || !h) return;
+      if (!cam.framed) frame(w, h);
+      var sun = sunDir();
+      // A sun below the horizon casts nothing.
+      var casting = shadows && sun[2] > 0;
+      var light = new Float32Array(V.lightMatrix(sun, centre, radius));
+      if (casting && !pick) {
+        var bound = gl.getParameter(gl.FRAMEBUFFER_BINDING);
+        drawShadows(sun, light);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, bound);
+      }
+      var dpr = window.devicePixelRatio || 1;
+      if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
+        canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+      }
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      if (pick) gl.clearColor(0, 0, 0, 1); else gl.clearColor(0.86, 0.91, 0.96, 1);
+      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+      gl.uniformMatrix4fv(U.uMvp, false, new Float32Array(matrix(w, h)));
+      gl.uniformMatrix4fv(U.uLight, false, light);
+      gl.uniform1f(U.uTexel, 2 * radius / SHADOW);
+      gl.uniform1i(U.uShadows, casting ? 1 : 0);
+      gl.uniform3fv(U.uSun, sun);
+      gl.uniform1f(U.uCut, cut);
+      gl.uniform1f(U.uSel, sel);
+      gl.uniform1i(U.uPick, pick ? 1 : 0);
+      gl.uniform3fv(U.uShow, phaseShow);
+      gl.uniform3fv(U.uTintOn, tintOn);
+      gl.uniform3fv(U.uTint, tints);
+      gl.uniform1f(U.uTintK, tintK);
+      gl.drawArrays(gl.TRIANGLES, 0, n);
+      if (!pick) {
+        placePins(w, h);
+        modelZoom.update();
+      }
+    }
+    var queued = false;
+    function redraw() {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(function () { queued = false; draw(false); });
+    }
+    function pickAt(cx, cy) {
+      var r = canvas.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+      var w = canvas.width, h = canvas.height;
+      if (!fb || fbW !== w || fbH !== h) {
+        fb = gl.createFramebuffer(); fbTex = gl.createTexture(); fbDepth = gl.createRenderbuffer();
+        gl.bindTexture(gl.TEXTURE_2D, fbTex);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+        gl.bindRenderbuffer(gl.RENDERBUFFER, fbDepth);
+        gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, w, h);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, fbTex, 0);
+        gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, fbDepth);
+        fbW = w; fbH = h;
+      }
+      gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
+      draw(true);
+      var px = new Uint8Array(4), at = V.pickPixel(r, cx, cy, dpr, h);
+      gl.readPixels(at[0], at[1], 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      redraw();
+      return V.pickedId(px);
+    }
+
+    // Orbit (drag), pan (right or shift drag), zoom toward the pointer
+    // (wheel, trackpad pinch, + and -), double-click to fly to a spot; in
+    // walk mode, drag looks around and W A S D or the arrows walk.
+    var pointers = {}, drag = null;
+    // Move the camera `f` times as far from model point `at`, keeping it
+    // under the pointer. Close in, it pushes on through rather than stall.
+    function zoomAbout(at, f) {
+      cam.moved = true;
+      V.zoomAbout(cam, at, f, size, forward());
+    }
+    var anchor = null, anchorAt = 0;
+    function zoomAt(cx, cy, f) {
+      // One spot per gesture: a burst of wheel events zooms about the point
+      // first under the pointer, not a new hit on every tick.
+      var now = performance.now();
+      if (!anchor || now - anchorAt > 250 || Math.hypot(cx - anchor.x, cy - anchor.y) > 4) {
+        // Off the model, zoom about the spot under the pointer as deep as
+        // the point the camera turns about.
+        var at = hitAt(cx, cy);
+        if (!at) {
+          var ray = rayAt(cx, cy);
+          at = V.depthAnchor(ray.from, ray.dir, forward(), cam.dist);
+        }
+        anchor = { x: cx, y: cy, at: at };
+      }
+      anchorAt = now;
+      zoomAbout(anchor.at, f);
+      redraw();
+    }
+    function spin(dx, dy) {
+      // A drag across the canvas turns about a full circle, whatever its size.
+      var turned = V.spin(cam.yaw, cam.pitch, dx, dy, canvas.clientWidth);
+      cam.yaw = turned[0];
+      cam.pitch = turned[1];
+    }
+    canvas.addEventListener("contextmenu", function (ev) { ev.preventDefault(); });
+    // Slide the dollhouse's turning point so the model follows a drag of
+    // `dx`, `dy` pixels.
+    function panBy(dx, dy) {
+      cam.target = V.panTarget(cam.target, eye(), cam.dist, canvas.clientHeight, dx, dy);
+    }
+    // Held arrows turn the dollhouse, W A S D slide it (W shows more of
+    // what is above, D more to the right). Walking keeps its own keys.
+    camViews["3d"] = {
+      wants: function () { return !walk.on; },
+      start: CadYamKeys.loop(function (dt) {
+        if (walk.on) return false;
+        var m = CadYamKeys.keyMotion(camHeldFor("3d"), "3d");
+        if (!m.turn && !m.tilt && !m.panX && !m.panY) return false;
+        var slow = !!camHeld.shift;
+        var turned = CadYamKeys.orbitKeyStep(cam.yaw, cam.pitch, m.turn, m.tilt, dt, slow);
+        cam.yaw = turned[0];
+        cam.pitch = turned[1];
+        var px = CadYamKeys.keyPanPx(dt, slow);
+        if (m.panX || m.panY) panBy(-m.panX * px, m.panY * px);
+        cam.moved = true;
+        redraw();
+        return true;
+      })
+    };
+    ["pointerenter", "pointerdown"].forEach(function (t) {
+      canvas.addEventListener(t, function () { camPane = "3d"; });
+    });
+    var modelTap = CadYamTouch.tapper(TAP_GAP, TAP_REACH);
+    function touchHint() {
+      hint(section, walk.on ? "walk" : "model", walk.on
+        ? "Drag to look around · Use the pad to walk · Double-tap to stand there"
+        : "Drag to orbit · Two fingers to pan and zoom · Double-tap to fly there");
+    }
+    canvas.addEventListener("pointerdown", function (ev) {
+      noteTouch(ev);
+      if (ev.pointerType === "touch") touchHint();
+      var second = Object.keys(pointers).length > 0;
+      pointers[ev.pointerId] = [ev.clientX, ev.clientY];
+      canvas.setPointerCapture(ev.pointerId);
+      // A second finger makes it a pinch: lifting either is never a tap.
+      if (second && drag) drag.moved = true;
+      else drag = { x: ev.clientX, y: ev.clientY, moved: false, pan: ev.button === 2 || ev.shiftKey || panning() };
+      canvas.classList.add("dragging");
+    });
+    canvas.addEventListener("pointermove", function (ev) {
+      var last = pointers[ev.pointerId];
+      if (!last || !drag) return;
+      var dx = ev.clientX - last[0], dy = ev.clientY - last[1];
+      var ids = Object.keys(pointers);
+      if (CadYamPlanView.moved(drag, ev.clientX, ev.clientY)) drag.moved = true;
+      if (ids.length === 2) {
+        var other = pointers[ids[0] == ev.pointerId ? ids[1] : ids[0]];
+        var g = CadYamTouch.pinch(last, other, [ev.clientX, ev.clientY], other);
+        if (walk.on) {
+          // Two fingers pushed up the screen walk ahead, as a wheel does.
+          step(-g.dy / 100 * W.speed * pace, 0);
+        } else {
+          // Pinch and slide at once: zoom about the midpoint, pan with it.
+          if (g.scale !== 1) zoomAt(g.mid[0], g.mid[1], g.scale);
+          panBy(g.dx, g.dy);
+        }
+      } else if (walk.on) {
+        // As the app: 0.3° a pixel, looking no more than MAX_PITCH up or
+        // down, or AIR_PITCH off the floor.
+        var looked = V.look(walk.yaw, walk.pitch, dx, dy, CadYamWalk.airborne(walk) ? W.air_pitch : W.max_pitch);
+        walk.yaw = looked[0];
+        walk.pitch = looked[1];
+      } else if (drag.pan) {
+        panBy(dx, dy);
+      } else {
+        spin(dx, dy);
+      }
+      pointers[ev.pointerId] = [ev.clientX, ev.clientY];
+      if (drag.moved) cam.moved = true;
+      redraw();
+    });
+    function up(ev) {
+      delete pointers[ev.pointerId];
+      var none = !Object.keys(pointers).length;
+      if (none) canvas.classList.remove("dragging");
+      var lift = CadYamPlanView.release(drag, Object.keys(pointers).length, ev.type);
+      if (placing && lift.tap) {
+        placeAt(ev.clientX, ev.clientY);
+      } else if (lift.picks) {
+        // A tap picks what it lands on; a finger's double-tap flies there
+        // (mobile browsers don't reliably send dblclick to a canvas that
+        // takes every touch, so it is told here).
+        var x = ev.clientX, y = ev.clientY;
+        tapOrDouble(modelTap, ev, function () {
+          if (panning()) return;
+          var id = pickAt(x, y);
+          inspect(id && entities[id] ? id : null);
+        }, function () {
+          touchFlew = performance.now();
+          flyTo(x, y);
+        });
+      }
+      // The finger left after a pinch carries on from where it is.
+      if (none) drag = null;
+    }
+    canvas.addEventListener("pointerup", up);
+    canvas.addEventListener("pointercancel", up);
+    canvas.addEventListener("wheel", function (ev) {
+      ev.preventDefault();
+      // Lines and pages scroll in bigger steps than pixels; a trackpad
+      // pinch arrives as a Ctrl+wheel of small deltas, so it counts more.
+      var dy = V.wheelPx(ev.deltaY, ev.deltaMode, canvas.clientHeight);
+      if (walk.on) {
+        // A notch of the wheel walks half a second at the current pace.
+        step(-dy / 200 * W.speed * pace, 0);
+        redraw();
+      } else {
+        zoomAt(ev.clientX, ev.clientY, V.wheelZoom(dy, ev.ctrlKey));
+      }
+    }, { passive: false });
+    // A double-click or double-tap at canvas point (cx, cy): fly the
+    // dollhouse in to that spot, or, walking, stand there.
+    var touchFlew = -Infinity;
+    canvas.addEventListener("dblclick", function (ev) {
+      // A browser that does send dblclick after a double-tap has flown already.
+      if (performance.now() - touchFlew < 600) return;
+      flyTo(ev.clientX, ev.clientY);
+    });
+    function flyTo(cx, cy) {
+      var at = hitAt(cx, cy);
+      if (!at) return;
+      if (walk.on) {
+        // Stand there, still facing the way you were.
+        walk.at = [at[0], at[1], 0];
+        walk.floor = floorAt(at[0], at[1], at[2]);
+        CadYamWalk.land(walk, W);
+      } else {
+        cam.target = at;
+        cam.moved = true;
+        cam.dist = V.flyDist(cam.dist, size);
+      }
+      redraw();
+    }
+    // Walking moves as the app's walk-through does (see html_walk.js).
+    function step(ahead, aside) { CadYamWalk.step(walk, ahead, aside, floorAt); }
+    function advance(keys, dt) { CadYamWalk.advance(walk, keys, dt, W, pace, floorAt); }
+    // `jumped`: Space went down since the last frame, read once.
+    var held = {}, jumped = false, looping = false, last = 0;
+    // The walk pad's push while a thumb is on it ({ ahead, aside }), else null.
+    var touchStick = null;
+    function keysHeld() {
+      var jump = jumped && !held.shift;
+      jumped = false;
+      var keyAhead = (held.w || held.arrowup ? 1 : 0) - (held.s || held.arrowdown ? 1 : 0);
+      var keyAside = (held.d ? 1 : 0) - (held.a ? 1 : 0);
+      var go = CadYamTouch.steer(keyAhead, keyAside, touchStick);
+      return {
+        ahead: go.ahead,
+        aside: go.aside,
+        turn: (held.arrowright ? 1 : 0) - (held.arrowleft ? 1 : 0),
+        slow: !!held.shift,
+        // Space rises, Shift+Space sinks.
+        rise: held[" "] ? (held.shift ? -1 : 1) : 0,
+        jump: jump
+      };
+    }
+    window.addEventListener("keydown", function (ev) {
+      if (typing(ev) || ev.ctrlKey || ev.metaKey || ev.altKey) return;
+      if (!walk.on) {
+        if (placing && ev.key === "Escape") { setPlacing(false); return; }
+        if (ev.key === "+" || ev.key === "=" || ev.key === "-" || ev.key === "_") {
+          zoomAbout(cam.target, ev.key === "-" || ev.key === "_" ? 1.25 : 0.8);
+          redraw();
+        }
+        return;
+      }
+      var key = ev.key.toLowerCase();
+      if (["w", "a", "s", "d", "arrowup", "arrowdown", "arrowleft", "arrowright", "shift", " "].indexOf(key) < 0) return;
+      // Space jumps and flies here, never scrolls the page.
+      ev.preventDefault();
+      if (key === " " && !ev.repeat) jumped = true;
+      held[key] = true;
+      startWalking();
+    });
+    function startWalking() {
+      if (!looping) { looping = true; last = 0; requestAnimationFrame(tick); }
+    }
+    // The walk pad, bottom left while walking on a touch screen: a thumb
+    // pushed up walks ahead, sideways steps aside, as W A S D do, and the
+    // further it is pushed the faster it goes (see html_touch.js).
+    var pad = el("div", { id: "walk-pad", "aria-label": "Walk pad" });
+    var knob = el("div", { class: "knob" });
+    pad.appendChild(knob);
+    section.appendChild(pad);
+    function padPush(ev) {
+      var r = pad.getBoundingClientRect(), radius = r.width / 2;
+      touchStick = CadYamTouch.stick(ev.clientX - (r.left + radius), ev.clientY - (r.top + radius), radius);
+      knob.style.transform = "translate(" + touchStick.x + "px," + touchStick.y + "px)";
+      startWalking();
+    }
+    function padRelease() {
+      touchStick = null;
+      knob.style.transform = "";
+    }
+    pad.addEventListener("pointerdown", function (ev) {
+      ev.preventDefault();
+      pad.setPointerCapture(ev.pointerId);
+      padPush(ev);
+    });
+    pad.addEventListener("pointermove", function (ev) { if (touchStick) padPush(ev); });
+    pad.addEventListener("pointerup", padRelease);
+    pad.addEventListener("pointercancel", padRelease);
+    window.addEventListener("keyup", function (ev) { delete held[ev.key.toLowerCase()]; if (ev.key === "Shift") delete held.shift; });
+    window.addEventListener("blur", function () { held = {}; });
+    function tick(now) {
+      var dt = last ? (now - last) / 1000 : 0;
+      last = now;
+      var keys = keysHeld();
+      advance(keys, dt);
+      draw(false);
+      var moving = walk.velocity[0] || walk.velocity[1] || walk.spin || CadYamWalk.inAir(walk);
+      if (walk.on && (keys.ahead || keys.aside || keys.turn || keys.rise || moving)) {
+        requestAnimationFrame(tick);
+      } else {
+        looping = false;
+      }
+    }
+
+    // The model's Options: walking, cutaway, sun and shadows, pins, reset.
+    var tools = optionsMenu(document.getElementById("model-tools"));
+    // Walk through first asks where to start: a click on the model stands
+    // you there (a drag still turns it), Esc or Cancel gives up.
+    var placing = false;
+    var prompt = el("div", {
+      id: "walk-prompt",
+      style: "position:absolute;top:12px;left:50%;transform:translateX(-50%);padding:6px 12px;" +
+        "border-radius:6px;background:rgba(255,255,255,0.9);font:600 13px system-ui,sans-serif;" +
+        "color:#222;pointer-events:none;display:none"
+    }, "Click where you want to start");
+    section.appendChild(prompt);
+    function showWalkButton() {
+      document.body.classList.toggle("walking", walk.on);
+      if (!walk.on) padRelease();
+      walkButton.classList.toggle("on", walk.on);
+      walkButton.textContent = walk.on ? "Dollhouse" : placing ? "Cancel" : "Walk through";
+      prompt.style.display = placing ? "" : "none";
+      canvas.style.cursor = placing ? "crosshair" : "";
+    }
+    function setPlacing(on) {
+      placing = on;
+      prompt.textContent = (touchy() ? "Tap" : "Click") + " where you want to start";
+      showWalkButton();
+    }
+    // Stand where canvas point (cx, cy) meets the model, facing the way
+    // the dollhouse was looking; true when there was something there.
+    function placeAt(cx, cy) {
+      var at = hitAt(cx, cy);
+      if (!at) {
+        prompt.textContent = (touchy() ? "Tap" : "Click") + " on a floor or the ground to stand there";
+        return false;
+      }
+      walk.at = [at[0], at[1], 0];
+      walk.floor = floorAt(at[0], at[1], at[2]);
+      walk.yaw = cam.yaw + Math.PI; walk.pitch = 0; walk.velocity = [0, 0]; walk.spin = 0;
+      CadYamWalk.land(walk, W);
+      walk.on = true; spaceFlies = true;
+      setPlacing(false);
+      redraw();
+      return true;
+    }
+    var walkButton = action(tools, "Walk through", function (b) {
+      if (walk.on) {
+        walk.on = false; spaceFlies = false;
+        showWalkButton();
+        redraw();
+        return;
+      }
+      setPlacing(!placing);
+      // Out of the way of the click that places the walker.
+      if (placing) b.closest("details").open = false;
+    });
+    // How fast walking goes: the app's pace, or quicker across a big site.
+    var speed = el("select", { title: "Walking speed (hold Shift to go slow; Space jumps, hold it to fly upward)" });
+    SPEEDS.forEach(function (s) { speed.appendChild(el("option", { value: s[1] }, s[0])); });
+    speed.value = pace;
+    speed.addEventListener("change", function () { pace = Number(speed.value); speed.blur(); });
+    field(tools, "Speed", speed);
+    // Only a model with storeys to see into has a cutaway worth offering.
+    if (V.hasCutaway(floor, hi[2])) {
+      var cutBox = chip(tools, "Cutaway", el("input", { type: "checkbox" }));
+      cutBox.addEventListener("change", function () {
+        cut = V.cutHeight(cutBox.checked, floor, hi[2]);
+        redraw();
+      });
+    }
+    // The sun's time of day (5 am to 9 pm, as the app's slider) and date.
+    var time = field(tools, "Sun", el("input", {
+      type: "range", min: "5", max: "21", step: "0.25", "aria-label": "Time of day"
+    }));
+    time.value = Math.max(5, Math.min(21, sunHour));
+    function showTime() { time.caption.textContent = "Sun " + CadYamSun.hourLabel(sunHour); }
+    showTime();
+    time.addEventListener("input", function () {
+      sunHour = Number(time.value);
+      sunMoved = true;
+      showTime();
+      redraw();
+    });
+    var year = new Date().getFullYear();
+    var date = field(tools, "Date", el("input", { type: "date", "aria-label": "Date" }));
+    date.value = CadYamSun.dateValue(year, sunDay);
+    date.addEventListener("change", function () {
+      var d = CadYamSun.dayOfDate(date.value);
+      if (!d) return;
+      sunDay = d;
+      sunMoved = true;
+      redraw();
+    });
+    var shadowBox = chip(tools, "Shadows", el("input", { type: "checkbox" }));
+    shadowBox.checked = shadows;
+    shadowBox.addEventListener("change", function () { shadows = shadowBox.checked; redraw(); });
+    if (data.fashion) {
+      formTools(tools, data.fashion, function (entry) { reload(entry.scene || data.scene); },
+        function (shown) { formShown = shown; reload(shownScene); });
+    }
+    pinsChip(tools);
+    action(tools, "Reset view", function (b) {
+      cam = V.home(size, centre, box);
+      placeWalker();
+      walk.on = false; spaceFlies = false; setPlacing(false);
+      b.closest("details").open = false;
+      redraw();
+    });
+
+    // The zoom pill: in the dollhouse, zoom about what the view turns on
+    // (100% as framed); walking, its steps walk half a second on or back.
+    var modelZoom = zoomControls(section, {
+      zoomBy: function (f) {
+        if (walk.on) step((f < 1 ? 1 : -1) * W.speed * pace * 0.5, 0);
+        else zoomAbout(cam.target, f);
+        redraw();
+      },
+      reset: function () {
+        if (walk.on || !homeDist) return;
+        cam.dist = homeDist;
+        cam.moved = true;
+        redraw();
+      },
+      percent: function () { return CadYamZoom.modelPercent(homeDist, cam.dist, walk.on); }
+    });
+
+    // Until the visitor moves it, the view stays framed as the canvas changes.
+    window.addEventListener("resize", function () { if (!cam.moved) cam.framed = false; redraw(); });
+    redraw();
+    // Bucket the triangles for rays once the first picture is up, so the
+    // first zoom toward the pointer doesn't wait on it.
+    setTimeout(function () { if (!rayGrid) rayGrid = CadYamWalk.rays(pos); }, 400);
+    return {
+      select: function (id) { sel = id != null ? Number(id) + 1 : 0; redraw(); },
+      frame: framePin,
+      show: function (view, k) {
+        var u = V.phaseUniforms(view);
+        phaseShow = u.show;
+        tintOn = u.tintOn;
+        tints = new Float32Array(u.tints);
+        tintK = k;
+        redraw();
+      }
+    };
+  }
+
+  if (coarse) markTouch();
+  inspect(null);
+  scaleLabels();
+  // A drawing with a model opens on it. The page starts in Split so the
+  // plan is on screen while its box and labels are measured above (a hidden
+  // plan measures 0 × 0); switching only now keeps 2D and Split framed.
+  if (data.scene) setMode("3d");
+})();
+</script>
+</body>
+</html>
