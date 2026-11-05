@@ -332,6 +332,19 @@ svg.draw-layer { position: absolute; left: 0; top: 0; pointer-events: auto; z-in
   background: rgba(29, 33, 38, 0.82); color: #fff; font-size: 11.5px; font-variant-numeric: tabular-nums;
 }
 .plot3d .no-gl { padding: 24px; color: #6b7178; }
+/* Maps: the GPU's regions and terrain, the marks' canvas over them, and a
+   legend in the corner. */
+.plot-map { overflow: hidden; border-radius: 6px; }
+.plot-map .canvas-map, .plot-map .overlay-map { position: absolute; left: 0; top: 0; }
+.plot-map .overlay-map { pointer-events: none; }
+.plot-map .legend-map {
+  position: absolute; left: 10px; bottom: 10px; z-index: 2; display: flex; flex-wrap: wrap; gap: 4px 12px;
+  align-items: center; padding: 5px 9px; border-radius: 6px; background: var(--vk-paper, #fbfaf7);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06); font-size: 11.5px; color: var(--vk-ink, #1d2126);
+  font-variant-numeric: tabular-nums; max-width: calc(100% - 20px);
+}
+.plot-map .legend-map .ramp { display: inline-block; width: 110px; height: 9px; border-radius: 2px; vertical-align: middle; }
+.plot-map .legend-map .size { color: var(--vk-ink-soft, #6b7178); }
 </style>
 <style id="vk-theme"></style>
 </head>
@@ -339,7 +352,7 @@ svg.draw-layer { position: absolute; left: 0; top: 0; pointer-events: auto; z-in
 <header><h1>The American Macro-Economy in 3D &amp; Motion</h1><p class="dek">Thirty-six years of U.S. Treasury yield surfaces, 3,143 county economies, regional labor cycles, and four decades of college tuition — explored through scrollytelling 3D camera flights and live reader controls.</p><p class="byline">CadYam · Data Stories · Exported 5 November 2026<button type="button" id="mode-toggle" class="mode-toggle" aria-label="Light or dark" title="Light or dark"></button></p></header>
 <p id="size-warning" class="warning" hidden></p>
 <main id="story"></main>
-<script src="assets/american-economy-story-data.js?v=88f0cf57"></script>
+<script src="assets/american-economy-story-data.js?v=85037601"></script>
 <script>
 // vizkit core: decoding a story's packed columns, scales and ticks (nice
 // numbers, calendar-aware time ticks), number and time formatting, colour,
@@ -6588,6 +6601,1180 @@ var CadYamGl3d = (function () {
 
   Vizkit.Chart3d = Chart3d;
 })(Vizkit);
+// vizkit maps' arithmetic: the projections (Albers USA with its Alaska,
+// Hawaii and Puerto Rico insets, Equal Earth, Mercator, an orthographic
+// globe), fitting a map to its frame, a camera that tilts a flat map into
+// 3D, great-circle flows and hexagon bins. No WebGL or page here, so node's
+// tests read it alone; vizkit_map.js draws with it, and its GLSL mirrors
+// `project` exactly so the GPU and the hit-testing agree.
+(function (Vizkit) {
+  'use strict';
+
+  var M = Vizkit.map = Vizkit.map || {};
+  var R = Math.PI / 180;
+
+  M.PROJECTIONS = { 'albers-usa': 0, 'equal-earth': 1, 'mercator': 2, 'globe': 3 };
+
+  // Albers USA's pieces: rotation, the two standard parallels, the centre
+  // (in rotated degrees), the scale and where the inset sits.
+  M.INSETS = [
+    [96, 29.5, 45.5, -0.6, 38.7, 1, 0, 0],
+    [154, 55, 65, -2, 58.5, 0.35, -0.307, -0.201],
+    [157, 8, 18, -3, 19.9, 1, -0.205, -0.212],
+    [66, 8, 18, 0, 18, 1, 0.35, -0.224],
+  ];
+
+  function wrap(l) { return ((l + 180) % 360 + 360) % 360 - 180; }
+
+  // Equal-area conic, degrees in, y up.
+  M.conic = function (l, p, a, b) {
+    var sy0 = Math.sin(a * R), n = (sy0 + Math.sin(b * R)) / 2, c = 1 + sy0 * (2 * n - sy0);
+    var r0 = Math.sqrt(c) / n, r = Math.sqrt(Math.max(0, c - 2 * n * Math.sin(p * R))) / n, t = l * R * n;
+    return [r * Math.sin(t), r0 - r * Math.cos(t)];
+  };
+
+  var A1 = 1.340264, A2 = -0.081106, A3 = 0.000893, A4 = 0.003796, MM = Math.sqrt(3) / 2;
+
+  // [x, y, visible] for longitude `lon`, latitude `lat` (degrees) in
+  // projection `pid`; `inset` picks Albers USA's piece, `rot` turns the globe
+  // to face [lon, lat].
+  M.project = function (pid, lon, lat, inset, rot) {
+    if (pid === 0) {
+      var k = M.INSETS[inset | 0] || M.INSETS[0];
+      var q = M.conic(wrap(lon + k[0]), lat, k[1], k[2]), c = M.conic(k[3], k[4], k[1], k[2]);
+      return [(q[0] - c[0]) * k[5] + k[6], (q[1] - c[1]) * k[5] + k[7], 1];
+    }
+    if (pid === 1) {
+      var l = Math.asin(MM * Math.sin(lat * R)), l2 = l * l, l6 = l2 * l2 * l2;
+      return [lon * R * Math.cos(l) / (MM * (A1 + 3 * A2 * l2 + l6 * (7 * A3 + 9 * A4 * l2))),
+        l * (A1 + A2 * l2 + l6 * (A3 + A4 * l2)), 1];
+    }
+    if (pid === 2) {
+      var p = Math.max(-85, Math.min(85, lat)) * R;
+      return [lon * R, Math.log(Math.tan(Math.PI / 4 + p / 2)), 1];
+    }
+    var l0 = (rot ? rot[0] : 0) * R, p0 = (rot ? rot[1] : 0) * R, la = lat * R, dl = lon * R - l0;
+    var cp = Math.cos(la);
+    var x = cp * Math.sin(dl), y = Math.cos(p0) * Math.sin(la) - Math.sin(p0) * cp * Math.cos(dl);
+    if (Math.sin(p0) * Math.sin(la) + Math.cos(p0) * cp * Math.cos(dl) > 0) return [x, y, 1];
+    // Past the horizon: pinned to the rim (as the GPU does), and hidden.
+    var r = Math.hypot(x, y) || 1;
+    return [x / r, y / r, 0];
+  };
+
+  // The fit that puts `pts` ([x, y] projected) inside a frame `aspect`
+  // wide to 1 tall, as plane units from -aspect..aspect by -1..1:
+  // { cx, cy, s } with plane = (p - c) * s.
+  M.fit = function (pts, aspect, margin) {
+    var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    for (var i = 0; i < pts.length; i++) {
+      var p = pts[i];
+      if (!(isFinite(p[0]) && isFinite(p[1]))) continue;
+      if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0];
+      if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1];
+    }
+    if (!isFinite(x0)) return { cx: 0, cy: 0, s: 1 };
+    var w = Math.max(x1 - x0, 1e-9), h = Math.max(y1 - y0, 1e-9), m = margin == null ? 0.92 : margin;
+    return { cx: (x0 + x1) / 2, cy: (y0 + y1) / 2, s: m * Math.min(2 * aspect / w, 2 / h) };
+  };
+
+  M.lerp = function (a, b, t) { return a + (b - a) * t; };
+
+  // ---- the camera -----------------------------------------------------------
+
+  // A map's camera: elevation 90 looks straight down (a flat map); lower
+  // tilts it, the reader standing south of it (azimuth 0). `dist` is in
+  // fitted frames: 1 shows the whole map.
+  M.FOV = 30;
+  M.camera = function (c) {
+    c = c || {};
+    return {
+      el: c.elevation != null ? Math.max(5, Math.min(90, c.elevation)) : 90,
+      az: c.azimuth != null ? c.azimuth : 0,
+      dist: c.distance != null ? c.distance : 1,
+    };
+  };
+
+  M.lerpCamera = function (a, b, t) {
+    return { el: M.lerp(a.el, b.el, t), az: M.lerp(a.az, b.az, t), dist: M.lerp(a.dist, b.dist, t) };
+  };
+
+  // How far a camera tilts, 0 flat to 1 at 0°.
+  M.tilt = function (cam) { return Math.max(0, Math.min(1, (90 - cam.el) / 60)); };
+
+  function mul(a, b) {
+    var o = new Float32Array(16);
+    for (var c = 0; c < 4; c++) for (var r = 0; r < 4; r++) {
+      var s = 0;
+      for (var k = 0; k < 4; k++) s += a[k * 4 + r] * b[c * 4 + k];
+      o[c * 4 + r] = s;
+    }
+    return o;
+  }
+
+  // The camera's view-projection matrix (column-major) for a frame
+  // `aspect` wide to 1 tall.
+  M.matrix = function (cam, aspect) {
+    var f = 1 / Math.tan(M.FOV * R / 2), d = cam.dist * f * 1.04, el = cam.el * R, az = cam.az * R;
+    var h = [Math.sin(az), Math.cos(az), 0];
+    var eye = [-d * Math.cos(el) * h[0], -d * Math.cos(el) * h[1], d * Math.sin(el)];
+    var fw = [-eye[0] / d, -eye[1] / d, -eye[2] / d];
+    var up = [Math.sin(el) * h[0], Math.sin(el) * h[1], Math.cos(el)];
+    var s = [fw[1] * up[2] - fw[2] * up[1], fw[2] * up[0] - fw[0] * up[2], fw[0] * up[1] - fw[1] * up[0]];
+    var view = new Float32Array([
+      s[0], up[0], -fw[0], 0, s[1], up[1], -fw[1], 0, s[2], up[2], -fw[2], 0,
+      -(s[0] * eye[0] + s[1] * eye[1] + s[2] * eye[2]),
+      -(up[0] * eye[0] + up[1] * eye[1] + up[2] * eye[2]),
+      fw[0] * eye[0] + fw[1] * eye[1] + fw[2] * eye[2], 1]);
+    var n = 0.02, fr = d * 4 + 4;
+    var proj = new Float32Array([f / aspect, 0, 0, 0, 0, f, 0, 0, 0, 0, (fr + n) / (n - fr), -1, 0, 0, 2 * fr * n / (n - fr), 0]);
+    return mul(proj, view);
+  };
+
+  // A plane point through matrix `m` as CSS pixels in a `w` × `h` frame,
+  // with its depth; null behind the camera.
+  M.toPixel = function (m, x, y, z, w, h) {
+    var cx = m[0] * x + m[4] * y + m[8] * z + m[12], cy = m[1] * x + m[5] * y + m[9] * z + m[13];
+    var cw = m[3] * x + m[7] * y + m[11] * z + m[15], cz = m[2] * x + m[6] * y + m[10] * z + m[14];
+    if (cw <= 1e-6) return null;
+    return [(cx / cw * 0.5 + 0.5) * w, (0.5 - cy / cw * 0.5) * h, cz / cw];
+  };
+
+  // ---- marks ----------------------------------------------------------------
+
+  // `n + 1` points along the great circle from [lon, lat] `a` to `b`.
+  M.greatCircle = function (a, b, n) {
+    var la = a[1] * R, lb = b[1] * R, oa = a[0] * R, ob = b[0] * R;
+    var A = [Math.cos(la) * Math.cos(oa), Math.cos(la) * Math.sin(oa), Math.sin(la)];
+    var B = [Math.cos(lb) * Math.cos(ob), Math.cos(lb) * Math.sin(ob), Math.sin(lb)];
+    var d = Math.acos(Math.max(-1, Math.min(1, A[0] * B[0] + A[1] * B[1] + A[2] * B[2])));
+    var out = [];
+    for (var i = 0; i <= n; i++) {
+      var t = i / n, s = Math.sin(d) || 1, ka = d ? Math.sin((1 - t) * d) / s : 1 - t, kb = d ? Math.sin(t * d) / s : t;
+      var x = ka * A[0] + kb * B[0], y = ka * A[1] + kb * B[1], z = ka * A[2] + kb * B[2];
+      out.push([Math.atan2(y, x) / R, Math.atan2(z, Math.hypot(x, y)) / R]);
+    }
+    // A point that crosses the antimeridian starts a new piece (`cut`), so
+    // the map's edge breaks the arc instead of a line across the world.
+    for (var j = 1; j < out.length; j++) if (Math.abs(out[j][0] - out[j - 1][0]) > 180) out[j].cut = true;
+    return out;
+  };
+
+  // Pixel points binned into pointy hexagons `r` across their flats' half:
+  // [{ x, y, n, sum, rows }], the centres in pixels.
+  M.hexbin = function (pts, r) {
+    var dx = r * Math.sqrt(3), dy = r * 1.5, cells = {}, out = [];
+    for (var i = 0; i < pts.length; i++) {
+      var p = pts[i];
+      if (!p) continue;
+      var row = Math.round(p[1] / dy), off = (row & 1) ? dx / 2 : 0, col = Math.round((p[0] - off) / dx);
+      // The nearer of this cell and its neighbours above and below.
+      var best = null, bd = Infinity;
+      for (var k = -1; k <= 1; k++) {
+        var rr = row + k, oo = (rr & 1) ? dx / 2 : 0, cc = Math.round((p[0] - oo) / dx);
+        var hx = cc * dx + oo, hy = rr * dy, dd = (hx - p[0]) * (hx - p[0]) + (hy - p[1]) * (hy - p[1]);
+        if (dd < bd) { bd = dd; best = [rr, cc, hx, hy]; }
+      }
+      var key = best[0] + ':' + best[1], c = cells[key];
+      if (!c) { c = cells[key] = { x: best[2], y: best[3], n: 0, sum: 0, rows: [] }; out.push(c); }
+      c.n++;
+      if (p.length > 2 && isFinite(p[2])) c.sum += p[2];
+      c.rows.push(p.row);
+    }
+    return out;
+  };
+
+  // A hexagon's six corners about `x`, `y`.
+  M.hexCorners = function (x, y, r) {
+    var out = [];
+    for (var i = 0; i < 6; i++) {
+      var a = Math.PI / 3 * i + Math.PI / 6;
+      out.push([x + r * Math.cos(a), y + r * Math.sin(a)]);
+    }
+    return out;
+  };
+
+  // Whether pixel `p` is inside the polygon `ring` ([[x, y], ...]).
+  M.inside = function (p, ring) {
+    var c = false;
+    for (var i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+      var a = ring[i], b = ring[j];
+      if ((a[1] > p[1]) !== (b[1] > p[1]) && p[0] < (b[0] - a[0]) * (p[1] - a[1]) / (b[1] - a[1]) + a[0]) c = !c;
+    }
+    return c;
+  };
+})(typeof Vizkit !== 'undefined' ? Vizkit : (globalThis.Vizkit = {}));
+// vizkit maps' GLSL: `project` mirrors Vizkit.map.project (vizkit_map_proj.js)
+// line for line, so a region and the symbol on it land on the same pixel.
+// Every map program projects longitude and latitude itself, between two
+// projections at once (`u_mix`), so a beat can morph Albers USA into a
+// globe on the GPU.
+(function (Vizkit) {
+  'use strict';
+
+  var PROJECT =
+    'const float R=0.017453292519943295;\n' +
+    'uniform int u_p0; uniform int u_p1; uniform float u_mix;\n' +
+    'uniform vec3 u_fit0; uniform vec3 u_fit1; uniform vec2 u_rot; uniform vec3 u_zoom;\n' +
+    'uniform mat4 u_mvp;\n' +
+    'float wrapl(float l){ return mod(l+180.0,360.0)-180.0; }\n' +
+    'vec2 conic(float l,float p,float a,float b){ float sy0=sin(a*R); float n=(sy0+sin(b*R))*0.5;' +
+    ' float c=1.0+sy0*(2.0*n-sy0); float r0=sqrt(c)/n; float r=sqrt(max(0.0,c-2.0*n*sin(p*R)))/n; float t=l*R*n;' +
+    ' return vec2(r*sin(t), r0-r*cos(t)); }\n' +
+    'vec3 albers(vec2 ll,float inset){\n' +
+    ' float rot=96.0,a=29.5,b=45.5,cl=-0.6,cp=38.7,s=1.0; vec2 off=vec2(0.0);\n' +
+    ' if (inset>0.5&&inset<1.5){ rot=154.0;a=55.0;b=65.0;cl=-2.0;cp=58.5;s=0.35;off=vec2(-0.307,-0.201); }\n' +
+    ' else if (inset>1.5&&inset<2.5){ rot=157.0;a=8.0;b=18.0;cl=-3.0;cp=19.9;off=vec2(-0.205,-0.212); }\n' +
+    ' else if (inset>2.5){ rot=66.0;a=8.0;b=18.0;cl=0.0;cp=18.0;off=vec2(0.35,-0.224); }\n' +
+    ' return vec3((conic(wrapl(ll.x+rot),ll.y,a,b)-conic(cl,cp,a,b))*s+off,1.0); }\n' +
+    'vec3 project(int pid, vec2 ll, float inset){\n' +
+    ' if (pid==0) return albers(ll,inset);\n' +
+    ' if (pid==1){ float M=0.8660254037844386; float l=asin(M*sin(ll.y*R)); float l2=l*l; float l6=l2*l2*l2;' +
+    '  return vec3(ll.x*R*cos(l)/(M*(1.340264+3.0*-0.081106*l2+l6*(7.0*0.000893+9.0*0.003796*l2))),' +
+    '   l*(1.340264-0.081106*l2+l6*(0.000893+0.003796*l2)),1.0); }\n' +
+    ' if (pid==2){ float p=clamp(ll.y,-85.0,85.0)*R; return vec3(ll.x*R, log(tan(0.7853981633974483+p*0.5)),1.0); }\n' +
+    ' float l0=u_rot.x*R, p0=u_rot.y*R, la=ll.y*R, dl=ll.x*R-l0; float cp=cos(la);\n' +
+    ' vec2 q=vec2(cp*sin(dl), cos(p0)*sin(la)-sin(p0)*cp*cos(dl)); float c=sin(p0)*sin(la)+cos(p0)*cp*cos(dl);\n' +
+    // Past the horizon a point is pinned to the rim, so a region that
+    // straddles it is cut there instead of folding back over the face.
+    ' if (c<0.0) q=normalize(q+vec2(1e-6));\n' +
+    ' return vec3(q, c); }\n' +
+    // The plane point (fitted, mixed and zoomed) and how visible it is.
+    'vec3 plane(vec2 ll, float inset){\n' +
+    ' vec3 a=project(u_p0,ll,inset); vec3 b=project(u_p1,ll,inset);\n' +
+    ' vec2 q=mix((a.xy-u_fit0.xy)*u_fit0.z,(b.xy-u_fit1.xy)*u_fit1.z,u_mix);\n' +
+    ' return vec3((q-u_zoom.xy)*u_zoom.z, mix(a.z,b.z,u_mix)); }\n';
+
+  var S = Vizkit.map.shaders = {};
+
+  // Regions: tops and walls. A wall's top vertex rises by the region's
+  // height; `a_h2` and `a_rgb2` are where a beat is taking it.
+  S.FILL_VS = PROJECT +
+    'in vec2 a_ll; in float a_inset; in vec3 a_rgb; in vec3 a_rgb2; in float a_h; in float a_h2; in float a_top;\n' +
+    'uniform float u_hs; uniform float u_hmix;\n' +
+    'out vec3 v_rgb; out float v_vis; out vec3 v_pos;\n' +
+    'void main(){ vec3 p=plane(a_ll,a_inset); float h=mix(a_h,a_h2,u_hmix)*u_hs*a_top;\n' +
+    ' v_rgb=mix(a_rgb,a_rgb2,u_hmix); v_vis=p.z; v_pos=vec3(p.xy,h);\n' +
+    ' gl_Position=u_mvp*vec4(p.xy,h,1.0); }\n';
+
+  S.FILL_FS =
+    'in vec3 v_rgb; in float v_vis; in vec3 v_pos; uniform float u_flat; out vec4 o;\n' +
+    'void main(){ if (v_vis<-0.02) discard;\n' +
+    ' vec3 n=normalize(cross(dFdx(v_pos),dFdy(v_pos))); if (n.z<0.0) n=-n;\n' +
+    ' vec3 sun=normalize(vec3(-0.45,-0.7,0.75)); float d=max(dot(n,sun),0.0);\n' +
+    ' float k=mix(0.66+0.16*n.z+0.3*d, 1.0, u_flat*step(0.98,n.z));\n' +
+    ' o=vec4(v_rgb*k,1.0); }\n';
+
+  // Borders: the regions' rings as lines, at their tops.
+  S.LINE_VS = PROJECT +
+    'in vec2 a_ll; in float a_inset; in float a_h; in float a_h2;\n' +
+    'uniform float u_hs; uniform float u_hmix; uniform float u_lift; out float v_vis;\n' +
+    'void main(){ vec3 p=plane(a_ll,a_inset); float h=mix(a_h,a_h2,u_hmix)*u_hs+u_lift; v_vis=p.z;\n' +
+    ' gl_Position=u_mvp*vec4(p.xy,h,1.0); }\n';
+
+  S.LINE_FS = 'in float v_vis; uniform vec4 u_rgba; out vec4 o;\n' +
+    'void main(){ if (v_vis<0.0) discard; o=u_rgba; }\n';
+
+  // Terrain: heights in metres, tinted low to high and hill-shaded.
+  S.TERRAIN_VS = PROJECT +
+    'in vec2 a_ll; in float a_elev; uniform float u_lo; uniform float u_hi; uniform float u_ts;\n' +
+    'out float v_t; out vec3 v_pos; out float v_vis;\n' +
+    'void main(){ vec3 p=plane(a_ll,0.0); float h=(a_elev-u_lo)*u_ts; v_t=(a_elev-u_lo)/max(u_hi-u_lo,1.0);\n' +
+    ' v_pos=vec3(p.xy,h); v_vis=p.z; gl_Position=u_mvp*vec4(p.xy,h,1.0); }\n';
+
+  S.TERRAIN_FS =
+    'in float v_t; in vec3 v_pos; in float v_vis; uniform vec3 u_paper; out vec4 o;\n' +
+    'void main(){ if (v_vis<0.0) discard;\n' +
+    ' vec3 n=normalize(cross(dFdx(v_pos),dFdy(v_pos))); if (n.z<0.0) n=-n;\n' +
+    ' vec3 lo=vec3(0.56,0.66,0.47), mid=vec3(0.78,0.72,0.55), hi=vec3(0.93,0.91,0.88);\n' +
+    ' vec3 c=v_t<0.55? mix(lo,mid,v_t/0.55) : mix(mid,hi,(v_t-0.55)/0.45);\n' +
+    ' vec3 sun=normalize(vec3(-0.6,0.5,0.62)); float d=max(dot(n,sun),0.0);\n' +
+    ' c=mix(c,u_paper,0.18)*(0.45+0.25*n.z+0.5*d); o=vec4(c,1.0); }\n';
+})(Vizkit);
+// vizkit maps: a view whose `map` says what it draws. The regions (the
+// bundled boundaries the exporter simplified and triangulated, shipped as
+// `@geo.*` columns) fill and extrude on WebGL2, projected on the GPU
+// (vizkit_map_shaders.js); terrain from spot heights shades under them.
+// Symbols, spikes, flows, hexbins, dots and GPS tracks draw over them on a
+// 2D canvas through the same arithmetic (vizkit_map_proj.js), so they sit
+// on their regions in any projection and at any tilt.
+//
+// Between two beats of one map everything glides on the earlier chart
+// (`blend`): the camera tilts, the zoom moves, the projection morphs,
+// fills recolour and regions rise.
+(function (Vizkit) {
+  'use strict';
+
+  var M = Vizkit.map, S = M.shaders, P = M.PROJECTIONS;
+  // Heights in plane units: a region's tallest extrusion, a spike's.
+  var EXTRUDE = 0.14;
+  var EMPTY = [0.86, 0.85, 0.82];
+
+  function colOf(columns, name) { return name ? columns[name] || null : null; }
+  function text(c, i) { return c && c.dict ? c.dict[c.values[i]] : null; }
+
+  function MapChart(container, view, columns, opts) {
+    var self = this, enc = view.encodings;
+    this.isMap = true;
+    this.view = view;
+    this.spec = view.map;
+    this.columns = columns;
+    this.opts = opts || {};
+    this.n = view.rows;
+    this.container = container;
+    this.tokens = Vizkit.tokens(view);
+    this.color = enc.color ? Vizkit.makeScale(enc.color, columns[enc.color.field]) : null;
+    this.size = enc.size ? Vizkit.makeScale(enc.size, columns[enc.size.field]) : null;
+    this.z = enc.z ? Vizkit.makeScale(enc.z, columns[enc.z.field]) : null;
+    this.lon = colOf(columns, enc.x && enc.x.field);
+    this.lat = colOf(columns, enc.y && enc.y.field);
+    this.geoId = colOf(columns, 'geo_id');
+    this.geoTo = colOf(columns, 'geo_to');
+    this.ground = colOf(columns, '@ground');
+    this.pid = P[this.spec.projection] || 0;
+    this.rot = this.spec.rotate || [0, 0];
+    this.cam = M.camera(view.camera);
+    this.blendState = null;
+
+    if (getComputedStyle(container).position === 'static') container.style.position = 'relative';
+    container.classList.add('plot-map');
+    this.canvas = document.createElement('canvas');
+    this.canvas.className = 'canvas-map';
+    this.overlay = document.createElement('canvas');
+    this.overlay.className = 'overlay-map';
+    this.tip = document.createElement('div');
+    this.tip.className = 'tooltip';
+    this.tip.hidden = true;
+    container.appendChild(this.canvas);
+    container.appendChild(this.overlay);
+    container.appendChild(this.tip);
+    this.legend = this.makeLegend();
+    if (this.legend) container.appendChild(this.legend);
+
+    this.readGeometry();
+    this.rowValues();
+    var gl = null;
+    try { gl = this.canvas.getContext('webgl2', { antialias: true, premultipliedAlpha: false, preserveDrawingBuffer: true }); } catch (e) { gl = null; }
+    this.gl = gl;
+    container.dataset.renderer = gl ? 'webgl2' : 'none';
+    if (gl) this.initGl(gl);
+    this.layout();
+    this.listen();
+  }
+
+  // ---- the geometry the exporter shipped -----------------------------------
+
+  MapChart.prototype.readGeometry = function () {
+    var c = this.columns;
+    this.geo = c['@geo.pos'] ? {
+      pos: c['@geo.pos'].values, ring: c['@geo.ring'].values, rfeat: c['@geo.rfeat'].values,
+      tri: c['@geo.tri'].values, fid: c['@geo.fid'], fname: c['@geo.fname'],
+      cx: c['@geo.cx'].values, cy: c['@geo.cy'].values, inset: c['@geo.inset'].values,
+    } : null;
+    this.outline = c['@geo.opos'] ? { pos: c['@geo.opos'].values, ring: c['@geo.oring'].values } : null;
+    this.terrain = c['@ter.lon'] ? {
+      lon: c['@ter.lon'].values, lat: c['@ter.lat'].values, elev: c['@ter.elev'].values, tri: c['@ter.tri'].values,
+    } : null;
+    var g = this.geo;
+    this.featureOf = {};
+    if (g) {
+      this.nFeatures = g.cx.length;
+      for (var f = 0; f < this.nFeatures; f++) this.featureOf[text(g.fid, f)] = f;
+    }
+  };
+
+  // Each region's colour and height from its row, and each row's place.
+  MapChart.prototype.rowValues = function () {
+    var g = this.geo, n = this.n, self = this;
+    var t = this.tokens;
+    this.rowFeature = new Int32Array(n).fill(-1);
+    if (g && this.geoId) for (var r = 0; r < n; r++) {
+      var f = this.featureOf[text(this.geoId, r)];
+      this.rowFeature[r] = f == null ? -1 : f;
+    }
+    if (!g) return;
+    var nf = this.nFeatures;
+    this.fRgb = new Float32Array(nf * 3);
+    this.fH = new Float32Array(nf);
+    this.fRow = new Int32Array(nf).fill(-1);
+    for (var f = 0; f < nf; f++) { this.fRgb[f * 3] = EMPTY[0]; this.fRgb[f * 3 + 1] = EMPTY[1]; this.fRgb[f * 3 + 2] = EMPTY[2]; }
+    var paper = Vizkit.hexToRgb(t.paper).map(function (v) { return v / 255; });
+    var marks = this.spec.kind !== 'choropleth';
+    if (marks) {
+      for (var k = 0; k < nf; k++) { this.fRgb[k * 3] = 0.5 * EMPTY[0] + 0.5 * paper[0]; this.fRgb[k * 3 + 1] = 0.5 * EMPTY[1] + 0.5 * paper[1]; this.fRgb[k * 3 + 2] = 0.5 * EMPTY[2] + 0.5 * paper[2]; }
+    }
+    for (var row = 0; row < n; row++) {
+      var fi = this.rowFeature[row];
+      if (fi < 0) continue;
+      this.fRow[fi] = row;
+      // Under spikes or symbols the regions stay quiet: raised by z and
+      // tinted by it halfway to the paper.
+      if (marks) {
+        if (!self.z) continue;
+        var uz = self.z.norm(row);
+        if (!isFinite(uz)) continue;
+        var tint = Vizkit.ramp(Math.max(0, Math.min(1, uz)), t.sequentialRgb);
+        for (var ch = 0; ch < 3; ch++) this.fRgb[fi * 3 + ch] = 0.55 * tint[ch] / 255 + 0.45 * paper[ch];
+        this.fH[fi] = Math.max(0, uz);
+        continue;
+      }
+      var rgb = this.colorOf(row);
+      if (rgb) { this.fRgb[fi * 3] = rgb[0] / 255; this.fRgb[fi * 3 + 1] = rgb[1] / 255; this.fRgb[fi * 3 + 2] = rgb[2] / 255; }
+      if (self.z) { var u = self.z.norm(row); this.fH[fi] = isFinite(u) ? Math.max(0, u) : 0; }
+    }
+  };
+
+  MapChart.prototype.colorOf = function (row) {
+    var t = this.tokens;
+    if (!this.color) return t.highlightRgb;
+    var u = this.color.norm(row);
+    if (!isFinite(u)) return null;
+    if (this.color.kind === 'ordinal' || this.color.kind === 'band') {
+      return Vizkit.categorical(t, this.color.indexOf(row));
+    }
+    return Vizkit.ramp(Math.max(0, Math.min(1, u)), t.sequentialRgb);
+  };
+
+  // ---- fitting --------------------------------------------------------------
+
+  // The projected points a projection fits to: every region's ring, else
+  // the rows' places and the terrain.
+  MapChart.prototype.fitPoints = function (pid, rot) {
+    var pts = [], g = this.geo;
+    if (g && pid !== P.globe) {
+      var step = Math.max(1, Math.floor(g.pos.length / 2 / 6000));
+      for (var ri = 0; ri + 1 < g.ring.length; ri++) {
+        var f = g.rfeat[ri], ins = g.inset[f];
+        for (var i = g.ring[ri]; i < g.ring[ri + 1]; i += step) pts.push(M.project(pid, g.pos[2 * i], g.pos[2 * i + 1], ins, rot));
+      }
+    } else if (pid === P.globe) {
+      pts.push([-1, -1], [1, 1]);
+    }
+    if (!g && this.lon) for (var r = 0; r < this.n; r++) pts.push(M.project(pid, this.lon.values[r], this.lat.values[r], 0, rot));
+    if (this.terrain && !g) {
+      var te = this.terrain;
+      for (var k = 0; k < te.lon.length; k += 7) pts.push(M.project(pid, te.lon[k], te.lat[k], 0, rot));
+    }
+    return pts;
+  };
+
+  // Where zooming to the view's region puts the plane: { x, y, s }.
+  MapChart.prototype.zoomFor = function (spec, pid, fit, rot) {
+    var z = spec.zoom;
+    if (!z || !z.length) return { x: 0, y: 0, s: 1 };
+    var pts = z.map(function (p) {
+      var q = M.project(pid, p[0], p[1], p[2] || 0, rot);
+      return [(q[0] - fit.cx) * fit.s, (q[1] - fit.cy) * fit.s];
+    });
+    var f = M.fit(pts, this.aspect, 0.86);
+    return { x: f.cx, y: f.cy, s: Math.min(40, f.s) };
+  };
+
+  // A chart's resting state: projection, fit, zoom, camera, extrusion.
+  MapChart.prototype.state = function () {
+    var fit = M.fit(this.fitPoints(this.pid, this.rot), this.aspect);
+    return {
+      pid: this.pid, rot: this.rot, fit: fit,
+      zoom: this.zoomFor(this.spec, this.pid, fit, this.rot),
+      cam: this.cam, hs: this.z ? EXTRUDE : 0,
+    };
+  };
+
+  // ---- WebGL ------------------------------------------------------------------
+
+  MapChart.prototype.initGl = function (gl) {
+    var G = CadYamGl3d;
+    this.progs = {
+      fill: G.program(gl, S.FILL_VS, S.FILL_FS, { a_ll: 0 }),
+      line: G.program(gl, S.LINE_VS, S.LINE_FS, { a_ll: 0 }),
+      terrain: G.program(gl, S.TERRAIN_VS, S.TERRAIN_FS, { a_ll: 0 }),
+    };
+    this.buffers = [];
+    if (this.geo) this.uploadRegions(gl);
+    if (this.outline) this.uploadOutline(gl);
+    if (this.terrain) this.uploadTerrain(gl);
+  };
+
+  MapChart.prototype.buffer = function (gl, data, target) {
+    var b = gl.createBuffer(), t = target || gl.ARRAY_BUFFER;
+    gl.bindBuffer(t, b);
+    gl.bufferData(t, data, gl.STATIC_DRAW);
+    this.buffers.push(b);
+    return b;
+  };
+
+  MapChart.prototype.attrs = function (gl, prog, list) {
+    var vao = gl.createVertexArray();
+    gl.bindVertexArray(vao);
+    list.forEach(function (a) {
+      var l = gl.getAttribLocation(prog, a[0]);
+      if (l < 0 || !a[1]) return;
+      gl.bindBuffer(gl.ARRAY_BUFFER, a[1]);
+      gl.enableVertexAttribArray(l);
+      gl.vertexAttribPointer(l, a[2], gl.FLOAT, false, 0, 0);
+    });
+    return vao;
+  };
+
+  // Tops (every ring vertex once, indexed by the exporter's triangles),
+  // walls (two triangles per ring edge) and the border lines.
+  MapChart.prototype.uploadRegions = function (gl) {
+    var g = this.geo, nv = g.pos.length / 2, nr = g.ring.length - 1;
+    var ins = new Float32Array(nv), feat = new Int32Array(nv), top = new Float32Array(nv).fill(1);
+    var walls = 0;
+    for (var r = 0; r < nr; r++) {
+      walls += g.ring[r + 1] - g.ring[r];
+      for (var i = g.ring[r]; i < g.ring[r + 1]; i++) { feat[i] = g.rfeat[r]; ins[i] = g.inset[g.rfeat[r]]; }
+    }
+    this.vFeat = feat;
+    var wll = new Float32Array(walls * 12), wins = new Float32Array(walls * 6), wtop = new Float32Array(walls * 6);
+    var wfeat = new Int32Array(walls * 6), w = 0;
+    var lines = [];
+    for (var q = 0; q < nr; q++) {
+      var a0 = g.ring[q], a1 = g.ring[q + 1];
+      for (var j = a0; j < a1; j++) {
+        var k = j + 1 < a1 ? j + 1 : a0;
+        // An edge across the antimeridian (Fiji's, Russia's) is the
+        // boundary's cut, not a border: leave it out.
+        if (Math.abs(g.pos[2 * k] - g.pos[2 * j]) > 180) continue;
+        lines.push(j, k);
+        var quad = [[j, 0], [k, 0], [k, 1], [j, 0], [k, 1], [j, 1]];
+        for (var c = 0; c < 6; c++) {
+          var v = quad[c][0];
+          wll[w * 2] = g.pos[2 * v]; wll[w * 2 + 1] = g.pos[2 * v + 1];
+          wins[w] = ins[v]; wtop[w] = quad[c][1]; wfeat[w] = feat[v]; w++;
+        }
+      }
+    }
+    this.wFeat = wfeat;
+    var self = this;
+    this.gpu = {
+      topLl: this.buffer(gl, g.pos), topIns: this.buffer(gl, ins), topTop: this.buffer(gl, top),
+      wallLl: this.buffer(gl, wll), wallIns: this.buffer(gl, wins), wallTop: this.buffer(gl, wtop),
+      tri: this.buffer(gl, g.tri, gl.ELEMENT_ARRAY_BUFFER), nTri: g.tri.length,
+      lines: this.buffer(gl, new Uint32Array(lines), gl.ELEMENT_ARRAY_BUFFER), nLines: lines.length,
+      nWall: w,
+    };
+    this.paint(gl, this, false);
+    this.paint(gl, this, true);
+    this.vaos = {
+      top: this.attrs(gl, this.progs.fill, [['a_ll', this.gpu.topLl, 2], ['a_inset', this.gpu.topIns, 1],
+        ['a_rgb', this.gpu.topRgb, 3], ['a_rgb2', this.gpu.topRgb2, 3], ['a_h', this.gpu.topH, 1],
+        ['a_h2', this.gpu.topH2, 1], ['a_top', this.gpu.topTop, 1]]),
+      wall: this.attrs(gl, this.progs.fill, [['a_ll', this.gpu.wallLl, 2], ['a_inset', this.gpu.wallIns, 1],
+        ['a_rgb', this.gpu.wallRgb, 3], ['a_rgb2', this.gpu.wallRgb2, 3], ['a_h', this.gpu.wallH, 1],
+        ['a_h2', this.gpu.wallH2, 1], ['a_top', this.gpu.wallTop, 1]]),
+      line: this.attrs(gl, this.progs.line, [['a_ll', this.gpu.topLl, 2], ['a_inset', this.gpu.topIns, 1],
+        ['a_h', this.gpu.topH, 1], ['a_h2', this.gpu.topH2, 1]]),
+    };
+    gl.bindVertexArray(this.vaos.top);
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.gpu.tri);
+    gl.bindVertexArray(this.vaos.line);
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.gpu.lines);
+    gl.bindVertexArray(null);
+    void self;
+  };
+
+  // Per-vertex colours and heights from `src` (this chart, or the beat it
+  // is gliding to) into the first set of buffers or the second (`two`).
+  MapChart.prototype.paint = function (gl, src, two) {
+    var fv = this.vFeat, wf = this.wFeat, nv = fv.length, nw = wf.length;
+    var rgb = new Float32Array(nv * 3), h = new Float32Array(nv), wr = new Float32Array(nw * 3), wh = new Float32Array(nw);
+    for (var i = 0; i < nv; i++) {
+      var f = fv[i];
+      rgb[i * 3] = src.fRgb[f * 3]; rgb[i * 3 + 1] = src.fRgb[f * 3 + 1]; rgb[i * 3 + 2] = src.fRgb[f * 3 + 2]; h[i] = src.fH[f];
+    }
+    for (var j = 0; j < nw; j++) {
+      var g = wf[j];
+      wr[j * 3] = src.fRgb[g * 3] * 0.93; wr[j * 3 + 1] = src.fRgb[g * 3 + 1] * 0.93; wr[j * 3 + 2] = src.fRgb[g * 3 + 2] * 0.93; wh[j] = src.fH[g];
+    }
+    var k = two ? '2' : '';
+    var put = function (name, data) {
+      var key = name + k;
+      if (this.gpu[key]) { gl.bindBuffer(gl.ARRAY_BUFFER, this.gpu[key]); gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW); }
+      else this.gpu[key] = this.buffer(gl, data);
+    }.bind(this);
+    put('topRgb', rgb); put('topH', h); put('wallRgb', wr); put('wallH', wh);
+  };
+
+  MapChart.prototype.uploadOutline = function (gl) {
+    var o = this.outline, nv = o.pos.length / 2, lines = [];
+    for (var r = 0; r + 1 < o.ring.length; r++) {
+      for (var i = o.ring[r]; i < o.ring[r + 1]; i++) lines.push(i, i + 1 < o.ring[r + 1] ? i + 1 : o.ring[r]);
+    }
+    var ins = new Float32Array(nv), zero = new Float32Array(nv);
+    // The outline's insets: by the region each ring's first point falls in.
+    var oi = this.columns['@geo.oinset'];
+    if (oi) for (var q = 0; q + 1 < o.ring.length; q++) for (var j = o.ring[q]; j < o.ring[q + 1]; j++) ins[j] = oi.values[q];
+    this.outlineGpu = {
+      vao: this.attrs(gl, this.progs.line, [['a_ll', this.buffer(gl, o.pos), 2], ['a_inset', this.buffer(gl, ins), 1],
+        ['a_h', this.buffer(gl, zero), 1], ['a_h2', this.buffer(gl, zero), 1]]),
+      n: lines.length,
+    };
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.buffer(gl, new Uint32Array(lines), gl.ELEMENT_ARRAY_BUFFER));
+    gl.bindVertexArray(null);
+  };
+
+  MapChart.prototype.uploadTerrain = function (gl) {
+    var t = this.terrain, ll = new Float32Array(t.lon.length * 2);
+    for (var i = 0; i < t.lon.length; i++) { ll[2 * i] = t.lon[i]; ll[2 * i + 1] = t.lat[i]; }
+    this.terrainGpu = {
+      vao: this.attrs(gl, this.progs.terrain, [['a_ll', this.buffer(gl, ll), 2], ['a_elev', this.buffer(gl, t.elev), 1]]),
+      n: t.tri.length,
+    };
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.buffer(gl, t.tri, gl.ELEMENT_ARRAY_BUFFER));
+    gl.bindVertexArray(null);
+  };
+
+  MapChart.prototype.layout = function () {
+    var w = this.container.clientWidth || 640, size = this.view.size;
+    var h = this.opts.height || (size ? size[1] : Math.round(Math.max(320, Math.min(600, w * 0.62))));
+    if (size) w = size[0];
+    this.width = w; this.height = h; this.aspect = w / h;
+    var dpr = this.dpr = window.devicePixelRatio || 1;
+    this.container.style.height = h + 'px';
+    [this.canvas, this.overlay].forEach(function (c) {
+      c.style.width = w + 'px'; c.style.height = h + 'px';
+      c.width = Math.round(w * dpr); c.height = Math.round(h * dpr);
+    });
+    this.rest = this.state();
+    this.draw();
+  };
+
+  // The terrain's metres as plane units: Mercator's scale at the
+  // terrain's latitude, the fit and the exaggeration.
+  MapChart.prototype.terrainScale = function (st) {
+    var spec = this.spec.terrain;
+    if (!spec || !this.terrain) return 0;
+    var lat = this.terrain.lat[0] || 0;
+    return (1 / Math.cos(lat * Math.PI / 180)) / 6378137 * st.a.fit.s * st.zoom.s * (spec.exaggerate || 1);
+  };
+
+  // ---- drawing ------------------------------------------------------------------
+
+  // The state showing now: at rest, or partway into another beat's.
+  MapChart.prototype.now = function () {
+    var a = this.rest, b = this.blendState;
+    if (!b) return { a: a, b: a, mix: 0, cam: a.cam, zoom: a.zoom, hs: a.hs, hmix: 0, rot: a.rot, other: null };
+    var e = b.e, other = b.other, bs = other.rest;
+    var cam = b.path ? b.path(e) : M.lerpCamera(a.cam, bs.cam, e);
+    var zoom;
+    if (a.pid === bs.pid) zoom = { x: M.lerp(a.zoom.x, bs.zoom.x, e), y: M.lerp(a.zoom.y, bs.zoom.y, e), s: Math.exp(M.lerp(Math.log(a.zoom.s), Math.log(bs.zoom.s), e)) };
+    else zoom = e < 0.5 ? a.zoom : bs.zoom;
+    var hs = a.hs || bs.hs ? EXTRUDE : 0;
+    return {
+      a: a, b: bs, mix: a.pid === bs.pid ? 0 : e, cam: cam, zoom: zoom, hs: hs, hmix: e,
+      rot: [M.lerp(a.rot[0], bs.rot[0], e), M.lerp(a.rot[1], bs.rot[1], e)], other: other,
+    };
+  };
+
+  MapChart.prototype.uniforms = function (gl, prog, st, m) {
+    var u = function (n) { return gl.getUniformLocation(prog, n); };
+    gl.useProgram(prog);
+    gl.uniform1i(u('u_p0'), st.a.pid); gl.uniform1i(u('u_p1'), st.b.pid); gl.uniform1f(u('u_mix'), st.mix);
+    gl.uniform3f(u('u_fit0'), st.a.fit.cx, st.a.fit.cy, st.a.fit.s);
+    gl.uniform3f(u('u_fit1'), st.b.fit.cx, st.b.fit.cy, st.b.fit.s);
+    gl.uniform2f(u('u_rot'), st.rot[0], st.rot[1]);
+    gl.uniform3f(u('u_zoom'), st.zoom.x, st.zoom.y, st.zoom.s);
+    gl.uniformMatrix4fv(u('u_mvp'), false, m);
+    return u;
+  };
+
+  MapChart.prototype.draw = function () {
+    var st = this.now(), m = M.matrix(st.cam, this.aspect);
+    this.drawn = { st: st, m: m };
+    var gl = this.gl;
+    if (gl) {
+      var paper = Vizkit.hexToRgb(this.tokens.paper);
+      gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+      gl.clearColor(paper[0] / 255, paper[1] / 255, paper[2] / 255, 0);
+      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+      gl.enable(gl.DEPTH_TEST);
+      if (this.terrainGpu) {
+        var ut = this.uniforms(gl, this.progs.terrain, st, m);
+        var te = this.view.map.terrain || {};
+        gl.uniform1f(ut('u_lo'), te.lo || 0); gl.uniform1f(ut('u_hi'), te.hi || 1);
+        gl.uniform1f(ut('u_ts'), this.terrainScale(st));
+        gl.uniform3f(ut('u_paper'), paper[0] / 255, paper[1] / 255, paper[2] / 255);
+        gl.bindVertexArray(this.terrainGpu.vao);
+        gl.drawElements(gl.TRIANGLES, this.terrainGpu.n, gl.UNSIGNED_INT, 0);
+      }
+      if (this.gpu) {
+        var hs = st.hs * st.zoom.s;
+        var uf = this.uniforms(gl, this.progs.fill, st, m);
+        gl.uniform1f(uf('u_hs'), hs); gl.uniform1f(uf('u_hmix'), st.hmix);
+        gl.uniform1f(uf('u_flat'), st.cam.el > 89 && !hs ? 1 : 0);
+        gl.bindVertexArray(this.vaos.top);
+        gl.drawElements(gl.TRIANGLES, this.gpu.nTri, gl.UNSIGNED_INT, 0);
+        if (hs > 0) {
+          gl.bindVertexArray(this.vaos.wall);
+          gl.drawArrays(gl.TRIANGLES, 0, this.gpu.nWall);
+        }
+        gl.depthMask(false);
+        gl.enable(gl.BLEND);
+        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+        var ul = this.uniforms(gl, this.progs.line, st, m);
+        gl.uniform1f(ul('u_hs'), hs); gl.uniform1f(ul('u_hmix'), st.hmix); gl.uniform1f(ul('u_lift'), 0.0005);
+        var many = this.nFeatures > 600;
+        gl.uniform4f(ul('u_rgba'), paper[0] / 255, paper[1] / 255, paper[2] / 255, many ? 0.55 : 0.95);
+        gl.bindVertexArray(this.vaos.line);
+        gl.drawElements(gl.LINES, this.gpu.nLines, gl.UNSIGNED_INT, 0);
+        if (this.outlineGpu) {
+          gl.uniform1f(ul('u_hs'), 0);
+          var ink = this.tokens.inkRgb;
+          gl.uniform4f(ul('u_rgba'), ink[0] / 255, ink[1] / 255, ink[2] / 255, 0.45);
+          gl.bindVertexArray(this.outlineGpu.vao);
+          gl.drawElements(gl.LINES, this.outlineGpu.n, gl.UNSIGNED_INT, 0);
+        }
+        gl.disable(gl.BLEND);
+        gl.depthMask(true);
+      }
+      gl.bindVertexArray(null);
+    }
+    this.drawOverlay(st, m);
+  };
+
+  // A longitude and latitude (and plane height) as pixels now.
+  MapChart.prototype.pixel = function (st, m, lon, lat, inset, z) {
+    var a = M.project(st.a.pid, lon, lat, inset, st.rot), b = st.a.pid === st.b.pid ? a : M.project(st.b.pid, lon, lat, inset, st.rot);
+    var vis = M.lerp(a[2], b[2], st.mix);
+    if (vis <= 0) return null;
+    var x = M.lerp((a[0] - st.a.fit.cx) * st.a.fit.s, (b[0] - st.b.fit.cx) * st.b.fit.s, st.mix);
+    var y = M.lerp((a[1] - st.a.fit.cy) * st.a.fit.s, (b[1] - st.b.fit.cy) * st.b.fit.s, st.mix);
+    return M.toPixel(m, (x - st.zoom.x) * st.zoom.s, (y - st.zoom.y) * st.zoom.s, z || 0, this.width, this.height);
+  };
+
+  // Row `r`'s place: its region's label point, else its longitude and
+  // latitude.
+  MapChart.prototype.placeOf = function (r, toEnd) {
+    var g = this.geo, col = toEnd ? this.geoTo : this.geoId;
+    if (g && col) {
+      var f = this.featureOf[text(col, r)];
+      return f == null ? null : [g.cx[f], g.cy[f], g.inset[f]];
+    }
+    if (!this.lon) return null;
+    var lo = this.lon.values[r], la = this.lat.values[r];
+    return isFinite(lo) && isFinite(la) ? [lo, la, 0] : null;
+  };
+
+  Vizkit.MapChart = MapChart;
+})(Vizkit);
+// vizkit maps' marks over the regions — symbols, spikes, flows, hexbins,
+// dots and tracks — drawn on the overlay canvas through the map's own
+// projection, so each sits on its region at any tilt; plus the legend,
+// the reader's hover and gliding between two beats of one map.
+(function (Vizkit) {
+  'use strict';
+
+  var M = Vizkit.map, MapChart = Vizkit.MapChart;
+  var SPIKE = 0.24, MAX_R = 0.075, HEX = 11;
+
+  function rgba(rgb, a) { return 'rgba(' + Math.round(rgb[0]) + ',' + Math.round(rgb[1]) + ',' + Math.round(rgb[2]) + ',' + a + ')'; }
+
+  // The top of row `r`'s region now, in plane units: where a spike or
+  // symbol stands when the regions are raised.
+  MapChart.prototype.regionTop = function (st, r) {
+    var f = this.rowFeature[r];
+    if (f < 0 || !this.fH || !st.hs) return 0;
+    var a = this.fH[f], b = st.other && st.other.fH ? st.other.fH[f] : a;
+    return M.lerp(a, b, st.hmix) * st.hs * st.zoom.s;
+  };
+
+  // The magnitude row `r` draws with, 0..1: size, else z.
+  MapChart.prototype.amount = function (r) {
+    var s = this.size || this.z;
+    if (!s) return 0.5;
+    var v = s.value ? s.value(r) : NaN, d = s.domain || [0, 1];
+    var hi = Math.max(Math.abs(d[0]), Math.abs(d[1])) || 1;
+    return isFinite(v) ? Math.max(0, v / hi) : 0;
+  };
+
+  MapChart.prototype.drawOverlay = function (st, m) {
+    var c = this.overlay.getContext('2d'), dpr = this.dpr, w = this.width, h = this.height;
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    c.clearRect(0, 0, w, h);
+    var kind = this.spec.kind, t = this.tokens;
+    this.hits = [];
+    // A globe's rim, so the sphere reads as one.
+    if (st.a.pid === M.PROJECTIONS.globe && st.mix === 0) {
+      var f = st.a.fit, z = st.zoom;
+      var ctr = M.toPixel(m, (0 - f.cx) * f.s * z.s - z.x * z.s, (0 - f.cy) * f.s * z.s - z.y * z.s, 0, w, h);
+      var edge = M.toPixel(m, (1 - f.cx) * f.s * z.s - z.x * z.s, (0 - f.cy) * f.s * z.s - z.y * z.s, 0, w, h);
+      if (ctr && edge) {
+        c.beginPath();
+        c.arc(ctr[0], ctr[1], Math.hypot(edge[0] - ctr[0], edge[1] - ctr[1]), 0, Math.PI * 2);
+        c.lineWidth = 1;
+        c.strokeStyle = rgba(t.inkRgb, 0.25);
+        c.stroke();
+      }
+    }
+    if (kind === 'symbols') this.drawSymbols(c, st, m);
+    else if (kind === 'spikes') this.drawSpikes(c, st, m);
+    else if (kind === 'flows') this.drawFlows(c, st, m);
+    else if (kind === 'hexbin') this.drawHexbin(c, st, m);
+    else if (kind === 'dots') this.drawDots(c, st, m);
+    else if (kind === 'track') this.drawTrack(c, st, m);
+    if (this.spec.zoom_label && st.zoom.s > 1.01) {
+      c.font = '600 13px system-ui, sans-serif';
+      c.fillStyle = t.ink;
+      c.fillText(this.spec.zoom_label, 12, 22);
+    }
+  };
+
+  // The blend's other chart's value for row `r`'s region, so a beat's
+  // marks grow or shrink in place.
+  MapChart.prototype.amountNow = function (st, r) {
+    var a = this.amount(r);
+    if (!st.other || st.hmix <= 0) return a;
+    var o = st.other, f = this.rowFeature[r], or = f >= 0 && o.fRow ? o.fRow[f] : r;
+    var b = or >= 0 && or < o.n ? o.amount(or) : 0;
+    return M.lerp(a, b, st.hmix);
+  };
+
+  MapChart.prototype.drawSymbols = function (c, st, m) {
+    var rows = [], t = this.tokens, maxR = MAX_R * Math.min(this.width, this.height) * Math.sqrt(st.zoom.s);
+    for (var r = 0; r < this.n; r++) rows.push(r);
+    var self = this;
+    rows.sort(function (a, b) { return self.amount(b) - self.amount(a); });
+    var paper = Vizkit.hexToRgb(t.paper);
+    rows.forEach(function (r) {
+      var p = self.placeOf(r);
+      if (!p) return;
+      var q = self.pixel(st, m, p[0], p[1], p[2], 0);
+      if (!q) return;
+      var rad = Math.sqrt(self.amountNow(st, r)) * maxR;
+      if (!(rad > 0.4)) return;
+      var rgb = self.colorOf(r) || t.highlightRgb;
+      c.beginPath();
+      c.arc(q[0], q[1], rad, 0, Math.PI * 2);
+      c.fillStyle = rgba(rgb, 0.55);
+      c.fill();
+      c.lineWidth = 0.8;
+      c.strokeStyle = rgba(paper, 0.9);
+      c.stroke();
+      self.hits.push({ x: q[0], y: q[1], r: Math.max(rad, 4), row: r });
+    });
+  };
+
+  // A spike stands up the page on a flat map and up out of the ground as
+  // the map tilts.
+  MapChart.prototype.drawSpikes = function (c, st, m) {
+    // Thin and light when there are thousands, so they read as a field.
+    var many = this.n > 400;
+    var t = this.tokens, tilt = M.tilt(st.cam), hpx = (many ? 0.16 : 0.3) * this.height * Math.sqrt(st.zoom.s);
+    var base = many ? 2.2 : 4;
+    var rows = [], self = this;
+    for (var r = 0; r < this.n; r++) {
+      var p = this.placeOf(r);
+      if (!p) continue;
+      var z0 = this.regionTop(st, r);
+      var q = this.pixel(st, m, p[0], p[1], p[2], z0);
+      if (!q) continue;
+      var a = this.amountNow(st, r);
+      if (!(a > 0)) continue;
+      var up = [q[0], q[1] - a * hpx];
+      var top3 = tilt > 0 ? this.pixel(st, m, p[0], p[1], p[2], z0 + a * SPIKE * st.zoom.s) : null;
+      var tip = top3 ? [M.lerp(up[0], top3[0], tilt), M.lerp(up[1], top3[1], tilt)] : up;
+      rows.push({ q: q, tip: tip, r: r, depth: q[2] });
+    }
+    // Far spikes first, so near ones stand in front.
+    rows.sort(function (a, b) { return b.depth - a.depth; });
+    var stroke = t.highlightRgb;
+    rows.forEach(function (s) {
+      var rgb = self.color ? (self.colorOf(s.r) || stroke) : stroke;
+      c.beginPath();
+      c.moveTo(s.q[0] - base, s.q[1]);
+      c.lineTo(s.tip[0], s.tip[1]);
+      c.lineTo(s.q[0] + base, s.q[1]);
+      c.fillStyle = rgba(rgb, many ? 0.16 : 0.3);
+      c.fill();
+      c.lineWidth = many ? 0.7 : 1;
+      c.strokeStyle = rgba(rgb, many ? 0.7 : 0.95);
+      c.stroke();
+      self.hits.push({ x: s.tip[0], y: (s.tip[1] + s.q[1]) / 2, r: 6, row: s.r });
+    });
+  };
+
+  MapChart.prototype.drawFlows = function (c, st, m) {
+    var t = this.tokens, self = this, rows = [];
+    for (var r = 0; r < this.n; r++) rows.push(r);
+    rows.sort(function (a, b) { return self.amount(a) - self.amount(b); });
+    var maxW = 9;
+    rows.forEach(function (r) {
+      var a = self.placeOf(r), b = self.placeOf(r, true);
+      if (!a || !b) return;
+      // On a globe a flow follows its great circle; on a flat map it is a
+      // bowed arc between its ends, as flow maps draw them.
+      var line = st.a.pid === M.PROJECTIONS.globe ? M.greatCircle(a, b, 64)
+        : [0, 1].map(function (k) { return k ? [b[0], b[1]] : [a[0], a[1]]; });
+      var pts = [], cut = false;
+      line.forEach(function (ll, i) {
+        var q = self.pixel(st, m, ll[0], ll[1], i === 0 ? a[2] : i === line.length - 1 ? b[2] : 0, 0);
+        if (ll.cut || !q) cut = true;
+        if (q) { q.cut = !!ll.cut || (pts.length > 0 && !pts[pts.length - 1]); pts.push(q); }
+      });
+      if (pts.length < 2) return;
+      // Bowed to one side so a flow and its return part — unless the map's
+      // edge cuts it, when it runs straight off one side and on the other.
+      var p0 = pts[0], p1 = pts[pts.length - 1], dx = p1[0] - p0[0], dy = p1[1] - p0[1], len = Math.hypot(dx, dy) || 1;
+      var nx = -dy / len, ny = dx / len, bow = cut ? 0 : Math.min(60, 0.16 * len);
+      var rgb = self.color ? (self.colorOf(r) || t.highlightRgb) : t.highlightRgb;
+      c.beginPath();
+      if (pts.length === 2) {
+        // A curve whose middle stands `bow` off the straight line.
+        c.moveTo(p0[0], p0[1]);
+        c.quadraticCurveTo((p0[0] + p1[0]) / 2 + nx * bow * 2, (p0[1] + p1[1]) / 2 + ny * bow * 2, p1[0], p1[1]);
+      } else pts.forEach(function (q, i) {
+        var k = Math.sin(Math.PI * i / (pts.length - 1)) * bow;
+        var x = q[0] + nx * k, y = q[1] + ny * k;
+        if (i && !q.cut) c.lineTo(x, y); else c.moveTo(x, y);
+      });
+      c.lineWidth = 0.8 + Math.sqrt(self.amountNow(st, r)) * maxW;
+      c.lineCap = 'round';
+      c.strokeStyle = rgba(rgb, 0.5);
+      c.stroke();
+      c.beginPath();
+      c.arc(p1[0], p1[1], 2.6, 0, Math.PI * 2);
+      c.fillStyle = rgba(t.inkRgb, 0.75);
+      c.fill();
+      self.hits.push({ x: (p0[0] + p1[0]) / 2 + nx * bow, y: (p0[1] + p1[1]) / 2 + ny * bow, r: 8, row: r });
+    });
+  };
+
+  MapChart.prototype.pointPixels = function (st, m) {
+    var out = [], colorCol = this.color && this.color.value ? this.color : null;
+    for (var r = 0; r < this.n; r++) {
+      var p = this.placeOf(r);
+      if (!p) continue;
+      var q = this.pixel(st, m, p[0], p[1], 0, this.dropOf(st, r));
+      if (!q) continue;
+      var v = [q[0], q[1], colorCol ? colorCol.value(r) : NaN];
+      v.row = r;
+      out.push(v);
+    }
+    return out;
+  };
+
+  MapChart.prototype.drawHexbin = function (c, st, m) {
+    var bins = M.hexbin(this.pointPixels(st, m), HEX), t = this.tokens, hi = 1;
+    var mean = !!(this.color && this.color.value);
+    bins.forEach(function (b) { b.v = mean ? b.sum / b.n : b.n; if (b.v > hi) hi = b.v; });
+    var lo = mean ? Math.min.apply(null, bins.map(function (b) { return b.v; })) : 0;
+    var self = this;
+    bins.forEach(function (b) {
+      var u = (b.v - lo) / ((hi - lo) || 1);
+      var rgb = Vizkit.ramp(Math.max(0.08, Math.min(1, mean ? u : Math.sqrt(u))), t.sequentialRgb);
+      var cs = M.hexCorners(b.x, b.y, HEX - 0.6);
+      c.beginPath();
+      cs.forEach(function (p, i) { if (i) c.lineTo(p[0], p[1]); else c.moveTo(p[0], p[1]); });
+      c.closePath();
+      c.fillStyle = rgba(rgb, 0.88);
+      c.fill();
+      self.hits.push({ x: b.x, y: b.y, r: HEX, bin: b });
+    });
+    this.hexMax = hi;
+  };
+
+  MapChart.prototype.drawDots = function (c, st, m) {
+    var t = this.tokens, pts = this.pointPixels(st, m), many = pts.length > 20000;
+    var rgb = t.highlightRgb, rad = many ? 0.9 : 1.8;
+    c.fillStyle = rgba(rgb, many ? 0.22 : 0.5);
+    for (var i = 0; i < pts.length; i++) c.fillRect(pts[i][0] - rad, pts[i][1] - rad, rad * 2, rad * 2);
+  };
+
+  // The ground under row `r`, in plane units, for a mark draped on terrain.
+  MapChart.prototype.dropOf = function (st, r) {
+    if (!this.ground) return 0;
+    var g = this.ground.values[r], te = this.view.map.terrain;
+    if (!isFinite(g) || !te) return 0;
+    return (g - (te.lo || 0)) * this.terrainScale(st) + 0.002;
+  };
+
+  MapChart.prototype.drawTrack = function (c, st, m) {
+    var t = this.tokens, pts = [];
+    for (var r = 0; r < this.n; r++) {
+      var p = this.placeOf(r);
+      pts.push(p ? this.pixel(st, m, p[0], p[1], 0, this.dropOf(st, r)) : null);
+    }
+    var paper = Vizkit.hexToRgb(t.paper);
+    c.lineCap = 'round'; c.lineJoin = 'round';
+    // A halo under the route, then each stretch in its colour.
+    c.beginPath();
+    var on = false;
+    pts.forEach(function (q) { if (!q) { on = false; return; } if (on) c.lineTo(q[0], q[1]); else { c.moveTo(q[0], q[1]); on = true; } });
+    c.lineWidth = 7; c.strokeStyle = rgba(paper, 0.85); c.stroke();
+    c.lineWidth = 4;
+    for (var i = 1; i < pts.length; i++) {
+      var a = pts[i - 1], b = pts[i];
+      if (!a || !b) continue;
+      var rgb = this.colorOf(i) || t.highlightRgb;
+      c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]);
+      c.strokeStyle = rgba(rgb, 1); c.stroke();
+      if (i % 25 === 0) this.hits.push({ x: b[0], y: b[1], r: 8, row: i });
+    }
+    var first = pts.find(Boolean), last = pts.slice().reverse().find(Boolean);
+    [first, last].forEach(function (q, k) {
+      if (!q) return;
+      c.beginPath(); c.arc(q[0], q[1], 5, 0, Math.PI * 2);
+      c.fillStyle = k ? t.ink : t.paper; c.fill();
+      c.lineWidth = 2; c.strokeStyle = t.ink; c.stroke();
+    });
+  };
+
+  // ---- the legend -----------------------------------------------------------
+
+  MapChart.prototype.makeLegend = function () {
+    var enc = this.view.encodings, t = this.tokens, box = document.createElement('div');
+    box.className = 'legend-map';
+    var fmt = function (e, v) {
+      var d = e.scale.domain, step = Math.abs(d[1] - d[0]) / 10 || 0.1;
+      return Vizkit.withUnit(Vizkit.formatNumber(v, step), e.unit);
+    };
+    var color = enc.color;
+    if (color && (color.scale.kind === 'linear' || color.scale.kind === 'log')) {
+      var d = color.scale.domain, bar = document.createElement('span');
+      bar.className = 'ramp';
+      bar.style.background = 'linear-gradient(90deg,' + t.sequential.join(',') + ')';
+      box.appendChild(document.createTextNode(color.field.replace(/_/g, ' ') + ' '));
+      box.appendChild(document.createTextNode(fmt(color, d[0]) + ' '));
+      box.appendChild(bar);
+      box.appendChild(document.createTextNode(' ' + fmt(color, d[1])));
+    }
+    var s = enc.size || (this.spec.kind !== 'choropleth' ? enc.z : null);
+    if (s && this.spec.kind !== 'track') {
+      var item = document.createElement('span');
+      item.className = 'size';
+      var d2 = s.scale.domain;
+      item.textContent = (this.spec.kind === 'spikes' ? '▲ ' : this.spec.kind === 'flows' ? '— ' : '● ') +
+        s.field.replace(/_/g, ' ') + ' up to ' + fmt(s, Math.max(Math.abs(d2[0]), Math.abs(d2[1])));
+      box.appendChild(item);
+    }
+    if (enc.z && this.spec.kind === 'choropleth') {
+      var z = document.createElement('span');
+      z.className = 'size';
+      z.textContent = '▮ height: ' + enc.z.field.replace(/_/g, ' ');
+      box.appendChild(z);
+    }
+    return box.childNodes.length ? box : null;
+  };
+
+  // ---- the reader's hover -----------------------------------------------------
+
+  MapChart.prototype.describe = function (r) {
+    var enc = this.view.encodings, parts = [], self = this;
+    var f = r != null && this.rowFeature ? this.rowFeature[r] : -1;
+    var name = f >= 0 && this.geo && this.geo.fname ? this.geo.fname.dict[this.geo.fname.values[f]] : null;
+    if (this.spec.kind === 'flows' && this.geo) {
+      var b = this.featureOf[this.geoTo && this.geoTo.dict[this.geoTo.values[r]]];
+      if (b != null) name = (name || '?') + ' → ' + this.geo.fname.dict[this.geo.fname.values[b]];
+    }
+    ['color', 'size', 'z'].forEach(function (ch) {
+      var e = enc[ch];
+      if (!e || parts.some(function (p) { return p[0] === e.field; })) return;
+      var col = self.columns[e.field];
+      if (!col) return;
+      var v = col.dict ? col.dict[col.values[r]] : Vizkit.withUnit(Vizkit.formatNumber(col.values[r], Math.abs(col.values[r]) / 100 || 0.01), e.unit);
+      parts.push([e.field, v]);
+    });
+    return { name: name, parts: parts };
+  };
+
+  MapChart.prototype.regionAt = function (x, y) {
+    var g = this.geo, d = this.drawn;
+    if (!g || !d) return -1;
+    for (var ri = g.ring.length - 2; ri >= 0; ri--) {
+      var f = g.rfeat[ri], ring = [], x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+      var hz = (this.fH[f] || 0) * d.st.hs * d.st.zoom.s;
+      for (var i = g.ring[ri]; i < g.ring[ri + 1]; i++) {
+        var q = this.pixel(d.st, d.m, g.pos[2 * i], g.pos[2 * i + 1], g.inset[f], hz);
+        if (!q) { ring = null; break; }
+        ring.push(q);
+        if (q[0] < x0) x0 = q[0]; if (q[0] > x1) x1 = q[0]; if (q[1] < y0) y0 = q[1]; if (q[1] > y1) y1 = q[1];
+        if (i === g.ring[ri] + 2 && (x < x0 - 400 || x > x1 + 400)) { ring = null; break; }
+      }
+      if (ring && x >= x0 && x <= x1 && y >= y0 && y <= y1 && M.inside([x, y], ring)) return f;
+    }
+    return -1;
+  };
+
+  MapChart.prototype.listen = function () {
+    var self = this;
+    this.onMove = function (e) {
+      var b = self.container.getBoundingClientRect(), x = e.clientX - b.left, y = e.clientY - b.top;
+      var hit = null, best = Infinity;
+      (self.hits || []).forEach(function (h) {
+        var dd = Math.hypot(h.x - x, h.y - y);
+        if (dd < h.r && dd < best) { best = dd; hit = h; }
+      });
+      var info = null;
+      if (hit && hit.bin) info = { name: hit.bin.n + ' here', parts: [] };
+      else if (hit) info = self.describe(hit.row);
+      else if (self.spec.kind === 'choropleth') {
+        var f = self.regionAt(x, y);
+        if (f >= 0) info = self.fRow[f] >= 0 ? self.describe(self.fRow[f]) : { name: self.geo.fname.dict[self.geo.fname.values[f]], parts: [['', 'no data']] };
+      }
+      if (!info) { self.tip.hidden = true; return; }
+      self.tip.textContent = '';
+      if (info.name) { var n = document.createElement('b'); n.textContent = info.name; self.tip.appendChild(n); }
+      info.parts.forEach(function (p) {
+        var line = document.createElement('p');
+        line.className = 'tip-value';
+        line.textContent = (p[0] ? p[0].replace(/_/g, ' ') + ': ' : '') + p[1];
+        self.tip.appendChild(line);
+      });
+      self.tip.hidden = false;
+      self.tip.style.left = Math.min(x + 12, self.width - 160) + 'px';
+      self.tip.style.top = Math.max(0, y - 10) + 'px';
+    };
+    this.onLeave = function () { self.tip.hidden = true; };
+    this.container.addEventListener('mousemove', this.onMove);
+    this.container.addEventListener('mouseleave', this.onLeave);
+  };
+
+  // ---- beats ------------------------------------------------------------------
+
+  // Glide toward `other` (the next beat's chart of this map) by `e`,
+  // through the cameras of `flight` when it has several. False when
+  // `other` is a different map, so the page cross-fades instead.
+  MapChart.prototype.blend = function (other, e, flight) {
+    if (!other || !other.isMap || other.spec.kind !== this.spec.kind ||
+        other.spec.boundaries !== this.spec.boundaries || other.nFeatures !== this.nFeatures) return false;
+    var b = this.blendState;
+    if (!b || b.other !== other) {
+      b = this.blendState = { other: other, e: 0, path: null };
+      if (this.gl && this.gpu && other.fRgb) this.paint(this.gl, other, true);
+      if (flight && flight.length > 1) {
+        var stops = [this.rest.cam].concat(flight.map(M.camera));
+        b.path = function (t) {
+          var n = stops.length - 1, at = Math.min(n - 1e-9, Math.max(0, t * n)), i = Math.floor(at);
+          return M.lerpCamera(stops[i], stops[i + 1], at - i);
+        };
+      }
+    }
+    b.e = e;
+    this.draw();
+    return true;
+  };
+
+  MapChart.prototype.unblend = function () {
+    if (!this.blendState) return;
+    this.blendState = null;
+    this.draw();
+  };
+
+  MapChart.prototype.instances = function () { return null; };
+
+  MapChart.prototype.destroy = function () {
+    this.container.removeEventListener('mousemove', this.onMove);
+    this.container.removeEventListener('mouseleave', this.onLeave);
+    if (this.gl) { var ext = this.gl.getExtension('WEBGL_lose_context'); if (ext) ext.loseContext(); }
+  };
+
+  // A map mounts through the SDK like every built-in mark.
+  Vizkit.sdk.registerMark(['map'], function (container, view, columns) {
+    return new MapChart(container, view, columns);
+  });
+})(Vizkit);
 // vizkit marks: a view's marks drawn on WebGL2 — points, bars and rects
 // as instanced quads, lines as instanced segments — so a million points
 // pan and hover at frame rate. Positions live in the GPU normalised to
@@ -6671,6 +7858,8 @@ var CadYamGl3d = (function () {
   function Chart(container, view, columns, opts) {
     // A 3D view draws itself (vizkit_3d.js); `new Chart` hands it back.
     if (Vizkit.is3d && Vizkit.is3d(view)) return new Vizkit.Chart3d(container, view, columns, opts);
+    // So does a map (vizkit_map.js).
+    if (view.map && Vizkit.MapChart) return new Vizkit.MapChart(container, view, columns, opts);
     var enc = view.encodings, self = this;
     this.view = view;
     this.columns = columns;
