@@ -136,31 +136,32 @@ body.no-pins .pin, body.no-pins #model-pins { display: none; }
 #model-pins circle { fill: var(--pin); stroke: #fff; stroke-width: 2px; }
 #model-pins .picked circle { fill: var(--pick); }
 #model-pins text { fill: #fff; font: 700 12px/1 "Source Sans 3", "Source Sans Pro", system-ui, sans-serif; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
-aside .pins button { display: block; height: auto; width: 100%; text-align: left; border: 0; border-radius: 6px; padding: 5px 8px; margin: 0 -8px; width: calc(100% + 16px); background: none; }
+aside .pins button { display: block; height: auto; width: 100%; text-align: left; white-space: normal; overflow-wrap: break-word; border: 0; border-radius: 6px; padding: 5px 8px; margin: 0; background: none; }
+aside .pins button div { margin-top: 2px; font-size: 12px; line-height: 1.35; color: var(--muted); white-space: pre-wrap; overflow-wrap: break-word; }
 aside .pins button:hover { background: var(--accent-soft); }
 aside .pins li.picked button { background: rgba(232,137,43,.14); }
 aside .pins li.done strong { text-decoration: line-through; color: var(--muted); }
 aside .pins .where { display: block; font-size: 12px; color: var(--muted); }
 aside .pin-at { color: var(--muted); margin: 0 0 8px; }
-aside .note { margin: 0 0 10px; white-space: pre-wrap; }
+aside .note { margin: 0 0 10px; white-space: pre-wrap; overflow-wrap: break-word; max-height: 110px; overflow-y: auto; }
 #model-view { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: grab; }
 .empty[hidden] { display: none; }
 .empty { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--muted); margin: 0; }
-aside { position: absolute; right: 14px; bottom: 56px; width: 280px; max-height: calc(100% - 110px); overflow: auto; padding: 14px 16px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 10px 30px rgba(29,29,31,.16); z-index: 3; }
+aside { position: absolute; right: 14px; bottom: 56px; width: 280px; max-height: calc(100% - 110px); overflow-y: auto; overflow-x: hidden; padding: 14px 16px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 10px 30px rgba(29,29,31,.16); z-index: 3; }
 aside[hidden] { display: none; }
 aside .close { position: absolute; top: 8px; right: 8px; height: 26px; border: 0; padding: 0 6px; font-size: 18px; line-height: 1.2; color: var(--muted); background: none; }
 aside .close:hover { color: var(--ink); }
-aside h2 { font-size: 16px; font-weight: 600; margin: 0 24px 2px 0; }
+aside h2 { font-size: 16px; font-weight: 600; margin: 0 24px 2px 0; overflow-wrap: break-word; }
 aside .kind { color: var(--muted); margin: 0 0 10px; }
 aside dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 0; }
 aside dt { color: var(--muted); text-transform: capitalize; }
-aside dd { margin: 0; }
+aside dd { margin: 0; overflow-wrap: break-word; }
 aside h3 { font-size: 13px; margin: 12px 0 6px; }
 aside h3:first-of-type { margin-top: 0; }
-aside .pins { margin: 0; padding-left: 0; list-style: none; }
+aside .pins { margin: 0 -8px; padding: 0 8px; list-style: none; max-height: min(220px, 34vh); overflow-y: auto; overflow-x: hidden; }
 aside .pins li { margin-bottom: 2px; }
 /* The Options list and the inspector scroll on their own, never dragging the page or the view under them. */
-.menu-list, aside { overscroll-behavior: contain; -webkit-overflow-scrolling: touch; touch-action: pan-y; }
+.menu-list, aside, aside .pins { overscroll-behavior: contain; -webkit-overflow-scrolling: touch; touch-action: pan-y; }
 /* The walk pad: shown only while walking on a touch screen, bottom left, clear of the zoom pill and the phone's rounded corners. */
 #walk-pad { display: none; position: absolute; left: calc(16px + env(safe-area-inset-left)); bottom: calc(16px + env(safe-area-inset-bottom)); width: 120px; height: 120px; border-radius: 50%; background: rgba(255,255,255,.55); border: 1px solid var(--line-strong); box-shadow: 0 2px 10px rgba(29,29,31,.16); z-index: 2; touch-action: none; }
 body.touch.walking #walk-pad { display: block; }
