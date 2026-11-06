@@ -383,12 +383,13 @@ PREFERRED_ORDER = [
     "architectural-loft-renovation.html",
     "farm-house.html",
     "trees-exhibit.html",
-    "luxuryhousepond.html",
-    "chicago-dashboard.html",
-    "floral-dress.html",
     "heirloom-craftsman-sideboard.html",
-    "town-center.html",
+    "chicago-dashboard.html",
+    "luxuryhousepond.html",
+    "vaccines-deck.html",
+    "floral-dress.html",
     "american-economy-story.html",
+    "town-center.html",
 ]
 
 

@@ -1,0 +1,95 @@
+{
+  "api": {
+    "attributes": {
+      "aspect": "width/height of the box, e.g. 16/10; or size the element with CSS",
+      "src": "the .viz.html page",
+      "state": "the state to show (an id from `states`); changing it animates there",
+      "theme": "light | dark | auto (default auto, following the reader)"
+    },
+    "css": {
+      "--viz-bg": "the frame's background (default transparent: the host's shows through)",
+      "--viz-font": "font family for in-chart text"
+    },
+    "events": {
+      "viz:ready": "detail: {states, state}",
+      "viz:state": "detail: {state, index} — after any state change, including the reader's"
+    },
+    "methods": {
+      "setState(id, {instant})": "animate (or jump) to a state; returns a promise that resolves when it is shown",
+      "states": "the states, as in this manifest, once ready"
+    }
+  },
+  "cadyamViz": "1.0",
+  "credit": "Source: global-vaccination-coverage.csv?v=1&csvType=full&useColumnShortNames=true&time=2000..2025",
+  "data": {
+    "fields": [
+      "code",
+      "coverage__antigen_dtpcv3",
+      "coverage__antigen_hepb3",
+      "coverage__antigen_hib3",
+      "coverage__antigen_pcvc",
+      "coverage__antigen_rotac",
+      "entity",
+      "year"
+    ],
+    "notes": [],
+    "rows": 9461
+  },
+  "embed": {
+    "html": "<script src=\"cadyam-viz.js\"></script>\n<cadyam-viz src=\"vaccine-world.viz.html\" aspect=\"16/10\"></cadyam-viz>",
+    "page": "vaccine-world.viz.html",
+    "script": "cadyam-viz.js"
+  },
+  "layout": {
+    "aspect": "16/10",
+    "minHeight": 260,
+    "minWidth": 360,
+    "note": "Fills whatever box it is given; text inside is axes, labels and annotations only — headline, prose and captions belong to the host page."
+  },
+  "name": "vaccine-world",
+  "sources": [
+    {
+      "covers": "Vaccine coverage by country, 2000–2025",
+      "publisher": "WHO/UNICEF Estimates of National Immunization Coverage, via Our World in Data",
+      "url": "https://ourworldindata.org/grapher/global-vaccination-coverage"
+    },
+    {
+      "covers": "Births by country",
+      "publisher": "UN World Population Prospects, via Our World in Data",
+      "url": "https://ourworldindata.org/grapher/number-of-births-per-year"
+    },
+    {
+      "covers": "Under-five mortality by country",
+      "publisher": "UN Inter-agency Group for Child Mortality Estimation, via Our World in Data",
+      "url": "https://ourworldindata.org/grapher/child-mortality"
+    }
+  ],
+  "states": [
+    {
+      "description": "In 2000: each country raised by the share of its infants reached by the four newer vaccines (hepatitis B, Hib, pneumococcal, rotavirus). The story event carries each vaccine's worldwide coverage then and now.",
+      "id": "then",
+      "title": "Then"
+    },
+    {
+      "description": "2000 to 2025, played: the map rises as countries add the newer vaccines; the countries with the biggest gains are named.",
+      "id": "now",
+      "title": "Now"
+    },
+    {
+      "description": "Each newer vaccine's worldwide coverage, 2000 to 2025, with the third DTP dose for reference; the map dims beneath.",
+      "id": "vaccines",
+      "title": "Vaccines"
+    },
+    {
+      "description": "Infants who did not get the third DTP dose in 2025, by country (births × the uncovered share); the most are named. The story event carries the total and the top five's share.",
+      "id": "gap",
+      "title": "Gap"
+    },
+    {
+      "description": "Under-five mortality, 2000 falling to the latest year; the biggest falls are named. The story event carries the world rate then and now.",
+      "id": "survival",
+      "title": "Survival"
+    }
+  ],
+  "title": "Then"
+}

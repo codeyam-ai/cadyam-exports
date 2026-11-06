@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Twenty-Five Years of New Vaccines</title>
+<!-- cadyam-social-meta:start -->
+<meta name="description" content="Interactive 3D model &amp; 2D plan — Data Stories · Exported 6 November 2026">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CadYam Exports">
+<meta property="og:title" content="Twenty-Five Years of New Vaccines">
+<meta property="og:description" content="Interactive 3D model &amp; 2D plan — Data Stories · Exported 6 November 2026">
+<meta property="og:url" content="https://codeyam-ai.github.io/cadyam-exports/vaccines-deck.html">
+<meta property="og:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/vaccines-deck.jpg?v=97cadbf4">
+<meta property="og:image:secure_url" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/vaccines-deck.jpg?v=97cadbf4">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="900">
+<meta property="og:image:alt" content="Twenty-Five Years of New Vaccines — 3D model preview">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Twenty-Five Years of New Vaccines">
+<meta name="twitter:description" content="Interactive 3D model &amp; 2D plan — Data Stories · Exported 6 November 2026">
+<meta name="twitter:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/vaccines-deck.jpg?v=97cadbf4">
+<meta name="twitter:image:alt" content="Twenty-Five Years of New Vaccines — 3D model preview">
+<!-- cadyam-social-meta:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..800&family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+<script src="cadyam-viz.js"></script>
+<style>
+  :root { --paper: #f4efe4; --ink: #14213d; --soft: #5c6470; --teal: #0e8a7e; --coral: #e4572e; --gold: #d98f1f; --rule: rgba(20, 33, 61, .14); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: #1d2433; overflow: hidden; }
+  body { font-family: "Instrument Sans", system-ui, sans-serif; color: var(--ink); font-variant-numeric: lining-nums tabular-nums; }
+
+  /* A 1920×1080 slide, scaled to fit the window like a presentation. */
+  .stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; background: var(--paper); transform-origin: 0 0; overflow: hidden; }
+  .stage::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 70% at 70% 50%, rgba(255,255,255,.55), transparent 70%); }
+  .viz { position: absolute; left: 640px; top: 40px; right: 24px; bottom: 96px; z-index: 1;
+    --viz-font: "Instrument Sans", sans-serif; --viz-ink: #14213d; --viz-muted: #5c6470; --viz-positive: #0e8a7e; --viz-negative: #e4572e; --viz-accent: #d98f1f; --viz-inset-left: 70px; }
+  .viz cadyam-viz { width: 100%; height: 100%; }
+
+  .slide { position: absolute; left: 0; top: 0; width: 640px; height: 1080px; padding: 112px 40px 120px 96px; z-index: 2;
+    display: flex; flex-direction: column; justify-content: center; opacity: 0; transform: translateY(14px); transition: opacity .5s, transform .5s; pointer-events: none; }
+  .slide.on { opacity: 1; transform: none; pointer-events: auto; }
+  .kicker { font: 700 17px "Instrument Sans", sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--teal); margin-bottom: 22px; }
+  .slide.hot .kicker { color: var(--coral); }
+  h1 { font: 700 84px/.98 Fraunces, serif; font-variation-settings: "opsz" 144; letter-spacing: -.02em; margin: 0 0 28px; }
+  h2 { font: 650 54px/1.04 Fraunces, serif; font-variation-settings: "opsz" 120; letter-spacing: -.015em; margin: 0 0 30px; }
+  p { font-size: 25px; line-height: 1.45; margin: 0 0 18px; color: #2b3447; }
+  .note { font-size: 19px; color: var(--soft); }
+  .big { font: 700 112px/.9 Fraunces, serif; font-variation-settings: "opsz" 144; letter-spacing: -.03em; margin: 0 0 6px; }
+  .big.teal { color: var(--teal); } .big.coral { color: var(--coral); }
+  .big-label { font-size: 22px; color: var(--soft); margin-bottom: 30px; }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 28px; margin: 6px 0 26px; }
+  .stats div { border-top: 2px solid var(--rule); padding-top: 12px; }
+  .stats b { display: block; font: 700 44px/1 Fraunces, serif; }
+  .stats span { font-size: 18px; color: var(--soft); }
+  .teal { color: var(--teal); } .coral { color: var(--coral); }
+  .sources { width: 1500px !important; }
+  .sources ol { font-size: 22px; line-height: 1.5; padding-left: 26px; color: #2b3447; }
+  .sources a { color: var(--ink); }
+
+  .foot { position: absolute; left: 96px; right: 96px; bottom: 44px; z-index: 3; display: flex; justify-content: space-between; align-items: center;
+    font-size: 17px; color: var(--soft); }
+  .dots { display: flex; gap: 10px; }
+  .dots button { width: 34px; height: 6px; border-radius: 3px; border: 0; background: var(--rule); cursor: pointer; padding: 0; }
+  .dots button.on { background: var(--ink); }
+  .foot { border-top: 2px solid var(--rule); padding-top: 22px; bottom: 34px; }
+  .hint { font-size: 18px; }
+  kbd { font: 600 15px "Instrument Sans", sans-serif; display: inline-block; min-width: 30px; padding: 3px 8px; border: 1.5px solid rgba(20,33,61,.3); border-bottom-width: 3px; border-radius: 7px; text-align: center; color: var(--ink); background: #fffdf8; }
+  .nav { display: flex; align-items: center; gap: 18px; }
+  .nav span { font: 600 18px "Instrument Sans", sans-serif; color: var(--ink); min-width: 120px; text-align: center; }
+  .nav button { font: 600 18px "Instrument Sans", sans-serif; border-radius: 999px; padding: 12px 22px; cursor: pointer; border: 2px solid var(--ink); background: transparent; color: var(--ink); }
+  .nav button.next { background: var(--ink); color: var(--paper); }
+  .nav button:disabled { opacity: .3; cursor: default; }
+  .nav button:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
+  .nav button.next.pulse { animation: pulse 1.8s ease-in-out 3; }
+  @keyframes pulse { 50% { box-shadow: 0 0 0 10px rgba(14,138,126,.22); } }
+  .timeline { display: flex; align-items: center; gap: 18px; margin-top: 34px; padding-top: 26px; border-top: 2px solid var(--rule); }
+  .timeline button { width: 56px; height: 56px; flex: none; border-radius: 50%; border: 0; background: var(--ink); color: var(--paper); font-size: 20px; cursor: pointer; }
+  .timeline button:focus-visible, .timeline input:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
+  .timeline .track { flex: 1; }
+  .timeline input { width: 100%; margin: 0; accent-color: var(--ink); height: 28px; cursor: pointer; }
+  .timeline .ticks { display: flex; justify-content: space-between; font-size: 15px; color: var(--soft); margin-top: 2px; }
+  .timeline output { font: 700 40px Fraunces, serif; min-width: 104px; text-align: right; }
+  .stage.full .viz { opacity: .0; }
+  .viz { transition: opacity .6s;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 90px, #000 calc(100% - 40px), transparent);
+    mask-image: linear-gradient(90deg, transparent 0, #000 90px, #000 calc(100% - 40px), transparent); }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="viz"><cadyam-viz id="viz" src="vaccine-world.viz.html" state="then" theme="light" aria-label="World map of childhood vaccine coverage by country"></cadyam-viz></div>
+
+  <section class="slide on" data-state="now">
+    <div class="kicker">Childhood immunization · 2000–2025</div>
+    <h1>Twenty-five years of new vaccines</h1>
+    <p>Four vaccines that were rare outside rich countries in 2000 now reach most of the world’s infants. What changed, where the work is left, and what came with it.</p>
+    <div class="timeline">
+      <button id="play" aria-label="Play the years">▶</button>
+      <div class="track">
+        <input type="range" id="year" min="2000" max="2025" step="1" value="2000" aria-label="Year">
+        <div class="ticks"><span>2000</span><span>2005</span><span>2010</span><span>2015</span><span>2020</span><span>2025</span></div>
+      </div>
+      <output id="yearOut">2000</output>
+    </div>
+  </section>
+
+  <section class="slide" data-state="then">
+    <div class="kicker">2000</div>
+    <h2>Most of the world’s infants got only the basics</h2>
+    <div class="stats">
+      <div><b data-bind="from:Hib">13%</b><span>Hib · meningitis, pneumonia</span></div>
+      <div><b data-bind="from:HepB">29%</b><span>Hepatitis B · liver disease</span></div>
+      <div><b data-bind="from:PCV">0%</b><span>Pneumococcal · pneumonia</span></div>
+      <div><b data-bind="from:Rotavirus">0%</b><span>Rotavirus · severe diarrhoea</span></div>
+    </div>
+    <p>The core vaccines were widespread — <b data-bind="dtpFrom">72%</b> of infants got all three DTP doses — but the newer ones reached few children outside Europe and the Americas.</p>
+  </section>
+
+  <section class="slide" data-state="now">
+    <div class="kicker">2000 → 2025</div>
+    <h2>By 2025, they reached most of them</h2>
+    <div class="big teal" data-bind="hibInfants">103M</div>
+    <div class="big-label">infants got the full Hib series in <span data-bind="lastYear">2025</span></div>
+    <p>Country by country, the map rose as national programmes added the newer vaccines. The biggest gains were in the most populous countries that started from almost nothing: <span data-bind="gainers">India, Nigeria, Pakistan</span>.</p>
+  </section>
+
+  <section class="slide" data-state="vaccines">
+    <div class="kicker">Worldwide coverage</div>
+    <h2>Every vaccine climbed — the newest fastest</h2>
+    <div class="stats">
+      <div><b class="teal" data-bind="infants:HepB">111M</b><span>infants protected against hepatitis B</span></div>
+      <div><b class="teal" data-bind="infants:Hib">103M</b><span>against Hib</span></div>
+      <div><b class="teal" data-bind="infants:PCV">94M</b><span>against pneumococcus</span></div>
+      <div><b class="teal" data-bind="infants:Rotavirus">81M</b><span>against rotavirus</span></div>
+    </div>
+    <p>Pneumococcal and rotavirus vaccines went from almost no infants to <b data-bind="to:PCV">71%</b> and <b data-bind="to:Rotavirus">61%</b> of them in under twenty years.</p>
+  </section>
+
+  <section class="slide hot" data-state="gap">
+    <div class="kicker">The work left</div>
+    <h2>Twenty million infants still miss out</h2>
+    <div class="big coral" data-bind="missed">20.3M</div>
+    <div class="big-label">infants did not get the third DTP dose in <span data-bind="lastYear">2025</span></div>
+    <p><b data-bind="top5Share">37%</b> of them live in five countries: <span data-bind="top5">Nigeria, DR Congo, India, Pakistan and Yemen</span>. Where routine DTP doesn’t reach, the newer vaccines don’t either.</p>
+    <p class="note">Missed infants = births × the share without the third dose. Births are UN estimates and projections.</p>
+  </section>
+
+  <section class="slide hot" data-state="survival">
+    <div class="kicker">Meanwhile</div>
+    <h2>Child mortality halved</h2>
+    <div class="big coral" style="font-size:88px;white-space:nowrap"><span data-bind="mortFrom">7.7%</span> → <span data-bind="mortTo">3.7%</span></div>
+    <div class="big-label">of children died before age five, 2000 and <span data-bind="mortYear">2024</span></div>
+    <p>Had 2000’s rate held, about <b data-bind="fewer">5.2 million</b> more children would have died in <span data-bind="mortYear">2024</span> alone.</p>
+    <p class="note">Vaccines are one of several reasons, alongside malaria control, nutrition, clean water and care at birth; this data shows the change, not each cause’s share of it.</p>
+  </section>
+
+  <section class="slide sources" data-state="then" data-full>
+    <div class="kicker">Sources and method</div>
+    <h2>Where these numbers come from</h2>
+    <ol id="sources"></ol>
+    <p class="note">“Newer vaccines” are hepatitis B (third dose), Hib (third dose), pneumococcal conjugate (completed series) and rotavirus (completed series). A country’s reach is the mean of the four; a vaccine not yet in its schedule counts as zero. Every number in this deck is computed from these datasets by the visualization.</p>
+  </section>
+
+  <nav class="foot" aria-label="Slides">
+    <div class="dots" id="dots"></div>
+    <div class="hint"><kbd>←</kbd> <kbd>→</kbd> or <kbd>space</kbd> to change slides</div>
+    <div class="nav">
+      <button id="prev" aria-label="Previous slide">← Previous</button>
+      <span id="count">Slide 1 of 7</span>
+      <button id="next" class="next" aria-label="Next slide">Next →</button>
+    </div>
+  </nav>
+</div>
+
+<script>
+  var stage = document.getElementById('stage'), viz = document.getElementById('viz');
+  function fit() {
+    var s = Math.min(innerWidth / 1920, innerHeight / 1080);
+    stage.style.transform = 'translate(-50%, -50%) scale(' + s + ')';
+    stage.style.transformOrigin = '50% 50%';
+  }
+  addEventListener('resize', fit); fit();
+
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide')), at = 0, dots = document.getElementById('dots');
+  slides.forEach(function (_, i) { var b = document.createElement('button'); b.setAttribute('aria-label', 'Slide ' + (i + 1)); b.onclick = function () { go(i); }; dots.appendChild(b); });
+  function go(i) {
+    at = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach(function (s, k) { s.classList.toggle('on', k === at); });
+    Array.prototype.forEach.call(dots.children, function (b, k) { b.classList.toggle('on', k === at); });
+    document.getElementById('count').textContent = 'Slide ' + (at + 1) + ' of ' + slides.length;
+    document.getElementById('prev').disabled = at === 0;
+    document.getElementById('next').disabled = at === slides.length - 1;
+    stage.classList.toggle('full', slides[at].hasAttribute('data-full'));
+    // The year control belongs to the first slide: leaving it hands the
+    // map back to each slide's own year.
+    if (at !== 0) { stopPlay(); held = false; viz.setParams({ year: null }); }
+    viz.setAttribute('state', slides[at].dataset.state);
+    history.replaceState(null, '', '#' + (at + 1));
+  }
+
+  // Scrub the years on the first slide. Until the presenter touches it the
+  // slider follows the map's own 2000 → 2025 play.
+  var yearIn = document.getElementById('year'), yearOut = document.getElementById('yearOut'), play = document.getElementById('play');
+  var held = false, timer = 0;
+  function show(y) { yearIn.value = y; yearOut.textContent = y; }
+  function hold(y) { held = true; show(y); viz.setParams({ year: y }); }
+  function stopPlay() { clearInterval(timer); timer = 0; play.textContent = '▶'; play.setAttribute('aria-label', 'Play the years'); }
+  yearIn.addEventListener('input', function () { stopPlay(); hold(+yearIn.value); });
+  play.addEventListener('click', function () {
+    if (timer) { stopPlay(); return; }
+    var y = +yearIn.value >= 2025 ? 2000 : +yearIn.value;
+    hold(y);
+    play.textContent = '❚❚'; play.setAttribute('aria-label', 'Pause');
+    timer = setInterval(function () { if (y >= 2025) { stopPlay(); return; } hold(++y); }, 450);
+  });
+  viz.addEventListener('viz:year', function (e) { if (!held && at === 0) show(e.detail.year); });
+
+  go((parseInt(location.hash.slice(1), 10) || 1) - 1);
+  // On the opening slide, nudge toward Next until the presenter moves on.
+  if (at === 0) document.getElementById('next').classList.add('pulse');
+  document.getElementById('prev').onclick = function () { go(at - 1); };
+  document.getElementById('next').onclick = function () { go(at + 1); };
+  addEventListener('keydown', function (e) {
+    // The year slider uses the arrow keys itself.
+    if (e.target && e.target.type === 'range') return;
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); go(at + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(at - 1); }
+    if (e.key === 'Home') go(0);
+    if (e.key === 'End') go(slides.length - 1);
+  });
+
+  // Every number on the slides comes from the visualization's data.
+  var names = { NGA: 'Nigeria', COD: 'DR Congo', IND: 'India', PAK: 'Pakistan', YEM: 'Yemen', ETH: 'Ethiopia', AFG: 'Afghanistan', IDN: 'Indonesia', AGO: 'Angola', SDN: 'Sudan', SOM: 'Somalia', BRA: 'Brazil', PHL: 'the Philippines', CHN: 'China', BGD: 'Bangladesh', TZA: 'Tanzania', MOZ: 'Mozambique' };
+  var list = function (a) { return a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1]; };
+  var M = function (v) { return v >= 5e7 ? Math.round(v / 1e6) + 'M' : v >= 1e6 ? (v / 1e6).toFixed(1).replace(/\.0$/, '') + 'M' : Math.round(v / 1e3) + 'k'; };
+  viz.addEventListener('viz:story', function (e) {
+    var s = e.detail, set = function (k, v) { document.querySelectorAll('[data-bind="' + k + '"]').forEach(function (n) { n.textContent = v; }); };
+    s.vaccines.forEach(function (v) {
+      set('from:' + v.short, Math.round(v.from) + '%');
+      set('to:' + v.short, Math.round(v.to) + '%');
+      set('infants:' + v.short, M(v.infants));
+      if (v.short === 'Hib') set('hibInfants', M(v.infants));
+    });
+    set('dtpFrom', Math.round(s.dtp3.from) + '%');
+    set('lastYear', s.lastYear);
+    set('missed', M(s.missedDtp3));
+    set('top5Share', Math.round(s.missedTop5Share * 100) + '%');
+    set('top5', list(s.missedTop5.map(function (t) { return names[t.code] || t.code; })));
+    set('mortFrom', s.mortality.from.toFixed(1) + '%');
+    set('mortTo', s.mortality.to.toFixed(1) + '%');
+    set('mortYear', s.mortalityYear);
+    set('fewer', (s.mortality.fewerDeaths / 1e6).toFixed(1) + ' million');
+    if (s.gainers) set('gainers', list(s.gainers.map(function (c) { return names[c] || c; })));
+  });
+  // The sources, from the visualization's own manifest.
+  fetch('vaccine-world.viz.json').then(function (r) { return r.json(); }).then(function (m) {
+    var ol = document.getElementById('sources');
+    (m.sources || []).forEach(function (s) {
+      var li = document.createElement('li'), a = document.createElement('a');
+      a.href = s.url; a.textContent = s.publisher;
+      li.appendChild(document.createTextNode((s.covers || s.title || '') + ' — ')); li.appendChild(a);
+      ol.appendChild(li);
+    });
+  });
+</script>
+</body>
+</html>
