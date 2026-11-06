@@ -5937,6 +5937,8 @@ var Vizkit = (function () {
     var story = Vizkit.readStory && Vizkit.readStory();
     var g = story && story.geo && story.geo[name];
     if (!g) return null;
+    // A story dataset as a reference layer: GeoJSON features, as shipped.
+    if (g.type === 'FeatureCollection') return (geoCache[name] = g);
     geoCache[name] = {
       pos: new Float32Array(g.pos),
       ringStart: new Uint32Array(g.ringStart),

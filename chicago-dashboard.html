@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Chicago After Dark · Who Takes a Taxi</title>
+<!-- cadyam-social-meta:start -->
+<meta name="description" content="Interactive 3D model &amp; 2D plan — Data Stories · Exported 6 November 2026">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CadYam Exports">
+<meta property="og:title" content="Chicago After Dark · Who Takes a Taxi">
+<meta property="og:description" content="Interactive 3D model &amp; 2D plan — Data Stories · Exported 6 November 2026">
+<meta property="og:url" content="https://codeyam-ai.github.io/cadyam-exports/chicago-dashboard.html">
+<meta property="og:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/chicago-dashboard.jpg?v=edc84db2">
+<meta property="og:image:secure_url" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/chicago-dashboard.jpg?v=edc84db2">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="900">
+<meta property="og:image:alt" content="Chicago After Dark · Who Takes a Taxi — 3D model preview">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Chicago After Dark · Who Takes a Taxi">
+<meta name="twitter:description" content="Interactive 3D model &amp; 2D plan — Data Stories · Exported 6 November 2026">
+<meta name="twitter:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/chicago-dashboard.jpg?v=edc84db2">
+<meta name="twitter:image:alt" content="Chicago After Dark · Who Takes a Taxi — 3D model preview">
+<!-- cadyam-social-meta:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="cadyam-viz.js"></script>
+<style>
+  :root { --night: #070a14; --ink: #e8edf5; --soft: #8f9bae; --amber: #ffb547; --cyan: #4cc9f0; --red: #ff4d6d;
+    --glass: rgba(10, 14, 27, .82); --rule: rgba(160, 180, 210, .16); }
+  * { box-sizing: border-box; }
+  html { background: var(--night); }
+  body { margin: 0; color: var(--ink); font: 400 16px/1.55 Archivo, system-ui, sans-serif; font-variant-numeric: tabular-nums; }
+  .amber { color: var(--amber); } .cyan { color: var(--cyan); }
+
+  /* The city stays put; the story scrolls over its left edge. */
+  .city { position: fixed; inset: 0; background: radial-gradient(ellipse 70% 60% at 62% 55%, #0e1630 0%, var(--night) 70%); }
+  .city cadyam-viz { position: absolute; inset: 0; --viz-font: Archivo, sans-serif; --viz-ink: #e8edf5; --viz-muted: #8f9bae;
+    --viz-accent: #ffb547; --viz-positive: #4cc9f0; --viz-inset-left: 500px; --viz-inset-top: 30px; --viz-inset-bottom: 30px; }
+
+  .story { position: relative; z-index: 2; width: 500px; padding: 0 0 30vh 36px; }
+  .story > section { min-height: 92vh; display: flex; flex-direction: column; justify-content: center; }
+  .panel { background: var(--glass); border: 1px solid var(--rule); border-radius: 16px; padding: 26px 28px; backdrop-filter: blur(12px);
+    opacity: .35; transition: opacity .5s; }
+  .on .panel, .hero .panel { opacity: 1; }
+
+  .hero { min-height: 100vh !important; }
+  .hero .stars { color: var(--red); letter-spacing: .5em; font-size: 11px; }
+  .hero h1 { margin: 10px 0 18px; font: 800 52px/.92 Archivo, sans-serif; font-stretch: 115%; text-transform: uppercase; letter-spacing: -.01em; }
+  .hero h1 em { font-style: normal; color: var(--amber); }
+  .hero .take { font: 600 22px/1.35 Archivo, sans-serif; margin: 0 0 18px; }
+  .hero p { color: #c3cbd8; margin: 0 0 10px; }
+  .hero .scroll { margin-top: 18px; color: var(--soft); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+
+  .finding .n { font: 600 12px Archivo, sans-serif; letter-spacing: .18em; text-transform: uppercase; color: var(--soft); }
+  .finding h2 { font: 800 30px/1.05 Archivo, sans-serif; font-stretch: 108%; margin: 10px 0 14px; }
+  .finding .big { display: flex; gap: 22px; margin: 4px 0 16px; }
+  .finding .big div b { display: block; font: 800 44px/1 Archivo, sans-serif; }
+  .finding .big div span { font-size: 13px; color: var(--soft); }
+  .finding p { margin: 0 0 10px; color: #c9d1dd; }
+  .finding .note { font-size: 13px; color: var(--soft); }
+
+  .explore h2 { font: 800 30px/1.05 Archivo, sans-serif; font-stretch: 108%; margin: 0 0 8px; }
+  .explore p { color: #c9d1dd; margin: 0 0 14px; }
+  .hud { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 6px 0 16px; }
+  .hud div { border: 1px solid var(--rule); border-radius: 10px; padding: 8px 10px; }
+  .hud span { display: block; font: 600 10px Archivo, sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--soft); }
+  .hud b { font: 800 19px/1.2 Archivo, sans-serif; }
+  .route { grid-column: span 3; } .route b { font-size: 15px; }
+  .day { display: flex; align-items: center; gap: 12px; padding: 12px 0 4px; border-top: 1px solid var(--rule); }
+  .day button { font: 700 13px Archivo, sans-serif; background: var(--amber); color: #1a1205; border: 0; border-radius: 999px; padding: 8px 14px; cursor: pointer; min-width: 112px; }
+  .day .clock { font: 500 19px "JetBrains Mono", monospace; min-width: 72px; }
+  .day input { flex: 1; accent-color: var(--amber); }
+  .how { font-size: 13px; color: var(--soft); margin-top: 10px; }
+  button:focus-visible, input:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+
+  footer { position: relative; z-index: 2; width: 500px; padding: 0 0 12vh 36px; color: var(--soft); font-size: 13px; }
+  footer a { color: var(--ink); }
+
+  @media (max-width: 900px) {
+    .city cadyam-viz { --viz-inset-left: 0px; }
+    .story, footer { width: auto; padding: 0 14px 30vh; }
+    .story > section { min-height: 100vh; justify-content: flex-end; padding-bottom: 6vh; }
+    .hero h1 { font-size: 38px; }
+  }
+</style>
+</head>
+<body>
+<div class="city"><cadyam-viz id="city" src="city-trips.viz.html" state="concentration" theme="dark" aria-label="Map of Chicago taxi pickups by location, June 2024"></cadyam-viz></div>
+
+<main class="story">
+  <section class="hero" data-state="concentration">
+    <div class="panel">
+      <div class="stars" aria-hidden="true">✶ ✶ ✶ ✶</div>
+      <h1>Chicago <em>after dark</em></h1>
+      <p class="take">Chicago’s taxis are a downtown-and-airport business: a few square miles produce most of the rides, and the airports bring in a big share of the money.</p>
+      <p>We mapped every taxi trip in the city in June 2024 — <b data-bind="trips">592,941</b> of them. Each glowing pillar is a place where riders were picked up; the taller it is, the more trips started there.</p>
+      <div class="scroll">Scroll ↓</div>
+    </div>
+  </section>
+
+  <section class="finding" data-state="concentration">
+    <div class="panel">
+      <div class="n">Finding 1 · Where rides start</div>
+      <h2>Three neighborhoods, most of the rides</h2>
+      <div class="big">
+        <div><b class="amber" data-bind="top3Share">62%</b><span>of all pickups, from <span data-bind="top3Names">three</span> of <span data-bind="areas">77</span> community areas</span></div>
+      </div>
+      <p>The lit areas — <span data-bind="top3List">Near North Side, O’Hare and the Loop</span> — are the city’s taxi economy. Everything in grey is the rest of Chicago.</p>
+      <p>The <span data-bind="bottomHalfAreas">38</span> least-served neighborhoods together account for just <b class="amber" data-bind="bottomHalfShare">2.8%</b> of pickups: the typical neighborhood sees about <span data-bind="perDay">30</span> taxi pickups a day.</p>
+    </div>
+  </section>
+
+  <section class="finding" data-state="airports">
+    <div class="panel">
+      <div class="n">Finding 2 · Where the money is</div>
+      <h2>The airports: a quarter of the trips, far more of the fares</h2>
+      <div class="big">
+        <div><b class="cyan" data-bind="airTrips">24%</b><span>of trips start at O’Hare or Midway</span></div>
+        <div><b class="cyan" data-bind="airFares">41%</b><span>of all fares</span></div>
+      </div>
+      <p>An airport ride is a long ride: a median <b data-bind="airMiles">15.3</b> miles and <b data-bind="airFare">$42</b>, against <b data-bind="otherMiles">1.9</b> miles and <b data-bind="otherFare">$11</b> for every other trip. That’s the second hump in the distance chart.</p>
+    </div>
+  </section>
+
+  <section class="finding" data-state="asymmetry">
+    <div class="panel">
+      <div class="n">Finding 3 · Which way they go</div>
+      <h2>A taxi out of the airport — but not to it</h2>
+      <div class="big">
+        <div><b class="amber" data-bind="airPick">141k</b><span>pickups at the airports</span></div>
+        <div><b class="cyan" data-bind="airDrop">48k</b><span>drop-offs there</span></div>
+      </div>
+      <p>At each airport, the amber pillar is rides that started there; the cyan one beside it is rides that ended there. For every <span data-bind="ratio">three</span> riders who took a taxi <em>from</em> the airport, about one took a taxi <em>to</em> it.</p>
+      <p class="note">This data shows the imbalance, not its cause: how departing travellers get to the airport isn’t in it.</p>
+    </div>
+  </section>
+
+  <section class="explore" data-state="explore">
+    <div class="panel">
+      <h2>Explore it yourself</h2>
+      <p>Every trip, cross-filtered. Drag across the map, the hour-by-weekday grid or the distance chart and everything else re-counts.</p>
+      <div class="hud" aria-live="polite">
+        <div><span>Trips</span><b id="k-trips">—</b></div>
+        <div><span>Median fare</span><b class="amber" id="k-fare">—</b></div>
+        <div><span>Median trip</span><b id="k-miles">—</b></div>
+        <div><span>From airports</span><b class="cyan" id="k-air">—</b></div>
+        <div><span>Tip, card &amp; app</span><b id="k-tip">—</b></div>
+        <div><span>Selected</span><b id="k-share">—</b></div>
+        <div class="route"><span>Busiest route</span><b id="k-route">—</b></div>
+      </div>
+      <div class="day">
+        <button id="play">▶ Play a day</button>
+        <div class="clock" id="clock">All day</div>
+        <input type="range" id="hour" min="-1" max="23" step="1" value="-1" aria-label="Hour of the day">
+      </div>
+      <div class="how">Double-click a chart to clear it. Alt-drag turns the map; pinch or ⌘-scroll zooms.</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Data: <a href="https://data.cityofchicago.org/Transportation/Taxi-Trips-2024-/ajtu-isnz">City of Chicago, Taxi Trips (2024-)</a> — trips starting 1–30 June 2024 with a pickup location. Pickup and drop-off locations are published as census-tract or community-area centroids, not addresses. Airports are pickups within 2.5 km of O’Hare or 1.5 km of Midway. Tips are recorded for card and app payments only. Boundaries: <a href="https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Community-Areas/igwz-8jzy">City of Chicago, Community Areas</a>.
+</footer>
+
+<script>
+  var viz = document.getElementById('city'), fmt = new Intl.NumberFormat('en-US');
+  var pct = function (v) { return (v * 100).toFixed(v < 0.1 ? 1 : 0) + '%'; };
+  var k = function (v) { return v >= 1000 ? Math.round(v / 1000) + 'k' : String(v); };
+  var words = ['zero', 'one', 'two', 'three', 'four', 'five'];
+
+  // The findings' numbers come from the visualization, computed from every trip.
+  viz.addEventListener('viz:story', function (e) {
+    var s = e.detail, set = function (key, v) { document.querySelectorAll('[data-bind="' + key + '"]').forEach(function (n) { n.textContent = v; }); };
+    var names = s.top3.map(function (t) { return t.name === 'Loop' ? 'the Loop' : t.name; });
+    set('trips', fmt.format(s.trips));
+    set('top3Share', pct(s.top3Share));
+    set('top3Names', words[names.length] || names.length);
+    set('top3List', names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1]);
+    set('areas', s.areas);
+    set('bottomHalfAreas', s.bottomHalfAreas);
+    set('bottomHalfShare', pct(s.bottomHalfShare));
+    set('perDay', Math.round(s.medianAreaPerDay));
+    set('airTrips', pct(s.airportTripShare));
+    set('airFares', pct(s.airportFareShare));
+    set('airMiles', s.airportMedianMiles.toFixed(1));
+    set('otherMiles', s.otherMedianMiles.toFixed(1));
+    set('airFare', '$' + Math.round(s.airportMedianFare));
+    set('otherFare', '$' + Math.round(s.otherMedianFare));
+    var pick = s.pickups["O'Hare"] + s.pickups.Midway, drop = s.dropoffs["O'Hare"] + s.dropoffs.Midway;
+    set('airPick', k(pick)); set('airDrop', k(drop));
+    var r = Math.round(pick / Math.max(1, drop));
+    set('ratio', words[r] || r);
+  });
+
+  // Scrolling drives the map.
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.story > section'));
+</script>
+<script>
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      sections.forEach(function (s) { s.classList.toggle('on', s === e.target); });
+      viz.setAttribute('state', e.target.dataset.state);
+    });
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  sections.forEach(function (s) { io.observe(s); });
+
+  // Explore: live numbers for whatever is brushed.
+  viz.addEventListener('viz:selection', function (e) {
+    var s = e.detail;
+    document.getElementById('k-trips').textContent = fmt.format(s.trips);
+    document.getElementById('k-share').textContent = s.share >= 0.9995 ? 'all' : pct(s.share);
+    document.getElementById('k-air').textContent = pct(s.airportShare);
+    document.getElementById('k-fare').textContent = s.medianFare != null ? '$' + s.medianFare.toFixed(0) : '—';
+    document.getElementById('k-miles').textContent = s.medianMiles != null ? s.medianMiles.toFixed(1) + ' mi' : '—';
+    document.getElementById('k-tip').textContent = s.tipRate != null ? pct(s.tipRate) : '—';
+    document.getElementById('k-route').textContent = s.topRoute ? s.topRoute.from + ' → ' + s.topRoute.to + ' · ' + fmt.format(s.topRoute.trips) : '—';
+  });
+
+  var hourName = function (h) { return h === 0 ? '12 am' : h === 12 ? '12 pm' : (h % 12) + (h < 12 ? ' am' : ' pm'); };
+  var slider = document.getElementById('hour'), clock = document.getElementById('clock'), play = document.getElementById('play'), timer = 0;
+  function setHour(h) { slider.value = h; clock.textContent = h < 0 ? 'All day' : hourName(h); viz.setParams({ hour: h < 0 ? null : h }); }
+  function stop() { clearInterval(timer); timer = 0; play.textContent = '▶ Play a day'; }
+  slider.addEventListener('input', function () { stop(); setHour(+slider.value); });
+  play.addEventListener('click', function () {
+    if (timer) { stop(); return; }
+    var h = +slider.value < 0 ? 0 : +slider.value;
+    play.textContent = '❚❚ Pause'; setHour(h);
+    timer = setInterval(function () { h += 1; if (h > 23) { stop(); setHour(-1); return; } setHour(h); }, 1100);
+  });
+</script>
+</body>
+</html>

@@ -377,15 +377,16 @@ def ensure_thumbnail(export_path: Path) -> str:
 
 PREFERRED_ORDER = [
     "film-article.html",
-    "architectural-loft-renovation.html",
     "hillside-vineyard-estate.html",
-    "couture-evening-gown.html",
-    "farm-house.html",
     "quake-explorer.html",
-    "luxuryhousepond.html",
+    "couture-evening-gown.html",
+    "architectural-loft-renovation.html",
+    "farm-house.html",
     "trees-exhibit.html",
-    "heirloom-craftsman-sideboard.html",
+    "luxuryhousepond.html",
+    "chicago-dashboard.html",
     "floral-dress.html",
+    "heirloom-craftsman-sideboard.html",
     "town-center.html",
     "american-economy-story.html",
 ]
