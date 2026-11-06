@@ -12,16 +12,16 @@
 <meta property="og:title" content="CadYam Exports">
 <meta property="og:description" content="Interactive 3D models &amp; 2D plans exported from CadYam">
 <meta property="og:url" content="https://codeyam-ai.github.io/cadyam-exports/">
-<meta property="og:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/american-economy-story.jpg?v=ae877282">
-<meta property="og:image:secure_url" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/american-economy-story.jpg?v=ae877282">
+<meta property="og:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/film-article.jpg?v=1ddbdb0e">
+<meta property="og:image:secure_url" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/film-article.jpg?v=1ddbdb0e">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1600">
-<meta property="og:image:height" content="840">
+<meta property="og:image:height" content="900">
 <meta property="og:image:alt" content="CadYam Exports — 3D model preview">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="CadYam Exports">
 <meta name="twitter:description" content="Interactive 3D models &amp; 2D plans exported from CadYam">
-<meta name="twitter:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/american-economy-story.jpg?v=ae877282">
+<meta name="twitter:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/film-article.jpg?v=1ddbdb0e">
 <meta name="twitter:image:alt" content="CadYam Exports — 3D model preview">
 <!-- cadyam-social-meta:end -->
 <style>
@@ -67,7 +67,7 @@ header {
 }
 main {
   width: 100%;
-  max-width: 960px;
+  max-width: 1320px;
   margin: 0 auto;
   padding: 32px 24px 64px;
   flex: 1;
@@ -91,12 +91,18 @@ main {
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
+}
+.export-item {
+  display: flex;
+  min-width: 0;
 }
 .export-item a {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  min-width: 0;
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -129,42 +135,72 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 16px 20px;
+  gap: 12px;
+  padding: 14px 16px;
+  flex: 1;
 }
 .export-info {
   min-width: 0;
 }
 .export-title {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
+  line-height: 1.3;
   margin: 0 0 4px;
   color: var(--ink);
 }
 .export-meta {
   margin: 0;
-  font-size: 13px;
+  font-size: 12.5px;
   color: var(--muted);
 }
 .export-action {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 13px;
+  gap: 4px;
+  font-size: 12.5px;
   font-weight: 500;
   color: var(--accent);
   background: var(--accent-soft);
-  padding: 6px 12px;
+  padding: 6px 10px;
   border-radius: 6px;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 .export-item a:hover .export-action {
   background: var(--accent);
   color: #fff;
 }
-@media (max-width: 520px) {
+@media (max-width: 980px) {
   .export-list {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+@media (max-width: 640px) {
+  header {
+    padding: 12px 16px;
+  }
+  main {
+    padding: 20px 16px 48px;
+  }
+  .export-list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+  .export-body {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+  .export-title {
+    font-size: 14.5px;
+  }
+  .export-meta {
+    font-size: 12px;
+  }
+  .export-action {
+    padding: 5px 9px;
+    font-size: 12px;
   }
 }
 </style>
@@ -182,12 +218,12 @@ main {
   </div>
   <ul class="export-list">
     <li class="export-item">
-      <a href="american-economy-story.html">
-        <div class="export-thumb"><img src="thumbnails/american-economy-story.jpg?v=ae877282" alt="The American Macro-Economy in 3D &amp; Motion preview" loading="lazy"></div>
+      <a href="film-article.html">
+        <div class="export-thumb"><img src="thumbnails/film-article.jpg?v=1ddbdb0e" alt="The 2.5× Rule preview" loading="lazy"></div>
         <div class="export-body">
           <div class="export-info">
-            <h3 class="export-title">The American Macro-Economy in 3D &amp; Motion</h3>
-            <p class="export-meta">Data Stories · Exported 5 November 2026</p>
+            <h3 class="export-title">The 2.5× Rule</h3>
+            <p class="export-meta">Data Stories · Exported 6 November 2026</p>
           </div>
           <span class="export-action">Open export &rarr;</span>
         </div>
@@ -200,6 +236,18 @@ main {
           <div class="export-info">
             <h3 class="export-title">Grand Courtyard Residence &amp; Loft Renovation</h3>
             <p class="export-meta">Interior Design · Exported 5 November 2026</p>
+          </div>
+          <span class="export-action">Open export &rarr;</span>
+        </div>
+      </a>
+    </li>
+    <li class="export-item">
+      <a href="hillside-vineyard-estate.html">
+        <div class="export-thumb"><img src="thumbnails/hillside-vineyard-estate.jpg?v=49df1ad8" alt="Hillside Vineyard &amp; Winery Estate preview" loading="lazy"></div>
+        <div class="export-body">
+          <div class="export-info">
+            <h3 class="export-title">Hillside Vineyard &amp; Winery Estate</h3>
+            <p class="export-meta">Landscape &amp; Garden · Exported 5 November 2026</p>
           </div>
           <span class="export-action">Open export &rarr;</span>
         </div>
@@ -230,11 +278,11 @@ main {
       </a>
     </li>
     <li class="export-item">
-      <a href="film-article.html">
-        <div class="export-thumb"><img src="thumbnails/film-article.jpg?v=a58a5828" alt="The 2.5× Rule preview" loading="lazy"></div>
+      <a href="quake-explorer.html">
+        <div class="export-thumb"><img src="thumbnails/quake-explorer.jpg?v=4f535673" alt="The Restless Year preview" loading="lazy"></div>
         <div class="export-body">
           <div class="export-info">
-            <h3 class="export-title">The 2.5× Rule</h3>
+            <h3 class="export-title">The Restless Year</h3>
             <p class="export-meta">Data Stories · Exported 6 November 2026</p>
           </div>
           <span class="export-action">Open export &rarr;</span>
@@ -242,12 +290,12 @@ main {
       </a>
     </li>
     <li class="export-item">
-      <a href="floral-dress.html">
-        <div class="export-thumb"><img src="thumbnails/floral-dress.jpg?v=3d9fa3c7" alt="Floral Dress preview" loading="lazy"></div>
+      <a href="luxuryhousepond.html">
+        <div class="export-thumb"><img src="thumbnails/luxuryhousepond.jpg?v=65e100ff" alt="Luxury House Pond preview" loading="lazy"></div>
         <div class="export-body">
           <div class="export-info">
-            <h3 class="export-title">Floral Dress</h3>
-            <p class="export-meta">Fashion · Exported 5 November 2026</p>
+            <h3 class="export-title">Luxury House Pond</h3>
+            <p class="export-meta">Landscape &amp; Garden · Exported 5 November 2026</p>
           </div>
           <span class="export-action">Open export &rarr;</span>
         </div>
@@ -266,24 +314,24 @@ main {
       </a>
     </li>
     <li class="export-item">
-      <a href="hillside-vineyard-estate.html">
-        <div class="export-thumb"><img src="thumbnails/hillside-vineyard-estate.jpg?v=49df1ad8" alt="Hillside Vineyard &amp; Winery Estate preview" loading="lazy"></div>
+      <a href="floral-dress.html">
+        <div class="export-thumb"><img src="thumbnails/floral-dress.jpg?v=3d9fa3c7" alt="Floral Dress preview" loading="lazy"></div>
         <div class="export-body">
           <div class="export-info">
-            <h3 class="export-title">Hillside Vineyard &amp; Winery Estate</h3>
-            <p class="export-meta">Landscape &amp; Garden · Exported 5 November 2026</p>
+            <h3 class="export-title">Floral Dress</h3>
+            <p class="export-meta">Fashion · Exported 5 November 2026</p>
           </div>
           <span class="export-action">Open export &rarr;</span>
         </div>
       </a>
     </li>
     <li class="export-item">
-      <a href="luxuryhousepond.html">
-        <div class="export-thumb"><img src="thumbnails/luxuryhousepond.jpg?v=65e100ff" alt="Luxury House Pond preview" loading="lazy"></div>
+      <a href="american-economy-story.html">
+        <div class="export-thumb"><img src="thumbnails/american-economy-story.jpg?v=ae877282" alt="The American Macro-Economy in 3D &amp; Motion preview" loading="lazy"></div>
         <div class="export-body">
           <div class="export-info">
-            <h3 class="export-title">Luxury House Pond</h3>
-            <p class="export-meta">Landscape &amp; Garden · Exported 5 November 2026</p>
+            <h3 class="export-title">The American Macro-Economy in 3D &amp; Motion</h3>
+            <p class="export-meta">Data Stories · Exported 5 November 2026</p>
           </div>
           <span class="export-action">Open export &rarr;</span>
         </div>

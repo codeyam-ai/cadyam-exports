@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>The Restless Year</title>
+<!-- cadyam-social-meta:start -->
+<meta name="description" content="Interactive 3D model &amp; 2D plan — Data Stories · Exported 6 November 2026">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CadYam Exports">
+<meta property="og:title" content="The Restless Year">
+<meta property="og:description" content="Interactive 3D model &amp; 2D plan — Data Stories · Exported 6 November 2026">
+<meta property="og:url" content="https://codeyam-ai.github.io/cadyam-exports/quake-explorer.html">
+<meta property="og:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/quake-explorer.jpg?v=4f535673">
+<meta property="og:image:secure_url" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/quake-explorer.jpg?v=4f535673">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="900">
+<meta property="og:image:alt" content="The Restless Year — 3D model preview">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Restless Year">
+<meta name="twitter:description" content="Interactive 3D model &amp; 2D plan — Data Stories · Exported 6 November 2026">
+<meta name="twitter:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/quake-explorer.jpg?v=4f535673">
+<meta name="twitter:image:alt" content="The Restless Year — 3D model preview">
+<!-- cadyam-social-meta:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="cadyam-viz.js"></script>
+<style>
+  :root {
+    --night: #05070c; --panel: rgba(12, 17, 28, .78); --line: rgba(150, 175, 215, .14);
+    --ink: #e7ecf4; --dim: #8994a7;
+    --shallow: #ffd27a; --mid: #ff6133; --deep: #b866ff;   /* the globe's depth colours */
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; background: radial-gradient(ellipse 80% 70% at 42% 45%, #0b1322 0%, var(--night) 70%);
+    color: var(--ink); font: 400 14px/1.5 "IBM Plex Sans", system-ui, sans-serif;
+    display: grid; grid-template-rows: auto 1fr auto; overflow: hidden;
+  }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+  .eyebrow { font: 500 11px/1 "IBM Plex Mono", monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--dim); }
+
+  header { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px 40px; align-items: end; padding: 20px 26px 14px; border-bottom: 1px solid var(--line); }
+  h1 { font: 700 34px/1 "Space Grotesk", sans-serif; letter-spacing: -.01em; margin: 6px 0 0; }
+  header p { margin: 8px 0 0; color: #b9c2d2; max-width: 760px; font-size: 14.5px; line-height: 1.55; }
+  header p strong { color: var(--ink); font-weight: 600; }
+  .stats { display: flex; gap: 28px; }
+  .stat b { display: block; font: 700 26px/1 "Space Grotesk", sans-serif; }
+  .stat span { font: 400 11px/1.3 "IBM Plex Mono", monospace; color: var(--dim); text-transform: uppercase; letter-spacing: .08em; }
+
+  /* Narration: what the reader is looking at, changing with the view. */
+  .narration {
+    position: absolute; top: 18px; left: 22px; width: min(380px, calc(100% - 44px)); z-index: 2;
+    background: rgba(8, 12, 21, .82); border: 1px solid var(--line); border-left: 2px solid var(--mid);
+    border-radius: 8px; padding: 14px 16px 14px; backdrop-filter: blur(6px);
+    transition: opacity .35s ease, transform .35s ease;
+  }
+  .narration.swap { opacity: 0; transform: translateY(6px); }
+  .narration h2 { font: 700 19px/1.2 "Space Grotesk", sans-serif; margin: 6px 0 8px; }
+  .narration p { margin: 0 0 8px; color: #c4ccda; font-size: 13.5px; }
+  .narration .look { margin: 0; font: 400 12px/1.5 "IBM Plex Mono", monospace; color: var(--shallow); }
+  .narration .look::before { content: "Look for  "; color: var(--dim); }
+  .event {
+    position: absolute; left: 22px; z-index: 2; padding: 8px 12px; border-radius: 6px;
+    background: rgba(255, 97, 51, .14); border: 1px solid rgba(255, 97, 51, .5);
+    font: 500 12.5px/1.4 "IBM Plex Mono", monospace; color: var(--ink);
+    opacity: 0; transform: translateY(4px); transition: opacity .3s, transform .3s; pointer-events: none;
+  }
+  .event.on { opacity: 1; transform: none; }
+
+  main { display: grid; grid-template-columns: 1fr 340px; min-height: 0; }
+  .stage { position: relative; min-height: 0; }
+  .stage cadyam-viz {
+    position: absolute; inset: 0; --viz-font: "IBM Plex Sans", sans-serif; --viz-ink: #e7ecf4; --viz-muted: #8994a7;
+    /* The narration card covers the left of the stage: frame the globe beside it. */
+    --viz-inset-left: 420px;
+  }
+  /* A small legend in the corner of the stage: what colour and size mean. */
+  .legend { position: absolute; left: 22px; bottom: 18px; display: flex; gap: 18px; align-items: center; pointer-events: none;
+    font: 400 12px/1 "IBM Plex Mono", monospace; color: var(--dim); }
+  /* Drag mode: a two-way switch in the stage's corner. */
+  .drag { position: absolute; right: 18px; bottom: 14px; z-index: 2; display: flex; align-items: center; gap: 10px;
+    font: 400 11.5px/1 "IBM Plex Mono", monospace; color: var(--dim); }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; background: rgba(8, 12, 21, .82); }
+  .seg button { background: transparent; color: var(--dim); border: 0; padding: 7px 12px; font: 500 12.5px "IBM Plex Sans", sans-serif; cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: rgba(255, 97, 51, .16); color: var(--ink); }
+  .seg button + button { border-left: 1px solid var(--line); }
+  .drag.held .seg { border-color: var(--shallow); }
+  kbd { font: 500 11px "IBM Plex Mono", monospace; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 1px 6px; color: var(--ink); }
+  .legend i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; box-shadow: 0 0 8px currentColor; }
+
+  aside { border-left: 1px solid var(--line); background: var(--panel); backdrop-filter: blur(6px); padding: 18px 18px 14px; overflow: auto; display: flex; flex-direction: column; gap: 18px; }
+  .places { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+  .place { text-align: left; background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; font: inherit; transition: border-color .2s, background .2s; }
+  .place:hover { border-color: rgba(150, 175, 215, .35); }
+  .place b { display: block; font: 600 14px/1.3 "Space Grotesk", sans-serif; }
+  .place span { color: var(--dim); font-size: 12.5px; }
+  .place[aria-pressed="true"] { border-color: var(--mid); background: rgba(255, 97, 51, .08); }
+  .place:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--shallow); outline-offset: 2px; }
+
+  .card { border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; min-height: 92px; }
+  .card .mag { font: 700 26px/1 "Space Grotesk", sans-serif; }
+  .card .where { margin: 4px 0 6px; }
+  .card .facts { color: var(--dim); font-size: 12.5px; }
+  .card button { margin-top: 8px; }
+  .empty { color: var(--dim); font-size: 13px; }
+
+  footer { border-top: 1px solid var(--line); padding: 10px 26px 14px; display: grid; grid-template-columns: auto 1fr auto; gap: 18px; align-items: center; background: rgba(5, 7, 12, .9); }
+  .btn { background: #141c2c; color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; font: 500 13px "IBM Plex Sans", sans-serif; cursor: pointer; }
+  .btn:hover { border-color: rgba(150, 175, 215, .4); }
+  #play { min-width: 136px; }
+  .readout { display: flex; gap: 22px; align-items: baseline; flex-wrap: wrap; font: 400 13px/1.3 "IBM Plex Mono", monospace; color: var(--dim); margin-bottom: 4px; }
+  .readout b { color: var(--ink); font-weight: 500; }
+  .seis { position: relative; height: 64px; cursor: crosshair; }
+  .seis canvas { width: 100%; height: 100%; display: block; }
+  .filters { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--dim); min-width: 180px; }
+  input[type=range] { accent-color: var(--mid); width: 180px; }
+
+  .credits { font-size: 12px; color: var(--dim); }
+  .credits a { color: var(--dim); }
+
+  @media (max-width: 900px) {
+    body { overflow: auto; grid-template-rows: auto auto auto; }
+    main { grid-template-columns: 1fr; }
+    .stage { height: 62vh; }
+    .stage cadyam-viz { --viz-inset-left: 0px; }
+    .narration { position: static; width: auto; margin: 0 12px 12px; }
+    .event { display: none; }
+    aside { border-left: 0; border-top: 1px solid var(--line); }
+    footer { grid-template-columns: 1fr; }
+    .legend { flex-wrap: wrap; gap: 10px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="eyebrow">Global seismicity · 2024</div>
+    <h1>The Restless Year</h1>
+    <p>The Earth’s surface is broken into plates that grind past, pull apart and dive beneath one another, and nearly every earthquake happens where they meet. This is <strong>every earthquake of magnitude 4.5 or more recorded in 2024</strong> — large enough to be measured worldwide — placed where it began. Each step up in magnitude releases about 32 times more energy, and depth tells you what kind of boundary you are looking at: most quakes start in the top 70 km, but some begin hundreds of kilometres down, inside plates that are sinking into the mantle.</p>
+  </div>
+  <div class="stats" aria-label="The year in numbers">
+    <div class="stat"><b>6,397</b><span>quakes M4.5+</span></div>
+    <div class="stat"><b>10</b><span>of M7 or more</span></div>
+    <div class="stat"><b>314</b><span>deeper than 300 km</span></div>
+  </div>
+</header>
+
+<main>
+  <div class="stage">
+    <cadyam-viz id="globe" src="quake-globe.viz.html" theme="dark" aria-label="Globe of 2024 earthquakes"></cadyam-viz>
+    <section class="narration" id="narration" aria-live="polite">
+      <div class="eyebrow" id="n-kicker"></div>
+      <h2 id="n-title"></h2>
+      <p id="n-body"></p>
+      <p class="look" id="n-look"></p>
+    </section>
+    <div class="event" id="event"></div>
+    <div class="drag" id="drag">
+      <span>Hold <kbd>Space</kbd> to swap</span>
+      <div class="seg" role="group" aria-label="What dragging does">
+        <button type="button" data-mode="drag" aria-pressed="true">Drag</button>
+        <button type="button" data-mode="rotate" aria-pressed="false">Rotate</button>
+      </div>
+    </div>
+    <div class="legend" aria-hidden="true">
+      <span><i style="color:var(--shallow);background:var(--shallow)"></i>0–70 km</span>
+      <span><i style="color:var(--mid);background:var(--mid)"></i>70–300 km</span>
+      <span><i style="color:var(--deep);background:var(--deep)"></i>300–700 km</span>
+      <span>size = magnitude</span>
+    </div>
+  </div>
+  <aside>
+    <section>
+      <div class="eyebrow">Places</div>
+      <div class="places" id="places">
+        <button class="place" data-state="planet"><b>The whole planet</b><span>Quakes trace the edges of the plates.</span></button>
+        <button class="place" data-state="ring-of-fire"><b>Ring of Fire</b><span>The Pacific, rimmed by subduction zones.</span></button>
+        <button class="place" data-state="beneath"><b>Beneath the surface</b><span>Each quake at the depth it began.</span></button>
+        <button class="place" data-state="tonga"><b>Tonga, in cross-section</b><span>A plate sinking 650 km under Fiji.</span></button>
+        <button class="place" data-state="andes"><b>The Andes, in cross-section</b><span>The Nazca plate diving under South America.</span></button>
+      </div>
+    </section>
+    <section>
+      <div class="eyebrow">Selected quake</div>
+      <div class="card" id="card"><p class="empty">Pick a quake on the globe or a spike on the timeline.</p></div>
+    </section>
+    <section class="credits" id="credits">
+      <div class="eyebrow" style="margin-bottom:6px">Sources</div>
+      Earthquakes: <a href="https://earthquake.usgs.gov/earthquakes/search/">USGS ANSS Comprehensive Earthquake Catalog</a> (magnitude 4.5+, 2024, public domain). Coastlines: <a href="https://www.naturalearthdata.com/">Natural Earth</a>. Interior layers drawn at true scale from the standard Earth model (crust, 410 and 660 km transitions, core at 2,890 km).
+    </section>
+  </aside>
+</main>
+
+<footer>
+  <div style="display:flex;gap:8px">
+    <button class="btn" id="play" aria-label="Replay the year">▶ Replay 2024</button>
+    <button class="btn" id="all">Whole year</button>
+  </div>
+  <div>
+    <div class="readout" aria-live="polite">
+      <span id="date"><b>All of 2024</b></span>
+      <span><b id="count">6,397</b> quakes</span>
+      <span id="largest"></span>
+    </div>
+    <div class="seis" id="seis" title="Quakes per day"><canvas id="trace"></canvas></div>
+  </div>
+  <label class="filters">Smallest magnitude <b class="mono" id="mmv" style="color:var(--ink)">4.5</b>
+    <input id="minmag" type="range" min="4.5" max="7" step="0.1" value="4.5">
+  </label>
+</footer>
+
+<script>
+  var globe = document.getElementById('globe');
+  var fmt = new Intl.NumberFormat('en-US');
+  var summary = null, day = -1, playing = false, raf = 0;
+  var start = Date.UTC(2024, 0, 1);
+
+  function dateOf(d) {
+    return new Date(start + d * 86400000).toLocaleDateString('en-US', { month: 'long', day: 'numeric', timeZone: 'UTC' });
+  }
+
+  // ---- what each view shows ---------------------------------------------
+  var NARRATION = {
+    'planet': {
+      kicker: 'The whole planet',
+      title: 'Earthquakes draw the map of the plates',
+      body: 'A year of quakes is not scattered at random. It traces thin lines down the middle of the Atlantic, where plates pull apart, and through the Mediterranean and the Himalaya, where Africa and India push into Eurasia.',
+      look: 'the zigzag down the mid-Atlantic ridge',
+    },
+    'ring-of-fire': {
+      kicker: 'The Pacific',
+      title: 'The Ring of Fire',
+      body: 'Around the Pacific, ocean plates dive beneath their neighbours at deep trenches — off Japan, Alaska, the Americas, Indonesia and Tonga. Nine of the year’s ten magnitude 7+ earthquakes struck on this ring; the tenth was inland, in Xinjiang, China.',
+      look: 'the unbroken arc from Chile to New Zealand',
+    },
+    'beneath': {
+      kicker: 'Beneath the surface',
+      title: 'Quakes where they began',
+      body: 'Here the surface is glass and every quake sits at its true depth. Most are shallow and fade back. 314 began deeper than 300 km — far below where rock normally breaks — and they line up on sheets sloping down beneath island arcs: the sinking plates themselves.',
+      look: 'violet sheets under Tonga, the Philippines and Indonesia',
+    },
+    'tonga': {
+      kicker: 'Cross-section at 20.5°S',
+      title: 'A plate sinking 650 km under Fiji',
+      body: 'Cut open along a line through Fiji and Tonga, drawn at true scale. The Pacific plate bends down at the Tonga Trench and sinks westward; its quakes trace it to the 660 km boundary, where the mantle changes and earthquakes stop. This region produced 241 of the year’s 314 deep quakes.',
+      look: 'the slanted line of quakes from the trench down to 660 km',
+    },
+    'andes': {
+      kicker: 'Cross-section at 22.5°S',
+      title: 'The slab beneath the Andes',
+      body: 'The Nazca plate dives under South America at the Peru–Chile Trench and runs east beneath the mountains. The sinking slab is what lifts the Andes and feeds their volcanoes; its intermediate-depth quakes, 70 to 300 km down, mark where it goes.',
+      look: 'the band of red quakes sloping east under the Andes',
+    },
+  };
+  var narration = document.getElementById('narration'), shownState = null;
+  function narrate(state) {
+    var n = NARRATION[state];
+    if (!n || state === shownState) return;
+    shownState = state;
+    narration.classList.add('swap');
+    setTimeout(function () {
+      document.getElementById('n-kicker').textContent = n.kicker;
+      document.getElementById('n-title').textContent = n.title;
+      document.getElementById('n-body').textContent = n.body;
+      document.getElementById('n-look').textContent = n.look;
+      narration.classList.remove('swap');
+      placeEvent();
+    }, 220);
+  }
+
+  // ---- places ----------------------------------------------------------
+  var places = Array.prototype.slice.call(document.querySelectorAll('.place'));
+  places.forEach(function (b) {
+    b.addEventListener('click', function () { globe.setState(b.dataset.state); });
+  });
+  function onState(state) {
+    places.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.state === state)); });
+    narrate(state);
+  }
+  globe.addEventListener('viz:state', function (e) { onState(e.detail.state); });
+  globe.addEventListener('viz:ready', function (e) { onState(e.detail.state); });
+  narrate('planet');
+
+  // ---- the year's big ones, called out as a replay passes them -----------
+  var eventEl = document.getElementById('event'), eventTimer = 0, called = {};
+  function placeEvent() { eventEl.style.top = (narration.offsetTop + narration.offsetHeight + 10) + 'px'; }
+  function callOut(q) {
+    eventEl.innerHTML = '<b>M' + q.magnitude.toFixed(1) + '</b> · ' + dateOf(q.day) + ' · ' + q.place.replace(/</g, '&lt;');
+    placeEvent();
+    eventEl.classList.add('on');
+    clearTimeout(eventTimer);
+    eventTimer = setTimeout(function () { eventEl.classList.remove('on'); }, 4200);
+  }
+  function passBigOnes(from, to) {
+    if (!summary) return;
+    summary.majors.forEach(function (q) {
+      if (q.magnitude >= 7 && q.day > from && q.day <= to && !called[q.time]) { called[q.time] = true; callOut(q); }
+    });
+  }
+
+  // ---- the selected quake ------------------------------------------------
+  var card = document.getElementById('card');
+  function show(q) {
+    if (!q) { card.innerHTML = '<p class="empty">Pick a quake on the globe or a spike on the timeline.</p>'; return; }
+    var depth = q.depth_km < 70 ? 'shallow' : q.depth_km < 300 ? 'intermediate' : 'deep';
+    var when = new Date(q.time).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'UTC' });
+    card.innerHTML = '<div class="mag">M' + q.magnitude.toFixed(1) + '</div>' +
+      '<div class="where">' + q.place.replace(/</g, '&lt;') + '</div>' +
+      '<div class="facts mono">' + when + ' UTC<br>' + Math.round(q.depth_km) + ' km deep (' + depth + ') · ' +
+      q.latitude.toFixed(2) + '°, ' + q.longitude.toFixed(2) + '°</div>' +
+      '<button class="btn" id="fly">Fly to it</button>';
+    document.getElementById('fly').onclick = function () { flyTo(q); };
+  }
+  function flyTo(q) {
+    if (['tonga', 'andes'].indexOf(globe.state) >= 0) globe.setState('planet');
+    globe.setParams({ focus: q.latitude.toFixed(3) + ',' + q.longitude.toFixed(3) });
+  }
+  globe.addEventListener('viz:select', function (e) { show(e.detail); });
+
+  // ---- readout -----------------------------------------------------------
+  globe.addEventListener('viz:progress', function (e) {
+    var p = e.detail;
+    document.getElementById('count').textContent = fmt.format(p.count);
+    document.getElementById('date').innerHTML = '<b>' + (p.day < 0 ? 'All of 2024' : dateOf(p.day) + ', 2024') + '</b>';
+    document.getElementById('largest').innerHTML = p.largest
+      ? 'largest <b>M' + p.largest.magnitude.toFixed(1) + '</b> ' + p.largest.place.replace(/</g, '&lt;') : '';
+  });
+
+  // ---- the seismogram timeline -------------------------------------------
+  var seis = document.getElementById('seis'), cv = document.getElementById('trace'), g = cv.getContext('2d');
+  globe.addEventListener('viz:summary', function (e) { summary = e.detail; draw(); });
+  function draw() {
+    var dpr = devicePixelRatio || 1, w = seis.clientWidth, h = seis.clientHeight;
+    cv.width = w * dpr; cv.height = h * dpr; g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    g.clearRect(0, 0, w, h);
+    if (!summary) return;
+    var days = summary.days, n = 366, max = Math.max.apply(null, days), mid = h * 0.56;
+    // Months.
+    g.font = '400 10px "IBM Plex Mono", monospace'; g.fillStyle = '#5d677a';
+    for (var m = 0; m < 12; m++) {
+      var x = (Date.UTC(2024, m, 1) - start) / 86400000 / n * w;
+      g.fillRect(x, 0, 1, h);
+      g.fillText(new Date(Date.UTC(2024, m, 1)).toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' }).toUpperCase(), x + 4, 10);
+    }
+    // Daily counts drawn as a seismograph trace, mirrored about its baseline.
+    g.beginPath();
+    for (var i = 0; i < days.length; i++) {
+      var xx = (i + 0.5) / n * w, a = (days[i] / max) * (h * 0.36) * (i % 2 ? -1 : 1);
+      if (i === 0) g.moveTo(xx, mid + a); else g.lineTo(xx, mid + a);
+    }
+    g.strokeStyle = '#8fa3c4'; g.lineWidth = 1; g.globalAlpha = .9; g.stroke(); g.globalAlpha = 1;
+    // Played part, brighter.
+    if (day >= 0) {
+      g.save(); g.beginPath(); g.rect(0, 0, day / n * w, h); g.clip();
+      g.beginPath();
+      for (i = 0; i < days.length; i++) {
+        xx = (i + 0.5) / n * w; a = (days[i] / max) * (h * 0.36) * (i % 2 ? -1 : 1);
+        if (i === 0) g.moveTo(xx, mid + a); else g.lineTo(xx, mid + a);
+      }
+      g.strokeStyle = '#ffd27a'; g.lineWidth = 1.3; g.stroke(); g.restore();
+      g.fillStyle = '#ff6133'; g.fillRect(day / n * w - 1, 12, 2, h - 12);
+    }
+    // The year's biggest: magnitude 7+, marked on the trace.
+    summary.majors.forEach(function (q) {
+      if (q.magnitude < 7) return;
+      var x = q.day / n * w;
+      g.fillStyle = '#ff6133'; g.beginPath(); g.arc(x, h - 6, 3.5, 0, Math.PI * 2); g.fill();
+    });
+  }
+  window.addEventListener('resize', draw);
+
+  function dayAt(ev) {
+    var r = seis.getBoundingClientRect();
+    return Math.max(0, Math.min(366, (ev.clientX - r.left) / r.width * 366));
+  }
+  // Click near a marked quake picks it; anywhere else sets the day.
+  seis.addEventListener('click', function (ev) {
+    stop();
+    var d = dayAt(ev), near = null;
+    if (summary) summary.majors.forEach(function (q) {
+      if (q.magnitude >= 7 && Math.abs(q.day - d) < 3 && (!near || Math.abs(q.day - d) < Math.abs(near.day - d))) near = q;
+    });
+    if (near) { setDay(Math.ceil(near.day)); show(near); flyTo(near); }
+    else setDay(d);
+  });
+  seis.addEventListener('pointermove', function (ev) {
+    if (ev.buttons !== 1) return;
+    stop(); setDay(dayAt(ev));
+  });
+
+  function setDay(d) {
+    day = d;
+    globe.setParams({ day: d });
+    draw();
+  }
+
+  // ---- replay --------------------------------------------------------------
+  var playBtn = document.getElementById('play');
+  function stop() { playing = false; cancelAnimationFrame(raf); playBtn.textContent = '▶ Replay 2024'; }
+  playBtn.addEventListener('click', function () {
+    if (playing) { stop(); return; }
+    playing = true; playBtn.textContent = '❚❚ Pause';
+    if (day < 0 || day >= 366) { day = 0; called = {}; }
+    var last = performance.now();
+    (function tick(now) {
+      if (!playing) return;
+      var was = day;
+      day = Math.min(366, day + (now - last) / 1000 * 9);   // about 40 seconds for the year
+      last = now;
+      passBigOnes(was, day);
+      setDay(day);
+      if (day >= 366) { stop(); return; }
+      raf = requestAnimationFrame(tick);
+    })(last);
+  });
+  document.getElementById('all').addEventListener('click', function () { stop(); setDay(-1); });
+
+  // ---- drag mode: the switch picks it, Space held swaps it ------------------
+  var dragBox = document.getElementById('drag'), chosen = 'drag', held = false;
+  var segs = Array.prototype.slice.call(dragBox.querySelectorAll('button'));
+  function showMode(mode) { segs.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.mode === mode)); }); }
+  segs.forEach(function (b) {
+    b.addEventListener('click', function () { chosen = b.dataset.mode; globe.setParams({ dragMode: chosen }); showMode(chosen); });
+  });
+  // The globe reports what a drag will do now — including while Space is
+  // held inside it — so the switch always tells the truth.
+  globe.addEventListener('viz:dragmode', function (e) {
+    showMode(e.detail.mode);
+    dragBox.classList.toggle('held', e.detail.mode !== chosen);
+  });
+  function hold(on) {
+    if (held === on) return;
+    held = on;
+    globe.setParams({ hold: on });
+  }
+  // Space is the swap key everywhere but in a text field or slider (where it
+  // would otherwise also press the last-clicked button).
+  function spaceIsOurs(e) { return e.code === 'Space' && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName); }
+  document.addEventListener('keydown', function (e) {
+    if (!spaceIsOurs(e)) return;
+    e.preventDefault();
+    if (!e.repeat) hold(true);
+  });
+  document.addEventListener('keyup', function (e) {
+    if (e.code !== 'Space') return;
+    if (spaceIsOurs(e)) e.preventDefault();
+    hold(false);
+  });
+  window.addEventListener('blur', function () { hold(false); });
+
+  // ---- magnitude filter -------------------------------------------------------
+  var mm = document.getElementById('minmag');
+  mm.addEventListener('input', function () {
+    document.getElementById('mmv').textContent = (+mm.value).toFixed(1);
+    globe.setParams({ minMag: +mm.value });
+  });
+</script>
+</body>
+</html>

@@ -286,9 +286,10 @@ def ensure_thumbnail(export_path: Path) -> str:
     raw_html = export_path.read_text(encoding="utf-8", errors="replace")
     is_vizkit = 'content="CadYam vizkit"' in raw_html
     is_cadyam_viz = "<cadyam-viz" in raw_html
+    is_scrolly_article = is_cadyam_viz and ".prologue" in raw_html
     if is_vizkit:
         clean_html = raw_html
-    elif is_cadyam_viz:
+    elif is_scrolly_article:
         clean_html = raw_html.replace(
             "</style>",
             "header { min-height: 0 !important; padding: 24px 20px 28px !important; } "
@@ -302,6 +303,8 @@ def ensure_thumbnail(export_path: Path) -> str:
             ".scene:first-child > div { opacity: 1 !important; border-color: var(--brass) !important; }\n</style>",
             1,
         )
+    elif is_cadyam_viz:
+        clean_html = raw_html
     else:
         clean_html = raw_html.replace(
             "</style>",
@@ -324,7 +327,7 @@ def ensure_thumbnail(export_path: Path) -> str:
                 chrome,
                 "--headless=new",
                 f"--user-data-dir={os.path.join(tmp_dir, 'profile')}",
-                "--window-size=1600,840" if (is_vizkit or is_cadyam_viz) else "--window-size=1920,1200",
+                "--window-size=1600,900" if is_cadyam_viz else ("--window-size=1600,840" if is_vizkit else "--window-size=1920,1200"),
                 "--virtual-time-budget=3500",
                 f"--screenshot={thumb_path}",
                 f"file://{tmp_path}",
@@ -358,11 +361,30 @@ def ensure_thumbnail(export_path: Path) -> str:
     return thumb_rel
 
 
+PREFERRED_ORDER = [
+    "film-article.html",
+    "architectural-loft-renovation.html",
+    "hillside-vineyard-estate.html",
+    "couture-evening-gown.html",
+    "farm-house.html",
+    "quake-explorer.html",
+    "luxuryhousepond.html",
+    "heirloom-craftsman-sideboard.html",
+    "floral-dress.html",
+    "american-economy-story.html",
+    "town-center.html",
+]
+
+
 def build_index():
+    order_Index = {name: i for i, name in enumerate(PREFERRED_ORDER)}
     exports = sorted(
-        p
-        for p in ROOT.glob("*.html")
-        if p.name != "index.html" and not p.name.endswith(".viz.html")
+        (
+            p
+            for p in ROOT.glob("*.html")
+            if p.name != "index.html" and not p.name.endswith(".viz.html")
+        ),
+        key=lambda p: (order_Index.get(p.name, len(PREFERRED_ORDER)), p.name),
     )
     items_html = []
     first_social_thumb = "thumbnails/farm-house.jpg"
@@ -469,7 +491,7 @@ header {{
 }}
 main {{
   width: 100%;
-  max-width: 960px;
+  max-width: 1320px;
   margin: 0 auto;
   padding: 32px 24px 64px;
   flex: 1;
@@ -493,12 +515,18 @@ main {{
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
+}}
+.export-item {{
+  display: flex;
+  min-width: 0;
 }}
 .export-item a {{
   display: flex;
   flex-direction: column;
+  width: 100%;
+  min-width: 0;
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -531,42 +559,72 @@ main {{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 16px 20px;
+  gap: 12px;
+  padding: 14px 16px;
+  flex: 1;
 }}
 .export-info {{
   min-width: 0;
 }}
 .export-title {{
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
+  line-height: 1.3;
   margin: 0 0 4px;
   color: var(--ink);
 }}
 .export-meta {{
   margin: 0;
-  font-size: 13px;
+  font-size: 12.5px;
   color: var(--muted);
 }}
 .export-action {{
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 13px;
+  gap: 4px;
+  font-size: 12.5px;
   font-weight: 500;
   color: var(--accent);
   background: var(--accent-soft);
-  padding: 6px 12px;
+  padding: 6px 10px;
   border-radius: 6px;
   white-space: nowrap;
+  flex-shrink: 0;
 }}
 .export-item a:hover .export-action {{
   background: var(--accent);
   color: #fff;
 }}
-@media (max-width: 520px) {{
+@media (max-width: 980px) {{
   .export-list {{
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }}
+}}
+@media (max-width: 640px) {{
+  header {{
+    padding: 12px 16px;
+  }}
+  main {{
+    padding: 20px 16px 48px;
+  }}
+  .export-list {{
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }}
+  .export-body {{
+    padding: 12px 14px;
+    gap: 10px;
+  }}
+  .export-title {{
+    font-size: 14.5px;
+  }}
+  .export-meta {{
+    font-size: 12px;
+  }}
+  .export-action {{
+    padding: 5px 9px;
+    font-size: 12px;
   }}
 }}
 </style>

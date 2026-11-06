@@ -19,7 +19,8 @@
   // The theme tokens a host page may set on (or above) the element; each
   // passes into the frame, where ctx.theme reads them.
   var TOKENS = ['--viz-bg', '--viz-font', '--viz-ink', '--viz-muted', '--viz-grid',
-    '--viz-accent', '--viz-positive', '--viz-negative', '--viz-glow'];
+    '--viz-accent', '--viz-positive', '--viz-negative', '--viz-glow',
+    '--viz-inset-top', '--viz-inset-right', '--viz-inset-bottom', '--viz-inset-left'];
 
   function CadyamViz() {
     return Reflect.construct(HTMLElement, [], CadyamViz);
@@ -32,8 +33,11 @@
   CadyamViz.prototype.connectedCallback = function () {
     var self = this;
     if (this._frame) return;
-    this.style.display = this.style.display || 'block';
-    this.style.position = this.style.position || 'relative';
+    // Only fill in what the page's own CSS left at the defaults: the host's
+    // layout (absolute, grid, flex…) always wins.
+    var cs = getComputedStyle(this);
+    if (cs.display === 'inline') this.style.display = 'block';
+    if (cs.position === 'static') this.style.position = 'relative';
     this._applyAspect();
     var f = this._frame = document.createElement('iframe');
     f.setAttribute('title', this.getAttribute('aria-label') || 'Visualization');
@@ -57,7 +61,7 @@
         if (self._params) self._send({ type: 'params', values: self._params });
         var want = self.getAttribute('state');
         if (want && want !== m.state) self._send({ type: 'setState', state: want, instant: true });
-        self.dispatchEvent(new CustomEvent('viz:ready', { bubbles: true, detail: { states: self.states, state: want || m.state } }));
+        self.dispatchEvent(new CustomEvent('viz:ready', { bubbles: true, detail: { states: self.states, state: want || m.state, params: self.paramSpecs } }));
       } else if (m.type === 'state') {
         self._state = m.state;
         self._waiters = self._waiters.filter(function (w) {

@@ -5711,6 +5711,14 @@ var Vizkit = (function () {
       onHover: function (fn) { hover = fn; },
       // Ask for one more `update` (when there is no frame loop).
       redraw: function () { self.schedule(); },
+      // How much of each edge the embedding page covers with its own UI
+      // (--viz-inset-top/right/bottom/left, CSS px): frame the subject in
+      // what is left. All zero on a bare page.
+      get inset() {
+        var cs = getComputedStyle(document.documentElement);
+        var px = function (k) { var v = parseFloat(cs.getPropertyValue('--viz-inset-' + k)); return isNaN(v) ? 0 : v; };
+        return { top: px('top'), right: px('right'), bottom: px('bottom'), left: px('left') };
+      },
       // Reference geometry shipped with the page when a module asks for it
       // by name: ctx.geo('world') → {pos (lon,lat pairs), ringStart, tri}
       // as typed arrays, or null.
