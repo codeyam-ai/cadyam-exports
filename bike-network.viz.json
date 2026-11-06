@@ -1,0 +1,95 @@
+{
+  "api": {
+    "attributes": {
+      "aspect": "width/height of the box, e.g. 16/10; or size the element with CSS",
+      "src": "the .viz.html page",
+      "state": "the state to show (an id from `states`); changing it animates there",
+      "theme": "light | dark | auto (default auto, following the reader)"
+    },
+    "css": {
+      "--viz-bg": "the frame's background (default transparent: the host's shows through)",
+      "--viz-font": "font family for in-chart text"
+    },
+    "events": {
+      "viz:ready": "detail: {states, state}",
+      "viz:state": "detail: {state, index} — after any state change, including the reader's"
+    },
+    "methods": {
+      "setState(id, {instant})": "animate (or jump) to a state; returns a promise that resolves when it is shown",
+      "states": "the states, as in this manifest, once ready"
+    }
+  },
+  "cadyamViz": "1.0",
+  "credit": "Source: CadYam sample “bike-day”",
+  "data": {
+    "fields": [
+      "e_lat",
+      "e_lon",
+      "ebike",
+      "ended_at",
+      "member",
+      "s_lat",
+      "s_lon",
+      "started_at"
+    ],
+    "notes": [],
+    "rows": 204220
+  },
+  "embed": {
+    "html": "<script src=\"cadyam-viz.js\"></script>\n<cadyam-viz src=\"bike-network.viz.html\" aspect=\"16/10\"></cadyam-viz>",
+    "page": "bike-network.viz.html",
+    "script": "cadyam-viz.js"
+  },
+  "layout": {
+    "aspect": "16/10",
+    "minHeight": 260,
+    "minWidth": 360,
+    "note": "Fills whatever box it is given; text inside is axes, labels and annotations only — headline, prose and captions belong to the host page."
+  },
+  "name": "bike-network",
+  "sources": [
+    {
+      "covers": "Every ride of one June 2026 weekday",
+      "publisher": "Citi Bike System Data (trip histories)",
+      "url": "https://citibikenyc.com/system-data"
+    },
+    {
+      "covers": "June rides by station, every other year 2014–2026",
+      "publisher": "Citi Bike System Data (trip histories)",
+      "url": "https://citibikenyc.com/system-data"
+    },
+    {
+      "covers": "Neighborhood boundaries (2020 NTAs)",
+      "publisher": "NYC Department of City Planning, via NYC Open Data",
+      "url": "https://data.cityofnewyork.us/City-Government/2020-Neighborhood-Tabulation-Areas-NTAs-/9nt8-h7nd"
+    }
+  ],
+  "states": [
+    {
+      "description": "The first June: each station a pillar of its June rides. The story event carries every June's rides, stations, e-bike and member shares and rides by borough.",
+      "id": "start",
+      "title": "Start"
+    },
+    {
+      "description": "The Junes play from the first to the latest: stations appear and pillars grow; borough labels give each borough's share of rides.",
+      "id": "growth",
+      "title": "Growth"
+    },
+    {
+      "description": "The latest June, each station coloured by the June it first appears.",
+      "id": "reach",
+      "title": "Reach"
+    },
+    {
+      "description": "The latest June, each pillar split classic rides (below) and e-bike rides (above).",
+      "id": "e-bikes",
+      "title": "E-bikes"
+    },
+    {
+      "description": "One day replayed: every ride a moving light from dock to dock, docks glowing with recent departures; the hour param holds the clock.",
+      "id": "day",
+      "title": "Day"
+    }
+  ],
+  "title": "Start"
+}

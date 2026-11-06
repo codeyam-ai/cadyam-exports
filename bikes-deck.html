@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Twelve Junes of Bike Share</title>
+<!-- cadyam-social-meta:start -->
+<meta name="description" content="Interactive 3D model &amp; 2D plan — Data Stories · Exported 6 November 2026">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CadYam Exports">
+<meta property="og:title" content="Twelve Junes of Bike Share">
+<meta property="og:description" content="Interactive 3D model &amp; 2D plan — Data Stories · Exported 6 November 2026">
+<meta property="og:url" content="https://codeyam-ai.github.io/cadyam-exports/bikes-deck.html">
+<meta property="og:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/bikes-deck.jpg?v=c65ed46f">
+<meta property="og:image:secure_url" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/bikes-deck.jpg?v=c65ed46f">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="900">
+<meta property="og:image:alt" content="Twelve Junes of Bike Share — 3D model preview">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Twelve Junes of Bike Share">
+<meta name="twitter:description" content="Interactive 3D model &amp; 2D plan — Data Stories · Exported 6 November 2026">
+<meta name="twitter:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/bikes-deck.jpg?v=c65ed46f">
+<meta name="twitter:image:alt" content="Twelve Junes of Bike Share — 3D model preview">
+<!-- cadyam-social-meta:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500..900&family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<script src="cadyam-viz.js"></script>
+<style>
+  :root { --bg: #f6f7f9; --card: #ffffff; --ink: #0b1220; --soft: #5b6472; --blue: #2563eb; --orange: #f97316; --rule: #e3e6ec; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: #0b1220; overflow: hidden; }
+  body { font-family: Inter, system-ui, sans-serif; color: var(--ink); font-feature-settings: "tnum" 1, "ss01" 1; }
+  .stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; background: var(--bg); overflow: hidden; transform-origin: 50% 50%; }
+  .viz { position: absolute; inset: 0 0 104px 0;
+    --viz-font: Inter, sans-serif; --viz-ink: #0b1220; --viz-muted: #5b6472; --viz-positive: #2563eb; --viz-accent: #f97316;
+    --viz-inset-left: 700px; --viz-inset-top: 36px; --viz-inset-right: 40px; }
+  .viz cadyam-viz { width: 100%; height: 100%; }
+
+  .slide { position: absolute; left: 64px; top: 64px; width: 600px; z-index: 2; background: var(--card); border-radius: 22px; padding: 44px 46px 40px;
+    box-shadow: 0 1px 2px rgba(11,18,32,.06), 0 18px 48px rgba(11,18,32,.10);
+    opacity: 0; transform: translateX(-16px); transition: opacity .45s, transform .45s; pointer-events: none; }
+  .slide.on { opacity: 1; transform: none; pointer-events: auto; }
+  .kicker { display: inline-flex; align-items: center; gap: 10px; font: 700 15px Inter, sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--blue); margin-bottom: 18px; }
+  .kicker::before { content: ""; width: 22px; height: 4px; border-radius: 2px; background: currentColor; }
+  .slide.orange .kicker { color: var(--orange); }
+  h1 { font: 850 70px/.98 "Schibsted Grotesk", sans-serif; letter-spacing: -.025em; margin: 0 0 22px; }
+  h2 { font: 800 46px/1.04 "Schibsted Grotesk", sans-serif; letter-spacing: -.02em; margin: 0 0 22px; }
+  p { font-size: 21px; line-height: 1.5; margin: 0 0 14px; color: #2b3443; }
+  .note { font-size: 16px; color: var(--soft); }
+  .kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 4px 0 22px; }
+  .kpis div { background: var(--bg); border-radius: 14px; padding: 16px 18px; }
+  .kpis b { display: block; font: 850 44px/1 "Schibsted Grotesk", sans-serif; letter-spacing: -.02em; }
+  .kpis span { display: block; font-size: 15px; color: var(--soft); margin-top: 6px; }
+  .kpis .wide { grid-column: span 2; }
+  .blue { color: var(--blue); } .orange { color: var(--orange); }
+  .arrow { color: var(--soft); font-weight: 500; }
+  .sources { width: 1000px; }
+  .sources ol { font-size: 19px; line-height: 1.55; padding-left: 24px; color: #2b3443; }
+  .sources a { color: var(--ink); }
+
+  .scrub { display: flex; align-items: center; gap: 16px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--rule); }
+  .scrub button { width: 52px; height: 52px; flex: none; border-radius: 50%; border: 0; background: var(--ink); color: #fff; font-size: 18px; cursor: pointer; }
+  .scrub .track { flex: 1; }
+  .scrub input { width: 100%; margin: 0; accent-color: var(--blue); height: 26px; cursor: pointer; }
+  .scrub .ticks { display: flex; justify-content: space-between; font-size: 13px; color: var(--soft); }
+  .scrub output { font: 800 30px "Schibsted Grotesk", sans-serif; min-width: 120px; text-align: right; }
+  button:focus-visible, input:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+  .cue { min-height: 24px; margin-top: 10px; font-size: 16px; color: var(--soft); transition: opacity .3s; }
+  .cue b { color: var(--ink); }
+  /* The countdown: a ring filling around ▶ before the years play. */
+  .scrub button.counting { background: conic-gradient(var(--blue) var(--p, 0%), var(--ink) 0); }
+
+  .foot { position: absolute; left: 0; right: 0; bottom: 0; height: 104px; z-index: 3; background: var(--card); border-top: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: space-between; padding: 0 64px; }
+  .progress { display: flex; gap: 8px; }
+  .progress button { width: 40px; height: 6px; border-radius: 3px; border: 0; padding: 0; background: var(--rule); cursor: pointer; }
+  .progress button.on { background: var(--blue); }
+  .hint { font-size: 16px; color: var(--soft); }
+  kbd { font: 600 14px Inter, sans-serif; display: inline-block; min-width: 28px; padding: 3px 8px; border: 1.5px solid #cfd5df; border-bottom-width: 3px; border-radius: 7px; text-align: center; color: var(--ink); background: #fff; }
+  .nav { display: flex; align-items: center; gap: 16px; }
+  .nav span { font: 600 17px Inter, sans-serif; min-width: 110px; text-align: center; }
+  .nav button { font: 600 17px Inter, sans-serif; border-radius: 999px; padding: 12px 22px; cursor: pointer; border: 1.5px solid #cfd5df; background: #fff; color: var(--ink); }
+  .nav button.next { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .nav button:disabled { opacity: .35; cursor: default; }
+  .nav button.next.pulse { animation: pulse 1.8s ease-in-out 3; }
+  @keyframes pulse { 50% { box-shadow: 0 0 0 10px rgba(37,99,235,.2); } }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="viz"><cadyam-viz id="viz" src="bike-network.viz.html" state="growth" theme="light" aria-label="3D map of New York bike share stations and their June rides"></cadyam-viz></div>
+
+  <section class="slide" data-state="growth" data-scrub="year">
+    <div class="kicker">Bike share in New York · June <span data-bind="firstYear">2014</span>–<span data-bind="lastYear">2026</span></div>
+    <h1>Twelve Junes of bike share</h1>
+    <p>How the system grew from a few hundred docks in Manhattan and Brooklyn to a network across four boroughs, measured from every published trip.</p>
+    <div class="scrub" data-for="year">
+      <button class="play" aria-label="Play the years">▶</button>
+      <div class="track"><input type="range" min="2014" max="2026" step="1" value="2014" aria-label="June of year"><div class="ticks"><span>2014</span><span>2018</span><span>2022</span><span>2026</span></div></div>
+      <output>2014</output>
+    </div>
+    <div class="cue" id="cue" aria-live="polite"></div>
+  </section>
+
+  <section class="slide" data-state="start">
+    <div class="kicker">June <span data-bind="firstYear">2014</span></div>
+    <h2>It started below 60th Street</h2>
+    <div class="kpis">
+      <div><b data-bind="ridesFrom">937k</b><span>rides that June</span></div>
+      <div><b data-bind="stationsFrom">328</b><span>stations</span></div>
+    </div>
+    <p>The first network covered Manhattan south of Central Park and the edge of Brooklyn across the bridges. <b data-bind="outsideFrom">7%</b> of rides started outside Manhattan.</p>
+  </section>
+
+  <section class="slide" data-state="growth">
+    <div class="kicker">June <span data-bind="firstYear">2014</span> → June <span data-bind="lastYear">2026</span></div>
+    <h2>Rides grew <span class="blue" data-bind="growth">5×</span></h2>
+    <div class="kpis">
+      <div><b data-bind="ridesTo">5.1M</b><span>rides in June <span data-bind="lastYear">2026</span></span></div>
+      <div><b data-bind="stationsTo">2,200</b><span>stations, up from <span data-bind="stationsFrom">328</span></span></div>
+    </div>
+    <p>Each pillar is one station’s June rides. The years play from the first June to the latest; the borough labels show each one’s share of rides.</p>
+  </section>
+
+  <section class="slide" data-state="reach">
+    <div class="kicker">Where the growth came from</div>
+    <h2>The network moved uptown and across the rivers</h2>
+    <div class="kpis">
+      <div><b data-bind="outsideFrom">7%</b><span>of rides outside Manhattan, <span data-bind="firstYear">2014</span></span></div>
+      <div><b class="blue" data-bind="outsideTo">38%</b><span>in <span data-bind="lastYear">2026</span></span></div>
+    </div>
+    <p>Stations are coloured by the June they first appear: the oldest, dark blue, in lower Manhattan; the newest, orange and yellow, in Harlem, the Bronx, Queens and deep Brooklyn.</p>
+  </section>
+
+  <section class="slide orange" data-state="e-bikes">
+    <div class="kicker">E-bikes</div>
+    <h2>Most rides are now electric</h2>
+    <div class="kpis">
+      <div><b data-bind="ebikeFrom">19%</b><span>of June rides by e-bike, <span data-bind="ebikeFromYear">2022</span></span></div>
+      <div><b class="orange" data-bind="ebikeTo">35%</b><span>in <span data-bind="lastYear">2026</span></span></div>
+    </div>
+    <p>Each pillar is split: classic rides in blue below, e-bike rides in orange on top. The farther from Midtown, the more electric: <b data-bind="ebNear">70%</b> of rides within 3 km of Times Square, <b data-bind="ebFar">80%</b> beyond 10 km.</p>
+  </section>
+
+  <section class="slide" data-state="day" data-scrub="hour">
+    <div class="kicker">One day in motion · <span data-bind="dayDate">June 2026</span></div>
+    <h2><span class="blue" data-bind="peak">9,800</span> people riding at once</h2>
+    <div class="kpis">
+      <div><b data-bind="dayTrips">170k</b><span>rides that day</span></div>
+      <div><b data-bind="median">12 min</b><span>median ride</span></div>
+    </div>
+    <p>Every ride of the day, replayed: each light is a rider moving from dock to dock. The peak came at <b data-bind="peakAt">5:40 pm</b>.</p>
+    <div class="scrub" data-for="hour">
+      <button class="play" aria-label="Play the day">▶</button>
+      <div class="track"><input type="range" min="5" max="24" step="0.25" value="5" aria-label="Time of day"><div class="ticks"><span>5 am</span><span>9 am</span><span>1 pm</span><span>5 pm</span><span>9 pm</span><span>12 am</span></div></div>
+      <output>5:00 am</output>
+    </div>
+  </section>
+
+  <section class="slide sources" data-state="growth">
+    <div class="kicker">Sources and method</div>
+    <h2>Where these numbers come from</h2>
+    <ol id="sources"></ol>
+    <p class="note">June of every other year, 2014–2026, from the operator’s public trip histories; a station is counted in a June when at least one ride started there. E-bike rides are labelled in the data from 2021. Rides over three hours are left out of the day replay. This is an independent analysis of public data.</p>
+  </section>
+
+  <nav class="foot" aria-label="Slides">
+    <div class="progress" id="dots"></div>
+    <div class="hint"><kbd>←</kbd> <kbd>→</kbd> or <kbd>space</kbd> to change slides</div>
+    <div class="nav">
+      <button id="prev">← Previous</button>
+      <span id="count">Slide 1 of 7</span>
+      <button id="next" class="next">Next →</button>
+    </div>
+  </nav>
+</div>
+
+<script>
+  var stage = document.getElementById('stage'), viz = document.getElementById('viz');
+  function fit() { stage.style.transform = 'translate(-50%, -50%) scale(' + Math.min(innerWidth / 1920, innerHeight / 1080) + ')'; }
+  addEventListener('resize', fit); fit();
+
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide')), at = 0, dots = document.getElementById('dots');
+  slides.forEach(function (_, i) { var b = document.createElement('button'); b.setAttribute('aria-label', 'Slide ' + (i + 1)); b.onclick = function () { go(i); }; dots.appendChild(b); });
+
+  // Scrubbers: a year on the title slide, the clock on the day slide. Until
+  // touched they follow the visualization's own playback.
+  var scrubs = {};
+  Array.prototype.forEach.call(document.querySelectorAll('.scrub'), function (el) {
+    var key = el.dataset.for, input = el.querySelector('input'), out = el.querySelector('output'), play = el.querySelector('.play');
+    var s = scrubs[key] = { held: false, timer: 0, input: input };
+    var label = function (v) { return key === 'hour' ? clockLabel(v) : String(v); };
+    s.show = function (v) { input.value = v; out.textContent = label(+v); };
+    s.hold = function (v) { s.held = true; s.show(v); var p = {}; p[key] = v; viz.setParams(p); };
+    s.stop = function () { clearInterval(s.timer); s.timer = 0; play.textContent = '▶'; };
+    s.release = function () { s.stop(); s.held = false; var p = {}; p[key] = null; viz.setParams(p); };
+    s.play = play;
+    input.addEventListener('input', function () { cancelIntro(); s.stop(); s.hold(+input.value); });
+    play.addEventListener('click', function () {
+      var wasCounting = !!introTimer;
+      cancelIntro();
+      if (s.timer && !wasCounting) { s.stop(); return; }
+      var max = +input.max, min = +input.min, step = key === 'hour' ? 0.25 : 1, v = +input.value >= max ? min : +input.value;
+      s.hold(v); play.textContent = '❚❚';
+      s.timer = setInterval(function () { v = Math.min(max, v + step); s.hold(v); if (v >= max) s.stop(); }, key === 'hour' ? 120 : 600);
+    });
+  });
+  // The title slide's heads-up: hold the first June, count down three
+  // seconds, then play the years. ▶ starts at once; the slider, a pause or
+  // leaving the slide cancels it.
+  var introTimer = 0, cue = document.getElementById('cue');
+  function cancelIntro() {
+    introPending = false;
+    if (!introTimer) return;
+    clearInterval(introTimer); introTimer = 0;
+    var s = scrubs.year; s.play.classList.remove('counting'); s.play.style.removeProperty('--p');
+    cue.textContent = '';
+  }
+  // The countdown waits for the map, so the reader sees what is about to move.
+  var vizReady = false, introPending = false;
+  viz.addEventListener('viz:ready', function () {
+    vizReady = true;
+    if (introPending && at === 0) setTimeout(startIntro, 700);
+  });
+  function startIntro() {
+    var s = scrubs.year, min = +s.input.min, max = +s.input.max, wait = 3000;
+    cancelIntro(); s.stop(); s.hold(min);
+    if (!vizReady) { introPending = true; cue.textContent = 'Loading the map…'; return; }
+    introPending = false;
+    var t0 = performance.now();
+    s.play.classList.add('counting');
+    introTimer = setInterval(function () {
+      var left = wait - (performance.now() - t0);
+      s.play.style.setProperty('--p', Math.min(100, (1 - left / wait) * 100) + '%');
+      cue.innerHTML = 'Plays <b>' + min + ' → ' + max + '</b> in ' + Math.max(1, Math.ceil(left / 1000)) + '… · press ▶ to start now';
+      if (left <= 0) { cancelIntro(); s.play.click(); cue.textContent = 'Drag the slider to any June'; }
+    }, 50);
+  }
+  function clockLabel(h) { var hh = Math.floor(h) % 24, mm = Math.round((h - Math.floor(h)) * 60); return ((hh % 12) || 12) + ':' + (mm < 10 ? '0' : '') + mm + (hh < 12 ? ' am' : ' pm'); }
+  viz.addEventListener('viz:year', function (e) { var s = scrubs.year; if (s && !s.held) s.show(e.detail.year); });
+  viz.addEventListener('viz:clock', function (e) { var s = scrubs.hour; if (s && !s.held) s.show(Math.round(e.detail.hour * 4) / 4); });
+
+  function go(i) {
+    at = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach(function (s, k) { s.classList.toggle('on', k === at); });
+    Array.prototype.forEach.call(dots.children, function (b, k) { b.classList.toggle('on', k === at); });
+    document.getElementById('count').textContent = 'Slide ' + (at + 1) + ' of ' + slides.length;
+    document.getElementById('prev').disabled = at === 0;
+    document.getElementById('next').disabled = at === slides.length - 1;
+    cancelIntro();
+    var keep = slides[at].dataset.scrub;
+    for (var k in scrubs) if (k !== keep && scrubs[k].held) scrubs[k].release(); else if (k !== keep) scrubs[k].stop();
+    viz.setAttribute('state', slides[at].dataset.state);
+    history.replaceState(null, '', '#' + (at + 1));
+    document.getElementById('next').classList.toggle('pulse', at === 0);
+    if (at === 0) startIntro();
+  }
+  document.getElementById('prev').onclick = function () { go(at - 1); };
+  document.getElementById('next').onclick = function () { go(at + 1); };
+  addEventListener('keydown', function (e) {
+    if (e.target && e.target.type === 'range') return;
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); go(at + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(at - 1); }
+  });
+
+  // Every number on the slides comes from the visualization's data.
+  var K = function (v) { return v >= 1e6 ? (v / 1e6).toFixed(1).replace(/\.0$/, '') + 'M' : v >= 1e4 ? Math.round(v / 1e3) + 'k' : Math.round(v).toLocaleString('en-US'); };
+  var P = function (v) { return Math.round(v * 100) + '%'; };
+  viz.addEventListener('viz:story', function (e) {
+    var s = e.detail, set = function (k, v) { document.querySelectorAll('[data-bind="' + k + '"]').forEach(function (n) { n.textContent = v; }); };
+    var A = s.years[0], B = s.years[s.years.length - 1];
+    set('firstYear', s.firstYear); set('lastYear', s.lastYear);
+    set('ridesFrom', K(A.trips)); set('ridesTo', K(B.trips));
+    set('stationsFrom', A.stations.toLocaleString('en-US')); set('stationsTo', B.stations.toLocaleString('en-US'));
+    set('growth', (Math.round(s.tripsGrowth * 10) / 10).toString().replace(/\.0$/, '') + '×');
+    set('outsideFrom', P(s.outsideManhattanFrom)); set('outsideTo', P(s.outsideManhattanTo));
+    if (s.ebikeFrom != null) { set('ebikeFrom', P(s.ebikeFrom)); set('ebikeFromYear', s.ebikeFromYear); }
+    if (s.ebikeTo != null) set('ebikeTo', P(s.ebikeTo));
+    if (s.ebikeNearMidtown != null) set('ebNear', P(s.ebikeNearMidtown));
+    if (s.ebikeFar != null) set('ebFar', P(s.ebikeFar));
+    set('peak', s.day.peakRiders.toLocaleString('en-US'));
+    set('peakAt', clockLabel(s.day.peakMinute / 60));
+    set('dayTrips', K(s.day.trips)); set('median', Math.round(s.day.medianMinutes) + ' min');
+    if (s.day.date) set('dayDate', s.day.date);
+  });
+  fetch('bike-network.viz.json').then(function (r) { return r.json(); }).then(function (m) {
+    var ol = document.getElementById('sources');
+    (m.sources || []).forEach(function (s) {
+      var li = document.createElement('li'), a = document.createElement('a');
+      a.href = s.url; a.textContent = s.publisher;
+      li.appendChild(document.createTextNode((s.covers || '') + ' — ')); li.appendChild(a); ol.appendChild(li);
+    });
+  });
+  go((parseInt(location.hash.slice(1), 10) || 1) - 1);
+</script>
+</body>
+</html>
