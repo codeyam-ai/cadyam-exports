@@ -54,8 +54,18 @@ def extract_metadata(export_path: Path):
     content = export_path.read_text(encoding="utf-8", errors="replace")
     title_match = re.search(r"<title>(.*?)</title>", content, re.S)
     byline_match = re.search(r'<p class="byline">(.*?)</p>', content, re.S)
+    meta_byline_match = re.search(
+        r'<meta\s+name="cadyam:byline"\s+content="([^"]*)"', content
+    )
     title = html.unescape(title_match.group(1).strip()) if title_match else export_path.stem.replace("-", " ").title()
-    raw_byline = re.sub(r"<button\b.*?</button>", "", byline_match.group(1), flags=re.S) if byline_match else "CadYam Export"
+    if byline_match:
+        raw_byline = re.sub(r"<button\b.*?</button>", "", byline_match.group(1), flags=re.S)
+    elif meta_byline_match:
+        raw_byline = meta_byline_match.group(1)
+    elif "<cadyam-viz" in content:
+        raw_byline = "Data Stories · Exported 6 November 2026"
+    else:
+        raw_byline = "CadYam Export"
     byline = html.unescape(raw_byline.strip())
     if byline.startswith("CadYam · "):
         byline = byline[len("CadYam · "):]
@@ -275,8 +285,23 @@ def ensure_thumbnail(export_path: Path) -> str:
 
     raw_html = export_path.read_text(encoding="utf-8", errors="replace")
     is_vizkit = 'content="CadYam vizkit"' in raw_html
+    is_cadyam_viz = "<cadyam-viz" in raw_html
     if is_vizkit:
         clean_html = raw_html
+    elif is_cadyam_viz:
+        clean_html = raw_html.replace(
+            "</style>",
+            "header { min-height: 0 !important; padding: 24px 20px 28px !important; } "
+            "header h1 { font-size: 64px !important; margin-top: 8px !important; } "
+            "header .trim { margin: 12px auto !important; } "
+            "header .dek { font-size: 18px !important; } "
+            "header .billing, .prologue, .scene:not(:first-child) { display: none !important; } "
+            ".screen { top: 2vh !important; height: 66vh !important; } "
+            ".scenes { padding: 2vh 0 !important; } "
+            ".scene { min-height: 66vh !important; } "
+            ".scene:first-child > div { opacity: 1 !important; border-color: var(--brass) !important; }\n</style>",
+            1,
+        )
     else:
         clean_html = raw_html.replace(
             "</style>",
@@ -299,7 +324,7 @@ def ensure_thumbnail(export_path: Path) -> str:
                 chrome,
                 "--headless=new",
                 f"--user-data-dir={os.path.join(tmp_dir, 'profile')}",
-                "--window-size=1600,840" if is_vizkit else "--window-size=1920,1200",
+                "--window-size=1600,840" if (is_vizkit or is_cadyam_viz) else "--window-size=1920,1200",
                 "--virtual-time-budget=3500",
                 f"--screenshot={thumb_path}",
                 f"file://{tmp_path}",
@@ -335,7 +360,9 @@ def ensure_thumbnail(export_path: Path) -> str:
 
 def build_index():
     exports = sorted(
-        p for p in ROOT.glob("*.html") if p.name != "index.html"
+        p
+        for p in ROOT.glob("*.html")
+        if p.name != "index.html" and not p.name.endswith(".viz.html")
     )
     items_html = []
     first_social_thumb = "thumbnails/farm-house.jpg"

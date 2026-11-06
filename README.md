@@ -8,6 +8,7 @@ Static site hosting interactive 2D + 3D HTML drawings exported from CadYam.
 - **[Grand Courtyard Residence & Loft Renovation](architectural-loft-renovation.html)** — Interior & Architecture (Exported 5 November 2026)
 - **[Couture Botanical Evening Gown](couture-evening-gown.html)** — Fashion (Exported 5 November 2026)
 - **[Farm House](farm-house.html)** — Landscape & Garden (Exported 5 November 2026)
+- **[The 2.5× Rule](film-article.html)** — Data Stories (Exported 6 November 2026)
 - **[Floral Dress](floral-dress.html)** — Fashion (Exported 5 November 2026)
 - **[Heirloom Walnut & White Oak Craftsman Sideboard](heirloom-craftsman-sideboard.html)** — Woodworking & Furniture (Exported 5 November 2026)
 - **[Hillside Vineyard & Winery Estate](hillside-vineyard-estate.html)** — Landscape & Garden (Exported 5 November 2026)
