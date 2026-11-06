@@ -5371,6 +5371,7 @@ var Vizkit = (function () {
   var VERSION = '1.0';
   // A frame callback slower than this, several frames running, is flagged.
   var FRAME_BUDGET_MS = 8;
+  var WARM_UP_MS = 1000;
   var SLOW_FRAMES = 5;
   var MARGIN = { left: 64, right: 20, top: 12, bottom: 46 };
 
@@ -5542,7 +5543,11 @@ var Vizkit = (function () {
     var size = this.view.size;
     var height = this.view.heightOverride || (size ? size[1] : Math.round(Math.max(320, Math.min(500, width * 0.58))));
     if (size) width = size[0];
-    var dpr = window.devicePixelRatio || 1;
+    // A module may cap its pixel ratio (`vizkit.define({ maxDpr: 1.5 })`): a
+    // full-frame 3D scene at Retina resolution is millions of shaded pixels a
+    // frame, and 1.5× is usually indistinguishable at a fraction of the cost.
+    var cap = this.def && this.def.maxDpr > 0 ? this.def.maxDpr : Infinity;
+    var dpr = Math.min(window.devicePixelRatio || 1, cap);
     this.width = width; this.height = height; this.dpr = dpr;
     if (this.whole) {
       this.plot = { left: 0, top: 0, width: width, height: height };
@@ -5673,7 +5678,10 @@ var Vizkit = (function () {
         gl.viewport(0, 0, self.canvas.width, self.canvas.height);
         var c = rgba || [0, 0, 0, 0];
         gl.clearColor(c[0], c[1], c[2], c[3]);
-        gl.clear(gl.COLOR_BUFFER_BIT);
+        // Depth too: a 3D module that depth-tests would otherwise test
+        // against the last frame's surfaces and draw nothing once it moves.
+        gl.clearDepth(1);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
       },
       // The DOM text layer: crisp, selectable text over the canvas.
       text: {
@@ -5773,7 +5781,9 @@ var Vizkit = (function () {
       if (self.visible !== false) {
         var start = performance.now();
         if (!self.call('frame', [now - t0])) return;
-        self.watch(performance.now() - start);
+        // The first second is warm-up (shader compiles, first layout,
+        // fonts): it doesn't count against the module's budget.
+        if (now - t0 > WARM_UP_MS) self.watch(performance.now() - start);
       }
       self.raf = requestAnimationFrame(tick);
     }
@@ -5794,6 +5804,10 @@ var Vizkit = (function () {
       message: 'frame took ' + Math.round(this.slowMs) + ' ms, over its ' + FRAME_BUDGET_MS + ' ms budget, ' + SLOW_FRAMES + ' frames running',
     };
     report(p);
+    // The badge is for whoever is building the view (a live preview or a
+    // capture); readers of an exported page only get the report.
+    var building = !!window.__VIZKIT_LIVE__ || /[?&]capture=1/.test(location.search);
+    if (!building) return;
     var badge = document.createElement('div');
     badge.className = 'module-slow';
     badge.setAttribute('role', 'status');

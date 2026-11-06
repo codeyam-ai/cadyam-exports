@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>The Height Limit of Trees</title>
+<!-- cadyam-social-meta:start -->
+<meta name="description" content="Interactive 3D model &amp; 2D plan — Data Stories · Exported 6 November 2026">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CadYam Exports">
+<meta property="og:title" content="The Height Limit of Trees">
+<meta property="og:description" content="Interactive 3D model &amp; 2D plan — Data Stories · Exported 6 November 2026">
+<meta property="og:url" content="https://codeyam-ai.github.io/cadyam-exports/trees-exhibit.html">
+<meta property="og:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/trees-exhibit.jpg?v=041249f9">
+<meta property="og:image:secure_url" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/trees-exhibit.jpg?v=041249f9">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="900">
+<meta property="og:image:alt" content="The Height Limit of Trees — 3D model preview">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Height Limit of Trees">
+<meta name="twitter:description" content="Interactive 3D model &amp; 2D plan — Data Stories · Exported 6 November 2026">
+<meta name="twitter:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/trees-exhibit.jpg?v=041249f9">
+<meta name="twitter:image:alt" content="The Height Limit of Trees — 3D model preview">
+<!-- cadyam-social-meta:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Libre+Franklin:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="cadyam-viz.js"></script>
+<style>
+  :root {
+    --paper: #f4efe3; --card: #fbf8f1; --ink: #1d2a22; --soft: #5b6359; --faint: #8b8f84; --rule: #d6ccb6;
+    --moss: #2f5a3c; --amber: #a85f1c;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--paper); }
+  body { margin: 0; color: var(--ink); font: 400 17px/1.6 "Libre Franklin", system-ui, sans-serif; }
+  /* Paper grain, barely there. */
+  /* No blend mode: blending over a live canvas re-composites every frame. */
+  body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 20; opacity: .28;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .5 0 0 0 0 .4 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .label { font: 600 10.5px/1 "Libre Franklin", sans-serif; letter-spacing: .22em; text-transform: uppercase; color: var(--moss); }
+  i, em { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-size: 1.08em; }
+
+  /* Title wall */
+  header { max-width: 980px; margin: 0 auto; padding: 13vh 24px 7vh; text-align: center; }
+  h1 { font: 700 clamp(50px, 8.4vw, 100px)/.98 "Cormorant Garamond", Georgia, serif; margin: 20px 0 22px; letter-spacing: -.012em; }
+  header .dek { font: italic 500 25px/1.42 "Cormorant Garamond", serif; color: var(--soft); max-width: 640px; margin: 0 auto; }
+  /* A scale strip: all nine heights on one rule, from the scene's own data. */
+  .strip { max-width: 760px; margin: 52px auto 0; text-align: left; }
+  .strip svg { width: 100%; height: 86px; overflow: visible; display: block; }
+  .strip .cap { display: flex; justify-content: space-between; font: 500 11px "Libre Franklin", sans-serif; color: var(--faint); letter-spacing: .04em; margin-top: 6px; }
+
+  .hall { position: relative; }
+  .scene { position: sticky; top: 0; height: 100vh;
+    background: linear-gradient(180deg, #e7e8e0 0%, #efece2 46%, var(--paper) 60%); }
+  .scene cadyam-viz { position: absolute; inset: 0; --viz-bg: #efece2; --viz-font: "Libre Franklin", sans-serif;
+    --viz-ink: #1d2a22; --viz-muted: #6b7166; --viz-accent: #a85f1c; --viz-inset-left: 440px; --viz-inset-right: 120px; }
+
+  /* The height ruler: what the scene is showing, in metres. */
+  .ruler { position: absolute; right: 96px; top: 14vh; bottom: 14vh; width: 70px; pointer-events: none; }
+  .ruler .tick, .ruler .band, .ruler .ref { transition: bottom .6s ease, height .6s ease; }
+  .ruler .axis { position: absolute; left: 34px; top: 0; bottom: 0; border-left: 1px solid var(--soft); }
+  .ruler .tick { position: absolute; left: 28px; width: 6px; border-top: 1px solid var(--soft); }
+  .ruler .tick span { position: absolute; right: 10px; top: -7px; font: 500 10.5px "Libre Franklin", sans-serif; color: var(--faint); font-variant-numeric: tabular-nums; }
+  .ruler .band { position: absolute; left: 30px; width: 9px; background: repeating-linear-gradient(135deg, rgba(168,95,28,.55) 0 2px, rgba(168,95,28,.15) 2px 5px);
+    border-top: 1px solid var(--amber); border-bottom: 1px solid var(--amber); transition: opacity .5s; }
+  .ruler .mark { position: absolute; left: 22px; width: 25px; height: 0; border-top: 2px solid var(--ink); transition: bottom .25s linear, opacity .4s; }
+  .ruler .mark b { position: absolute; left: 30px; top: -11px; font: 600 15px "Libre Franklin", sans-serif; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .ruler .mark small { display: block; font: 500 9.5px "Libre Franklin", sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); margin-top: 1px; }
+  .ruler .mark.model { border-color: var(--amber); } .ruler .mark.model b { color: var(--amber); }
+  .ruler .ref { position: absolute; left: 30px; width: 9px; border-top: 1px solid var(--moss); }
+  .ruler .ref span { position: absolute; left: 14px; top: -7px; font: italic 600 12px "Cormorant Garamond", serif; color: var(--moss); white-space: nowrap; }
+
+  .placards { position: relative; margin-top: -100vh; padding: 30vh 0 60vh; width: 440px; }
+  .placard { position: relative; margin: 0 0 70vh 34px; width: 384px; background: var(--card); padding: 22px 26px 22px;
+    border: 1px solid var(--rule); outline: 1px solid rgba(214, 204, 182, .6); outline-offset: 4px;
+    box-shadow: 0 1px 0 rgba(0,0,0,.03), 0 16px 34px rgba(60, 50, 30, .09); }
+  .placard .cat { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--rule); padding-bottom: 10px; margin-bottom: 15px; }
+  .placard .cat span:last-child { font: italic 500 14px "Cormorant Garamond", serif; color: var(--soft); }
+  .placard h2 { font: 700 31px/1.05 "Cormorant Garamond", serif; margin: 0 0 11px; }
+  .placard p { margin: 0 0 10px; font-size: 15.5px; color: #33402f; }
+  .placard p:last-child { margin: 0; }
+  .facts { display: grid; grid-template-columns: auto 1fr; gap: 3px 14px; margin: 14px 0 0; padding-top: 12px; border-top: 1px dashed var(--rule); font-size: 13px; }
+  .facts dt { color: var(--faint); font-weight: 500; letter-spacing: .06em; text-transform: uppercase; font-size: 10.5px; padding-top: 2px; }
+  .facts dd { margin: 0; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+  .station { border-top: 1px solid var(--rule); margin-top: 16px; padding-top: 14px; }
+  .presets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 8px 0 14px; }
+  .presets button { font: 600 13px "Libre Franklin", sans-serif; background: transparent; border: 1px solid var(--rule); padding: 7px 4px 6px; cursor: pointer; color: var(--ink); line-height: 1.15; }
+  .presets button small { display: block; font: 500 10.5px "Libre Franklin", sans-serif; color: var(--faint); font-variant-numeric: tabular-nums; }
+  .presets button[aria-pressed="true"] { background: var(--moss); color: #fff; border-color: var(--moss); }
+  .presets button[aria-pressed="true"] small { color: rgba(255,255,255,.75); }
+  .station label { display: block; font-size: 12.5px; color: var(--soft); }
+  .station input[type=range] { width: 100%; accent-color: var(--moss); margin: 6px 0 0; }
+  .ticks { display: flex; justify-content: space-between; font: 500 10.5px "Libre Franklin", sans-serif; color: var(--faint); }
+  .result { margin-top: 16px; display: grid; grid-template-columns: auto 1fr; gap: 0 14px; align-items: center; }
+  .result b { font: 700 50px/1 "Cormorant Garamond", serif; color: var(--amber); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .result span { font-size: 13px; color: var(--soft); line-height: 1.4; }
+  button:focus-visible, input:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+
+  footer { max-width: 760px; margin: 0 auto; padding: 8vh 24px 14vh; font-size: 14px; color: var(--soft); }
+  footer h3 { font: 700 28px "Cormorant Garamond", serif; color: var(--ink); margin: 0 0 14px; }
+  footer ol { padding-left: 18px; } footer li { margin-bottom: 8px; }
+  footer a { color: var(--moss); }
+
+  @media (max-width: 860px) {
+    .scene cadyam-viz { --viz-inset-left: 0px; --viz-inset-right: 0px; }
+    .ruler { display: none; }
+    .placards { width: auto; padding-top: 50vh; }
+    .placard { width: auto; margin: 0 14px 80vh; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="label">Hall of Giants · An exhibit on plant physiology</div>
+  <h1>The Height Limit of Trees</h1>
+  <p class="dek">The tallest living things on Earth all stop at about the same height. The reason isn’t wood or wind. It’s water.</p>
+  <figure class="strip" aria-label="The nine tallest species on one scale">
+    <svg id="strip" viewBox="0 0 760 86" role="img"></svg>
+    <div class="cap"><span>The tallest measured tree of each species, metres</span><span>Predicted limit, 122–130 m</span></div>
+  </figure>
+</header>
+
+<section class="hall">
+  <div class="scene">
+    <cadyam-viz id="scene" src="tree-heights.viz.html" state="grove" theme="light" aria-label="The tallest trees at true scale beside landmarks"></cadyam-viz>
+    <div class="ruler" id="ruler" aria-hidden="true"><div class="axis"></div></div>
+  </div>
+  <div class="placards">
+    <article class="placard" data-state="grove">
+      <div class="cat"><span class="label">Specimens 01–09</span><span>Tallest of each species</span></div>
+      <h2>Nine giants, one ceiling</h2>
+      <p>The tallest measured tree of each of the world’s nine tallest species, drawn side by side at true scale against a board ruled every ten metres. For scale: the Saturn V rocket, London’s Elizabeth Tower and the Statue of Liberty.</p>
+      <p>They evolved on four continents — redwoods and spruces, a Himalayan cypress, Tasmanian eucalypts, rainforest giants from Borneo and the Amazon — yet all stop between <em>88 and 117 metres</em>.</p>
+    </article>
+    <article class="placard" data-state="base">
+      <div class="cat"><span class="label">Specimen 01</span><span>Sequoia sempervirens</span></div>
+      <h2>Hyperion</h2>
+      <p>A coast redwood in a remote valley of Redwood National Park, California — the tallest known living tree. The figure at its foot is 1.8 m tall.</p>
+      <p>Its location is kept secret to protect it from visitors’ feet.</p>
+      <dl class="facts"><dt>Height</dt><dd data-fact="hyperion-height">116.22 m</dd><dt>Species</dt><dd><i>Sequoia sempervirens</i></dd><dt>Found</dt><dd>2006, by Chris Atkins and Michael Taylor</dd><dt>Measured</dt><dd>Tape drop by climbers, laser rangefinder</dd></dl>
+    </article>
+    <article class="placard" data-state="climb">
+      <div class="cat"><span class="label">The climb</span><span>0 → 116 m</span></div>
+      <h2>Lifting water a hundred metres</h2>
+      <p>Every litre of water Hyperion’s top leaves use is pulled up from the soil through the wood. Nothing pumps it: water evaporating from the leaves tugs on the column below, held together by the cohesion of water itself.</p>
+      <p>Each ring on the trunk marks ten metres. The higher the leaf, the harder the pull has to be.</p>
+    </article>
+    <article class="placard" data-state="ceiling">
+      <div class="cat"><span class="label">The prediction</span><span>Koch et al., 2004</span></div>
+      <h2>A ceiling at 122–130 metres</h2>
+      <p>Climbing tall redwoods with instruments, Koch and colleagues measured how water stress rises with height: gravity alone costs about 0.01 megapascals of suction for every metre. Near the top, leaves grow smaller and photosynthesize less.</p>
+      <p>Extrapolating, they predicted no redwood can grow beyond <em>122–130 metres</em> — the hatched band. The tallest trees on Earth stop just beneath it.</p>
+    </article>
+    <article class="placard" data-state="what-if">
+      <div class="cat"><span class="label">Hands-on station</span><span>A teaching model</span></div>
+      <h2>Change the rules</h2>
+      <p>The amber model tree grows until its top leaves can no longer pull water up against gravity and the friction of the wood. Try another world, or a drought.</p>
+      <div class="station">
+        <label>Gravity</label>
+        <div class="presets" role="group" aria-label="Gravity">
+          <button type="button" data-g="0.17">Moon<small>0.17 g</small></button>
+          <button type="button" data-g="0.38">Mars<small>0.38 g</small></button>
+          <button type="button" data-g="1" aria-pressed="true">Earth<small>1 g</small></button>
+          <button type="button" data-g="1.5">Heavy<small>1.5 g</small></button>
+        </div>
+        <label for="soil">Soil water — <span id="soilv">wet</span></label>
+        <input type="range" id="soil" min="-1.5" max="-0.1" step="0.05" value="-0.3" aria-describedby="soilticks">
+        <div class="ticks" id="soilticks"><span>drought</span><span>dry</span><span>wet</span></div>
+        <div class="result" aria-live="polite"><b id="mh">123 m</b><span id="mhnote">the model’s limit — about where real trees stop</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<footer>
+  <h3>About this exhibit</h3>
+  <ol>
+    <li>Heights: the tallest reliably measured living specimen of each species, as compiled in <a href="https://en.wikipedia.org/wiki/List_of_superlative_trees">Wikipedia’s List of superlative trees</a> from laser and tape-drop measurements (Native Tree Society, Gymnosperm Database, Ren et al. 2024), retrieved November 2026. Crown and bark are drawn to read as each species; only heights are measured.</li>
+    <li>The limit and the water-stress gradient: Koch, Sillett, Jennings &amp; Davis, <a href="https://doi.org/10.1038/nature02417">“The limits to tree height,” <em>Nature</em> 428 (2004)</a>.</li>
+    <li>The hands-on model is a simplification for teaching: suction lost per metre to gravity (0.0098 MPa × g) and to wood friction (0.004 MPa, assumed), from soil water at −0.3 MPa down to a working leaf limit of −2.0 MPa (assumed). With these values it reproduces the paper’s prediction on Earth; it is not a forecast for other worlds.</li>
+    <li>Landmarks: Saturn V 110.6 m; Elizabeth Tower 96 m; Statue of Liberty 93 m, ground to torch.</li>
+  </ol>
+</footer>
+
+<script>
+  var scene = document.getElementById('scene');
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs, parent) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+
+  // ---- the header strip, from the scene's own numbers --------------------
+  scene.addEventListener('viz:trees', function (e) {
+    var d = e.detail, svg = document.getElementById('strip'), W = 760, x0 = 10, x1 = 750, max = 135;
+    var X = function (m) { return x0 + (m / max) * (x1 - x0); };
+    svg.textContent = '';
+    el('rect', { x: X(d.ceiling[0]), y: 20, width: X(d.ceiling[1]) - X(d.ceiling[0]), height: 34, fill: 'rgba(168,95,28,.16)', stroke: '#a85f1c', 'stroke-width': .6 }, svg);
+    el('line', { x1: x0, x2: x1, y1: 54, y2: 54, stroke: '#5b6359', 'stroke-width': 1 }, svg);
+    for (var m = 0; m <= 130; m += 10) {
+      el('line', { x1: X(m), x2: X(m), y1: 54, y2: m % 50 ? 58 : 61, stroke: '#5b6359', 'stroke-width': 1 }, svg);
+      if (m % 20 === 0) { var t = el('text', { x: X(m), y: 74, 'text-anchor': 'middle', 'font-size': 10.5, fill: '#8b8f84', 'font-family': 'Libre Franklin' }, svg); t.textContent = m; }
+    }
+    d.trees.forEach(function (tr, i) {
+      var x = X(tr.height), hi = i === 0;
+      el('line', { x1: x, x2: x, y1: hi ? 14 : 30, y2: 54, stroke: hi ? '#2f5a3c' : 'rgba(47,90,60,.55)', 'stroke-width': hi ? 1.6 : 1 }, svg);
+      el('circle', { cx: x, cy: hi ? 14 : 30, r: hi ? 3.6 : 2.6, fill: '#2f5a3c' }, svg);
+      if (hi) { var t = el('text', { x: x - 6, y: 9, 'text-anchor': 'end', 'font-size': 13, fill: '#1d2a22', 'font-family': 'Cormorant Garamond', 'font-style': 'italic', 'font-weight': 600 }, svg); t.textContent = (tr.name || tr.common) + ', ' + tr.height + ' m'; }
+    });
+    document.querySelectorAll('[data-fact="hyperion-height"]').forEach(function (n) { n.textContent = d.trees[0].height + ' m'; });
+    buildRuler(d);
+  });
+
+  // ---- the ruler beside the scene ---------------------------------------
+  var ruler = document.getElementById('ruler'), RMAX = 140, marker, modelMark, band, ref, ticks = [], info;
+  function at(m) { return (Math.min(m, RMAX) / RMAX * 100) + '%'; }
+  // The ruler's top grows to fit the model tree, and everything on it moves.
+  function rescale(top) {
+    var next = Math.max(140, Math.ceil(top / 20) * 20);
+    if (next === RMAX && ticks.length) return;
+    RMAX = next;
+    ticks.forEach(function (t) { t.remove(); }); ticks = [];
+    var step = RMAX > 200 ? 40 : 20;
+    for (var m = 0; m <= RMAX; m += step) {
+      var t = document.createElement('div'); t.className = 'tick'; t.style.bottom = at(m);
+      t.innerHTML = '<span>' + m + '</span>'; ruler.appendChild(t); ticks.push(t);
+    }
+    if (band) { band.style.bottom = at(info.ceiling[0]); band.style.height = ((info.ceiling[1] - info.ceiling[0]) / RMAX * 100) + '%'; }
+    if (ref) ref.style.bottom = at(info.trees[0].height);
+  }
+  function buildRuler(d) {
+    info = d;
+    band = document.createElement('div'); band.className = 'band';
+    band.style.opacity = '0'; ruler.appendChild(band);
+    ref = document.createElement('div'); ref.className = 'ref';
+    ref.innerHTML = '<span>' + (d.trees[0].name || d.trees[0].common) + '</span>'; ruler.appendChild(ref);
+    rescale(140);
+    marker = document.createElement('div'); marker.className = 'mark'; marker.style.opacity = '0';
+    marker.innerHTML = '<b><span id="alt">0</span> m<small>Above the floor</small></b>'; ruler.appendChild(marker);
+    modelMark = document.createElement('div'); modelMark.className = 'mark model'; modelMark.style.opacity = '0';
+    modelMark.innerHTML = '<b><span id="mhr">123</span> m<small>Model tree</small></b>'; ruler.appendChild(modelMark);
+  }
+  var lastModel = 123;
+  scene.addEventListener('viz:view', function (e) {
+    var st = e.detail.state;
+    if (info) rescale(st === 'what-if' ? lastModel + 12 : 140);
+    if (band) band.style.opacity = st === 'ceiling' || st === 'what-if' ? '1' : '0';
+    if (marker) marker.style.opacity = st === 'climb' ? '1' : '0';
+    if (modelMark) modelMark.style.opacity = st === 'what-if' ? '1' : '0';
+  });
+  scene.addEventListener('viz:altitude', function (e) {
+    if (!marker) return;
+    marker.style.bottom = at(e.detail.metres);
+    document.getElementById('alt').textContent = e.detail.metres;
+  });
+
+  // ---- placards drive the scene -------------------------------------------
+  var placards = Array.prototype.slice.call(document.querySelectorAll('.placard'));
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) scene.setAttribute('state', e.target.dataset.state); });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  placards.forEach(function (p) { io.observe(p); });
+
+  // ---- the hands-on station ------------------------------------------------
+  var presets = Array.prototype.slice.call(document.querySelectorAll('.presets button'));
+  presets.forEach(function (b) {
+    b.addEventListener('click', function () {
+      presets.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      scene.setParams({ gravity: +b.dataset.g });
+    });
+  });
+  var soil = document.getElementById('soil');
+  soil.addEventListener('input', function () {
+    var v = +soil.value;
+    document.getElementById('soilv').textContent = v > -0.5 ? 'wet' : v > -0.9 ? 'dry' : 'drought';
+    scene.setParams({ soil: v });
+  });
+  scene.addEventListener('viz:model', function (e) {
+    var h = e.detail.height;
+    document.getElementById('mh').textContent = Math.round(h) + ' m';
+    lastModel = h;
+    var r = document.getElementById('mhr'); if (r) r.textContent = Math.round(h);
+    if (info && modelMark && modelMark.style.opacity === '1') rescale(h + 12);
+    if (modelMark) modelMark.style.bottom = at(h);
+    document.getElementById('mhnote').textContent =
+      h > 140 ? 'taller than any tree that has ever been measured' :
+      h > 115 ? 'the model’s limit — about where real trees stop' :
+      'shorter than today’s tallest trees';
+  });
+</script>
+</body>
+</html>

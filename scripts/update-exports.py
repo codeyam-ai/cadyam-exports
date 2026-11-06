@@ -287,6 +287,7 @@ def ensure_thumbnail(export_path: Path) -> str:
     is_vizkit = 'content="CadYam vizkit"' in raw_html
     is_cadyam_viz = "<cadyam-viz" in raw_html
     is_scrolly_article = is_cadyam_viz and ".prologue" in raw_html
+    is_placard_exhibit = is_cadyam_viz and ".placards" in raw_html
     if is_vizkit:
         clean_html = raw_html
     elif is_scrolly_article:
@@ -301,6 +302,19 @@ def ensure_thumbnail(export_path: Path) -> str:
             ".scenes { padding: 2vh 0 !important; } "
             ".scene { min-height: 66vh !important; } "
             ".scene:first-child > div { opacity: 1 !important; border-color: var(--brass) !important; }\n</style>",
+            1,
+        )
+    elif is_placard_exhibit:
+        clean_html = raw_html.replace(
+            "</style>",
+            "header { padding: 20px 24px 12px !important; } "
+            "header h1 { font-size: 52px !important; margin: 8px 0 8px !important; } "
+            "header .dek { font-size: 18px !important; } "
+            "header .strip, .placard:not(:first-child), footer { display: none !important; } "
+            ".scene { height: 74vh !important; } "
+            ".ruler { top: 6vh !important; bottom: 8vh !important; } "
+            ".placards { margin-top: -74vh !important; padding: 6vh 0 !important; } "
+            ".placard { margin-bottom: 0 !important; }\n</style>",
             1,
         )
     elif is_cadyam_viz:
@@ -369,10 +383,11 @@ PREFERRED_ORDER = [
     "farm-house.html",
     "quake-explorer.html",
     "luxuryhousepond.html",
+    "trees-exhibit.html",
     "heirloom-craftsman-sideboard.html",
     "floral-dress.html",
-    "american-economy-story.html",
     "town-center.html",
+    "american-economy-story.html",
 ]
 
 
