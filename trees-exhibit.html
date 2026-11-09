@@ -103,6 +103,27 @@
   footer h3 { font: 700 28px "Cormorant Garamond", serif; color: var(--ink); margin: 0 0 14px; }
   footer ol { padding-left: 18px; } footer li { margin-bottom: 8px; }
   footer a { color: var(--moss); }
+  footer .cadyam-callout {
+    margin-top: 32px; padding: 20px 24px; background: var(--card);
+    border: 1px solid var(--rule); outline: 1px solid rgba(214, 204, 182, .6); outline-offset: 4px;
+    box-shadow: 0 1px 0 rgba(0,0,0,.03), 0 12px 28px rgba(60, 50, 30, .08);
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    text-decoration: none; color: var(--ink);
+    transition: border-color .2s, transform .2s, box-shadow .2s;
+  }
+  footer .cadyam-callout:hover, footer .cadyam-callout:focus-visible {
+    border-color: var(--moss); transform: translateY(-2px);
+    box-shadow: 0 16px 34px rgba(47, 90, 60, .14); outline: none;
+  }
+  footer .cadyam-callout strong {
+    display: block; font: 700 28px/1.05 "Cormorant Garamond", serif;
+    color: var(--moss); margin-bottom: 4px;
+  }
+  footer .cadyam-callout span { display: block; font-size: 14px; color: var(--soft); }
+  footer .cadyam-callout .cta {
+    font: 600 13px "Libre Franklin", sans-serif; background: var(--moss); color: #fff;
+    padding: 10px 18px; white-space: nowrap; flex-shrink: 0;
+  }
 
   @media (max-width: 860px) {
     .scene cadyam-viz { --viz-inset-left: 0px; --viz-inset-right: 0px; }
@@ -183,6 +204,13 @@
     <li>The hands-on model is a simplification for teaching: suction lost per metre to gravity (0.0098 MPa × g) and to wood friction (0.004 MPa, assumed), from soil water at −0.3 MPa down to a working leaf limit of −2.0 MPa (assumed). With these values it reproduces the paper’s prediction on Earth; it is not a forecast for other worlds.</li>
     <li>Landmarks: Saturn V 110.6 m; Elizabeth Tower 96 m; Statue of Liberty 93 m, ground to torch.</li>
   </ol>
+  <a class="cadyam-callout" href="https://codeyam.com/case-studies/cadyam" target="_blank" rel="noopener">
+    <div>
+      <strong>Made with CadYam</strong>
+      <span>Interactive 3D exhibit and teaching model exported from CadYam</span>
+    </div>
+    <span class="cta">Read case study →</span>
+  </a>
 </footer>
 
 <script>

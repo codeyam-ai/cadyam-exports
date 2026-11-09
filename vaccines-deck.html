@@ -59,6 +59,28 @@
   .sources { width: 1500px !important; }
   .sources ol { font-size: 22px; line-height: 1.5; padding-left: 26px; color: #2b3447; }
   .sources a { color: var(--ink); }
+  .cadyam-callout {
+    margin-top: 32px; padding: 24px 30px; border-radius: 16px;
+    background: rgba(14, 138, 126, .08);
+    border: 2px solid rgba(14, 138, 126, .35);
+    display: flex; align-items: center; justify-content: space-between; gap: 28px;
+    text-decoration: none; color: var(--ink); max-width: 1080px;
+    transition: border-color .2s, transform .2s, box-shadow .2s, background .2s;
+  }
+  .cadyam-callout:hover, .cadyam-callout:focus-visible {
+    border-color: var(--teal); background: rgba(14, 138, 126, .13);
+    transform: translateY(-2px); box-shadow: 0 10px 28px rgba(20, 33, 61, .1); outline: none;
+  }
+  .cadyam-callout strong {
+    display: block; font: 700 32px/1.05 Fraunces, serif;
+    font-variation-settings: "opsz" 120; letter-spacing: -.015em;
+    color: var(--teal); margin-bottom: 6px;
+  }
+  .cadyam-callout span { display: block; font-size: 18px; color: var(--soft); }
+  .cadyam-callout .cta {
+    font: 600 18px "Instrument Sans", sans-serif; background: var(--teal); color: var(--paper);
+    padding: 13px 24px; border-radius: 999px; white-space: nowrap; flex-shrink: 0;
+  }
 
   .foot { position: absolute; left: 96px; right: 96px; bottom: 44px; z-index: 3; display: flex; justify-content: space-between; align-items: center;
     font-size: 17px; color: var(--soft); }
@@ -162,6 +184,13 @@
     <h2>Where these numbers come from</h2>
     <ol id="sources"></ol>
     <p class="note">“Newer vaccines” are hepatitis B (third dose), Hib (third dose), pneumococcal conjugate (completed series) and rotavirus (completed series). A country’s reach is the mean of the four; a vaccine not yet in its schedule counts as zero. Every number in this deck is computed from these datasets by the visualization.</p>
+    <a class="cadyam-callout" href="https://codeyam.com/case-studies/cadyam" target="_blank" rel="noopener">
+      <div>
+        <strong>Made with CadYam</strong>
+        <span>Interactive 3D data visualization and slide deck exported from CadYam</span>
+      </div>
+      <span class="cta">Read the case study →</span>
+    </a>
   </section>
 
   <nav class="foot" aria-label="Slides">

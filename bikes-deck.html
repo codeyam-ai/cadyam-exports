@@ -58,6 +58,27 @@
   .sources { width: 1000px; }
   .sources ol { font-size: 19px; line-height: 1.55; padding-left: 24px; color: #2b3443; }
   .sources a { color: var(--ink); }
+  .cadyam-callout {
+    margin-top: 28px; padding: 22px 28px; border-radius: 16px;
+    background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%);
+    border: 2px solid rgba(37, 99, 235, .28);
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    text-decoration: none; color: var(--ink);
+    transition: border-color .2s, transform .2s, box-shadow .2s;
+  }
+  .cadyam-callout:hover, .cadyam-callout:focus-visible {
+    border-color: var(--blue); transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(37, 99, 235, .14); outline: none;
+  }
+  .cadyam-callout strong {
+    display: block; font: 850 28px/1.1 "Schibsted Grotesk", sans-serif;
+    letter-spacing: -.015em; color: var(--blue); margin-bottom: 4px;
+  }
+  .cadyam-callout span { display: block; font-size: 16px; color: var(--soft); }
+  .cadyam-callout .cta {
+    font: 600 17px Inter, sans-serif; background: var(--blue); color: #fff;
+    padding: 12px 22px; border-radius: 999px; white-space: nowrap; flex-shrink: 0;
+  }
 
   .scrub { display: flex; align-items: center; gap: 16px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--rule); }
   .scrub button { width: 52px; height: 52px; flex: none; border-radius: 50%; border: 0; background: var(--ink); color: #fff; font-size: 18px; cursor: pointer; }
@@ -163,6 +184,13 @@
     <h2>Where these numbers come from</h2>
     <ol id="sources"></ol>
     <p class="note">June of every other year, 2014–2026, from the operator’s public trip histories; a station is counted in a June when at least one ride started there. E-bike rides are labelled in the data from 2021. Rides over three hours are left out of the day replay. This is an independent analysis of public data.</p>
+    <a class="cadyam-callout" href="https://codeyam.com/case-studies/cadyam" target="_blank" rel="noopener">
+      <div>
+        <strong>Made with CadYam</strong>
+        <span>Interactive 3D data visualization and slide deck exported from CadYam</span>
+      </div>
+      <span class="cta">Read the case study →</span>
+    </a>
   </section>
 
   <nav class="foot" aria-label="Slides">
