@@ -4,6 +4,7 @@ Static site hosting interactive 2D + 3D HTML drawings exported from CadYam.
 
 ## Exports
 
+- **[Live-Edge Walnut Coffee Table](live-edge-coffee-table.html)** — Woodworking & Furniture (Exported 12 November 2026)
 - **[Navy Chalk-Stripe Suit](chalk-stripe-suit.html)** — Fashion (Exported 12 November 2026)
 - **[The 2.5× Rule](film-article.html)** — Data Stories (Exported 6 November 2026)
 - **[Hillside Vineyard & Winery Estate](hillside-vineyard-estate.html)** — Landscape & Garden (Exported 5 November 2026)
