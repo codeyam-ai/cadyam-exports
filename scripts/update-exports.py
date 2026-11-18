@@ -507,6 +507,11 @@ header {{
   font-size: 12px;
   color: var(--muted);
 }}
+.brand .byline a {{
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+}}
 main {{
   width: 100%;
   max-width: 1320px;
@@ -651,7 +656,7 @@ main {{
 <header>
   <div class="brand">
     <h1>CadYam Exports</h1>
-    <p class="byline">Interactive 2D plans &amp; 3D models exported from CadYam</p>
+    <p class="byline">Interactive 2D plans &amp; 3D models made in CadYam, a free design app for macOS, Windows and Linux. <a href="https://codeyam.com/apps/cadyam">Download CadYam</a></p>
   </div>
 </header>
 <main>
