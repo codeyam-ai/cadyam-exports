@@ -4,6 +4,7 @@ Static site hosting interactive 2D + 3D HTML drawings exported from CadYam.
 
 ## Exports
 
+- **[The Brass Zephyr — Steampunk Airship](brass-zephyr-airship.html)** — Forms (Exported 19 November 2026)
 - **[Live-Edge Walnut Coffee Table](live-edge-coffee-table.html)** — Woodworking & Furniture (Exported 12 November 2026)
 - **[Navy Chalk-Stripe Suit](chalk-stripe-suit.html)** — Fashion (Exported 12 November 2026)
 - **[The 2.5× Rule](film-article.html)** — Data Stories (Exported 6 November 2026)
