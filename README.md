@@ -4,6 +4,7 @@ Static site hosting interactive 2D + 3D HTML drawings exported from CadYam.
 
 ## Exports
 
+- **[Tweed Check Sport Coat & Corduroys](tweed-sport-coat.html)** — Fashion (Exported 19 November 2026)
 - **[Camel Double-Breasted Overcoat](camel-overcoat.html)** — Fashion (Exported 19 November 2026)
 - **[Willow Creek Farm](willow-creek-farm.html)** — Landscape & Garden (Exported 19 November 2026)
 - **[Gull Rock Light — Lighthouse Islet Diorama](gull-rock-lighthouse.html)** — Forms (Exported 19 November 2026)
