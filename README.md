@@ -11,7 +11,6 @@ Static site hosting interactive 2D + 3D HTML drawings exported from CadYam.
 - **[The Restless Year](quake-explorer.html)** — Data Stories (Exported 6 November 2026)
 - **[Couture Botanical Evening Gown](couture-evening-gown.html)** — Fashion (Exported 5 November 2026)
 - **[Twenty-Five Years of New Vaccines](vaccines-deck.html)** — Data Stories (Exported 6 November 2026)
-- **[Farm House](farm-house.html)** — Landscape & Garden (Exported 5 November 2026)
 - **[Chicago After Dark · Who Takes a Taxi](chicago-dashboard.html)** — Data Stories (Exported 6 November 2026)
 - **[Heirloom Walnut & White Oak Craftsman Sideboard](heirloom-craftsman-sideboard.html)** — Woodworking & Furniture (Exported 5 November 2026)
 - **[The Height Limit of Trees](trees-exhibit.html)** — Data Stories (Exported 6 November 2026)
