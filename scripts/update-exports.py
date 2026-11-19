@@ -255,7 +255,11 @@ def ensure_thumbnail(export_path: Path) -> str:
     thumb_rel = f"thumbnails/{export_path.stem}.png"
     thumb_path = ROOT / thumb_rel
     root_png = ROOT / f"{export_path.stem}.png"
-    if root_png.exists() and not thumb_path.exists():
+    # A re-export writes a fresh <stem>.png beside the page: it replaces the
+    # old thumbnail, so a card never shows an earlier version of the drawing.
+    if root_png.exists() and (
+        not thumb_path.exists() or root_png.stat().st_mtime > thumb_path.stat().st_mtime
+    ):
         shutil.move(str(root_png), str(thumb_path))
     if thumb_path.exists():
         jpg_path = ROOT / f"thumbnails/{export_path.stem}.jpg"
