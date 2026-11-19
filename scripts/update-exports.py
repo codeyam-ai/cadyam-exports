@@ -385,7 +385,6 @@ PREFERRED_ORDER = [
     "quake-explorer.html",
     "couture-evening-gown.html",
     "vaccines-deck.html",
-    "farm-house.html",
     "chicago-dashboard.html",
     "heirloom-craftsman-sideboard.html",
     "trees-exhibit.html",
@@ -396,6 +395,24 @@ PREFERRED_ORDER = [
     "town-center.html",
     "american-economy-story.html",
 ]
+
+
+# Pages that stay published at their own URL (to share by link) but get no
+# card on the index page, and ask search engines not to list them.
+UNLISTED = {
+    "farm-house.html",
+}
+
+NOINDEX = '<meta name="robots" content="noindex, nofollow">'
+
+
+def mark_unlisted(export_path: Path):
+    """Add a robots noindex tag to an unlisted page's <head>, once."""
+    content = export_path.read_text(encoding="utf-8", errors="replace")
+    if NOINDEX in content:
+        return
+    content = content.replace("<head>", "<head>\n" + NOINDEX, 1)
+    export_path.write_text(content, encoding="utf-8")
 
 
 def build_index():
@@ -409,7 +426,7 @@ def build_index():
         key=lambda p: (order_Index.get(p.name, len(PREFERRED_ORDER)), p.name),
     )
     items_html = []
-    first_social_thumb = "thumbnails/farm-house.jpg"
+    first_social_thumb = "thumbnails/film-article.jpg"
     first_social_mime = "image/jpeg"
     first_dims = (1600, 840)
     for idx, exp in enumerate(exports):
@@ -428,7 +445,10 @@ def build_index():
             social_mime = "image/png"
             card_thumb_rel = f"{png_rel}?v={ver}"
         upgrade_export_html(exp, title, byline, social_thumb_rel, social_mime, w, h)
-        if idx == 0:
+        if exp.name in UNLISTED:
+            mark_unlisted(exp)
+            continue
+        if not items_html:
             first_social_thumb = social_thumb_rel
             first_social_mime = social_mime
             first_dims = (w, h)
