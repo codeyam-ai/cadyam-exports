@@ -406,6 +406,55 @@ UNLISTED = {
 NOINDEX = '<meta name="robots" content="noindex, nofollow">'
 
 
+BACK_MARK = "data-back-to-demos"
+
+# A CadYam export's header (logo or brand, then the 2D/3D buttons on the
+# right): the link sits first in it, before the logo.
+BACK_IN_HEADER = (
+    '<a ' + BACK_MARK + ' href="./" title="All CadYam demos" '
+    'style="flex:none;align-self:center;margin-right:10px;padding:5px 10px;border-radius:99px;'
+    'font:600 12px/1.2 -apple-system,BlinkMacSystemFont,\'Segoe UI\',system-ui,sans-serif;'
+    'text-decoration:none;white-space:nowrap;color:inherit;'
+    'border:1px solid color-mix(in srgb,currentColor 22%,transparent)">← <span>All demos</span></a>'
+)
+# On a phone the header's title needs the room: the link shrinks to its arrow.
+BACK_STYLE = (
+    '<style ' + BACK_MARK + '>@media (max-width: 560px) {'
+    '[data-back-to-demos] span { display: none; } }</style>'
+)
+
+# Any other page (data stories, decks): a small pill floating in the top
+# right corner, which those layouts leave clear.
+BACK_FLOATING = (
+    '<a ' + BACK_MARK + ' href="./" title="All CadYam demos" '
+    'style="position:fixed;top:10px;right:10px;z-index:2147483000;padding:6px 12px;border-radius:99px;'
+    'font:600 12px/1.2 -apple-system,BlinkMacSystemFont,\'Segoe UI\',system-ui,sans-serif;'
+    'text-decoration:none;white-space:nowrap;color:#fff;background:rgba(20,22,26,.72);'
+    'box-shadow:0 2px 10px rgba(0,0,0,.25);backdrop-filter:blur(6px)">← All demos</a>'
+)
+
+
+def add_back_link(export_path: Path):
+    """Give a demo page a link back to the gallery's index, replacing an
+    earlier one so a change here reaches every page."""
+    original = export_path.read_text(encoding="utf-8", errors="replace")
+    content = re.sub(r"\n?<style " + BACK_MARK + r">.*?</style>", "", original, flags=re.S)
+    content = re.sub(r"\n?<a " + BACK_MARK + r" .*?</a>", "", content, flags=re.S)
+    header = re.search(r"<body[^>]*>\s*<header[^>]*>", content)
+    body_head = content[header.end():header.end() + 400] if header else ""
+    if header and ('class="logo"' in body_head or 'class="brand"' in body_head):
+        at = header.end()
+        content = content[:at] + "\n" + BACK_IN_HEADER + BACK_STYLE + content[at:]
+    else:
+        body = re.search(r"<body[^>]*>", content)
+        if not body:
+            return
+        at = body.end()
+        content = content[:at] + "\n" + BACK_FLOATING + content[at:]
+    if content != original:
+        export_path.write_text(content, encoding="utf-8")
+
+
 def mark_unlisted(export_path: Path):
     """Add a robots noindex tag to an unlisted page's <head>, once."""
     content = export_path.read_text(encoding="utf-8", errors="replace")
@@ -445,6 +494,7 @@ def build_index():
             social_mime = "image/png"
             card_thumb_rel = f"{png_rel}?v={ver}"
         upgrade_export_html(exp, title, byline, social_thumb_rel, social_mime, w, h)
+        add_back_link(exp)
         if exp.name in UNLISTED:
             mark_unlisted(exp)
             continue
