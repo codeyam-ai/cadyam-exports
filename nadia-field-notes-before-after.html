@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nadia's Field Notes — Raw Take vs CadYam Edit</title>
+<!-- cadyam-social-meta:start -->
+<meta name="description" content="Interactive 3D model &amp; 2D plan — Video · Exported 19 November 2026">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CadYam Exports">
+<meta property="og:title" content="Nadia&#x27;s Field Notes — Raw Take vs CadYam Edit">
+<meta property="og:description" content="Interactive 3D model &amp; 2D plan — Video · Exported 19 November 2026">
+<meta property="og:url" content="https://codeyam-ai.github.io/cadyam-exports/nadia-field-notes-before-after.html">
+<meta property="og:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/nadia-field-notes-before-after.jpg?v=fd0d8057">
+<meta property="og:image:secure_url" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/nadia-field-notes-before-after.jpg?v=fd0d8057">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="840">
+<meta property="og:image:alt" content="Nadia&#x27;s Field Notes — Raw Take vs CadYam Edit — 3D model preview">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nadia&#x27;s Field Notes — Raw Take vs CadYam Edit">
+<meta name="twitter:description" content="Interactive 3D model &amp; 2D plan — Video · Exported 19 November 2026">
+<meta name="twitter:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/nadia-field-notes-before-after.jpg?v=fd0d8057">
+<meta name="twitter:image:alt" content="Nadia&#x27;s Field Notes — Raw Take vs CadYam Edit — 3D model preview">
+<!-- cadyam-social-meta:end -->
+<meta name="cadyam:byline" content="Video · Exported 19 November 2026">
+<meta name="description" content="One raw iPhone take, edited in CadYam's Video editor: corrected captions, a name title, gentle push-ins, cleaned and levelled sound. Play them side by side.">
+<style>
+  :root {
+    --bg: #f4f5f7; --card: #ffffff; --ink: #1d2128; --ink2: #5b6472; --line: #e3e6eb;
+    --accent: #1f6feb; --gold: #ffd400; --raw: #8a94a3; --ok: #1a7f4b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #111418; --card: #1a1e24; --ink: #e8ebf0; --ink2: #9aa4b2; --line: #2a3038; --raw: #7d8794; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif; }
+  header { display: flex; align-items: center; gap: 12px; padding: 14px 20px; background: var(--card);
+    border-bottom: 1px solid var(--line); }
+  header .logo { width: 34px; height: 34px; border-radius: 9px; background: linear-gradient(135deg,#3b82f6,#1d4ed8);
+    display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 15px; flex: none; }
+  header h1 { font-size: 17px; margin: 0; line-height: 1.2; }
+  header .byline { margin: 2px 0 0; color: var(--ink2); font-size: 13px; }
+  main { max-width: 1120px; margin: 0 auto; padding: 22px 16px 60px; }
+  .lede { max-width: 760px; color: var(--ink2); margin: 0 0 18px; }
+  .stage { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+  .pane { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 12px; }
+  .pane h2 { font-size: 14px; margin: 2px 4px 10px; display: flex; justify-content: space-between; align-items: center; }
+  .pane h2 .tag { font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 99px; }
+  .raw .tag { background: color-mix(in srgb, var(--raw) 22%, transparent); color: var(--ink2); }
+  .edit .tag { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); }
+  .frame { position: relative; aspect-ratio: 9 / 16; background: #000; border-radius: 12px; overflow: hidden; max-height: 72vh; margin: 0 auto; }
+  video { width: 100%; height: 100%; object-fit: contain; display: block; background: #000; }
+  .hear { position: absolute; top: 10px; right: 10px; font-size: 12px; font-weight: 600; color: #fff;
+    background: rgba(0,0,0,.55); padding: 3px 9px; border-radius: 99px; }
+  .hear.off { opacity: .55; }
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 16px 0 6px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; }
+  button { font: inherit; cursor: pointer; border: 1px solid var(--line); background: var(--bg); color: var(--ink);
+    padding: 7px 14px; border-radius: 10px; font-weight: 600; }
+  button.primary { background: var(--accent); color: #fff; border-color: var(--accent); min-width: 112px; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .seg button { border: 0; border-radius: 0; background: transparent; }
+  .seg button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+  .scrub { flex: 1 1 220px; display: flex; align-items: center; gap: 10px; min-width: 200px; }
+  .scrub input { flex: 1; accent-color: var(--accent); }
+  .time { font-variant-numeric: tabular-nums; color: var(--ink2); font-size: 13px; min-width: 92px; text-align: right; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 18px 0; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+  .stat b { display: block; font-size: 20px; line-height: 1.2; }
+  .stat span { color: var(--ink2); font-size: 13px; }
+  .stat s { color: var(--raw); font-weight: 500; font-size: 15px; margin-right: 4px; }
+  h3 { font-size: 16px; margin: 26px 0 10px; }
+  .changes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .change { display: flex; gap: 12px; align-items: flex-start; background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: 10px 12px; }
+  .change button { padding: 3px 9px; font-size: 12px; font-variant-numeric: tabular-nums; flex: none; }
+  .change p { margin: 0; }
+  .change small { color: var(--ink2); display: block; }
+  .transcript { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 8px 6px; }
+  .line { display: flex; gap: 10px; padding: 6px 8px; border-radius: 8px; cursor: pointer; }
+  .line:hover { background: var(--bg); }
+  .line.now { background: color-mix(in srgb, var(--gold) 22%, transparent); }
+  .line .t { color: var(--ink2); font-variant-numeric: tabular-nums; font-size: 12px; min-width: 38px; padding-top: 2px; }
+  del { color: #c2410c; text-decoration-thickness: 2px; }
+  ins { color: var(--ok); text-decoration: none; font-weight: 600; }
+  footer { color: var(--ink2); font-size: 13px; margin-top: 28px; }
+  .stage > *, .stats > *, .changes > *, .controls > * { min-width: 0; }
+  header h1, .change p { overflow-wrap: anywhere; }
+  @media (max-width: 760px) {
+    header { padding: 12px 16px; }
+    header h1 { font-size: 15px; }
+    .scrub { min-width: 0; flex-basis: 100%; }
+    .seg button { padding: 7px 10px; }
+    .stage { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .pane { padding: 6px; border-radius: 12px; }
+    .pane h2 { font-size: 12px; margin: 0 2px 6px; flex-direction: column; align-items: flex-start; gap: 2px; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .changes { grid-template-columns: 1fr; }
+    .controls { position: sticky; bottom: 8px; z-index: 2; box-shadow: 0 6px 20px rgba(0,0,0,.15); }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">C</div>
+  <div>
+    <h1>Nadia's Field Notes — Raw Take vs CadYam Edit</h1>
+    <p class="byline">CadYam · Video · Exported 19 November 2026</p>
+  </div>
+</header>
+<main>
+  <p class="lede">One raw iPhone take, edited in CadYam's Video editor by its words. Play both together: they stay in sync, and you choose which one you hear.</p>
+
+  <div class="stage">
+    <section class="pane raw">
+      <h2>Raw iPhone take <span class="tag">Before</span></h2>
+      <div class="frame">
+        <video id="raw" src="assets/nadia-raw.mp4" playsinline preload="auto" muted poster="assets/nadia-raw-poster.jpg"></video>
+        <span class="hear off" id="hearRaw">muted</span>
+      </div>
+    </section>
+    <section class="pane edit">
+      <h2>Edited in CadYam <span class="tag">After</span></h2>
+      <div class="frame">
+        <video id="edit" src="assets/nadia-edited.mp4" playsinline preload="auto" poster="assets/nadia-edited-poster.jpg"></video>
+        <span class="hear" id="hearEdit">listening</span>
+      </div>
+    </section>
+  </div>
+
+  <div class="controls">
+    <button class="primary" id="play">▶ Play both</button>
+    <span class="seg" role="group" aria-label="Which to hear">
+      <button id="hRaw" aria-pressed="false">Hear raw</button>
+      <button id="hEdit" aria-pressed="true">Hear edited</button>
+    </span>
+    <div class="scrub"><input type="range" id="scrub" min="0" max="81.9" step="0.05" value="0" aria-label="Position"><span class="time" id="time">0:00 / 1:22</span></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b><s>−27</s>−14 LUFS</b><span>Loudness, levelled for social</span></div>
+    <div class="stat"><b>7 words</b><span>Transcript mistakes fixed before captioning</span></div>
+    <div class="stat"><b><s>1:23.7</s>1:21.9</b><span>Dead air trimmed at the ends</span></div>
+    <div class="stat"><b>3 push-ins</b><span>Gentle reframes to keep the eye</span></div>
+  </div>
+
+  <h3>What CadYam did</h3>
+  <div class="changes" id="changes">
+    <div class="change"><button data-t="0">0:00</button><p>Trimmed the silence before the first word and after the last.<small>remove silences &gt; 0.5s</small></p></div>
+    <div class="change"><button data-t="3.6">0:03</button><p>Name title: “Nadia · CEO &amp; co-founder, CodeYam”, faded in at the top.<small>title … lower, placed top</small></p></div>
+    <div class="change"><button data-t="17.4">0:17</button><p>Push-in for “My North Star…”, easing back out after.<small>zoom clip 1 … from 17.4s to 26.6s</small></p></div>
+    <div class="change"><button data-t="39.9">0:40</button><p>Push-in for “I'm generally a super curious individual…”.<small>zoom clip 1 … from 39.9s to 47s</small></p></div>
+    <div class="change"><button data-t="64.3">1:04</button><p>Push-in for “While I no longer compete in fencing…”.<small>zoom clip 1 … from 64.3s to 75.9s</small></p></div>
+    <div class="change"><button data-t="1.2">all</button><p>Captions two lines at a time, each word lit as it's said, kept clear of her face.<small>captions phrase · style highlight · at 84%</small></p></div>
+    <div class="change"><button data-t="28">all</button><p>Room hiss and low rumble cleaned out, then the voice lifted to −14 LUFS.<small>denoise light rumble 80Hz · loudness social</small></p></div>
+    <div class="change"><button data-t="50">all</button><p>A touch warmer, a touch more contrast; the iPhone's HDR kept in the full export.<small>look clip 1 warm 6 contrast 106%</small></p></div>
+  </div>
+
+  <h3>Transcript, as corrected <span style="font-weight:400;color:var(--ink2);font-size:13px">— click a line to jump there</span></h3>
+  <div class="transcript" id="transcript"></div>
+
+  <footer>Raw: one take on an iPhone, Dolby Vision HDR. Edited in CadYam Video; the web copies here are standard-range H.264 so every browser can play them. Shared with Nadia's permission.</footer>
+</main>
+<script>
+(function () {
+  // The edit starts 1.4 s into the raw take (the silence before her first word).
+  var OFFSET = 1.4;
+  var LINES = [
+    [0.3, "Hi, I'm Nadia and welcome to Nadia's Field Notes."],
+    [3.5, "I am the CEO and co-founder of <del>CODEM</del> <ins>CodeYam</ins>, a startup dedicated to helping people bring their software ideas to life using AI."],
+    [11.1, "We help you build custom, creative, or complex software, whether or not you're a developer by a background."],
+    [17.4, "My North Star personally is to have the biggest positive impact I can on people's lives, including making new technologies accessible to everyone."],
+    [26.6, "I am newly based in New York."],
+    [29.0, "I share a lot about my adventures in the city and in my travels, as well as my experiences as a newbie runner."],
+    [36.3, "I also sometimes climb and surf, and we'll share a little bit about that."],
+    [39.9, "I'm generally a super curious individual, so you'll hear me sharing observations, insights, learnings, that's why it's called <del>Daddeus</del> <ins>Nadia's</ins> Field Notes, and to give a little bit of background on myself before becoming <del>I start at</del> <ins>a startup</ins> founder, I <del>work</del> <ins>worked</ins> at Lyft, primarily on their new <del>writer</del> <ins>rider</ins> products."],
+    [57.1, "And then before that, I spent time as an undergraduate at Harvard where I was a four-year starter on their fencing team."],
+    [64.3, "<del>Well,</del> <ins>While</ins> I no longer compete in fencing."],
+    [66.3, "I do find other things to go put my full energy and ambition behind, especially my startup, but also my adventures as a runner <del>in a new work</del> <ins>in New York</ins>."],
+    [75.9, "Welcome."],
+    [76.7, "Let me know if there's certain things you want to hear about from me, but I'll be sharing my thoughts and ideas here."]
+  ];
+  var raw = document.getElementById("raw"), edit = document.getElementById("edit");
+  var play = document.getElementById("play"), scrub = document.getElementById("scrub"), time = document.getElementById("time");
+  var hRaw = document.getElementById("hRaw"), hEdit = document.getElementById("hEdit");
+  var tagRaw = document.getElementById("hearRaw"), tagEdit = document.getElementById("hearEdit");
+  var box = document.getElementById("transcript");
+  function fmt(s) { s = Math.max(0, s); var m = Math.floor(s / 60), r = Math.floor(s % 60); return m + ":" + (r < 10 ? "0" : "") + r; }
+  LINES.forEach(function (l, i) {
+    var d = document.createElement("div"); d.className = "line"; d.dataset.i = i;
+    d.innerHTML = '<span class="t">' + fmt(l[0]) + "</span><span>" + l[1] + "</span>";
+    d.addEventListener("click", function () { seek(l[0]); });
+    box.appendChild(d);
+  });
+  var rows = box.querySelectorAll(".line");
+  function hear(which) {
+    raw.muted = which !== "raw"; edit.muted = which !== "edit";
+    hRaw.setAttribute("aria-pressed", which === "raw"); hEdit.setAttribute("aria-pressed", which === "edit");
+    tagRaw.textContent = which === "raw" ? "listening" : "muted"; tagRaw.classList.toggle("off", which !== "raw");
+    tagEdit.textContent = which === "edit" ? "listening" : "muted"; tagEdit.classList.toggle("off", which !== "edit");
+  }
+  hRaw.onclick = function () { hear("raw"); }; hEdit.onclick = function () { hear("edit"); };
+  function seek(t) {
+    t = Math.min(Math.max(0, t), (edit.duration || 81.9) - 0.05);
+    edit.currentTime = t; raw.currentTime = t + OFFSET; update();
+  }
+  function playing() { return !edit.paused; }
+  play.onclick = function () {
+    if (playing()) { edit.pause(); raw.pause(); }
+    else { raw.currentTime = edit.currentTime + OFFSET; Promise.all([edit.play(), raw.play()]).catch(function () {}); }
+  };
+  [edit, raw].forEach(function (v) { v.addEventListener("click", function () { play.click(); }); });
+  edit.addEventListener("play", function () { play.textContent = "❚❚ Pause"; });
+  edit.addEventListener("pause", function () { play.textContent = "▶ Play both"; raw.pause(); });
+  edit.addEventListener("ended", function () { raw.pause(); });
+  scrub.addEventListener("input", function () { seek(parseFloat(scrub.value)); });
+  document.getElementById("changes").addEventListener("click", function (e) {
+    var t = e.target.closest("button"); if (!t) return; seek(parseFloat(t.dataset.t));
+    if (!playing()) play.click();
+  });
+  function update() {
+    var t = edit.currentTime;
+    scrub.value = t; time.textContent = fmt(t) + " / " + fmt(edit.duration || 81.9);
+    var cur = -1; LINES.forEach(function (l, i) { if (t >= l[0]) cur = i; });
+    rows.forEach(function (r, i) { r.classList.toggle("now", i === cur); });
+  }
+  // Keep the raw take on the edit's clock; nudge it when they drift apart.
+  setInterval(function () {
+    update();
+    if (!playing()) return;
+    var want = edit.currentTime + OFFSET;
+    if (Math.abs(raw.currentTime - want) > 0.12) raw.currentTime = want;
+  }, 250);
+  edit.addEventListener("loadedmetadata", function () { scrub.max = edit.duration; update(); });
+  hear("edit");
+})();
+</script>
+</body>
+</html>
