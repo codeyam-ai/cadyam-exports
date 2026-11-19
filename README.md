@@ -4,6 +4,7 @@ Static site hosting interactive 2D + 3D HTML drawings exported from CadYam.
 
 ## Exports
 
+- **[The Aurora Bridal Set — Halo Engagement Ring & Pavé Band](aurora-bridal-set.html)** — Forms (Exported 19 November 2026)
 - **[Willow Creek Farm](willow-creek-farm.html)** — Landscape & Garden (Exported 19 November 2026)
 - **[Gull Rock Light — Lighthouse Islet Diorama](gull-rock-lighthouse.html)** — Forms (Exported 19 November 2026)
 - **[The Brass Zephyr — Steampunk Airship](brass-zephyr-airship.html)** — Forms (Exported 19 November 2026)
