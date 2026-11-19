@@ -4,9 +4,6 @@ Static site hosting interactive 2D + 3D HTML drawings exported from CadYam.
 
 ## Exports
 
-- **[Waxed Field Coat & Selvedge Denim](waxed-field-coat.html)** — Fashion (Exported 19 November 2026)
-- **[Tweed Check Sport Coat & Corduroys](tweed-sport-coat.html)** — Fashion (Exported 19 November 2026)
-- **[Camel Double-Breasted Overcoat](camel-overcoat.html)** — Fashion (Exported 19 November 2026)
 - **[Willow Creek Farm](willow-creek-farm.html)** — Landscape & Garden (Exported 19 November 2026)
 - **[Gull Rock Light — Lighthouse Islet Diorama](gull-rock-lighthouse.html)** — Forms (Exported 19 November 2026)
 - **[The Brass Zephyr — Steampunk Airship](brass-zephyr-airship.html)** — Forms (Exported 19 November 2026)
