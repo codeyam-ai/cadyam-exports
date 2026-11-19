@@ -24,7 +24,7 @@
 <meta name="twitter:image:alt" content="Nadia&#x27;s Field Notes — Raw Take vs CadYam Edit — 3D model preview">
 <!-- cadyam-social-meta:end -->
 <meta name="cadyam:byline" content="Video · Exported 19 November 2026">
-<meta name="description" content="One raw iPhone take, edited in CadYam's Video editor: corrected captions, a name title, gentle push-ins, cleaned and levelled sound. Play them side by side.">
+<meta name="description" content="One raw iPhone take, edited in CadYam's Video editor: corrected captions, a name title, cleaned and levelled sound. Play them side by side.">
 <style>
   :root {
     --bg: #f4f5f7; --card: #ffffff; --ink: #1d2128; --ink2: #5b6472; --line: #e3e6eb;
@@ -52,9 +52,22 @@
   .edit .tag { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); }
   .frame { position: relative; aspect-ratio: 9 / 16; background: #000; border-radius: 12px; overflow: hidden; max-height: 72vh; margin: 0 auto; }
   video { width: 100%; height: 100%; object-fit: contain; display: block; background: #000; }
-  .hear { position: absolute; top: 10px; right: 10px; font-size: 12px; font-weight: 600; color: #fff;
-    background: rgba(0,0,0,.55); padding: 3px 9px; border-radius: 99px; }
-  .hear.off { opacity: .55; }
+  /* Which video you are hearing: a lit border, a "Sound on" badge with
+     moving bars, and the other one dimmed and labelled muted. */
+  .pane { transition: box-shadow .25s, border-color .25s, opacity .25s; }
+  .pane.audible { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 45%, transparent), 0 10px 30px color-mix(in srgb, var(--accent) 22%, transparent); }
+  .pane.silent .frame { opacity: .82; }
+  .frame { cursor: pointer; }
+  .hear { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 7px;
+    font-size: 13px; font-weight: 700; color: #fff; white-space: nowrap; background: var(--accent); padding: 6px 12px; border-radius: 99px;
+    box-shadow: 0 4px 14px rgba(0,0,0,.3); pointer-events: none; }
+  .hear.off { background: rgba(20,22,26,.72); font-weight: 600; }
+  .bars { display: inline-flex; align-items: flex-end; gap: 2px; height: 13px; }
+  .bars i { width: 3px; background: #fff; border-radius: 2px; height: 30%; }
+  .playing .hear:not(.off) .bars i { animation: eq .9s ease-in-out infinite; }
+  .bars i:nth-child(2) { animation-delay: -.3s !important; } .bars i:nth-child(3) { animation-delay: -.6s !important; }
+  .hear.off .bars { display: none; }
+  @keyframes eq { 0%,100% { height: 25%; } 50% { height: 100%; } }
   .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 16px 0 6px;
     background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; }
   button { font: inherit; cursor: pointer; border: 1px solid var(--line); background: var(--bg); color: var(--ink);
@@ -117,15 +130,15 @@
     <section class="pane raw">
       <h2>Raw iPhone take <span class="tag">Before</span></h2>
       <div class="frame">
-        <video id="raw" src="assets/nadia-raw.mp4" playsinline preload="auto" muted poster="assets/nadia-raw-poster.jpg"></video>
-        <span class="hear off" id="hearRaw">muted</span>
+        <video id="raw" src="assets/nadia-raw.mp4" playsinline preload="auto" poster="assets/nadia-raw-poster.jpg"></video>
+        <span class="hear" id="hearRaw"></span>
       </div>
     </section>
     <section class="pane edit">
       <h2>Edited in CadYam <span class="tag">After</span></h2>
       <div class="frame">
         <video id="edit" src="assets/nadia-edited.mp4" playsinline preload="auto" poster="assets/nadia-edited-poster.jpg"></video>
-        <span class="hear" id="hearEdit">listening</span>
+        <span class="hear off" id="hearEdit"></span>
       </div>
     </section>
   </div>
@@ -133,8 +146,8 @@
   <div class="controls">
     <button class="primary" id="play">▶ Play both</button>
     <span class="seg" role="group" aria-label="Which to hear">
-      <button id="hRaw" aria-pressed="false">Hear raw</button>
-      <button id="hEdit" aria-pressed="true">Hear edited</button>
+      <button id="hRaw" aria-pressed="true">🔊 Hear raw</button>
+      <button id="hEdit" aria-pressed="false">🔊 Hear edited</button>
     </span>
     <div class="scrub"><input type="range" id="scrub" min="0" max="81.9" step="0.05" value="0" aria-label="Position"><span class="time" id="time">0:00 / 1:22</span></div>
   </div>
@@ -143,16 +156,13 @@
     <div class="stat"><b><s>−27</s>−14 LUFS</b><span>Loudness, levelled for social</span></div>
     <div class="stat"><b>7 words</b><span>Transcript mistakes fixed before captioning</span></div>
     <div class="stat"><b><s>1:23.7</s>1:21.9</b><span>Dead air trimmed at the ends</span></div>
-    <div class="stat"><b>3 push-ins</b><span>Gentle reframes to keep the eye</span></div>
+    <div class="stat"><b>Captions + title</b><span>Word-by-word captions and a name title</span></div>
   </div>
 
   <h3>What CadYam did</h3>
   <div class="changes" id="changes">
     <div class="change"><button data-t="0">0:00</button><p>Trimmed the silence before the first word and after the last.<small>remove silences &gt; 0.5s</small></p></div>
     <div class="change"><button data-t="3.6">0:03</button><p>Name title: “Nadia · CEO &amp; co-founder, CodeYam”, faded in at the top.<small>title … lower, placed top</small></p></div>
-    <div class="change"><button data-t="17.4">0:17</button><p>Push-in for “My North Star…”, easing back out after.<small>zoom clip 1 … from 17.4s to 26.6s</small></p></div>
-    <div class="change"><button data-t="39.9">0:40</button><p>Push-in for “I'm generally a super curious individual…”.<small>zoom clip 1 … from 39.9s to 47s</small></p></div>
-    <div class="change"><button data-t="64.3">1:04</button><p>Push-in for “While I no longer compete in fencing…”.<small>zoom clip 1 … from 64.3s to 75.9s</small></p></div>
     <div class="change"><button data-t="1.2">all</button><p>Captions two lines at a time, each word lit as it's said, kept clear of her face.<small>captions phrase · style highlight · at 84%</small></p></div>
     <div class="change"><button data-t="28">all</button><p>Room hiss and low rumble cleaned out, then the voice lifted to −14 LUFS.<small>denoise light rumble 80Hz · loudness social</small></p></div>
     <div class="change"><button data-t="50">all</button><p>A touch warmer, a touch more contrast; the iPhone's HDR kept in the full export.<small>look clip 1 warm 6 contrast 106%</small></p></div>
@@ -195,11 +205,16 @@
     box.appendChild(d);
   });
   var rows = box.querySelectorAll(".line");
+  var paneRaw = raw.closest(".pane"), paneEdit = edit.closest(".pane");
+  var ON = '<span class="bars"><i></i><i></i><i></i></span>🔊 Sound on';
+  var OFF = "🔇 Muted · tap to hear";
   function hear(which) {
     raw.muted = which !== "raw"; edit.muted = which !== "edit";
     hRaw.setAttribute("aria-pressed", which === "raw"); hEdit.setAttribute("aria-pressed", which === "edit");
-    tagRaw.textContent = which === "raw" ? "listening" : "muted"; tagRaw.classList.toggle("off", which !== "raw");
-    tagEdit.textContent = which === "edit" ? "listening" : "muted"; tagEdit.classList.toggle("off", which !== "edit");
+    [[paneRaw, tagRaw, which === "raw"], [paneEdit, tagEdit, which === "edit"]].forEach(function (p) {
+      p[0].classList.toggle("audible", p[2]); p[0].classList.toggle("silent", !p[2]);
+      p[1].innerHTML = p[2] ? ON : OFF; p[1].classList.toggle("off", !p[2]);
+    });
   }
   hRaw.onclick = function () { hear("raw"); }; hEdit.onclick = function () { hear("edit"); };
   function seek(t) {
@@ -211,9 +226,14 @@
     if (playing()) { edit.pause(); raw.pause(); }
     else { raw.currentTime = edit.currentTime + OFFSET; Promise.all([edit.play(), raw.play()]).catch(function () {}); }
   };
-  [edit, raw].forEach(function (v) { v.addEventListener("click", function () { play.click(); }); });
-  edit.addEventListener("play", function () { play.textContent = "❚❚ Pause"; });
-  edit.addEventListener("pause", function () { play.textContent = "▶ Play both"; raw.pause(); });
+  // Tapping a video hears it; tapping the one you already hear plays or pauses.
+  [[raw, "raw"], [edit, "edit"]].forEach(function (p) {
+    p[0].addEventListener("click", function () {
+      if (p[0].muted) { hear(p[1]); if (!playing()) play.click(); } else { play.click(); }
+    });
+  });
+  edit.addEventListener("play", function () { play.textContent = "❚❚ Pause"; document.body.classList.add("playing"); });
+  edit.addEventListener("pause", function () { play.textContent = "▶ Play both"; raw.pause(); document.body.classList.remove("playing"); });
   edit.addEventListener("ended", function () { raw.pause(); });
   scrub.addEventListener("input", function () { seek(parseFloat(scrub.value)); });
   document.getElementById("changes").addEventListener("click", function (e) {
@@ -234,7 +254,7 @@
     if (Math.abs(raw.currentTime - want) > 0.12) raw.currentTime = want;
   }, 250);
   edit.addEventListener("loadedmetadata", function () { scrub.max = edit.duration; update(); });
-  hear("edit");
+  hear("raw");
 })();
 </script>
 </body>
