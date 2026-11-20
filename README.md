@@ -4,6 +4,7 @@ Static site hosting interactive 2D + 3D HTML drawings exported from CadYam.
 
 ## Exports
 
+- **[Shōrai-an Tea Garden](shorai-an-tea-garden.html)** — Landscape & Garden (Exported 20 November 2026)
 - **[The Aurora Pendant — Sapphire & Diamond Halo on a Platinum Chain](aurora-pendant.html)** — Forms (Exported 20 November 2026)
 - **[Nadia's Field Notes — Raw Take vs CadYam Edit](nadia-field-notes-before-after.html)** — Video (Exported 19 November 2026)
 - **[The Aurora Bridal Set — Halo Engagement Ring & Pavé Band](aurora-bridal-set.html)** — Forms (Exported 20 November 2026)
