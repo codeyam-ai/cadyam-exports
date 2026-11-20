@@ -1209,9 +1209,9 @@ var CadYamModelView = (function () {
   // The orbit's [yaw, pitch] after a drag of `dx`, `dy` pixels: a drag
   // across a canvas `width` wide turns about a full circle, and the view
   // tilts from just under level to nearly straight down.
-  function spin(yaw, pitch, dx, dy, width) {
+  function spin(yaw, pitch, dx, dy, width, free) {
     var k = 5.5 / Math.max(300, width);
-    return [yaw - dx * k, Math.max(-0.2, Math.min(1.5, pitch + dy * k))];
+    return [yaw - dx * k, Math.max(free ? -1.5 : -0.2, Math.min(1.5, pitch + dy * k))];
   }
 
   // The turning point slid so the model follows a drag of `dx`, `dy`
@@ -2598,7 +2598,7 @@ var CadYamFashion = (function () {
     }
     function spin(dx, dy) {
       // A drag across the canvas turns about a full circle, whatever its size.
-      var turned = V.spin(cam.yaw, cam.pitch, dx, dy, canvas.clientWidth);
+      var turned = V.spin(cam.yaw, cam.pitch, dx, dy, canvas.clientWidth, data.scene.floor == null);
       cam.yaw = turned[0];
       cam.pitch = turned[1];
     }
