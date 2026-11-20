@@ -60,6 +60,11 @@ def extract_metadata(export_path: Path):
     title = html.unescape(title_match.group(1).strip()) if title_match else export_path.stem.replace("-", " ").title()
     if byline_match:
         raw_byline = re.sub(r"<button\b.*?</button>", "", byline_match.group(1), flags=re.S)
+        # Anything else a page puts in its byline (a download link, say)
+        # is the page's, not the card's: drop the element, words and all,
+        # so no markup reaches the index as text.
+        raw_byline = re.sub(r"<a\b.*?</a>", "", raw_byline, flags=re.S)
+        raw_byline = re.sub(r"<[^>]+>", "", raw_byline)
     elif meta_byline_match:
         raw_byline = meta_byline_match.group(1)
     elif "<cadyam-viz" in content:
