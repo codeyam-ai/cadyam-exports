@@ -12,16 +12,16 @@
 <meta property="og:title" content="The Meridian Pocket Watch">
 <meta property="og:description" content="Interactive 3D model &amp; 2D plan — Forms · Exported 20 November 2026">
 <meta property="og:url" content="https://codeyam-ai.github.io/cadyam-exports/meridian-pocket-watch.html">
-<meta property="og:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/meridian-pocket-watch.jpg?v=2cb135b9">
-<meta property="og:image:secure_url" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/meridian-pocket-watch.jpg?v=2cb135b9">
+<meta property="og:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/meridian-pocket-watch.jpg?v=6201f384">
+<meta property="og:image:secure_url" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/meridian-pocket-watch.jpg?v=6201f384">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1600">
-<meta property="og:image:height" content="841">
+<meta property="og:image:height" content="840">
 <meta property="og:image:alt" content="The Meridian Pocket Watch — 3D model preview">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The Meridian Pocket Watch">
 <meta name="twitter:description" content="Interactive 3D model &amp; 2D plan — Forms · Exported 20 November 2026">
-<meta name="twitter:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/meridian-pocket-watch.jpg?v=2cb135b9">
+<meta name="twitter:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/meridian-pocket-watch.jpg?v=6201f384">
 <meta name="twitter:image:alt" content="The Meridian Pocket Watch — 3D model preview">
 <!-- cadyam-social-meta:end -->
 <style>
@@ -1395,7 +1395,146 @@ var CadYamGl3d = (function () {
     " float d=max(dot(n,sun),0.0); float sky=0.5+0.5*n.z;\n" +
     " return base*(0.38+0.22*sky+0.55*d*(sun.z>0.0 ? lit : 0.0)); }\n";
 
-  return { program: program, shadowTarget: shadowTarget, LIGHT_GLSL: LIGHT_GLSL };
+  // A 4×4 matrix's inverse (column-major, as WebGL takes them), or null.
+  function invert(m) {
+    var a = m, inv = new Float32Array(16);
+    inv[0] = a[5]*a[10]*a[15]-a[5]*a[11]*a[14]-a[9]*a[6]*a[15]+a[9]*a[7]*a[14]+a[13]*a[6]*a[11]-a[13]*a[7]*a[10];
+    inv[4] = -a[4]*a[10]*a[15]+a[4]*a[11]*a[14]+a[8]*a[6]*a[15]-a[8]*a[7]*a[14]-a[12]*a[6]*a[11]+a[12]*a[7]*a[10];
+    inv[8] = a[4]*a[9]*a[15]-a[4]*a[11]*a[13]-a[8]*a[5]*a[15]+a[8]*a[7]*a[13]+a[12]*a[5]*a[11]-a[12]*a[7]*a[9];
+    inv[12] = -a[4]*a[9]*a[14]+a[4]*a[10]*a[13]+a[8]*a[5]*a[14]-a[8]*a[6]*a[13]-a[12]*a[5]*a[10]+a[12]*a[6]*a[9];
+    inv[1] = -a[1]*a[10]*a[15]+a[1]*a[11]*a[14]+a[9]*a[2]*a[15]-a[9]*a[3]*a[14]-a[13]*a[2]*a[11]+a[13]*a[3]*a[10];
+    inv[5] = a[0]*a[10]*a[15]-a[0]*a[11]*a[14]-a[8]*a[2]*a[15]+a[8]*a[3]*a[14]+a[12]*a[2]*a[11]-a[12]*a[3]*a[10];
+    inv[9] = -a[0]*a[9]*a[15]+a[0]*a[11]*a[13]+a[8]*a[1]*a[15]-a[8]*a[3]*a[13]-a[12]*a[1]*a[11]+a[12]*a[3]*a[9];
+    inv[13] = a[0]*a[9]*a[14]-a[0]*a[10]*a[13]-a[8]*a[1]*a[14]+a[8]*a[2]*a[13]+a[12]*a[1]*a[10]-a[12]*a[2]*a[9];
+    inv[2] = a[1]*a[6]*a[15]-a[1]*a[7]*a[14]-a[5]*a[2]*a[15]+a[5]*a[3]*a[14]+a[13]*a[2]*a[7]-a[13]*a[3]*a[6];
+    inv[6] = -a[0]*a[6]*a[15]+a[0]*a[7]*a[14]+a[4]*a[2]*a[15]-a[4]*a[3]*a[14]-a[12]*a[2]*a[7]+a[12]*a[3]*a[6];
+    inv[10] = a[0]*a[5]*a[15]-a[0]*a[7]*a[13]-a[4]*a[1]*a[15]+a[4]*a[3]*a[13]+a[12]*a[1]*a[7]-a[12]*a[3]*a[5];
+    inv[14] = -a[0]*a[5]*a[14]+a[0]*a[6]*a[13]+a[4]*a[1]*a[14]-a[4]*a[2]*a[13]-a[12]*a[1]*a[6]+a[12]*a[2]*a[5];
+    inv[3] = -a[1]*a[6]*a[11]+a[1]*a[7]*a[10]+a[5]*a[2]*a[11]-a[5]*a[3]*a[10]-a[9]*a[2]*a[7]+a[9]*a[3]*a[6];
+    inv[7] = a[0]*a[6]*a[11]-a[0]*a[7]*a[10]-a[4]*a[2]*a[11]+a[4]*a[3]*a[10]+a[8]*a[2]*a[7]-a[8]*a[3]*a[6];
+    inv[11] = -a[0]*a[5]*a[11]+a[0]*a[7]*a[9]+a[4]*a[1]*a[11]-a[4]*a[3]*a[9]-a[8]*a[1]*a[7]+a[8]*a[3]*a[5];
+    inv[15] = a[0]*a[5]*a[10]-a[0]*a[6]*a[9]-a[4]*a[1]*a[10]+a[4]*a[2]*a[9]+a[8]*a[1]*a[6]-a[8]*a[2]*a[5];
+    var det = a[0]*inv[0]+a[1]*inv[4]+a[2]*inv[8]+a[3]*inv[12];
+    if (!det) return null;
+    for (var i = 0; i < 16; i++) inv[i] /= det;
+    return inv;
+  }
+
+  // Ambient occlusion, as CadYam's own HD view works it out
+  // (crates/app/src/ui/view3d/gpu/ao.wgsl): how far nearby surfaces hide
+  // each pixel from the open sky — a fold in a gown, the gap under a
+  // prong, a room's corner — from a half-size depth image, then smoothed
+  // without bleeding across edges. `ao(gl)` makes the passes; `render`
+  // draws the depth with `drawDepth(matrix)` (the caller's depth-only
+  // program) and leaves the result on texture unit 5.
+  function ao(gl) {
+    var FULL = "out vec2 vUv; void main(){ vec2 xy=vec2(float((gl_VertexID<<1)&2), float(gl_VertexID&2));" +
+      " vUv=xy; gl_Position=vec4(xy*2.0-1.0,0.0,1.0); }";
+    var COMMON = "uniform highp sampler2D uDepth; uniform mat4 uInv; uniform mat4 uVp; uniform vec4 uP; uniform vec4 uEye; uniform vec3 uFwd;\n" +
+      "vec4 at(ivec2 px){ ivec2 s=textureSize(uDepth,0); px=clamp(px,ivec2(0),s-1); float d=texelFetch(uDepth,px,0).r;\n" +
+      " vec2 uv=(vec2(px)+0.5)/vec2(s); vec4 w=uInv*vec4(uv*2.0-1.0, d*2.0-1.0, 1.0); return vec4(w.xyz/w.w, d); }\n" +
+      "vec3 rayAt(vec3 p){ return uEye.w>0.5 ? normalize(p-uEye.xyz) : normalize(uFwd); }\n";
+    var occlude = program(gl, FULL, COMMON +
+      "in vec2 vUv; out vec4 o;\n" +
+      "void main(){ ivec2 px=ivec2(gl_FragCoord.xy); vec4 c=at(px); if(c.w>=1.0){ o=vec4(1.0); return; }\n" +
+      " vec4 l=at(px-ivec2(1,0)), r=at(px+ivec2(1,0)), u=at(px-ivec2(0,1)), d=at(px+ivec2(0,1));\n" +
+      " vec3 dx = abs(l.w-c.w)<abs(r.w-c.w) ? c.xyz-l.xyz : r.xyz-c.xyz;\n" +
+      " vec3 dy = abs(u.w-c.w)<abs(d.w-c.w) ? c.xyz-u.xyz : d.xyz-c.xyz;\n" +
+      " vec3 n=normalize(cross(dx,dy)); vec3 ray=rayAt(c.xyz); if(dot(n,ray)>0.0) n=-n;\n" +
+      " float radius=uP.x; vec3 p=c.xyz+n*radius*0.04;\n" +
+      " float spin=fract(52.9829189*fract(dot(gl_FragCoord.xy,vec2(0.06711056,0.00583715))))*6.2831853;\n" +
+      " vec3 helper = abs(n.z)>0.9 ? vec3(1.0,0.0,0.0) : vec3(0.0,0.0,1.0); vec3 t=normalize(cross(helper,n)); vec3 b=cross(n,t);\n" +
+      " float hidden=0.0; ivec2 sz=textureSize(uDepth,0);\n" +
+      " for(int i=0;i<14;i++){ float k=(float(i)+0.5)/14.0; float a=float(i)*2.3999632+spin; float sp=sqrt(k);\n" +
+      "  vec3 dir=t*(cos(a)*sp)+b*(sin(a)*sp)+n*sqrt(1.0-k); vec3 s=p+dir*radius*mix(0.15,1.0,k*k);\n" +
+      "  vec4 cs=uVp*vec4(s,1.0); if(cs.w<=0.0) continue; vec3 sn=cs.xyz/cs.w; vec2 suv=sn.xy*0.5+0.5;\n" +
+      "  if(any(lessThan(suv,vec2(0.0)))||any(greaterThan(suv,vec2(1.0)))) continue;\n" +
+      "  vec4 q=at(ivec2(suv*vec2(sz))); if(q.w>=1.0) continue;\n" +
+      "  float ahead=dot(s-q.xyz, rayAt(s)); float near=smoothstep(0.0,1.0,radius/max(length(q.xyz-c.xyz),1e-4));\n" +
+      "  hidden += ahead>radius*0.03 ? near : 0.0; }\n" +
+      " o=vec4(pow(1.0-hidden/14.0, 1.4)); }");
+    var blur = program(gl, FULL, COMMON + "uniform sampler2D uRaw; in vec2 vUv; out vec4 o;\n" +
+      "void main(){ ivec2 px=ivec2(gl_FragCoord.xy); vec4 c=at(px); if(c.w>=1.0){ o=vec4(1.0); return; }\n" +
+      " float fall=uP.x*0.35, sum=0.0, wt=0.0;\n" +
+      " for(int y=-2;y<=2;y++) for(int x=-2;x<=2;x++){ ivec2 q=px+ivec2(x,y); vec4 s=at(q);\n" +
+      "  float w = s.w>=1.0 ? 0.0 : exp(-length(s.xyz-c.xyz)/fall); sum+=texelFetch(uRaw,clamp(q,ivec2(0),textureSize(uRaw,0)-1),0).r*w; wt+=w; }\n" +
+      " o=vec4(sum/max(wt,1e-4)); }");
+    function uni(p) {
+      var n = ["uDepth", "uInv", "uVp", "uP", "uEye", "uFwd", "uRaw"], u = {};
+      n.forEach(function (k) { u[k] = gl.getUniformLocation(p, k); });
+      return u;
+    }
+    var UO = uni(occlude), UB = uni(blur);
+    var w = 0, h = 0, depthTex, depthFb, rawTex, rawFb, outTex, outFb;
+    function colourTarget() {
+      var t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
+      gl.texStorage2D(gl.TEXTURE_2D, 1, gl.RGBA8, w, h);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      var f = gl.createFramebuffer(); gl.bindFramebuffer(gl.FRAMEBUFFER, f);
+      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, t, 0);
+      return [t, f];
+    }
+    function size(cw, ch) {
+      var nw = Math.max(1, cw >> 1), nh = Math.max(1, ch >> 1);
+      if (nw === w && nh === h) return;
+      w = nw; h = nh;
+      gl.activeTexture(gl.TEXTURE5);
+      depthTex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, depthTex);
+      gl.texStorage2D(gl.TEXTURE_2D, 1, gl.DEPTH_COMPONENT24, w, h);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+      depthFb = gl.createFramebuffer(); gl.bindFramebuffer(gl.FRAMEBUFFER, depthFb);
+      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.TEXTURE_2D, depthTex, 0);
+      gl.drawBuffers([gl.NONE]);
+      var r = colourTarget(); rawTex = r[0]; rawFb = r[1];
+      var o = colourTarget(); outTex = o[0]; outFb = o[1];
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      gl.activeTexture(gl.TEXTURE0);
+    }
+    function pass(p, U, fb, mvp, inv, eye, fwd, radius) {
+      gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
+      gl.viewport(0, 0, w, h);
+      gl.useProgram(p);
+      gl.uniform1i(U.uDepth, 6);
+      gl.uniform1i(U.uRaw, 7);
+      gl.uniformMatrix4fv(U.uInv, false, inv);
+      gl.uniformMatrix4fv(U.uVp, false, mvp);
+      gl.uniform4f(U.uP, radius, 0, 0, 0);
+      gl.uniform4f(U.uEye, eye[0], eye[1], eye[2], eye[3]);
+      gl.uniform3f(U.uFwd, fwd[0], fwd[1], fwd[2]);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+    return {
+      // Work the occlusion out for this view; true when it was (the
+      // result is then on texture unit 5).
+      render: function (cw, ch, mvp, eye, fwd, radius, drawDepth) {
+        var inv = invert(mvp);
+        if (!inv) return false;
+        size(cw, ch);
+        var depthWas = gl.isEnabled(gl.DEPTH_TEST);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, depthFb);
+        gl.viewport(0, 0, w, h);
+        gl.enable(gl.DEPTH_TEST);
+        gl.clear(gl.DEPTH_BUFFER_BIT);
+        drawDepth(mvp);
+        gl.disable(gl.DEPTH_TEST);
+        gl.activeTexture(gl.TEXTURE6); gl.bindTexture(gl.TEXTURE_2D, depthTex);
+        pass(occlude, UO, rawFb, mvp, inv, eye, fwd, radius);
+        gl.activeTexture(gl.TEXTURE7); gl.bindTexture(gl.TEXTURE_2D, rawTex);
+        pass(blur, UB, outFb, mvp, inv, eye, fwd, radius);
+        gl.activeTexture(gl.TEXTURE5); gl.bindTexture(gl.TEXTURE_2D, outTex);
+        gl.activeTexture(gl.TEXTURE0);
+        if (depthWas) gl.enable(gl.DEPTH_TEST);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+        return true;
+      }
+    };
+  }
+
+  return { program: program, shadowTarget: shadowTarget, LIGHT_GLSL: LIGHT_GLSL, ao: ao };
 })();
 // The exported viewer's dress form, apart from the page so it can be run on
 // its own: a Fashion scene's triangles with or without the form, and what
@@ -2138,6 +2277,10 @@ var CadYamFashion = (function () {
       " gl_Position=uMvp*vec4(aPos,1.0); }",
       "in vec3 vNrm; in vec3 vCol; in float vId; in vec3 vWorld; in vec4 vShadow; flat in int vPat; flat in int vPh;\n" +
       "uniform vec3 uSun; uniform float uCut; uniform float uSel; uniform int uPick; uniform float uFill;\n" +
+      // How open each pixel is to the sky, from the occlusion pass
+      // (CadYamGl3d.ao), and the canvas size to look it up by.
+      "uniform sampler2D uAo; uniform int uAoOn; uniform vec2 uView;\n" +
+      "float openness(){ return uAoOn==1 ? texture(uAo, gl_FragCoord.xy/uView).r : 1.0; }\n" +
       "uniform int uShadows; uniform highp sampler2DShadow uShadowMap; uniform float uFloor; uniform int uHasFloor;\n" +
       // Each phase shows or not, and is tinted toward its colour or not,
       // as the Show switch's view says.
@@ -2212,10 +2355,20 @@ var CadYamFashion = (function () {
       " vec3 n=normalize(gl_FrontFacing ? vNrm : -vNrm);\n" +
       " float lit=uSun.z>0.0 && dot(n,uSun)>0.0 ? sunlit(n) : 0.0;\n" +
       " vec3 base=mix(print_colour(vWorld,vNrm,vCol),uTint[vPh],uTintOn[vPh]*uTintK);\n" +
-      " if (vPat>=30 && vPat<=40) { vec3 j=jewel(vPat,base,n,normalize(uEye-vWorld),lit);\n" +
+      " float open=openness();\n" +
+      " if (vPat>=30 && vPat<=40) { vec3 j=jewel(vPat,base,n,normalize(uEye-vWorld),lit)*mix(0.55,1.0,open);\n" +
       "  if (uSel>0.0 && abs(vId-uSel)<0.5) j=mix(j,vec3(1.0,0.48,0.0),0.55);\n" +
       "  o=vec4(j,1.0); return; }\n" +
       " vec3 c=shade(base,n,uSun,lit);\n" +
+      // The sky's fill reaches less into folds, creases and corners
+      // (most of the darkening), and a little less sun gets in there too.
+      " c-=base*(0.38+0.22*(0.5+0.5*n.z))*(1.0-open)*0.85;\n" +
+      " c*=mix(0.82,1.0,open);\n" +
+      // Cloth glows softly toward its silhouette in its own colour, as
+      // fibres catch light edge-on (the app's FABRIC sheen), and its
+      // shadow sides keep a little light, as a studio's fill gives them.
+      " if (vPat==11) { float nv=clamp(abs(dot(n,normalize(uEye-vWorld))),0.0,1.0);\n" +
+      "  c+=base*(pow(1.0-nv,3.0)*0.45+0.06)*mix(0.6,1.0,open); }\n" +
       // Indoors (walking under a roof or ceiling) the sun and sky reach
       // only through openings; light bounced round the room fills it,
       // most on the ceiling, which only bounced light reaches.
@@ -2366,7 +2519,7 @@ var CadYamFashion = (function () {
     }
     var U = {};
     ["uMvp", "uSun", "uCut", "uSel", "uPick", "uLight", "uTexel", "uShadows", "uShadowMap", "uFloor", "uHasFloor",
-      "uShow", "uTintOn", "uTint", "uTintK", "uPrints", "uPrintAt", "uFill", "uEye"].forEach(function (u) {
+      "uShow", "uTintOn", "uTint", "uTintK", "uPrints", "uPrintAt", "uFill", "uEye", "uAo", "uAoOn", "uView"].forEach(function (u) {
       U[u] = gl.getUniformLocation(prog, u);
     });
     var D = {
@@ -2386,6 +2539,9 @@ var CadYamFashion = (function () {
     // when the sun or the cutaway moves.
     var SHADOW = 2048;
     var shadowFb = shadowTarget(gl, SHADOW);
+    // Ambient occlusion, worked out each frame from the view's depth.
+    var aoPass = CadYamGl3d.ao(gl);
+    gl.uniform1i(U.uAo, 5);
     var shadowKey = null;
 
     var size = Math.max(hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2]) || 1;
@@ -2603,10 +2759,29 @@ var CadYamFashion = (function () {
       if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
         canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
       }
+      var mvp = new Float32Array(matrix(w, h));
+      var aoOn = false;
+      if (!pick) {
+        // How open each pixel is to the sky, from this view's depth, about
+        // 4% of the model across (a ring's gaps, a gown's folds, a room's
+        // corners alike).
+        var e = eye(), f = forward();
+        aoOn = aoPass.render(canvas.width, canvas.height, mvp, [e[0], e[1], e[2], 1], f, size * 0.04,
+          function (m) {
+            gl.useProgram(depthProg);
+            gl.uniformMatrix4fv(D.uLight, false, m);
+            gl.uniform1f(D.uCut, cut);
+            gl.uniform3fv(D.uShow, phaseShow);
+            gl.drawArrays(gl.TRIANGLES, 0, n);
+          });
+        gl.useProgram(prog);
+      }
+      gl.uniform1i(U.uAoOn, aoOn ? 1 : 0);
+      gl.uniform2f(U.uView, canvas.width, canvas.height);
       gl.viewport(0, 0, canvas.width, canvas.height);
       if (pick) gl.clearColor(0, 0, 0, 1); else gl.clearColor(0.86, 0.91, 0.96, 1);
       gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-      gl.uniformMatrix4fv(U.uMvp, false, new Float32Array(matrix(w, h)));
+      gl.uniformMatrix4fv(U.uMvp, false, mvp);
       gl.uniformMatrix4fv(U.uLight, false, light);
       gl.uniform1f(U.uTexel, 2 * radius / SHADOW);
       gl.uniform1i(U.uShadows, casting ? 1 : 0);

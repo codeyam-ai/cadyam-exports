@@ -34,6 +34,9 @@ html, body { margin: 0; height: 100%; height: 100dvh; }
 body { font: 14px/1.4 "Source Sans 3", "Source Sans Pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--ink); background: var(--page); display: flex; flex-direction: column; overflow: hidden; overscroll-behavior: none; touch-action: manipulation; }
 header { display: flex; align-items: center; gap: 16px; padding: 10px 16px; background: var(--panel); border-bottom: 1px solid var(--line); }
 .brand { flex: 1; min-width: 0; }
+header .logo { flex: none; display: block; margin-right: -4px; border-radius: 8px; transition: transform .15s; }
+header .logo:hover { transform: scale(1.06); }
+header .logo svg { display: block; }
 header h1 { font-size: 17px; font-weight: 600; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 header .byline { margin: 0; font-size: 12px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 /* Every control stands the same 30px, its label centred, so none sits taller than its neighbours. */
@@ -195,6 +198,7 @@ body.touch.walking #walk-pad { display: block; }
 <body data-mode="split">
 <header>
 <a data-back-to-demos href="./" title="All CadYam demos" style="flex:none;align-self:center;margin-right:10px;padding:5px 10px;border-radius:99px;font:600 12px/1.2 -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;text-decoration:none;white-space:nowrap;color:inherit;border:1px solid color-mix(in srgb,currentColor 22%,transparent)">← <span>All demos</span></a><style data-back-to-demos>@media (max-width: 560px) {[data-back-to-demos] span { display: none; } }</style>
+<a class="logo" href="https://codeyam.com/cadyam" target="_blank" rel="noopener" title="Made with CadYam" aria-label="CadYam"><svg viewBox="64 64 896 896" width="34" height="34" aria-hidden="true"><defs><linearGradient id="cadyam-logo-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2E8BF5"/><stop offset="1" stop-color="#0D66D0"/></linearGradient></defs><rect x="64" y="64" width="896" height="896" rx="200" fill="url(#cadyam-logo-bg)"/><path d="M300 742V462L512 302L724 462V742Z" fill="#fff" fill-opacity=".14" stroke="#fff" stroke-width="30" stroke-linejoin="round"/><g fill="#FF9A3C" stroke="#fff" stroke-width="16"><circle cx="300" cy="742" r="40"/><circle cx="724" cy="742" r="40"/><circle cx="512" cy="302" r="40"/></g></svg></a>
 <div class="brand"><h1>Luxury House Pond</h1><p class="byline">CadYam · Landscape &amp; Garden · Exported 5 November 2026</p></div>
 <nav class="modes"><button data-mode="2d">2D</button><button data-mode="3d">3D</button><button data-mode="split">Split<span class="wide"> (2D + 3D)</span></button></nav>
 </header>
@@ -210,8 +214,7 @@ body.touch.walking #walk-pad { display: block; }
 </section>
 <aside id="inspector" hidden></aside>
 </main>
-<script type="application/json" id="drawing">{}</script>
-<script src="assets/luxuryhousepond-data.js?v=51806dbc"></script>
+<script src="assets/luxuryhousepond-data.js?v=ab6ca5a8"></script>
 <script>
 var FINISH_GLSL = "// Surface finishes, as CadYam's own 3D view works them out per pixel\n// (crates/app/src/ui/view3d/finish.rs): the same patterns, sizes and hash\n// noise, from the world point (mm) and the face's normal alone. `pattern`\n// is the face's Pattern::code (crates/cad-core/src/finish_pattern.rs).\nfloat hash(int x, int y){\n uint h=(uint(x)*0x9E3779B1u)^(uint(y)*0x85EBCA77u);\n h^=h>>15u; h*=0x2C1B3C6Du; h^=h>>12u; h*=0x297A2D39u; h^=h>>15u;\n return float(h>>8u)/16777216.0; }\nfloat noise(float x, float y){\n float fx=floor(x), fy=floor(y); int ix=int(fx), iy=int(fy);\n float u=x-fx, v=y-fy; u=u*u*(3.0-2.0*u); v=v*v*(3.0-2.0*v);\n float top=hash(ix,iy)+(hash(ix+1,iy)-hash(ix,iy))*u;\n float bottom=hash(ix,iy+1)+(hash(ix+1,iy+1)-hash(ix,iy+1))*u;\n return top+(bottom-top)*v; }\nfloat joint(float at, float size, float gap, float dark){\n float d=max(min(at,size-at),0.0); return dark+(1.0-dark)*clamp((d-gap/2.0)/gap,0.0,1.0); }\nfloat running_bond(float s, float t, float w, float h, float gap){\n float row=floor(t/h); s+=mod(row,2.0)<0.5 ? 0.0 : w/2.0; float col=floor(s/w);\n float tone=1.0+0.10*(hash(int(col),int(row))-0.5);\n return tone*joint(s-col*w,w,gap,0.72)*joint(t-row*h,h,gap,0.72); }\nconst float BOARD=140.0; const float BOARD_RUN=2400.0;\n// A sloped face's (along the eave, up the slope) coordinates; x and y on a\n// level face.\nvec2 slope_frame(vec3 p, vec3 n){\n float h=length(n.xy); if (h<1e-3) return p.xy;\n return vec2((-n.y*p.x+n.x*p.y)/h, -(n.x*p.x+n.y*p.y)*n.z/h+p.z*h); }\nfloat pattern_light(int pattern, vec3 p, vec3 n){\n bool flat_=abs(n.z)>0.7;\n float s=flat_ ? p.x : p.x*abs(n.y)+p.y*abs(n.x); float t=flat_ ? p.y : p.z;\n if (pattern==1) {\n  float grain=1.0+0.05*(noise(s/600.0,t/25.0)-0.5); if (!flat_) return grain;\n  float row=floor(t/BOARD); float across=t-row*BOARD;\n  float along=s+hash(int(row),7)*BOARD_RUN; float run=floor(along/BOARD_RUN); float end=along-run*BOARD_RUN;\n  float tone=1.0+0.10*(hash(int(row),int(run))-0.5);\n  return grain*tone*joint(across,BOARD,5.0,0.62)*joint(end,BOARD_RUN,4.0,0.75); }\n if (pattern==2) return 1.0+0.16*(noise(s/900.0,t/900.0)-0.5)+0.10*(noise(s/140.0,t/140.0)-0.5)+0.08*(noise(s/30.0,t/30.0)-0.5);\n if (pattern==3) {\n  float clump=noise(p.x/300.0+p.z/500.0,p.y/300.0-p.z/400.0);\n  return (0.72+0.28*smoothstep(0.25,0.6,clump))*(1.0+0.14*(noise(s/60.0,t/60.0)-0.5)); }\n if (pattern==4) return running_bond(s,t,400.0,200.0,6.0);\n if (pattern==5) return running_bond(s,t,215.0,75.0,5.0);\n if (pattern==6) return joint(mod(s,300.0),300.0,2.5,0.84)*joint(mod(t,300.0),300.0,2.5,0.84);\n if (pattern==7) return 1.0+0.08*(noise(s/90.0,t/90.0)-0.5)+0.08*(noise(s/18.0,t/18.0)-0.5);\n if (pattern==8) {\n  vec2 st=slope_frame(p,n); s=st.x; t=st.y;\n  float course=floor(t/127.0); float up=t-course*127.0; float off=mod(course,2.0)<0.5 ? 0.0 : 152.0;\n  float tab=floor((s+off)/305.0); float across=mod(s+off,305.0);\n  float tone=1.0+0.14*(hash(int(course),int(tab))-0.5);\n  return tone*joint(up,127.0,9.0,0.66)*joint(across,305.0,4.0,0.8); }\n if (pattern==9) {\n  float wave=sin((s*0.8+t*0.6)/140.0+3.0*noise(s/700.0,t/700.0));\n  return wave>0.82 ? 1.13 : (wave< -0.5 ? 0.95 : 1.0); }\n if (pattern==11) return 1.0+0.06*(noise(s/12.0,t/12.0)-0.5);\n if (pattern==12) {\n  float cs=floor(s/2.5), ct=floor(t/2.5); int ci=int(cs), cj=int(ct); float h=hash(ci,cj);\n  if (h<0.66) return 1.0+0.03*(noise(s/9.0,t/9.0)-0.5);\n  float ox=hash(ci,cj+7)*1.2+0.65, oy=hash(ci+7,cj)*1.2+0.65; float dx=s-cs*2.5-ox, dy=t-ct*2.5-oy;\n  float r=0.45+0.35*hash(cj,ci); if (dx*dx+dy*dy>r*r) return 1.0; return h<0.85 ? 0.62 : 0.82; }\n if (pattern==13) {\n  float u=abs(s/3.0-trunc(s/3.0))-0.5, v=abs(t/3.0-trunc(t/3.0))-0.5;\n  return sqrt(u*u+v*v)*3.0<0.85 ? 0.3 : 1.0; }\n if (pattern>=16) {\n  int a=min(pattern-16,2); float along=p[a]; float across=p[(a+1)%3]+p[(a+2)%3];\n  if (abs(n[a])>0.7) return 0.84+0.06*(noise(across/4.0,along/4.0)-0.5);\n  float wobble=2.0*noise(along/900.0,across/60.0);\n  return 1.0+0.09*(noise(along/500.0,across/2.5+wobble)-0.5)+0.04*(noise(along/80.0,across/12.0)-0.5); }\n return 1.0; }\n// Up to a fifth darker at a wall's foot, easing out by knee height.\nfloat contact_light(vec3 p, vec3 n){\n if (uHasFloor==0 || abs(n.z)>0.5) return 1.0;\n return 1.0-0.2*(1.0-smoothstep(0.0,450.0,max(p.z-uFloor,0.0))); }\n";
 // The exported viewer's walk-through, apart from the page so it can be
@@ -516,6 +519,14 @@ var CadYamPins = (function () {
     return pts;
   }
 
+  // Every 2D plan-sheet point pin `p` covers: its `plan_spot` (or `spot`
+  // when plan and model share x, y), `plan_region` and `plan_strokes`.
+  function planPoints(p) {
+    var pts = [p.plan_spot || p.spot].concat(p.plan_region || p.region || []);
+    (p.plan_strokes || p.strokes || []).forEach(function (s) { pts = pts.concat(s); });
+    return pts;
+  }
+
   // The box round `pts`: its lowest and highest corner.
   function bounds(pts) {
     var lo = pts[0].slice(), hi = pts[0].slice();
@@ -564,7 +575,7 @@ var CadYamPins = (function () {
     return closed && all ? d + "Z" : d;
   }
 
-  return { points: points, bounds: bounds, planPath: planPath, fit: fit, project: project, screenPath: screenPath };
+  return { points: points, planPoints: planPoints, bounds: bounds, planPath: planPath, fit: fit, project: project, screenPath: screenPath };
 })();
 // The exported viewer's sun, apart from the page so it can be run on its
 // own: the app's solar model (crates/cad-core/src/sun.rs) for the Sun date
@@ -1031,6 +1042,15 @@ var CadYamModelView = (function () {
     var pats = new Float32Array(n), phs = new Float32Array(n), prs = new Float32Array(n);
     for (var t = 0; t < n / 3; t++) {
       var p = t * 9;
+      // A gemstone's facets stay flat, each one its own mirror, as a cut
+      // stone's are: no smoothing across them.
+      if (pat[t] === 40) {
+        var ux = pos[p + 3] - pos[p], uy = pos[p + 4] - pos[p + 1], uz = pos[p + 5] - pos[p + 2];
+        var vx = pos[p + 6] - pos[p], vy = pos[p + 7] - pos[p + 1], vz = pos[p + 8] - pos[p + 2];
+        var fx = uy * vz - uz * vy, fy = uz * vx - ux * vz, fz = ux * vy - uy * vx;
+        var fl = Math.hypot(fx, fy, fz) || 1;
+        for (var q = 0; q < 3; q++) { nrm[p + q * 3] = fx / fl; nrm[p + q * 3 + 1] = fy / fl; nrm[p + q * 3 + 2] = fz / fl; }
+      }
       for (var k = 0; k < 3; k++) {
         rgb[p + k * 3] = col[t * 3] / 255; rgb[p + k * 3 + 1] = col[t * 3 + 1] / 255; rgb[p + k * 3 + 2] = col[t * 3 + 2] / 255;
         ids[t * 3 + k] = own[t] + 1;
@@ -1197,10 +1217,12 @@ var CadYamModelView = (function () {
 
   // The orbit's [yaw, pitch] after a drag of `dx`, `dy` pixels: a drag
   // across a canvas `width` wide turns about a full circle, and the view
-  // tilts from just under level to nearly straight down.
-  function spin(yaw, pitch, dx, dy, width) {
+  // tilts from just under level to nearly straight down. An object with no
+  // ground under it (a ring, a lamp: `free`) tilts all the way round to
+  // nearly straight up too, so its underside and inside can be seen.
+  function spin(yaw, pitch, dx, dy, width, free) {
     var k = 5.5 / Math.max(300, width);
-    return [yaw - dx * k, Math.max(-0.2, Math.min(1.5, pitch + dy * k))];
+    return [yaw - dx * k, Math.max(free ? -1.5 : -0.2, Math.min(1.5, pitch + dy * k))];
   }
 
   // The turning point slid so the model follows a drag of `dx`, `dy`
@@ -1373,7 +1395,146 @@ var CadYamGl3d = (function () {
     " float d=max(dot(n,sun),0.0); float sky=0.5+0.5*n.z;\n" +
     " return base*(0.38+0.22*sky+0.55*d*(sun.z>0.0 ? lit : 0.0)); }\n";
 
-  return { program: program, shadowTarget: shadowTarget, LIGHT_GLSL: LIGHT_GLSL };
+  // A 4×4 matrix's inverse (column-major, as WebGL takes them), or null.
+  function invert(m) {
+    var a = m, inv = new Float32Array(16);
+    inv[0] = a[5]*a[10]*a[15]-a[5]*a[11]*a[14]-a[9]*a[6]*a[15]+a[9]*a[7]*a[14]+a[13]*a[6]*a[11]-a[13]*a[7]*a[10];
+    inv[4] = -a[4]*a[10]*a[15]+a[4]*a[11]*a[14]+a[8]*a[6]*a[15]-a[8]*a[7]*a[14]-a[12]*a[6]*a[11]+a[12]*a[7]*a[10];
+    inv[8] = a[4]*a[9]*a[15]-a[4]*a[11]*a[13]-a[8]*a[5]*a[15]+a[8]*a[7]*a[13]+a[12]*a[5]*a[11]-a[12]*a[7]*a[9];
+    inv[12] = -a[4]*a[9]*a[14]+a[4]*a[10]*a[13]+a[8]*a[5]*a[14]-a[8]*a[6]*a[13]-a[12]*a[5]*a[10]+a[12]*a[6]*a[9];
+    inv[1] = -a[1]*a[10]*a[15]+a[1]*a[11]*a[14]+a[9]*a[2]*a[15]-a[9]*a[3]*a[14]-a[13]*a[2]*a[11]+a[13]*a[3]*a[10];
+    inv[5] = a[0]*a[10]*a[15]-a[0]*a[11]*a[14]-a[8]*a[2]*a[15]+a[8]*a[3]*a[14]+a[12]*a[2]*a[11]-a[12]*a[3]*a[10];
+    inv[9] = -a[0]*a[9]*a[15]+a[0]*a[11]*a[13]+a[8]*a[1]*a[15]-a[8]*a[3]*a[13]-a[12]*a[1]*a[11]+a[12]*a[3]*a[9];
+    inv[13] = a[0]*a[9]*a[14]-a[0]*a[10]*a[13]-a[8]*a[1]*a[14]+a[8]*a[2]*a[13]+a[12]*a[1]*a[10]-a[12]*a[2]*a[9];
+    inv[2] = a[1]*a[6]*a[15]-a[1]*a[7]*a[14]-a[5]*a[2]*a[15]+a[5]*a[3]*a[14]+a[13]*a[2]*a[7]-a[13]*a[3]*a[6];
+    inv[6] = -a[0]*a[6]*a[15]+a[0]*a[7]*a[14]+a[4]*a[2]*a[15]-a[4]*a[3]*a[14]-a[12]*a[2]*a[7]+a[12]*a[3]*a[6];
+    inv[10] = a[0]*a[5]*a[15]-a[0]*a[7]*a[13]-a[4]*a[1]*a[15]+a[4]*a[3]*a[13]+a[12]*a[1]*a[7]-a[12]*a[3]*a[5];
+    inv[14] = -a[0]*a[5]*a[14]+a[0]*a[6]*a[13]+a[4]*a[1]*a[14]-a[4]*a[2]*a[13]-a[12]*a[1]*a[6]+a[12]*a[2]*a[5];
+    inv[3] = -a[1]*a[6]*a[11]+a[1]*a[7]*a[10]+a[5]*a[2]*a[11]-a[5]*a[3]*a[10]-a[9]*a[2]*a[7]+a[9]*a[3]*a[6];
+    inv[7] = a[0]*a[6]*a[11]-a[0]*a[7]*a[10]-a[4]*a[2]*a[11]+a[4]*a[3]*a[10]+a[8]*a[2]*a[7]-a[8]*a[3]*a[6];
+    inv[11] = -a[0]*a[5]*a[11]+a[0]*a[7]*a[9]+a[4]*a[1]*a[11]-a[4]*a[3]*a[9]-a[8]*a[1]*a[7]+a[8]*a[3]*a[5];
+    inv[15] = a[0]*a[5]*a[10]-a[0]*a[6]*a[9]-a[4]*a[1]*a[10]+a[4]*a[2]*a[9]+a[8]*a[1]*a[6]-a[8]*a[2]*a[5];
+    var det = a[0]*inv[0]+a[1]*inv[4]+a[2]*inv[8]+a[3]*inv[12];
+    if (!det) return null;
+    for (var i = 0; i < 16; i++) inv[i] /= det;
+    return inv;
+  }
+
+  // Ambient occlusion, as CadYam's own HD view works it out
+  // (crates/app/src/ui/view3d/gpu/ao.wgsl): how far nearby surfaces hide
+  // each pixel from the open sky — a fold in a gown, the gap under a
+  // prong, a room's corner — from a half-size depth image, then smoothed
+  // without bleeding across edges. `ao(gl)` makes the passes; `render`
+  // draws the depth with `drawDepth(matrix)` (the caller's depth-only
+  // program) and leaves the result on texture unit 5.
+  function ao(gl) {
+    var FULL = "out vec2 vUv; void main(){ vec2 xy=vec2(float((gl_VertexID<<1)&2), float(gl_VertexID&2));" +
+      " vUv=xy; gl_Position=vec4(xy*2.0-1.0,0.0,1.0); }";
+    var COMMON = "uniform highp sampler2D uDepth; uniform mat4 uInv; uniform mat4 uVp; uniform vec4 uP; uniform vec4 uEye; uniform vec3 uFwd;\n" +
+      "vec4 at(ivec2 px){ ivec2 s=textureSize(uDepth,0); px=clamp(px,ivec2(0),s-1); float d=texelFetch(uDepth,px,0).r;\n" +
+      " vec2 uv=(vec2(px)+0.5)/vec2(s); vec4 w=uInv*vec4(uv*2.0-1.0, d*2.0-1.0, 1.0); return vec4(w.xyz/w.w, d); }\n" +
+      "vec3 rayAt(vec3 p){ return uEye.w>0.5 ? normalize(p-uEye.xyz) : normalize(uFwd); }\n";
+    var occlude = program(gl, FULL, COMMON +
+      "in vec2 vUv; out vec4 o;\n" +
+      "void main(){ ivec2 px=ivec2(gl_FragCoord.xy); vec4 c=at(px); if(c.w>=1.0){ o=vec4(1.0); return; }\n" +
+      " vec4 l=at(px-ivec2(1,0)), r=at(px+ivec2(1,0)), u=at(px-ivec2(0,1)), d=at(px+ivec2(0,1));\n" +
+      " vec3 dx = abs(l.w-c.w)<abs(r.w-c.w) ? c.xyz-l.xyz : r.xyz-c.xyz;\n" +
+      " vec3 dy = abs(u.w-c.w)<abs(d.w-c.w) ? c.xyz-u.xyz : d.xyz-c.xyz;\n" +
+      " vec3 n=normalize(cross(dx,dy)); vec3 ray=rayAt(c.xyz); if(dot(n,ray)>0.0) n=-n;\n" +
+      " float radius=uP.x; vec3 p=c.xyz+n*radius*0.04;\n" +
+      " float spin=fract(52.9829189*fract(dot(gl_FragCoord.xy,vec2(0.06711056,0.00583715))))*6.2831853;\n" +
+      " vec3 helper = abs(n.z)>0.9 ? vec3(1.0,0.0,0.0) : vec3(0.0,0.0,1.0); vec3 t=normalize(cross(helper,n)); vec3 b=cross(n,t);\n" +
+      " float hidden=0.0; ivec2 sz=textureSize(uDepth,0);\n" +
+      " for(int i=0;i<14;i++){ float k=(float(i)+0.5)/14.0; float a=float(i)*2.3999632+spin; float sp=sqrt(k);\n" +
+      "  vec3 dir=t*(cos(a)*sp)+b*(sin(a)*sp)+n*sqrt(1.0-k); vec3 s=p+dir*radius*mix(0.15,1.0,k*k);\n" +
+      "  vec4 cs=uVp*vec4(s,1.0); if(cs.w<=0.0) continue; vec3 sn=cs.xyz/cs.w; vec2 suv=sn.xy*0.5+0.5;\n" +
+      "  if(any(lessThan(suv,vec2(0.0)))||any(greaterThan(suv,vec2(1.0)))) continue;\n" +
+      "  vec4 q=at(ivec2(suv*vec2(sz))); if(q.w>=1.0) continue;\n" +
+      "  float ahead=dot(s-q.xyz, rayAt(s)); float near=smoothstep(0.0,1.0,radius/max(length(q.xyz-c.xyz),1e-4));\n" +
+      "  hidden += ahead>radius*0.03 ? near : 0.0; }\n" +
+      " o=vec4(pow(1.0-hidden/14.0, 1.4)); }");
+    var blur = program(gl, FULL, COMMON + "uniform sampler2D uRaw; in vec2 vUv; out vec4 o;\n" +
+      "void main(){ ivec2 px=ivec2(gl_FragCoord.xy); vec4 c=at(px); if(c.w>=1.0){ o=vec4(1.0); return; }\n" +
+      " float fall=uP.x*0.35, sum=0.0, wt=0.0;\n" +
+      " for(int y=-2;y<=2;y++) for(int x=-2;x<=2;x++){ ivec2 q=px+ivec2(x,y); vec4 s=at(q);\n" +
+      "  float w = s.w>=1.0 ? 0.0 : exp(-length(s.xyz-c.xyz)/fall); sum+=texelFetch(uRaw,clamp(q,ivec2(0),textureSize(uRaw,0)-1),0).r*w; wt+=w; }\n" +
+      " o=vec4(sum/max(wt,1e-4)); }");
+    function uni(p) {
+      var n = ["uDepth", "uInv", "uVp", "uP", "uEye", "uFwd", "uRaw"], u = {};
+      n.forEach(function (k) { u[k] = gl.getUniformLocation(p, k); });
+      return u;
+    }
+    var UO = uni(occlude), UB = uni(blur);
+    var w = 0, h = 0, depthTex, depthFb, rawTex, rawFb, outTex, outFb;
+    function colourTarget() {
+      var t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
+      gl.texStorage2D(gl.TEXTURE_2D, 1, gl.RGBA8, w, h);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      var f = gl.createFramebuffer(); gl.bindFramebuffer(gl.FRAMEBUFFER, f);
+      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, t, 0);
+      return [t, f];
+    }
+    function size(cw, ch) {
+      var nw = Math.max(1, cw >> 1), nh = Math.max(1, ch >> 1);
+      if (nw === w && nh === h) return;
+      w = nw; h = nh;
+      gl.activeTexture(gl.TEXTURE5);
+      depthTex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, depthTex);
+      gl.texStorage2D(gl.TEXTURE_2D, 1, gl.DEPTH_COMPONENT24, w, h);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+      depthFb = gl.createFramebuffer(); gl.bindFramebuffer(gl.FRAMEBUFFER, depthFb);
+      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.TEXTURE_2D, depthTex, 0);
+      gl.drawBuffers([gl.NONE]);
+      var r = colourTarget(); rawTex = r[0]; rawFb = r[1];
+      var o = colourTarget(); outTex = o[0]; outFb = o[1];
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      gl.activeTexture(gl.TEXTURE0);
+    }
+    function pass(p, U, fb, mvp, inv, eye, fwd, radius) {
+      gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
+      gl.viewport(0, 0, w, h);
+      gl.useProgram(p);
+      gl.uniform1i(U.uDepth, 6);
+      gl.uniform1i(U.uRaw, 7);
+      gl.uniformMatrix4fv(U.uInv, false, inv);
+      gl.uniformMatrix4fv(U.uVp, false, mvp);
+      gl.uniform4f(U.uP, radius, 0, 0, 0);
+      gl.uniform4f(U.uEye, eye[0], eye[1], eye[2], eye[3]);
+      gl.uniform3f(U.uFwd, fwd[0], fwd[1], fwd[2]);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+    return {
+      // Work the occlusion out for this view; true when it was (the
+      // result is then on texture unit 5).
+      render: function (cw, ch, mvp, eye, fwd, radius, drawDepth) {
+        var inv = invert(mvp);
+        if (!inv) return false;
+        size(cw, ch);
+        var depthWas = gl.isEnabled(gl.DEPTH_TEST);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, depthFb);
+        gl.viewport(0, 0, w, h);
+        gl.enable(gl.DEPTH_TEST);
+        gl.clear(gl.DEPTH_BUFFER_BIT);
+        drawDepth(mvp);
+        gl.disable(gl.DEPTH_TEST);
+        gl.activeTexture(gl.TEXTURE6); gl.bindTexture(gl.TEXTURE_2D, depthTex);
+        pass(occlude, UO, rawFb, mvp, inv, eye, fwd, radius);
+        gl.activeTexture(gl.TEXTURE7); gl.bindTexture(gl.TEXTURE_2D, rawTex);
+        pass(blur, UB, outFb, mvp, inv, eye, fwd, radius);
+        gl.activeTexture(gl.TEXTURE5); gl.bindTexture(gl.TEXTURE_2D, outTex);
+        gl.activeTexture(gl.TEXTURE0);
+        if (depthWas) gl.enable(gl.DEPTH_TEST);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+        return true;
+      }
+    };
+  }
+
+  return { program: program, shadowTarget: shadowTarget, LIGHT_GLSL: LIGHT_GLSL, ao: ao };
 })();
 // The exported viewer's dress form, apart from the page so it can be run on
 // its own: a Fashion scene's triangles with or without the form, and what
@@ -1451,9 +1612,11 @@ var CadYamFashion = (function () {
 // layer switches; the model (WebGL2) with orbit, walk-through, cutaway and
 // sun; a renovation's Show switch driving both; and an inspector both
 // views pick into.
-// One script in three files, joined in order by html.rs: this one (page
-// set-up, menus, touch, pan, zoom pill and inspector), html_viewer_plan.js
-// and html_viewer_3d.js, which closes the function opened here.
+// One script in six files, joined in order by html_page.rs: this one (page
+// set-up, menus, touch, pan, zoom pill and inspector), html_viewer_plan.js,
+// then the 3D model in html_viewer_3d.js, html_viewer_3d_view.js,
+// html_viewer_3d_input.js and html_viewer_3d_options.js, which closes the
+// function opened here.
 (function () {
   "use strict";
   // A saved page loads its plan and model from a companion `<stem>-data.js`
@@ -1739,10 +1902,12 @@ var CadYamFashion = (function () {
     if (pins) inspector.appendChild(pins);
     inspector.hidden = !e && !pin && (!pins || pinsClosed);
     if (!e && !pin && pins) pinsClosed = true;
+    var pickedLi = inspector.querySelector(".pins li.picked");
+    if (pickedLi && pickedLi.scrollIntoView) pickedLi.scrollIntoView({ block: "nearest" });
   }
   var pinsClosed = false;
 
-  // (Viewer script, part 2 of 3: the 2D plan — follows html_viewer_controls.js.)
+  // (Viewer script, part 2 of 6: the 2D plan — follows html_viewer_controls.js.)
   // ── 2D plan ─────────────────────────────────────────────────────────
   var planView = document.getElementById("plan-view");
   var svg = planView.querySelector("svg");
@@ -1984,10 +2149,13 @@ var CadYamFashion = (function () {
     var r = Math.max(home[2], home[3]) / 70;
     placed.forEach(function (p) {
       var g = pinGroup(p);
-      if (p.region) g.appendChild(svgEl("path", { class: "area", d: CadYamPins.planPath(p.region, true) }));
-      (p.strokes || []).forEach(function (s) { g.appendChild(svgEl("path", { class: "stroke", d: CadYamPins.planPath(s, false) })); });
-      g.appendChild(svgEl("circle", { cx: p.spot[0], cy: -p.spot[1], r: r, "stroke-width": r / 6 }));
-      var t = svgEl("text", { x: p.spot[0], y: -p.spot[1], "font-size": r * 1.1 });
+      var spot = p.plan_spot || p.spot;
+      var region = p.plan_region || p.region;
+      var strokes = p.plan_strokes || p.strokes || [];
+      if (region) g.appendChild(svgEl("path", { class: "area", d: CadYamPins.planPath(region, true) }));
+      strokes.forEach(function (s) { g.appendChild(svgEl("path", { class: "stroke", d: CadYamPins.planPath(s, false) })); });
+      g.appendChild(svgEl("circle", { cx: spot[0], cy: -spot[1], r: r, "stroke-width": r / 6 }));
+      var t = svgEl("text", { x: spot[0], y: -spot[1], "font-size": r * 1.1 });
       t.textContent = p.number;
       g.appendChild(t);
       pinLayer.appendChild(g);
@@ -1996,7 +2164,7 @@ var CadYamFashion = (function () {
   }
   // Centre the plan on pin `p`, zooming out when what it covers would not fit.
   function framePlan(p) {
-    vb = CadYamPins.fit(vb, CadYamPins.points(p));
+    vb = CadYamPins.fit(vb, CadYamPins.planPoints(p));
     setViewBox();
   }
 
@@ -2016,8 +2184,11 @@ var CadYamFashion = (function () {
   pinsChip(planOptions);
   if (planLayers) planOptions.appendChild(planLayers);
 
-  // (Viewer script, part 3 of 3: the 3D model, the Show switch and start-up —
-  // follows html_viewer_plan.js and closes the function the first part opened.)
+  // (Viewer script, part 3 of 6: the 3D model's start, the Show switch, the
+  // model's WebGL resources and make3d's scene, camera and rays — follows
+  // html_viewer_plan.js. make3d opens here and runs on through
+  // html_viewer_3d_view.js and html_viewer_3d_input.js; html_viewer_3d_options.js
+  // closes it and the function the first part opened.)
   // ── 3D model ────────────────────────────────────────────────────────
   // Surface finishes: the GLSL in html_viewer_finish.glsl, which the page
   // writes into FINISH_GLSL ahead of this script.
@@ -2105,7 +2276,11 @@ var CadYamFashion = (function () {
       " vShadow=uLight*vec4(aPos+toward*uTexel*1.5,1.0);\n" +
       " gl_Position=uMvp*vec4(aPos,1.0); }",
       "in vec3 vNrm; in vec3 vCol; in float vId; in vec3 vWorld; in vec4 vShadow; flat in int vPat; flat in int vPh;\n" +
-      "uniform vec3 uSun; uniform float uCut; uniform float uSel; uniform int uPick;\n" +
+      "uniform vec3 uSun; uniform float uCut; uniform float uSel; uniform int uPick; uniform float uFill;\n" +
+      // How open each pixel is to the sky, from the occlusion pass
+      // (CadYamGl3d.ao), and the canvas size to look it up by.
+      "uniform sampler2D uAo; uniform int uAoOn; uniform vec2 uView;\n" +
+      "float openness(){ return uAoOn==1 ? texture(uAo, gl_FragCoord.xy/uView).r : 1.0; }\n" +
       "uniform int uShadows; uniform highp sampler2DShadow uShadowMap; uniform float uFloor; uniform int uHasFloor;\n" +
       // Each phase shows or not, and is tinted toward its colour or not,
       // as the Show switch's view says.
@@ -2121,12 +2296,83 @@ var CadYamFashion = (function () {
       " return texture(uPrints, vec3(u.x/q.x, -u.y/q.y, float(vPrint-1))).rgb; }\n" +
       "out vec4 o;\n" + FINISH + CadYamGl3d.LIGHT_GLSL +
       "float sunlit(vec3 n){ if (uShadows==0) return 1.0; return sunlit_at(uShadowMap, vShadow, n, uSun); }\n" +
+      // A jeweller's studio, as a polished metal or a cut stone reflects
+      // it: a white sweep with three soft boxes, and a few black cards and
+      // a dark horizon that draw the crisp dark lines polished metal needs
+      // to read as metal. A facet flashes bright or dark as it turns.
+      "uniform vec3 uEye;\n" +
+      "vec3 studio(vec3 r){ float up=r.z; float az=atan(r.y,r.x);\n" +
+      " vec3 c=mix(vec3(0.62,0.62,0.64),vec3(1.05,1.05,1.07),smoothstep(-0.6,0.6,up));\n" +
+      " c+=vec3(2.4)*smoothstep(0.90,0.98,dot(r,normalize(vec3(0.55,-0.6,0.62))));\n" +
+      " c+=vec3(1.9)*smoothstep(0.88,0.97,dot(r,normalize(vec3(-0.75,-0.25,0.45))));\n" +
+      " c+=vec3(1.5)*smoothstep(0.86,0.96,dot(r,normalize(vec3(0.1,0.85,0.55))));\n" +
+      " float card=smoothstep(0.16,0.04,abs(sin(az*1.5+0.7)))*smoothstep(-0.35,0.0,up)*smoothstep(0.65,0.35,up);\n" +
+      " c*=1.0-0.65*card;\n" +
+      " c*=1.0-0.85*exp(-pow((up+0.08)*11.0,2.0));\n" +
+      " return c; }\n" +
+      "vec3 tonemap(vec3 c){ return vec3(1.0)-exp(-c*1.6); }\n" +
+      "vec3 jewel(int pat, vec3 base, vec3 n, vec3 v, float lit){\n" +
+      " float nv=clamp(dot(n,v),0.0,1.0); vec3 r=reflect(-v,n);\n" +
+      " if (pat==40) {\n" +
+      // A stone: its facets mirror the studio (more at grazing angles),
+      // and light bounced inside through the pavilion comes back out of
+      // each facet as one bright or dark flat — with a little fire.
+      "  float fr=0.17+0.83*pow(1.0-nv,5.0);\n" +
+      "  vec3 t=refract(-v,n,1.0/2.42); if (dot(t,t)<1e-4) t=r;\n" +
+      // Each facet sends its light back out along its own two paths
+      // through the pavilion (from the facet's orientation, so it stays
+      // put as the stone turns and flashes as the view does).
+      // Keyed on the facet's plane (its normal and its distance along it),
+      // which is the same all across one facet and differs stone to stone.
+      "  vec3 nq=floor(n*48.0+0.5)/48.0; float po=floor(dot(n,vWorld)*6.0+0.5);\n" +
+      "  vec3 h3=fract(sin(vec3(dot(nq,vec3(12.99,78.23,37.72))+po*1.7,dot(nq,vec3(39.35,11.13,83.11))+po*2.3,dot(nq,vec3(73.16,52.27,9.41))+po*3.1))*43758.55)-0.5;\n" +
+      "  vec3 b1=normalize(reflect(t,normalize(n+1.1*h3)));\n" +
+      "  vec3 b2=normalize(reflect(t,normalize(n-0.9*h3.zxy)));\n" +
+      "  vec3 inner=0.5*(studio(b1)+studio(b2)); inner=pow(inner*0.6,vec3(1.8))*2.2+0.12;\n" +
+      // A cut stone is a mosaic: some facets send back the bright studio,
+      // others the dark of the camera and the setting.
+      "  float lightFacet=max(step(0.4,fract(h3.x*7.13+h3.y*3.7+0.5)),smoothstep(0.62,0.9,nv));\n" +
+      "  inner*=mix(0.2,1.45,lightFacet);\n" +
+      "  float h=fract(dot(nq,vec3(12.9898,78.233,37.719))*43.7+dot(v,n)*2.3);\n" +
+      "  vec3 fire=0.5+0.5*cos(6.2832*(h+vec3(0.0,0.33,0.67)));\n" +
+      "  float tableish=smoothstep(0.8,0.95,nv);\n" +
+      // A coloured stone (ruby, sapphire) holds its colour deeply: light
+      // that travels through it is tinted twice over. A diamond stays white.
+      "  float white=smoothstep(0.75,0.9,min(base.r,min(base.g,base.b)));\n" +
+      "  vec3 body=mix(pow(base,vec3(1.7))*1.25,base,white);\n" +
+      "  vec3 c=inner*mix(body,body*fire*1.6,(0.07+0.1*lightFacet)*(1.0-tableish))*1.1+studio(r)*fr*0.9;\n" +
+      "  return tonemap(c); }\n" +
+      // A metal: the studio in its own colour, the edge whitening toward
+      // grazing (Schlick), softened by its roughness, with the sun's glint.
+      " float rough=float(pat-30)/9.0;\n" +
+      " vec3 F=base+(vec3(1.0)-base)*pow(1.0-nv,5.0);\n" +
+      " vec3 env=mix(studio(r),studio(normalize(r+n)),rough*0.85);\n" +
+      " vec3 c=env*F*(0.7+0.3*lit);\n" +
+      " c+=F*pow(max(dot(r,uSun),0.0),mix(600.0,24.0,rough))*2.5*lit;\n" +
+      " return tonemap(c); }\n" +
       "void main(){ if (vWorld.z > uCut || uShow[vPh] < 0.5) discard;\n" +
       " if (uPick==1) { float i=vId; o=vec4(mod(i,256.0),mod(floor(i/256.0),256.0),floor(i/65536.0),255.0)/255.0; return; }\n" +
       " vec3 n=normalize(gl_FrontFacing ? vNrm : -vNrm);\n" +
       " float lit=uSun.z>0.0 && dot(n,uSun)>0.0 ? sunlit(n) : 0.0;\n" +
       " vec3 base=mix(print_colour(vWorld,vNrm,vCol),uTint[vPh],uTintOn[vPh]*uTintK);\n" +
+      " float open=openness();\n" +
+      " if (vPat>=30 && vPat<=40) { vec3 j=jewel(vPat,base,n,normalize(uEye-vWorld),lit)*mix(0.55,1.0,open);\n" +
+      "  if (uSel>0.0 && abs(vId-uSel)<0.5) j=mix(j,vec3(1.0,0.48,0.0),0.55);\n" +
+      "  o=vec4(j,1.0); return; }\n" +
       " vec3 c=shade(base,n,uSun,lit);\n" +
+      // The sky's fill reaches less into folds, creases and corners
+      // (most of the darkening), and a little less sun gets in there too.
+      " c-=base*(0.38+0.22*(0.5+0.5*n.z))*(1.0-open)*0.85;\n" +
+      " c*=mix(0.82,1.0,open);\n" +
+      // Cloth glows softly toward its silhouette in its own colour, as
+      // fibres catch light edge-on (the app's FABRIC sheen), and its
+      // shadow sides keep a little light, as a studio's fill gives them.
+      " if (vPat==11) { float nv=clamp(abs(dot(n,normalize(uEye-vWorld))),0.0,1.0);\n" +
+      "  c+=base*(pow(1.0-nv,3.0)*0.45+0.06)*mix(0.6,1.0,open); }\n" +
+      // Indoors (walking under a roof or ceiling) the sun and sky reach
+      // only through openings; light bounced round the room fills it,
+      // most on the ceiling, which only bounced light reaches.
+      " c+=base*uFill*(0.34-0.12*(0.5+0.5*n.z));\n" +
       " c*=pattern_light(vPat,vWorld,vNrm)*contact_light(vWorld,vNrm);\n" +
       " if (uSel>0.0 && abs(vId-uSel)<0.5) c=mix(c,vec3(1.0,0.48,0.0),0.55);\n" +
       " o=vec4(c,1.0); }");
@@ -2220,6 +2466,18 @@ var CadYamFashion = (function () {
       unpack(sc);
       gl.useProgram(prog);
       upload();
+      uploadPrints(gl, (sc && sc.printTiles) || data.scene.printTiles || [], U);
+      rayGrid = null;
+      shadowKey = null;
+      redraw();
+    }
+    // The same triangles with their corners moved to `p` (a live puppet's
+    // posed character): normals worked out again, shadows recast.
+    function setPositions(p) {
+      pos = p;
+      mesh = V.corners(pos, col, own, pat, tph, prn);
+      gl.useProgram(prog);
+      upload();
       rayGrid = null;
       shadowKey = null;
       redraw();
@@ -2261,7 +2519,7 @@ var CadYamFashion = (function () {
     }
     var U = {};
     ["uMvp", "uSun", "uCut", "uSel", "uPick", "uLight", "uTexel", "uShadows", "uShadowMap", "uFloor", "uHasFloor",
-      "uShow", "uTintOn", "uTint", "uTintK", "uPrints", "uPrintAt"].forEach(function (u) {
+      "uShow", "uTintOn", "uTint", "uTintK", "uPrints", "uPrintAt", "uFill", "uEye", "uAo", "uAoOn", "uView"].forEach(function (u) {
       U[u] = gl.getUniformLocation(prog, u);
     });
     var D = {
@@ -2281,6 +2539,9 @@ var CadYamFashion = (function () {
     // when the sun or the cutaway moves.
     var SHADOW = 2048;
     var shadowFb = shadowTarget(gl, SHADOW);
+    // Ambient occlusion, worked out each frame from the view's depth.
+    var aoPass = CadYamGl3d.ao(gl);
+    gl.uniform1i(U.uAo, 5);
     var shadowKey = null;
 
     var size = Math.max(hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2]) || 1;
@@ -2388,6 +2649,13 @@ var CadYamFashion = (function () {
       if (!rayGrid) rayGrid = CadYamWalk.rays(pos);
       return rayGrid.nearest(o, d, cut, far);
     }
+    // Walking with something overhead within a storey: under a roof or a
+    // ceiling, where the room is lit by bounced light, not open sky.
+    function indoors() {
+      if (!walk.on) return false;
+      var STOREY = 6000;
+      return nearest(eye(), [0, 0, 1], STOREY) < STOREY;
+    }
     // True when the model hides world point `at` from `from`: something
     // stands clearly nearer along the line between them.
     function blocked(from, at) {
@@ -2397,6 +2665,8 @@ var CadYamFashion = (function () {
       return clear > 0 && nearest(from, V.norm(v), clear) < clear;
     }
 
+    // (Viewer script, part 4 of 6: make3d's pins over the model, drawing and
+    // picking — follows html_viewer_3d.js, inside the make3d it opened.)
     // Pins over the model: an SVG laid on the canvas, each pin's area,
     // strokes and numbered marker projected from the camera on every draw,
     // so they stay crisp and clickable. One the model hides is faded.
@@ -2489,17 +2759,38 @@ var CadYamFashion = (function () {
       if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
         canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
       }
+      var mvp = new Float32Array(matrix(w, h));
+      var aoOn = false;
+      if (!pick) {
+        // How open each pixel is to the sky, from this view's depth, about
+        // 4% of the model across (a ring's gaps, a gown's folds, a room's
+        // corners alike).
+        var e = eye(), f = forward();
+        aoOn = aoPass.render(canvas.width, canvas.height, mvp, [e[0], e[1], e[2], 1], f, size * 0.04,
+          function (m) {
+            gl.useProgram(depthProg);
+            gl.uniformMatrix4fv(D.uLight, false, m);
+            gl.uniform1f(D.uCut, cut);
+            gl.uniform3fv(D.uShow, phaseShow);
+            gl.drawArrays(gl.TRIANGLES, 0, n);
+          });
+        gl.useProgram(prog);
+      }
+      gl.uniform1i(U.uAoOn, aoOn ? 1 : 0);
+      gl.uniform2f(U.uView, canvas.width, canvas.height);
       gl.viewport(0, 0, canvas.width, canvas.height);
       if (pick) gl.clearColor(0, 0, 0, 1); else gl.clearColor(0.86, 0.91, 0.96, 1);
       gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-      gl.uniformMatrix4fv(U.uMvp, false, new Float32Array(matrix(w, h)));
+      gl.uniformMatrix4fv(U.uMvp, false, mvp);
       gl.uniformMatrix4fv(U.uLight, false, light);
       gl.uniform1f(U.uTexel, 2 * radius / SHADOW);
       gl.uniform1i(U.uShadows, casting ? 1 : 0);
       gl.uniform3fv(U.uSun, sun);
+      gl.uniform3fv(U.uEye, eye());
       gl.uniform1f(U.uCut, cut);
       gl.uniform1f(U.uSel, sel);
       gl.uniform1i(U.uPick, pick ? 1 : 0);
+      gl.uniform1f(U.uFill, indoors() ? 1 : 0);
       gl.uniform3fv(U.uShow, phaseShow);
       gl.uniform3fv(U.uTintOn, tintOn);
       gl.uniform3fv(U.uTint, tints);
@@ -2539,6 +2830,8 @@ var CadYamFashion = (function () {
       return V.pickedId(px);
     }
 
+    // (Viewer script, part 5 of 6: make3d's pointer, wheel, keys and walk pad
+    // — follows html_viewer_3d_view.js, inside the same make3d.)
     // Orbit (drag), pan (right or shift drag), zoom toward the pointer
     // (wheel, trackpad pinch, + and -), double-click to fly to a spot; in
     // walk mode, drag looks around and W A S D or the arrows walk.
@@ -2570,7 +2863,7 @@ var CadYamFashion = (function () {
     }
     function spin(dx, dy) {
       // A drag across the canvas turns about a full circle, whatever its size.
-      var turned = V.spin(cam.yaw, cam.pitch, dx, dy, canvas.clientWidth);
+      var turned = V.spin(cam.yaw, cam.pitch, dx, dy, canvas.clientWidth, data.scene.floor == null);
       cam.yaw = turned[0];
       cam.pitch = turned[1];
     }
@@ -2798,6 +3091,9 @@ var CadYamFashion = (function () {
       }
     }
 
+    // (Viewer script, part 6 of 6: make3d's Options menu, zoom pill and the
+    // handle it returns, then start-up — follows html_viewer_3d_input.js and
+    // closes both make3d and the function html_viewer_controls.js opened.)
     // The model's Options: walking, cutaway, sun and shadows, pins, reset.
     var tools = optionsMenu(document.getElementById("model-tools"));
     // Walk through first asks where to start: a click on the model stands
@@ -2927,6 +3223,10 @@ var CadYamFashion = (function () {
     // Bucket the triangles for rays once the first picture is up, so the
     // first zoom toward the pointer doesn't wait on it.
     setTimeout(function () { if (!rayGrid) rayGrid = CadYamWalk.rays(pos); }, 400);
+    // A live puppet page: the camera panel moves the character.
+    if (data.puppet && typeof CadYamPuppetCamera !== "undefined") {
+      CadYamPuppetCamera.attach({ setPositions: setPositions }, data.puppet, bytes, section);
+    }
     return {
       select: function (id) { sel = id != null ? Number(id) + 1 : 0; redraw(); },
       frame: framePin,
