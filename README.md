@@ -28,6 +28,8 @@ Static site hosting interactive 2D + 3D HTML drawings exported from CadYam.
 - **[Luxury House Pond](luxuryhousepond.html)** — Landscape & Garden (Exported 5 November 2026)
 - **[Grand Courtyard Residence & Loft Renovation](architectural-loft-renovation.html)** — Interior & Architecture (Exported 5 November 2026)
 - **[Floral Dress](floral-dress.html)** — Fashion (Exported 5 November 2026)
+- **[Camel Melton Overcoat — double-breasted, peak lapels](camel-overcoat.html)** — Fashion (Exported 22 November 2026)
+- **[Tweed Sport Coat — elbow patches, navy gabardine trousers](tweed-sport-coat.html)** — Fashion (Exported 22 November 2026)
 - **[Twelve Junes of Bike Share](bikes-deck.html)** — Data Stories (Exported 6 November 2026)
 - **[Town Center](town-center.html)** — Landscape & Garden (Exported 5 November 2026)
 - **[The American Macro-Economy in 3D & Motion](american-economy-story.html)** — Data Stories (Exported 5 November 2026)
