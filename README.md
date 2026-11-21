@@ -15,7 +15,7 @@ Static site hosting interactive 2D + 3D HTML drawings exported from CadYam.
 - **[The Brass Zephyr — Steampunk Airship](brass-zephyr-airship.html)** — Forms (Exported 19 November 2026)
 - **[Live-Edge Walnut Coffee Table](live-edge-coffee-table.html)** — Woodworking & Furniture (Exported 12 November 2026)
 - **[The Mount Lebanon Rocker — Shaker Ladder-Back Rocking Chair](shaker-rocking-chair.html)** — Woodworking & Furniture (Exported 21 November 2026)
-- **[Loon Lake Cabin — a furnished lakeside retreat](loon-lake-cabin.html)** — Architecture & Floor Plans (Exported 21 November 2026)
+- **[Loon Lake Cabin — walk in from the lake, up to the loft](loon-lake-cabin.html)** — Landscape & Garden (Exported 21 November 2026)
 - **[Navy Chalk-Stripe Suit](chalk-stripe-suit.html)** — Fashion (Exported 12 November 2026)
 - **[The 2.5× Rule](film-article.html)** — Data Stories (Exported 6 November 2026)
 - **[Hillside Vineyard & Winery Estate](hillside-vineyard-estate.html)** — Landscape & Garden (Exported 5 November 2026)
