@@ -410,6 +410,28 @@ UNLISTED = {
 
 NOINDEX = '<meta name="robots" content="noindex, nofollow">'
 
+# The filter chips on the index: each card's category is the CadYam app its
+# byline names ("Fashion · Exported …"), in this order, with a short label
+# and the #hash that links straight to it.
+CATEGORIES = [
+    ("Forms", "3D Objects & Jewellery", "objects"),
+    ("Fashion", "Fashion", "fashion"),
+    ("Woodworking & Furniture", "Furniture", "furniture"),
+    ("Landscape & Garden", "Landscapes & Homes", "landscapes"),
+    ("Interior Design", "Interiors", "interiors"),
+    ("Video", "Video", "video"),
+    ("Data Stories", "Data Stories", "data"),
+]
+
+
+def category_of(byline: str):
+    """The (app, label, slug) a card files under, from its byline's app name."""
+    app = byline.split(" · ")[0].strip()
+    for cat in CATEGORIES:
+        if cat[0] == app:
+            return cat
+    return (app, app, re.sub(r"[^a-z0-9]+", "-", app.lower()).strip("-") or "other")
+
 
 BACK_MARK = "data-back-to-demos"
 
@@ -480,6 +502,7 @@ def build_index():
         key=lambda p: (order_Index.get(p.name, len(PREFERRED_ORDER)), p.name),
     )
     items_html = []
+    seen_cats = {}
     first_social_thumb = "thumbnails/film-article.jpg"
     first_social_mime = "image/jpeg"
     first_dims = (1600, 840)
@@ -512,8 +535,10 @@ def build_index():
             if (ROOT / png_rel).exists() or (ROOT / jpg_rel).exists()
             else ""
         )
+        cat = category_of(byline)
+        seen_cats[cat[2]] = seen_cats.get(cat[2], (cat[1], 0))[0], seen_cats.get(cat[2], (cat[1], 0))[1] + 1
         items_html.append(
-            f"""    <li class="export-item">
+            f"""    <li class="export-item" data-cat="{html.escape(cat[2])}">
       <a href="{html.escape(exp.name)}">
         {thumb_markup}
         <div class="export-body">
@@ -526,6 +551,50 @@ def build_index():
       </a>
     </li>"""
         )
+
+    # Filter chips: All, then each category present, in CATEGORIES order,
+    # with its count; #slug in the URL picks one (shareable).
+    order = [c[2] for c in CATEGORIES]
+    present = sorted(seen_cats.items(), key=lambda kv: order.index(kv[0]) if kv[0] in order else len(order))
+    total = sum(n for _, (_, n) in present)
+    chips_html = (
+        '  <nav class="filters" aria-label="Filter examples">\n'
+        f'    <button class="chip on" data-filter="all" aria-pressed="true">All <span>{total}</span></button>\n'
+        + "".join(
+            f'    <button class="chip" data-filter="{html.escape(slug)}" aria-pressed="false">{html.escape(label)} <span>{n}</span></button>\n'
+            for slug, (label, n) in present
+        )
+        + "  </nav>"
+    )
+    filter_css = """
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+.chip { font: 600 13px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; padding: 8px 12px; border-radius: 99px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); cursor: pointer; }
+.chip span { font-weight: 500; color: var(--muted); margin-left: 4px; }
+.chip:hover { border-color: #1473e6; }
+.chip.on { background: #1473e6; border-color: #1473e6; color: #fff; }
+.chip.on span { color: rgba(255,255,255,.8); }
+.export-item[hidden] { display: none; }
+"""
+    filter_js = """<script>
+(function () {
+  var chips = [].slice.call(document.querySelectorAll('.chip'));
+  var items = [].slice.call(document.querySelectorAll('.export-item'));
+  function pick(slug) {
+    if (!chips.some(function (c) { return c.dataset.filter === slug; })) slug = 'all';
+    chips.forEach(function (c) { var on = c.dataset.filter === slug; c.classList.toggle('on', on); c.setAttribute('aria-pressed', on); });
+    items.forEach(function (li) { li.hidden = slug !== 'all' && li.dataset.cat !== slug; });
+  }
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () {
+      var slug = c.dataset.filter;
+      history.replaceState(null, '', slug === 'all' ? location.pathname : '#' + slug);
+      pick(slug);
+    });
+  });
+  window.addEventListener('hashchange', function () { pick(location.hash.slice(1) || 'all'); });
+  pick(location.hash.slice(1) || 'all');
+})();
+</script>"""
 
     index_meta = build_social_meta(
         "CadYam Exports",
@@ -729,6 +798,7 @@ main {{
     font-size: 12px;
   }}
 }}
+{filter_css}
 </style>
 </head>
 <body>
@@ -742,10 +812,12 @@ main {{
   <div class="section-header">
     <h2>Exports</h2>
   </div>
+{chips_html}
   <ul class="export-list">
 {chr(10).join(items_html)}
   </ul>
 </main>
+{filter_js}
 </body>
 </html>
 """

@@ -208,6 +208,15 @@ main {
     font-size: 12px;
   }
 }
+
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+.chip { font: 600 13px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; padding: 8px 12px; border-radius: 99px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); cursor: pointer; }
+.chip span { font-weight: 500; color: var(--muted); margin-left: 4px; }
+.chip:hover { border-color: #1473e6; }
+.chip.on { background: #1473e6; border-color: #1473e6; color: #fff; }
+.chip.on span { color: rgba(255,255,255,.8); }
+.export-item[hidden] { display: none; }
+
 </style>
 </head>
 <body>
@@ -221,8 +230,18 @@ main {
   <div class="section-header">
     <h2>Exports</h2>
   </div>
+  <nav class="filters" aria-label="Filter examples">
+    <button class="chip on" data-filter="all" aria-pressed="true">All <span>27</span></button>
+    <button class="chip" data-filter="objects" aria-pressed="false">3D Objects &amp; Jewellery <span>6</span></button>
+    <button class="chip" data-filter="fashion" aria-pressed="false">Fashion <span>3</span></button>
+    <button class="chip" data-filter="furniture" aria-pressed="false">Furniture <span>3</span></button>
+    <button class="chip" data-filter="landscapes" aria-pressed="false">Landscapes &amp; Homes <span>6</span></button>
+    <button class="chip" data-filter="interiors" aria-pressed="false">Interiors <span>1</span></button>
+    <button class="chip" data-filter="video" aria-pressed="false">Video <span>1</span></button>
+    <button class="chip" data-filter="data" aria-pressed="false">Data Stories <span>7</span></button>
+  </nav>
   <ul class="export-list">
-    <li class="export-item">
+    <li class="export-item" data-cat="data">
       <a href="film-article.html">
         <div class="export-thumb"><img src="thumbnails/film-article.jpg?v=1ddbdb0e" alt="The 2.5× Rule preview" loading="lazy"></div>
         <div class="export-body">
@@ -234,7 +253,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="landscapes">
       <a href="hillside-vineyard-estate.html">
         <div class="export-thumb"><img src="thumbnails/hillside-vineyard-estate.jpg?v=49df1ad8" alt="Hillside Vineyard &amp; Winery Estate preview" loading="lazy"></div>
         <div class="export-body">
@@ -246,7 +265,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="data">
       <a href="quake-explorer.html">
         <div class="export-thumb"><img src="thumbnails/quake-explorer.jpg?v=4f535673" alt="The Restless Year preview" loading="lazy"></div>
         <div class="export-body">
@@ -258,7 +277,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="fashion">
       <a href="couture-evening-gown.html">
         <div class="export-thumb"><img src="thumbnails/couture-evening-gown.jpg?v=6d089aa9" alt="Couture Botanical Evening Gown preview" loading="lazy"></div>
         <div class="export-body">
@@ -270,7 +289,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="data">
       <a href="vaccines-deck.html">
         <div class="export-thumb"><img src="thumbnails/vaccines-deck.jpg?v=97cadbf4" alt="Twenty-Five Years of New Vaccines preview" loading="lazy"></div>
         <div class="export-body">
@@ -282,7 +301,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="data">
       <a href="chicago-dashboard.html">
         <div class="export-thumb"><img src="thumbnails/chicago-dashboard.jpg?v=edc84db2" alt="Chicago After Dark · Who Takes a Taxi preview" loading="lazy"></div>
         <div class="export-body">
@@ -294,7 +313,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="furniture">
       <a href="heirloom-craftsman-sideboard.html">
         <div class="export-thumb"><img src="thumbnails/heirloom-craftsman-sideboard.jpg?v=c0222d7b" alt="Heirloom Walnut &amp; White Oak Craftsman Sideboard preview" loading="lazy"></div>
         <div class="export-body">
@@ -306,7 +325,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="data">
       <a href="trees-exhibit.html">
         <div class="export-thumb"><img src="thumbnails/trees-exhibit.jpg?v=041249f9" alt="The Height Limit of Trees preview" loading="lazy"></div>
         <div class="export-body">
@@ -318,7 +337,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="landscapes">
       <a href="luxuryhousepond.html">
         <div class="export-thumb"><img src="thumbnails/luxuryhousepond.jpg?v=65e100ff" alt="Luxury House Pond preview" loading="lazy"></div>
         <div class="export-body">
@@ -330,7 +349,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="interiors">
       <a href="architectural-loft-renovation.html">
         <div class="export-thumb"><img src="thumbnails/architectural-loft-renovation.jpg?v=aed02baf" alt="Grand Courtyard Residence &amp; Loft Renovation preview" loading="lazy"></div>
         <div class="export-body">
@@ -342,7 +361,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="fashion">
       <a href="floral-dress.html">
         <div class="export-thumb"><img src="thumbnails/floral-dress.jpg?v=3d9fa3c7" alt="Floral Dress preview" loading="lazy"></div>
         <div class="export-body">
@@ -354,7 +373,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="data">
       <a href="bikes-deck.html">
         <div class="export-thumb"><img src="thumbnails/bikes-deck.jpg?v=c65ed46f" alt="Twelve Junes of Bike Share preview" loading="lazy"></div>
         <div class="export-body">
@@ -366,7 +385,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="landscapes">
       <a href="town-center.html">
         <div class="export-thumb"><img src="thumbnails/town-center.jpg?v=a23722e2" alt="Town Center preview" loading="lazy"></div>
         <div class="export-body">
@@ -378,7 +397,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="data">
       <a href="american-economy-story.html">
         <div class="export-thumb"><img src="thumbnails/american-economy-story.jpg?v=ae877282" alt="The American Macro-Economy in 3D &amp; Motion preview" loading="lazy"></div>
         <div class="export-body">
@@ -390,7 +409,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="objects">
       <a href="aurora-bridal-set.html">
         <div class="export-thumb"><img src="thumbnails/aurora-bridal-set.jpg?v=d29f073a" alt="The Aurora Bridal Set preview" loading="lazy"></div>
         <div class="export-body">
@@ -402,7 +421,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="objects">
       <a href="aurora-pendant.html">
         <div class="export-thumb"><img src="thumbnails/aurora-pendant.jpg?v=d7c4b648" alt="The Aurora Pendant preview" loading="lazy"></div>
         <div class="export-body">
@@ -414,7 +433,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="objects">
       <a href="brass-zephyr-airship.html">
         <div class="export-thumb"><img src="thumbnails/brass-zephyr-airship.jpg?v=0f6443a4" alt="The Brass Zephyr — Steampunk Airship preview" loading="lazy"></div>
         <div class="export-body">
@@ -426,7 +445,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="fashion">
       <a href="chalk-stripe-suit.html">
         <div class="export-thumb"><img src="thumbnails/chalk-stripe-suit.jpg?v=d5e8077c" alt="Navy Chalk-Stripe Suit preview" loading="lazy"></div>
         <div class="export-body">
@@ -438,7 +457,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="objects">
       <a href="gull-rock-lighthouse.html">
         <div class="export-thumb"><img src="thumbnails/gull-rock-lighthouse.jpg?v=636d62cf" alt="Gull Rock Light — Lighthouse Islet Diorama preview" loading="lazy"></div>
         <div class="export-body">
@@ -450,7 +469,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="furniture">
       <a href="live-edge-coffee-table.html">
         <div class="export-thumb"><img src="thumbnails/live-edge-coffee-table.jpg?v=b4ded145" alt="Live-Edge Walnut Coffee Table preview" loading="lazy"></div>
         <div class="export-body">
@@ -462,9 +481,9 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="landscapes">
       <a href="loon-lake-cabin.html">
-        <div class="export-thumb"><img src="thumbnails/loon-lake-cabin.jpg?v=57e64cbd" alt="Loon Lake Cabin — walk in from the lake, up to the loft preview" loading="lazy"></div>
+        <div class="export-thumb"><img src="thumbnails/loon-lake-cabin.jpg?v=8e6c61ff" alt="Loon Lake Cabin — walk in from the lake, up to the loft preview" loading="lazy"></div>
         <div class="export-body">
           <div class="export-info">
             <h3 class="export-title">Loon Lake Cabin — walk in from the lake, up to the loft</h3>
@@ -474,7 +493,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="objects">
       <a href="meridian-pocket-watch.html">
         <div class="export-thumb"><img src="thumbnails/meridian-pocket-watch.jpg?v=6201f384" alt="The Meridian Pocket Watch preview" loading="lazy"></div>
         <div class="export-body">
@@ -486,7 +505,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="video">
       <a href="nadia-field-notes-before-after.html">
         <div class="export-thumb"><img src="thumbnails/nadia-field-notes-before-after.jpg?v=0cc2e413" alt="Nadia&#x27;s Field Notes — Raw Take vs CadYam Edit preview" loading="lazy"></div>
         <div class="export-body">
@@ -498,7 +517,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="furniture">
       <a href="shaker-rocking-chair.html">
         <div class="export-thumb"><img src="thumbnails/shaker-rocking-chair.jpg?v=2df9fa90" alt="The Mount Lebanon Rocker — Shaker Ladder-Back Rocking Chair preview" loading="lazy"></div>
         <div class="export-body">
@@ -510,7 +529,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="landscapes">
       <a href="shorai-an-tea-garden.html">
         <div class="export-thumb"><img src="thumbnails/shorai-an-tea-garden.jpg?v=9785c478" alt="Shōrai-an Tea Garden preview" loading="lazy"></div>
         <div class="export-body">
@@ -522,7 +541,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="objects">
       <a href="staunton-chess-set.html">
         <div class="export-thumb"><img src="thumbnails/staunton-chess-set.jpg?v=548bb8b2" alt="The Staunton Chess Set preview" loading="lazy"></div>
         <div class="export-body">
@@ -534,7 +553,7 @@ main {
         </div>
       </a>
     </li>
-    <li class="export-item">
+    <li class="export-item" data-cat="landscapes">
       <a href="willow-creek-farm.html">
         <div class="export-thumb"><img src="thumbnails/willow-creek-farm.jpg?v=12a8b23b" alt="Willow Creek Farm preview" loading="lazy"></div>
         <div class="export-body">
@@ -548,5 +567,25 @@ main {
     </li>
   </ul>
 </main>
+<script>
+(function () {
+  var chips = [].slice.call(document.querySelectorAll('.chip'));
+  var items = [].slice.call(document.querySelectorAll('.export-item'));
+  function pick(slug) {
+    if (!chips.some(function (c) { return c.dataset.filter === slug; })) slug = 'all';
+    chips.forEach(function (c) { var on = c.dataset.filter === slug; c.classList.toggle('on', on); c.setAttribute('aria-pressed', on); });
+    items.forEach(function (li) { li.hidden = slug !== 'all' && li.dataset.cat !== slug; });
+  }
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () {
+      var slug = c.dataset.filter;
+      history.replaceState(null, '', slug === 'all' ? location.pathname : '#' + slug);
+      pick(slug);
+    });
+  });
+  window.addEventListener('hashchange', function () { pick(location.hash.slice(1) || 'all'); });
+  pick(location.hash.slice(1) || 'all');
+})();
+</script>
 </body>
 </html>
