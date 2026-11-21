@@ -422,6 +422,16 @@ CATEGORIES = [
     ("Video", "Video", "video"),
     ("Data Stories", "Data Stories", "data"),
 ]
+# Each kind's colour, on its filter pill and its cards' label.
+CATEGORY_COLOURS = {
+    "objects": "#7c4dff",
+    "fashion": "#d63384",
+    "furniture": "#b7791f",
+    "landscapes": "#2f9e44",
+    "interiors": "#0c8599",
+    "video": "#e8590c",
+    "data": "#1c7ed6",
+}
 
 
 def category_of(byline: str):
@@ -543,6 +553,7 @@ def build_index():
         {thumb_markup}
         <div class="export-body">
           <div class="export-info">
+            <span class="export-kind" style="--c:{CATEGORY_COLOURS.get(cat[2], '#6b6b76')}">{html.escape(cat[1])}</span>
             <h3 class="export-title">{html.escape(title)}</h3>
             <p class="export-meta">{html.escape(byline)}</p>
           </div>
@@ -561,7 +572,7 @@ def build_index():
         '  <nav class="filters" aria-label="Filter examples">\n'
         f'    <button class="chip on" data-filter="all" aria-pressed="true">All <span>{total}</span></button>\n'
         + "".join(
-            f'    <button class="chip" data-filter="{html.escape(slug)}" aria-pressed="false">{html.escape(label)} <span>{n}</span></button>\n'
+            f'    <button class="chip" data-filter="{html.escape(slug)}" style="--c:{CATEGORY_COLOURS.get(slug, "#6b6b76")}" aria-pressed="false">{html.escape(label)} <span>{n}</span></button>\n'
             for slug, (label, n) in present
         )
         + "  </nav>"
@@ -569,10 +580,14 @@ def build_index():
     filter_css = """
 .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
 .chip { font: 600 13px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; padding: 8px 12px; border-radius: 99px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); cursor: pointer; }
-.chip span { font-weight: 500; color: var(--muted); margin-left: 4px; }
-.chip:hover { border-color: #1473e6; }
-.chip.on { background: #1473e6; border-color: #1473e6; color: #fff; }
-.chip.on span { color: rgba(255,255,255,.8); }
+.chip { --c: #1d1d1f; display: inline-flex; align-items: center; gap: 6px; }
+.chip:not([data-filter="all"])::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--c); }
+.chip span { font-weight: 500; color: var(--muted); }
+.chip:hover { border-color: var(--c); }
+.chip.on { background: var(--c); border-color: var(--c); color: #fff; }
+.chip.on::before { background: #fff; }
+.chip.on span { color: rgba(255,255,255,.85); }
+.export-kind { --c: #6b6b76; display: inline-block; align-self: flex-start; margin: 0 0 6px; padding: 3px 9px; border-radius: 99px; font-size: 11.5px; font-weight: 600; letter-spacing: .01em; color: var(--c); background: color-mix(in srgb, var(--c) 12%, white); }
 .export-item[hidden] { display: none; }
 """
     filter_js = """<script>
