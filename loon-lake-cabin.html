@@ -2323,13 +2323,13 @@ var CadYamFashion = (function () {
       "in vec3 aPos; in vec3 aNrm; in vec3 aCol; in float aId; in float aPat; in float aPh; in float aPrint;\n" +
       "uniform mat4 uMvp; uniform mat4 uLight; uniform vec3 uSun; uniform float uTexel;\n" +
       "out vec3 vNrm; out vec3 vCol; out float vId; out vec3 vWorld; out vec4 vShadow; flat out int vPat; flat out int vPh;\n" +
-      "flat out int vPrint;\n" +
-      "void main(){ vNrm=aNrm; vCol=aCol; vId=aId; vWorld=aPos; vPat=int(aPat+0.5); vPh=int(aPh+0.5); vPrint=int(aPrint+0.5);\n" +
+      "flat out int vPrint; flat out int vKeep;\n" +
+      "void main(){ vNrm=aNrm; vCol=aCol; vId=aId; vWorld=aPos; vPat=int(aPat+0.5); vPh=int(aPh+0.5); vKeep=vPh>=4 ? 1 : 0; vPh=vPh-4*vKeep; vPrint=int(aPrint+0.5);\n" +
       // Looked up a texel or two off the face toward the sun, so a face doesn't shadow itself.
       " vec3 toward=aNrm*(dot(aNrm,uSun)<0.0 ? -1.0 : 1.0);\n" +
       " vShadow=uLight*vec4(aPos+toward*uTexel*1.5,1.0);\n" +
       " gl_Position=uMvp*vec4(aPos,1.0); }",
-      "in vec3 vNrm; in vec3 vCol; in float vId; in vec3 vWorld; in vec4 vShadow; flat in int vPat; flat in int vPh;\n" +
+      "in vec3 vNrm; in vec3 vCol; in float vId; in vec3 vWorld; in vec4 vShadow; flat in int vPat; flat in int vPh; flat in int vKeep;\n" +
       "uniform vec3 uSun; uniform float uCut; uniform float uSel; uniform int uPick; uniform float uFill;\n" +
       // How open each pixel is to the sky, from the occlusion pass
       // (CadYamGl3d.ao), and the canvas size to look it up by.
@@ -2353,7 +2353,7 @@ var CadYamFashion = (function () {
       // Where the camera is, for jewellery's reflections and cloth's sheen;
       // then jewellery's studio light (html_viewer_jewel.glsl).
       "uniform vec3 uEye;\n" + JEWEL +
-      "void main(){ if (vWorld.z > uCut || uShow[vPh] < 0.5) discard;\n" +
+      "void main(){ if ((vWorld.z > uCut && vKeep == 0) || uShow[vPh] < 0.5) discard;\n" +
       " if (uPick==1) { float i=vId; o=vec4(mod(i,256.0),mod(floor(i/256.0),256.0),floor(i/65536.0),255.0)/255.0; return; }\n" +
       " vec3 n=normalize(gl_FrontFacing ? vNrm : -vNrm);\n" +
       " float lit=uSun.z>0.0 && dot(n,uSun)>0.0 ? sunlit(n) : 0.0;\n" +
@@ -2380,10 +2380,10 @@ var CadYamFashion = (function () {
       " if (uSel>0.0 && abs(vId-uSel)<0.5) c=mix(c,vec3(1.0,0.48,0.0),0.55);\n" +
       " o=vec4(c,1.0); }");
     var depthProg = glProgram(gl,
-      "in vec3 aPos; in float aPh; uniform mat4 uLight; out float vZ; flat out int vPh;\n" +
-      "void main(){ vZ=aPos.z; vPh=int(aPh+0.5); gl_Position=uLight*vec4(aPos,1.0); }",
-      "in float vZ; flat in int vPh; uniform float uCut; uniform vec3 uShow; out vec4 o;\n" +
-      "void main(){ if (vZ > uCut || uShow[vPh] < 0.5) discard; o=vec4(1.0); }");
+      "in vec3 aPos; in float aPh; uniform mat4 uLight; out float vZ; flat out int vPh; flat out int vKeep;\n" +
+      "void main(){ vZ=aPos.z; vPh=int(aPh+0.5); vKeep=vPh>=4 ? 1 : 0; vPh=vPh-4*vKeep; gl_Position=uLight*vec4(aPos,1.0); }",
+      "in float vZ; flat in int vPh; flat in int vKeep; uniform float uCut; uniform vec3 uShow; out vec4 o;\n" +
+      "void main(){ if ((vZ > uCut && vKeep == 0) || uShow[vPh] < 0.5) discard; o=vec4(1.0); }");
     return { prog: prog, depthProg: depthProg };
   }
 
@@ -2448,6 +2448,43 @@ var CadYamFashion = (function () {
       pos = t.pos; col = t.col; own = t.own; pat = t.pat; tph = t.tph; prn = t.prn;
       n = pos.length / 3;
       mesh = V.corners(pos, col, own, pat, tph, prn);
+      keepWhole();
+    }
+    // Plants (trees, shrubs) stay whole under a cutaway or a floor view:
+    // only buildings are cut open. Their phase gets +4, which the shaders
+    // read as "never cut" and take off again for the phase.
+    function keepWhole() {
+      var ents = (data.entities) || {};
+      for (var t = 0; t < own.length; t++) {
+        var e = ents[own[t]];
+        if (e && e.kindId === "plant") for (var k = 0; k < 3; k++) mesh.phs[t * 3 + k] += 4;
+      }
+    }
+    // The floors a building inside the drawing has: the lowest point of
+    // each furnished or walled part that is not one of the site's own
+    // objects (a building's rooms come in as their own pieces), gathered
+    // into levels at least 1.5 m apart. Two or more make a Floors switch.
+    function floorLevels() {
+      var ents = (data.entities) || {}, lows = {};
+      for (var t = 0; t < own.length; t++) {
+        var id = own[t];
+        if (id < 0 || ents[id]) continue;
+        var z = Math.min(pos[t * 9 + 2], pos[t * 9 + 5], pos[t * 9 + 8]);
+        if (!(id in lows) || z < lows[id]) lows[id] = z;
+      }
+      var zs = Object.keys(lows).map(function (k) { return lows[k]; }).sort(function (a, b) { return a - b; });
+      var groups = [];
+      zs.forEach(function (z) {
+        var g = groups[groups.length - 1];
+        if (g && z - g.z0 < 150) g.n++; else groups.push({ z0: z, n: 1 });
+      });
+      var most = groups.reduce(function (m, g) { return Math.max(m, g.n); }, 0);
+      var levels = [];
+      groups.forEach(function (g) {
+        if (g.n < Math.max(3, most * 0.25)) return;
+        if (!levels.length || g.z0 - levels[levels.length - 1] > 1500) levels.push(g.z0);
+      });
+      return levels;
     }
     unpack(shownScene);
     var box = V.bounds(pos), lo = box.lo, hi = box.hi;
@@ -3198,8 +3235,56 @@ var CadYamFashion = (function () {
     speed.value = pace;
     speed.addEventListener("change", function () { pace = Number(speed.value); speed.blur(); });
     field(tools, "Speed", speed);
+    // A building with two or more floors gets a Floors switch: Outside, or
+    // one floor at a time — the roof and everything above that floor taken
+    // off the building (trees stay whole) and the view brought in on it —
+    // so its rooms show without walking. It stands in for the cutaway.
+    var levels = floorLevels();
+    var floorPick = null;
+    if (levels.length >= 2) {
+      floorPick = el("select", { title: "See inside one floor of the building" });
+      floorPick.appendChild(el("option", { value: "" }, "Outside"));
+      levels.forEach(function (z, i) {
+        floorPick.appendChild(el("option", { value: String(i) },
+          i === 0 ? "Ground floor" : levels.length === 2 ? "Upstairs" : "Floor " + (i + 1)));
+      });
+      field(tools, "Floors", floorPick);
+      floorPick.addEventListener("change", function () { showFloor(floorPick.value); });
+    }
+    // The building's plan box, from its own (non-site) parts, for framing.
+    function buildingBox() {
+      var ents = data.entities || {}, b = null;
+      for (var t = 0; t < own.length; t++) {
+        if (own[t] < 0 || ents[own[t]]) continue;
+        for (var k = 0; k < 3; k++) {
+          var x = pos[t * 9 + k * 3], y = pos[t * 9 + k * 3 + 1];
+          if (!b) b = [x, y, x, y];
+          b = [Math.min(b[0], x), Math.min(b[1], y), Math.max(b[2], x), Math.max(b[3], y)];
+        }
+      }
+      return b;
+    }
+    function showFloor(value) {
+      if (value === "") {
+        cut = V.cutHeight(false, floor, hi[2]);
+      } else {
+        var i = Number(value), z = levels[i];
+        // Walls stand about head high; the floor above (and the ceiling)
+        // goes.
+        cut = Math.min(z + 2100, i + 1 < levels.length ? levels[i + 1] - 50 : z + 2100);
+        var b = buildingBox();
+        if (b && !walk.on) {
+          var m = 900;
+          framePin({ spot: [(b[0] + b[2]) / 2, (b[1] + b[3]) / 2, z],
+            region: [[b[0] - m, b[1] - m, z], [b[2] + m, b[1] - m, z], [b[2] + m, b[3] + m, z], [b[0] - m, b[3] + m, z]] });
+          cam.pitch = Math.max(cam.pitch, 0.75);
+        }
+      }
+      shadowKey = null;
+      redraw();
+    }
     // Only a model with storeys to see into has a cutaway worth offering.
-    if (V.hasCutaway(floor, hi[2])) {
+    if (!floorPick && V.hasCutaway(floor, hi[2])) {
       var cutBox = chip(tools, "Cutaway", el("input", { type: "checkbox" }));
       cutBox.addEventListener("change", function () {
         cut = V.cutHeight(cutBox.checked, floor, hi[2]);
