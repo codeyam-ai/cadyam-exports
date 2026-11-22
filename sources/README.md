@@ -24,7 +24,7 @@ reopened in CadYam, improved and re-exported.
 | shorai-an-tea-garden.html | `shorai-an-tea-garden/gen_tea.py` (Landscape) |
 | meridian-pocket-watch.html | `meridian-pocket-watch/gen_watch.py` |
 | camel-overcoat.html, tweed-sport-coat.html | `menswear/*.txt` (Fashion command lines) |
-| grand-courtyard-residence.html | `grand-courtyard-residence/` |
+| architectural-loft-renovation.html (Grand Courtyard Residence) | `grand-courtyard-residence/` (drawing, generator, paintings in `art/`) |
 | (not yet published) | `laser-automaton/gen_auto.py` (Laser & CNC) |
 
 Pages not listed here (the dresses and suit, the data stories and decks,
@@ -40,3 +40,11 @@ Club, Adirondacks* and *The Herring Net*; Vincent van Gogh, *The Bedroom*;
 Pierre-Auguste Renoir, *Near the Lake*; Camille Corot, *Souvenir of the
 Environs of Lake Nemi*; Henri-Joseph Harpignies, *Birches and Oaks*;
 Utagawa Hiroshige, *Mishima: Morning Mist*.
+
+The Grand Courtyard Residence paintings in `grand-courtyard-residence/art/`
+are public-domain works from the Art Institute of Chicago (CC0): Claude
+Monet, *Water Lilies*; Georges Seurat, *A Sunday on La Grande Jatte — 1884*;
+Katsushika Hokusai, *Under the Wave off Kanagawa*; Utagawa Hiroshige,
+*Hamamatsu* and *Arai* (Fifty-three Stations of the Tokaido); Mary Cassatt,
+*The Child's Bath*; Gustave Caillebotte, *Paris Street; Rainy Day*; Vincent
+van Gogh, *Self-Portrait*.

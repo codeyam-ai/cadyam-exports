@@ -4,25 +4,25 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="generator" content="CadYam">
-<title>Grand Courtyard Residence &amp; Loft Renovation</title>
+<title>Grand Courtyard Residence — an opened-up plan hung with Monet, Seurat, Hokusai and Cassatt</title>
 <!-- cadyam-social-meta:start -->
-<meta name="description" content="Interactive 3D model &amp; 2D plan — Interior Design · Exported 5 November 2026">
+<meta name="description" content="Interactive 3D model &amp; 2D plan — Interior Design · Exported 22 November 2026">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="CadYam Exports">
-<meta property="og:title" content="Grand Courtyard Residence &amp; Loft Renovation">
-<meta property="og:description" content="Interactive 3D model &amp; 2D plan — Interior Design · Exported 5 November 2026">
+<meta property="og:title" content="Grand Courtyard Residence — an opened-up plan hung with Monet, Seurat, Hokusai and Cassatt">
+<meta property="og:description" content="Interactive 3D model &amp; 2D plan — Interior Design · Exported 22 November 2026">
 <meta property="og:url" content="https://codeyam-ai.github.io/cadyam-exports/architectural-loft-renovation.html">
-<meta property="og:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/architectural-loft-renovation.jpg?v=aed02baf">
-<meta property="og:image:secure_url" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/architectural-loft-renovation.jpg?v=aed02baf">
+<meta property="og:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/architectural-loft-renovation.jpg?v=1ac213a9">
+<meta property="og:image:secure_url" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/architectural-loft-renovation.jpg?v=1ac213a9">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1600">
 <meta property="og:image:height" content="840">
-<meta property="og:image:alt" content="Grand Courtyard Residence &amp; Loft Renovation — 3D model preview">
+<meta property="og:image:alt" content="Grand Courtyard Residence — an opened-up plan hung with Monet, Seurat, Hokusai and Cassatt — 3D model preview">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Grand Courtyard Residence &amp; Loft Renovation">
-<meta name="twitter:description" content="Interactive 3D model &amp; 2D plan — Interior Design · Exported 5 November 2026">
-<meta name="twitter:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/architectural-loft-renovation.jpg?v=aed02baf">
-<meta name="twitter:image:alt" content="Grand Courtyard Residence &amp; Loft Renovation — 3D model preview">
+<meta name="twitter:title" content="Grand Courtyard Residence — an opened-up plan hung with Monet, Seurat, Hokusai and Cassatt">
+<meta name="twitter:description" content="Interactive 3D model &amp; 2D plan — Interior Design · Exported 22 November 2026">
+<meta name="twitter:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/architectural-loft-renovation.jpg?v=1ac213a9">
+<meta name="twitter:image:alt" content="Grand Courtyard Residence — an opened-up plan hung with Monet, Seurat, Hokusai and Cassatt — 3D model preview">
 <!-- cadyam-social-meta:end -->
 <style>
 /* CadYam's palette (the app's theme.rs tokens) and its typeface when installed. */
@@ -144,11 +144,16 @@ aside .pins button div { margin-top: 2px; font-size: 12px; line-height: 1.35; co
 aside .pins button:hover { background: var(--accent-soft); }
 aside .pins li.picked button { background: rgba(232,137,43,.14); }
 aside .pins li.done strong { text-decoration: line-through; color: var(--muted); }
+aside .pins button.walk-here { display: inline-block; width: auto; margin: 0 0 6px 8px; padding: 3px 10px; border-radius: 99px; background: var(--accent); color: #fff; font-weight: 600; font-size: 12px; }
+aside .pins button.walk-here:hover, aside .pins li.picked button.walk-here { background: var(--accent); color: #fff; }
+aside .pins button.walk-here:hover { filter: brightness(1.1); }
 aside .pins .where { display: block; font-size: 12px; color: var(--muted); }
 aside .pin-at { color: var(--muted); margin: 0 0 8px; }
 aside .note { margin: 0 0 10px; white-space: pre-wrap; overflow-wrap: break-word; max-height: 110px; overflow-y: auto; }
 #model-view { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: grab; }
-.empty[hidden] { display: none; }
+#floor-switch { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); display: flex; padding: 3px; background: rgba(255,255,255,.92); border: 1px solid var(--line); border-radius: 99px; box-shadow: 0 2px 8px rgba(0,0,0,.12); z-index: 3; }
+#floor-switch button { border: 0; border-radius: 99px; padding: 6px 14px; font: 600 13px system-ui, sans-serif; cursor: pointer; background: none; color: var(--ink); }
+#floor-switch button.on { background: var(--accent); color: #fff; }.empty[hidden] { display: none; }
 .empty { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--muted); margin: 0; }
 aside { position: absolute; right: 14px; bottom: 56px; width: 280px; max-height: calc(100% - 110px); overflow-y: auto; overflow-x: hidden; padding: 14px 16px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 10px 30px rgba(29,29,31,.16); z-index: 3; }
 aside[hidden] { display: none; }
@@ -199,7 +204,7 @@ body.touch.walking #walk-pad { display: block; }
 <header>
 <a data-back-to-demos href="./" title="All CadYam demos" style="flex:none;align-self:center;margin-right:10px;padding:5px 10px;border-radius:99px;font:600 12px/1.2 -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;text-decoration:none;white-space:nowrap;color:inherit;border:1px solid color-mix(in srgb,currentColor 22%,transparent)">← <span>All demos</span></a><style data-back-to-demos>@media (max-width: 560px) {[data-back-to-demos] span { display: none; } }</style>
 <a class="logo" href="https://codeyam.com/cadyam" target="_blank" rel="noopener" title="Made with CadYam" aria-label="CadYam"><svg viewBox="64 64 896 896" width="34" height="34" aria-hidden="true"><defs><linearGradient id="cadyam-logo-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2E8BF5"/><stop offset="1" stop-color="#0D66D0"/></linearGradient></defs><rect x="64" y="64" width="896" height="896" rx="200" fill="url(#cadyam-logo-bg)"/><path d="M300 742V462L512 302L724 462V742Z" fill="#fff" fill-opacity=".14" stroke="#fff" stroke-width="30" stroke-linejoin="round"/><g fill="#FF9A3C" stroke="#fff" stroke-width="16"><circle cx="300" cy="742" r="40"/><circle cx="724" cy="742" r="40"/><circle cx="512" cy="302" r="40"/></g></svg></a>
-<div class="brand"><h1>Grand Courtyard Residence &amp; Loft Renovation</h1><p class="byline">CadYam · Interior Design · Exported 5 November 2026</p></div>
+<div class="brand"><h1>Grand Courtyard Residence — an opened-up plan hung with Monet, Seurat, Hokusai and Cassatt</h1><p class="byline">CadYam · Interior Design · Exported 22 November 2026</p></div>
 <nav class="modes"><button data-mode="2d">2D</button><button data-mode="3d">3D</button><button data-mode="split">Split<span class="wide"> (2D + 3D)</span></button></nav>
 </header>
 <main>
@@ -214,9 +219,10 @@ body.touch.walking #walk-pad { display: block; }
 </section>
 <aside id="inspector" hidden></aside>
 </main>
-<script src="assets/architectural-loft-renovation-data.js?v=bbcf22a0"></script>
+<script src="assets/architectural-loft-renovation-data.js?v=092dfb33"></script>
 <script>
 var FINISH_GLSL = "// Surface finishes, as CadYam's own 3D view works them out per pixel\n// (crates/app/src/ui/view3d/finish.rs): the same patterns, sizes and hash\n// noise, from the world point (mm) and the face's normal alone. `pattern`\n// is the face's Pattern::code (crates/cad-core/src/finish_pattern.rs).\nfloat hash(int x, int y){\n uint h=(uint(x)*0x9E3779B1u)^(uint(y)*0x85EBCA77u);\n h^=h>>15u; h*=0x2C1B3C6Du; h^=h>>12u; h*=0x297A2D39u; h^=h>>15u;\n return float(h>>8u)/16777216.0; }\nfloat noise(float x, float y){\n float fx=floor(x), fy=floor(y); int ix=int(fx), iy=int(fy);\n float u=x-fx, v=y-fy; u=u*u*(3.0-2.0*u); v=v*v*(3.0-2.0*v);\n float top=hash(ix,iy)+(hash(ix+1,iy)-hash(ix,iy))*u;\n float bottom=hash(ix,iy+1)+(hash(ix+1,iy+1)-hash(ix,iy+1))*u;\n return top+(bottom-top)*v; }\nfloat joint(float at, float size, float gap, float dark){\n float d=max(min(at,size-at),0.0); return dark+(1.0-dark)*clamp((d-gap/2.0)/gap,0.0,1.0); }\nfloat running_bond(float s, float t, float w, float h, float gap){\n float row=floor(t/h); s+=mod(row,2.0)<0.5 ? 0.0 : w/2.0; float col=floor(s/w);\n float tone=1.0+0.10*(hash(int(col),int(row))-0.5);\n return tone*joint(s-col*w,w,gap,0.72)*joint(t-row*h,h,gap,0.72); }\nconst float BOARD=140.0; const float BOARD_RUN=2400.0;\n// A sloped face's (along the eave, up the slope) coordinates; x and y on a\n// level face.\nvec2 slope_frame(vec3 p, vec3 n){\n float h=length(n.xy); if (h<1e-3) return p.xy;\n return vec2((-n.y*p.x+n.x*p.y)/h, -(n.x*p.x+n.y*p.y)*n.z/h+p.z*h); }\nfloat pattern_light(int pattern, vec3 p, vec3 n){\n bool flat_=abs(n.z)>0.7;\n float s=flat_ ? p.x : p.x*abs(n.y)+p.y*abs(n.x); float t=flat_ ? p.y : p.z;\n if (pattern==1) {\n  float grain=1.0+0.05*(noise(s/600.0,t/25.0)-0.5); if (!flat_) return grain;\n  float row=floor(t/BOARD); float across=t-row*BOARD;\n  float along=s+hash(int(row),7)*BOARD_RUN; float run=floor(along/BOARD_RUN); float end=along-run*BOARD_RUN;\n  float tone=1.0+0.10*(hash(int(row),int(run))-0.5);\n  return grain*tone*joint(across,BOARD,5.0,0.62)*joint(end,BOARD_RUN,4.0,0.75); }\n if (pattern==2) return 1.0+0.16*(noise(s/900.0,t/900.0)-0.5)+0.10*(noise(s/140.0,t/140.0)-0.5)+0.08*(noise(s/30.0,t/30.0)-0.5);\n if (pattern==3) {\n  float clump=noise(p.x/300.0+p.z/500.0,p.y/300.0-p.z/400.0);\n  return (0.72+0.28*smoothstep(0.25,0.6,clump))*(1.0+0.14*(noise(s/60.0,t/60.0)-0.5)); }\n if (pattern==4) return running_bond(s,t,400.0,200.0,6.0);\n if (pattern==5) return running_bond(s,t,215.0,75.0,5.0);\n if (pattern==6) return joint(mod(s,300.0),300.0,2.5,0.84)*joint(mod(t,300.0),300.0,2.5,0.84);\n if (pattern==7) return 1.0+0.08*(noise(s/90.0,t/90.0)-0.5)+0.08*(noise(s/18.0,t/18.0)-0.5);\n if (pattern==8) {\n  vec2 st=slope_frame(p,n); s=st.x; t=st.y;\n  float course=floor(t/127.0); float up=t-course*127.0; float off=mod(course,2.0)<0.5 ? 0.0 : 152.0;\n  float tab=floor((s+off)/305.0); float across=mod(s+off,305.0);\n  float tone=1.0+0.14*(hash(int(course),int(tab))-0.5);\n  return tone*joint(up,127.0,9.0,0.66)*joint(across,305.0,4.0,0.8); }\n if (pattern==9) {\n  float wave=sin((s*0.8+t*0.6)/140.0+3.0*noise(s/700.0,t/700.0));\n  return wave>0.82 ? 1.13 : (wave< -0.5 ? 0.95 : 1.0); }\n if (pattern==11) return 1.0+0.06*(noise(s/12.0,t/12.0)-0.5);\n if (pattern==12) {\n  float cs=floor(s/2.5), ct=floor(t/2.5); int ci=int(cs), cj=int(ct); float h=hash(ci,cj);\n  if (h<0.66) return 1.0+0.03*(noise(s/9.0,t/9.0)-0.5);\n  float ox=hash(ci,cj+7)*1.2+0.65, oy=hash(ci+7,cj)*1.2+0.65; float dx=s-cs*2.5-ox, dy=t-ct*2.5-oy;\n  float r=0.45+0.35*hash(cj,ci); if (dx*dx+dy*dy>r*r) return 1.0; return h<0.85 ? 0.62 : 0.82; }\n if (pattern==13) {\n  float u=abs(s/3.0-trunc(s/3.0))-0.5, v=abs(t/3.0-trunc(t/3.0))-0.5;\n  return sqrt(u*u+v*v)*3.0<0.85 ? 0.3 : 1.0; }\n if (pattern>=16) {\n  int a=min(pattern-16,2); float along=p[a]; float across=p[(a+1)%3]+p[(a+2)%3];\n  if (abs(n[a])>0.7) return 0.84+0.06*(noise(across/4.0,along/4.0)-0.5);\n  float wobble=2.0*noise(along/900.0,across/60.0);\n  return 1.0+0.09*(noise(along/500.0,across/2.5+wobble)-0.5)+0.04*(noise(along/80.0,across/12.0)-0.5); }\n return 1.0; }\n// Up to a fifth darker at a wall's foot, easing out by knee height.\nfloat contact_light(vec3 p, vec3 n){\n if (uHasFloor==0 || abs(n.z)>0.5) return 1.0;\n return 1.0-0.2*(1.0-smoothstep(0.0,450.0,max(p.z-uFloor,0.0))); }\n";
+var JEWEL_GLSL = "// Jewellery under a jeweller's studio light: polished metal (finish codes\n// 30 to 39, mirror to matte) and cut stones (40), as export/html_jewel.rs\n// codes them. Read by the model's fragment shader (html_viewer_3d.js) as\n// JEWEL_GLSL; it uses that shader's vWorld and uSun.\n//\n// A jeweller's studio, as a polished metal or a cut stone reflects it: a\n// white sweep with three soft boxes, and a few black cards and a dark\n// horizon that draw the crisp dark lines polished metal needs to read as\n// metal. A facet flashes bright or dark as it turns.\nvec3 studio(vec3 r){ float up=r.z; float az=atan(r.y,r.x);\n vec3 c=mix(vec3(0.62,0.62,0.64),vec3(1.05,1.05,1.07),smoothstep(-0.6,0.6,up));\n c+=vec3(2.4)*smoothstep(0.90,0.98,dot(r,normalize(vec3(0.55,-0.6,0.62))));\n c+=vec3(1.9)*smoothstep(0.88,0.97,dot(r,normalize(vec3(-0.75,-0.25,0.45))));\n c+=vec3(1.5)*smoothstep(0.86,0.96,dot(r,normalize(vec3(0.1,0.85,0.55))));\n float card=smoothstep(0.16,0.04,abs(sin(az*1.5+0.7)))*smoothstep(-0.35,0.0,up)*smoothstep(0.65,0.35,up);\n c*=1.0-0.65*card;\n c*=1.0-0.85*exp(-pow((up+0.08)*11.0,2.0));\n return c; }\nvec3 tonemap(vec3 c){ return vec3(1.0)-exp(-c*1.6); }\n// A stone's body colour from its base: a coloured stone (ruby, sapphire)\n// holds its colour deeply, as light that travels through it is tinted\n// twice over; a near-white diamond stays white.\nvec3 gemBody(vec3 base){\n float white=smoothstep(0.75,0.9,min(base.r,min(base.g,base.b)));\n return mix(pow(base,vec3(1.7))*1.25,base,white); }\nvec3 jewel(int pat, vec3 base, vec3 n, vec3 v, float lit){\n float nv=clamp(dot(n,v),0.0,1.0); vec3 r=reflect(-v,n);\n if (pat==40) {\n// A stone: its facets mirror the studio (more at grazing angles), and\n// light bounced inside through the pavilion comes back out of each facet\n// as one bright or dark flat — with a little fire.\n  float fr=0.17+0.83*pow(1.0-nv,5.0);\n  vec3 t=refract(-v,n,1.0/2.42); if (dot(t,t)<1e-4) t=r;\n// Each facet sends its light back out along its own two paths through the\n// pavilion (from the facet's orientation, so it stays put as the stone\n// turns and flashes as the view does). Keyed on the facet's plane (its\n// normal and its distance along it), which is the same all across one\n// facet and differs stone to stone.\n  vec3 nq=floor(n*48.0+0.5)/48.0; float po=floor(dot(n,vWorld)*6.0+0.5);\n  vec3 h3=fract(sin(vec3(dot(nq,vec3(12.99,78.23,37.72))+po*1.7,dot(nq,vec3(39.35,11.13,83.11))+po*2.3,dot(nq,vec3(73.16,52.27,9.41))+po*3.1))*43758.55)-0.5;\n  vec3 b1=normalize(reflect(t,normalize(n+1.1*h3)));\n  vec3 b2=normalize(reflect(t,normalize(n-0.9*h3.zxy)));\n  vec3 inner=0.5*(studio(b1)+studio(b2)); inner=pow(inner*0.6,vec3(1.8))*2.2+0.12;\n// A cut stone is a mosaic: some facets send back the bright studio, others\n// the dark of the camera and the setting.\n  float lightFacet=max(step(0.4,fract(h3.x*7.13+h3.y*3.7+0.5)),smoothstep(0.62,0.9,nv));\n  inner*=mix(0.2,1.45,lightFacet);\n  float h=fract(dot(nq,vec3(12.9898,78.233,37.719))*43.7+dot(v,n)*2.3);\n  vec3 fire=0.5+0.5*cos(6.2832*(h+vec3(0.0,0.33,0.67)));\n  float tableish=smoothstep(0.8,0.95,nv);\n  vec3 body=gemBody(base);\n  vec3 c=inner*mix(body,body*fire*1.6,(0.07+0.1*lightFacet)*(1.0-tableish))*1.1+studio(r)*fr*0.9;\n  return tonemap(c); }\n// A metal: the studio in its own colour, the edge whitening toward grazing\n// (Schlick), softened by its roughness, with the sun's glint.\n float rough=float(pat-30)/9.0;\n vec3 F=base+(vec3(1.0)-base)*pow(1.0-nv,5.0);\n vec3 env=mix(studio(r),studio(normalize(r+n)),rough*0.85);\n vec3 c=env*F*(0.7+0.3*lit);\n c+=F*pow(max(dot(r,uSun),0.0),mix(600.0,24.0,rough))*2.5*lit;\n return tonemap(c); }\n";
 // The exported viewer's walk-through, apart from the page so it can be
 // run on its own: the floor under a spot and the app's `Walk::advance`.
 // Lengths are mm, angles degrees, times seconds.
@@ -503,7 +509,82 @@ var CadYamWalk = (function () {
     return out;
   }
 
-  return { STEP_UP: STEP_UP, approach: approach, ground: ground, rays: rays, outline: outline, step: step, advance: advance, climb: climb, airborne: airborne, inAir: inAir, land: land };
+  // Where a walk picked on a roof at height `z` starts: from the lowest of
+  // `heights` (the surfaces at that spot) more than a step below it — the
+  // house's ground floor, so the walker stands inside, not on the roof.
+  // `null` when nothing is below.
+  function underRoof(z, heights) {
+    var below = heights.filter(function (h) { return h < z - STEP_UP; });
+    return below.length ? Math.min.apply(null, below) : null;
+  }
+
+  // The height a walk picked at height `z` starts from: under the roof
+  // when the pick landed `onRoof` and there is a floor below (`heights`,
+  // the surfaces at that spot), else where it landed.
+  function startHeight(z, onRoof, heights) {
+    if (!onRoof) return z;
+    var low = underRoof(z, heights);
+    return low === null ? z : low;
+  }
+
+  // How far overhead a roof or a ceiling still makes a room of where the
+  // walker stands: one storey.
+  var SHELTER_REACH = 6000;
+  // Whether something stands overhead within a storey of eye point `o`
+  // (`nearest(o, d, far)`: how far along a ray it first meets the model):
+  // under a roof or a ceiling, where a room is lit by bounced light, not by
+  // open sky.
+  function sheltered(o, nearest) {
+    return nearest(o, [0, 0, 1], SHELTER_REACH) < SHELTER_REACH;
+  }
+  // `sheltered`, cast again only when the eye or the cutaway has moved:
+  // once per spot the walker stands, not once per frame.
+  function shelterCache() {
+    var key = null, last = false;
+    return function (o, cut, nearest) {
+      var k = o[0] + "," + o[1] + "," + o[2] + "," + cut;
+      if (k !== key) { key = k; last = sheltered(o, nearest); }
+      return last;
+    };
+  }
+
+  // How long the bounced-light fill takes to come up stepping indoors, or
+  // to fade stepping out, s.
+  var FILL_EASE = 0.4;
+  // The indoor fill `dt` s on from `fill`: easing toward 1 indoors and 0
+  // outside, so a doorway is not a sudden switch.
+  function fillToward(fill, indoors, dt) {
+    return approach(fill, indoors ? 1 : 0, dt / FILL_EASE);
+  }
+
+  // How far over a tour stop's own height the floor under it is looked
+  // for, so a pin on a floor (or a little above it) stands on that floor.
+  var STOP_REACH = 300;
+  // Where a tour stop at pin `p` stands the walker: `at` its spot on the
+  // plan, the floor looked for from `from` down, and the way it faces —
+  // along its first stroke when it has one, else toward `centre` (the
+  // middle of the model). Null for a pin with no spot.
+  function tourStop(p, centre) {
+    if (!p || !p.spot) return null;
+    var s = p.spot;
+    var st = (p.strokes || []).filter(function (k) { return k && k.length >= 2; })[0];
+    var face = st
+      ? [st[st.length - 1][0] - st[0][0], st[st.length - 1][1] - st[0][1]]
+      : [centre[0] - s[0], centre[1] - s[1]];
+    return { at: [s[0], s[1], 0], from: (s[2] || 0) + STOP_REACH, yaw: Math.atan2(face[1], face[0]) };
+  }
+
+  // The line that says how to move once walking starts, for a touch
+  // screen or a keyboard.
+  function hintText(touch) {
+    return touch
+      ? "Drag to look · use the pad to walk"
+      : "Arrow keys or W A S D to walk · drag to look · Space to climb · Esc for the dollhouse";
+  }
+
+  return { STEP_UP: STEP_UP, approach: approach, ground: ground, rays: rays, outline: outline, step: step, advance: advance, climb: climb, airborne: airborne, inAir: inAir, land: land,
+    underRoof: underRoof, startHeight: startHeight, SHELTER_REACH: SHELTER_REACH, sheltered: sheltered, shelterCache: shelterCache, FILL_EASE: FILL_EASE, fillToward: fillToward,
+    STOP_REACH: STOP_REACH, tourStop: tourStop, hintText: hintText };
 })();
 // The exported viewer's pin geometry, apart from the page so it can be run
 // on its own: what a pin covers, and its paths in the plan and over the
@@ -1033,6 +1114,19 @@ var CadYamModelView = (function () {
     return nrm;
   }
 
+  // The pattern code of a cut gemstone (export/html_jewel.rs GEM_FINISH).
+  var GEM_FINISH = 40;
+
+  // The unit normal of the triangle whose corners start at `pos[p]`, by
+  // the right-hand rule; zero length stays zero rather than NaN.
+  function flatNormal(pos, p) {
+    var ux = pos[p + 3] - pos[p], uy = pos[p + 4] - pos[p + 1], uz = pos[p + 5] - pos[p + 2];
+    var vx = pos[p + 6] - pos[p], vy = pos[p + 7] - pos[p + 1], vz = pos[p + 8] - pos[p + 2];
+    var fx = uy * vz - uz * vy, fy = uz * vx - ux * vz, fz = ux * vy - uy * vx;
+    var fl = Math.hypot(fx, fy, fz) || 1;
+    return [fx / fl, fy / fl, fz / fl];
+  }
+
   // What each corner carries to the shader, from the scene's per-triangle
   // data: its smoothed normal, colour (0 to 1), owner (plus one, so 0 is no
   // object), pattern, phase and print.
@@ -1044,12 +1138,9 @@ var CadYamModelView = (function () {
       var p = t * 9;
       // A gemstone's facets stay flat, each one its own mirror, as a cut
       // stone's are: no smoothing across them.
-      if (pat[t] === 40) {
-        var ux = pos[p + 3] - pos[p], uy = pos[p + 4] - pos[p + 1], uz = pos[p + 5] - pos[p + 2];
-        var vx = pos[p + 6] - pos[p], vy = pos[p + 7] - pos[p + 1], vz = pos[p + 8] - pos[p + 2];
-        var fx = uy * vz - uz * vy, fy = uz * vx - ux * vz, fz = ux * vy - uy * vx;
-        var fl = Math.hypot(fx, fy, fz) || 1;
-        for (var q = 0; q < 3; q++) { nrm[p + q * 3] = fx / fl; nrm[p + q * 3 + 1] = fy / fl; nrm[p + q * 3 + 2] = fz / fl; }
+      if (pat[t] === GEM_FINISH) {
+        var f = flatNormal(pos, p);
+        for (var q = 0; q < 3; q++) { nrm[p + q * 3] = f[0]; nrm[p + q * 3 + 1] = f[1]; nrm[p + q * 3 + 2] = f[2]; }
       }
       for (var k = 0; k < 3; k++) {
         rgb[p + k * 3] = col[t * 3] / 255; rgb[p + k * 3 + 1] = col[t * 3 + 1] / 255; rgb[p + k * 3 + 2] = col[t * 3 + 2] / 255;
@@ -1060,6 +1151,19 @@ var CadYamModelView = (function () {
       }
     }
     return { nrm: nrm, rgb: rgb, ids: ids, pats: pats, phs: phs, prs: prs };
+  }
+
+  // Added to a corner's phase to keep it whole through the cutaway: the
+  // shaders read a phase of WHOLE or more as uncut.
+  var WHOLE = 4;
+
+  // Marks the corners of `mesh` (from `corners`) whose owner `isWhole(id)`
+  // says stands whole — a tree, a plant — so the cutaway leaves it uncut.
+  function keepWhole(mesh, isWhole) {
+    for (var v = 0; v < mesh.ids.length; v++) {
+      if (mesh.ids[v] > 0 && isWhole(mesh.ids[v] - 1)) mesh.phs[v] += WHOLE;
+    }
+    return mesh;
   }
 
   // ── Cameras ─────────────────────────────────────────────────────────
@@ -1298,6 +1402,76 @@ var CadYamModelView = (function () {
     return on ? floor + Math.min(1200, (top - floor) * 0.45) : top + 1;
   }
 
+  // ── Floors ──────────────────────────────────────────────────────────
+  // The floors a building inside the drawing has, when the page was not
+  // told them: the lowest point of each part that is not one of the site's
+  // own objects (`ents`; a building's rooms come in as their own pieces),
+  // gathered into levels at least 1.5 m apart. Pieces whose bases lie
+  // within 15 cm share a floor, and a floor is one many pieces stand on,
+  // so hung lamps and wall art (whose lowest point is high) make none.
+  function floorLevels(own, pos, ents) {
+    var lows = {};
+    for (var t = 0; t < own.length; t++) {
+      var id = own[t];
+      if (id < 0 || ents[id]) continue;
+      var z = Math.min(pos[t * 9 + 2], pos[t * 9 + 5], pos[t * 9 + 8]);
+      if (!(id in lows) || z < lows[id]) lows[id] = z;
+    }
+    var zs = Object.keys(lows).map(function (k) { return lows[k]; }).sort(function (a, b) { return a - b; });
+    var groups = [];
+    zs.forEach(function (z) {
+      var g = groups[groups.length - 1];
+      if (g && z - g.z0 < 150) g.n++; else groups.push({ z0: z, n: 1 });
+    });
+    var most = groups.reduce(function (m, g) { return Math.max(m, g.n); }, 0);
+    var levels = [];
+    groups.forEach(function (g) {
+      if (g.n < Math.max(3, most * 0.25)) return;
+      if (!levels.length || g.z0 - levels[levels.length - 1] > 1500) levels.push(g.z0);
+    });
+    return levels;
+  }
+
+  // The Floors switch's buttons: Outside, then each floor by name —
+  // Ground floor and Upstairs for two, Floor N past that.
+  function floorNames(levels) {
+    return ["Outside"].concat(levels.map(function (z, i) {
+      return i === 0 ? "Ground floor" : levels.length === 2 ? "Upstairs" : "Floor " + (i + 1);
+    }));
+  }
+
+  // Where floor `i` of `levels` is cut: about head high over it (walls
+  // stand, the ceiling goes), never into the floor above.
+  function floorCut(levels, i) {
+    var z = levels[i] + 2100;
+    return i + 1 < levels.length ? Math.min(z, levels[i + 1] - 50) : z;
+  }
+
+  // The plan box [x0, y0, x1, y1] of the parts that are not the site's
+  // own objects (`ents`): the building, for framing a floor. Null when
+  // every part is the site's.
+  function planBox(own, pos, ents) {
+    var b = null;
+    for (var t = 0; t < own.length; t++) {
+      if (own[t] < 0 || ents[own[t]]) continue;
+      for (var k = 0; k < 3; k++) {
+        var x = pos[t * 9 + k * 3], y = pos[t * 9 + k * 3 + 1];
+        b = b ? [Math.min(b[0], x), Math.min(b[1], y), Math.max(b[2], x), Math.max(b[3], y)] : [x, y, x, y];
+      }
+    }
+    return b;
+  }
+
+  // Plan box `b` as a pin at height `z` the view can frame: its middle,
+  // and the box grown by `margin` all round.
+  function boxPin(b, z, margin) {
+    var m = margin;
+    return {
+      spot: [(b[0] + b[2]) / 2, (b[1] + b[3]) / 2, z],
+      region: [[b[0] - m, b[1] - m, z], [b[2] + m, b[1] - m, z], [b[2] + m, b[3] + m, z], [b[0] - m, b[3] + m, z]]
+    };
+  }
+
   // The Show switch's view as the shader's uniforms: per phase whether it
   // shows and is tinted, and its tint (0 to 1, nine numbers).
   function phaseUniforms(view) {
@@ -1312,7 +1486,7 @@ var CadYamModelView = (function () {
 
   return {
     sub: sub, cross: cross, norm: norm, dot: dot, basis: basis,
-    bounds: bounds, corners: corners, smoothNormals: smoothNormals,
+    bounds: bounds, corners: corners, WHOLE: WHOLE, keepWhole: keepWhole, smoothNormals: smoothNormals, flatNormal: flatNormal,
     home: home, orbitDir: orbitDir, eye: eye, forward: forward, lens: lens, clip: clip,
     viewMatrix: viewMatrix, lightMatrix: lightMatrix, frame: frame,
     rayDir: rayDir, depthAnchor: depthAnchor, clearance: clearance, pickPixel: pickPixel, pickedId: pickedId,
@@ -1320,6 +1494,7 @@ var CadYamModelView = (function () {
     wheelPx: wheelPx, wheelZoom: wheelZoom, look: look,
     pinView: pinView, pinYaws: pinYaws,
     isSite: isSite, walkStart: walkStart, hasCutaway: hasCutaway, cutHeight: cutHeight,
+    floorLevels: floorLevels, floorNames: floorNames, floorCut: floorCut, planBox: planBox, boxPin: boxPin,
     phaseUniforms: phaseUniforms
   };
 })();
@@ -1534,7 +1709,7 @@ var CadYamGl3d = (function () {
     };
   }
 
-  return { program: program, shadowTarget: shadowTarget, LIGHT_GLSL: LIGHT_GLSL, ao: ao };
+  return { program: program, shadowTarget: shadowTarget, LIGHT_GLSL: LIGHT_GLSL, ao: ao, invert: invert };
 })();
 // The exported viewer's dress form, apart from the page so it can be run on
 // its own: a Fashion scene's triangles with or without the form, and what
@@ -1677,6 +1852,25 @@ var CadYamFashion = (function () {
     b.addEventListener("click", function () { run(b); });
     parent.appendChild(b);
     return b;
+  }
+  // The Floors switch, on the view itself rather than in a menu so a
+  // visitor sees at once that they can look inside: a pill of `names`
+  // (Outside first), the picked one lit. Picking button k calls
+  // `pick(k - 1)` (-1 for Outside); Outside starts picked.
+  function floorSwitch(names, pick) {
+    var box = el("div", { id: "floor-switch", role: "group", "aria-label": "See inside one floor" });
+    var buttons = names.map(function (name, k) {
+      var b = el("button", { type: "button", "data-floor": String(k - 1) }, name);
+      b.addEventListener("click", function () { choose(k); });
+      box.appendChild(b);
+      return b;
+    });
+    function choose(k) {
+      buttons.forEach(function (b, j) { b.classList.toggle("on", j === k); });
+      pick(k - 1);
+    }
+    choose(0);
+    return box;
   }
   // Each view's one Options button, opening a list of its settings.
   function optionsMenu(tools) {
@@ -1836,10 +2030,22 @@ var CadYamFashion = (function () {
       if (p.note) b.appendChild(el("div", null, p.note));
       b.addEventListener("click", function () { showPin(p.number); });
       li.appendChild(b);
+      if (isTourStop(p)) li.appendChild(walkHereButton(p));
       ul.appendChild(li);
     });
     box.appendChild(ul);
     return box;
+  }
+  // A pin with a spot, on a page with a model to walk, is also a tour stop.
+  function isTourStop(p) {
+    return !!(p.spot && data.scene && model && model.walkTo);
+  }
+  // Its Walk here button: stands the visitor at the pin, without also
+  // picking the pin as a click on its row does.
+  function walkHereButton(p) {
+    var go = el("button", { class: "walk-here", title: "Stand here and walk around" }, "Walk here");
+    go.addEventListener("click", function (ev) { ev.stopPropagation(); model.walkTo(p); });
+    return go;
   }
   // The pin's markers in both views, highlighted when it is the one picked.
   function markPins() {
@@ -2193,6 +2399,9 @@ var CadYamFashion = (function () {
   // Surface finishes: the GLSL in html_viewer_finish.glsl, which the page
   // writes into FINISH_GLSL ahead of this script.
   var FINISH = FINISH_GLSL;
+  // Jewellery's studio light: html_viewer_jewel.glsl, written into
+  // JEWEL_GLSL the same way.
+  var JEWEL = JEWEL_GLSL;
   var model = make3d();
 
   // ── Show (renovations) ──────────────────────────────────────────────
@@ -2267,16 +2476,26 @@ var CadYamFashion = (function () {
   function modelPrograms(gl) {
     var prog = glProgram(gl,
       "in vec3 aPos; in vec3 aNrm; in vec3 aCol; in float aId; in float aPat; in float aPh; in float aPrint;\n" +
+      "in float aSky; in vec3 aLamp; in vec4 aGlow;\n" +
       "uniform mat4 uMvp; uniform mat4 uLight; uniform vec3 uSun; uniform float uTexel;\n" +
       "out vec3 vNrm; out vec3 vCol; out float vId; out vec3 vWorld; out vec4 vShadow; flat out int vPat; flat out int vPh;\n" +
-      "flat out int vPrint;\n" +
-      "void main(){ vNrm=aNrm; vCol=aCol; vId=aId; vWorld=aPos; vPat=int(aPat+0.5); vPh=int(aPh+0.5); vPrint=int(aPrint+0.5);\n" +
+      "flat out int vPrint; flat out int vWhole; out float vSky; out vec3 vLamp; out vec4 vGlow;\n" +
+      // A phase of 4 or more is a plant's: kept whole by the cutaway, which
+      // cuts buildings.
+      "void main(){ vNrm=aNrm; vCol=aCol; vId=aId; vWorld=aPos; vPat=int(aPat+0.5); int p=int(aPh+0.5); vPh=p-4*(p/4); vWhole=p/4; vPrint=int(aPrint+0.5);\n" +
+      " vSky=aSky; vLamp=aLamp; vGlow=aGlow;\n" +
       // Looked up a texel or two off the face toward the sun, so a face doesn't shadow itself.
       " vec3 toward=aNrm*(dot(aNrm,uSun)<0.0 ? -1.0 : 1.0);\n" +
       " vShadow=uLight*vec4(aPos+toward*uTexel*1.5,1.0);\n" +
       " gl_Position=uMvp*vec4(aPos,1.0); }",
-      "in vec3 vNrm; in vec3 vCol; in float vId; in vec3 vWorld; in vec4 vShadow; flat in int vPat; flat in int vPh;\n" +
+      "in vec3 vNrm; in vec3 vCol; in float vId; in vec3 vWorld; in vec4 vShadow; flat in int vPat; flat in int vPh; flat in int vWhole;\n" +
       "uniform vec3 uSun; uniform float uCut; uniform float uSel; uniform int uPick; uniform float uFill;\n" +
+      // Baked interior light (html_scene.rs): how much sky each point sees,
+      // its lamplight and a lit shade's or window's glow (w 1 for a
+      // window), mixed by the time of day; the sky's and sun's colour then,
+      // and the moon's cool fill at night.
+      "in float vSky; in vec3 vLamp; in vec4 vGlow; uniform int uLit; uniform vec3 uMood;\n" +
+      "uniform vec3 uSkyTint; uniform vec3 uSunTint; uniform vec3 uMoon;\n" +
       // How open each pixel is to the sky, from the occlusion pass
       // (CadYamGl3d.ao), and the canvas size to look it up by.
       "uniform sampler2D uAo; uniform int uAoOn; uniform vec2 uView;\n" +
@@ -2296,61 +2515,10 @@ var CadYamFashion = (function () {
       " return texture(uPrints, vec3(u.x/q.x, -u.y/q.y, float(vPrint-1))).rgb; }\n" +
       "out vec4 o;\n" + FINISH + CadYamGl3d.LIGHT_GLSL +
       "float sunlit(vec3 n){ if (uShadows==0) return 1.0; return sunlit_at(uShadowMap, vShadow, n, uSun); }\n" +
-      // A jeweller's studio, as a polished metal or a cut stone reflects
-      // it: a white sweep with three soft boxes, and a few black cards and
-      // a dark horizon that draw the crisp dark lines polished metal needs
-      // to read as metal. A facet flashes bright or dark as it turns.
-      "uniform vec3 uEye;\n" +
-      "vec3 studio(vec3 r){ float up=r.z; float az=atan(r.y,r.x);\n" +
-      " vec3 c=mix(vec3(0.62,0.62,0.64),vec3(1.05,1.05,1.07),smoothstep(-0.6,0.6,up));\n" +
-      " c+=vec3(2.4)*smoothstep(0.90,0.98,dot(r,normalize(vec3(0.55,-0.6,0.62))));\n" +
-      " c+=vec3(1.9)*smoothstep(0.88,0.97,dot(r,normalize(vec3(-0.75,-0.25,0.45))));\n" +
-      " c+=vec3(1.5)*smoothstep(0.86,0.96,dot(r,normalize(vec3(0.1,0.85,0.55))));\n" +
-      " float card=smoothstep(0.16,0.04,abs(sin(az*1.5+0.7)))*smoothstep(-0.35,0.0,up)*smoothstep(0.65,0.35,up);\n" +
-      " c*=1.0-0.65*card;\n" +
-      " c*=1.0-0.85*exp(-pow((up+0.08)*11.0,2.0));\n" +
-      " return c; }\n" +
-      "vec3 tonemap(vec3 c){ return vec3(1.0)-exp(-c*1.6); }\n" +
-      "vec3 jewel(int pat, vec3 base, vec3 n, vec3 v, float lit){\n" +
-      " float nv=clamp(dot(n,v),0.0,1.0); vec3 r=reflect(-v,n);\n" +
-      " if (pat==40) {\n" +
-      // A stone: its facets mirror the studio (more at grazing angles),
-      // and light bounced inside through the pavilion comes back out of
-      // each facet as one bright or dark flat — with a little fire.
-      "  float fr=0.17+0.83*pow(1.0-nv,5.0);\n" +
-      "  vec3 t=refract(-v,n,1.0/2.42); if (dot(t,t)<1e-4) t=r;\n" +
-      // Each facet sends its light back out along its own two paths
-      // through the pavilion (from the facet's orientation, so it stays
-      // put as the stone turns and flashes as the view does).
-      // Keyed on the facet's plane (its normal and its distance along it),
-      // which is the same all across one facet and differs stone to stone.
-      "  vec3 nq=floor(n*48.0+0.5)/48.0; float po=floor(dot(n,vWorld)*6.0+0.5);\n" +
-      "  vec3 h3=fract(sin(vec3(dot(nq,vec3(12.99,78.23,37.72))+po*1.7,dot(nq,vec3(39.35,11.13,83.11))+po*2.3,dot(nq,vec3(73.16,52.27,9.41))+po*3.1))*43758.55)-0.5;\n" +
-      "  vec3 b1=normalize(reflect(t,normalize(n+1.1*h3)));\n" +
-      "  vec3 b2=normalize(reflect(t,normalize(n-0.9*h3.zxy)));\n" +
-      "  vec3 inner=0.5*(studio(b1)+studio(b2)); inner=pow(inner*0.6,vec3(1.8))*2.2+0.12;\n" +
-      // A cut stone is a mosaic: some facets send back the bright studio,
-      // others the dark of the camera and the setting.
-      "  float lightFacet=max(step(0.4,fract(h3.x*7.13+h3.y*3.7+0.5)),smoothstep(0.62,0.9,nv));\n" +
-      "  inner*=mix(0.2,1.45,lightFacet);\n" +
-      "  float h=fract(dot(nq,vec3(12.9898,78.233,37.719))*43.7+dot(v,n)*2.3);\n" +
-      "  vec3 fire=0.5+0.5*cos(6.2832*(h+vec3(0.0,0.33,0.67)));\n" +
-      "  float tableish=smoothstep(0.8,0.95,nv);\n" +
-      // A coloured stone (ruby, sapphire) holds its colour deeply: light
-      // that travels through it is tinted twice over. A diamond stays white.
-      "  float white=smoothstep(0.75,0.9,min(base.r,min(base.g,base.b)));\n" +
-      "  vec3 body=mix(pow(base,vec3(1.7))*1.25,base,white);\n" +
-      "  vec3 c=inner*mix(body,body*fire*1.6,(0.07+0.1*lightFacet)*(1.0-tableish))*1.1+studio(r)*fr*0.9;\n" +
-      "  return tonemap(c); }\n" +
-      // A metal: the studio in its own colour, the edge whitening toward
-      // grazing (Schlick), softened by its roughness, with the sun's glint.
-      " float rough=float(pat-30)/9.0;\n" +
-      " vec3 F=base+(vec3(1.0)-base)*pow(1.0-nv,5.0);\n" +
-      " vec3 env=mix(studio(r),studio(normalize(r+n)),rough*0.85);\n" +
-      " vec3 c=env*F*(0.7+0.3*lit);\n" +
-      " c+=F*pow(max(dot(r,uSun),0.0),mix(600.0,24.0,rough))*2.5*lit;\n" +
-      " return tonemap(c); }\n" +
-      "void main(){ if (vWorld.z > uCut || uShow[vPh] < 0.5) discard;\n" +
+      // Where the camera is, for jewellery's reflections and cloth's sheen;
+      // then jewellery's studio light (html_viewer_jewel.glsl).
+      "uniform vec3 uEye;\n" + JEWEL +
+      "void main(){ if ((vWorld.z > uCut && vWhole==0) || uShow[vPh] < 0.5) discard;\n" +
       " if (uPick==1) { float i=vId; o=vec4(mod(i,256.0),mod(floor(i/256.0),256.0),floor(i/65536.0),255.0)/255.0; return; }\n" +
       " vec3 n=normalize(gl_FrontFacing ? vNrm : -vNrm);\n" +
       " float lit=uSun.z>0.0 && dot(n,uSun)>0.0 ? sunlit(n) : 0.0;\n" +
@@ -2359,10 +2527,16 @@ var CadYamFashion = (function () {
       " if (vPat>=30 && vPat<=40) { vec3 j=jewel(vPat,base,n,normalize(uEye-vWorld),lit)*mix(0.55,1.0,open);\n" +
       "  if (uSel>0.0 && abs(vId-uSel)<0.5) j=mix(j,vec3(1.0,0.48,0.0),0.55);\n" +
       "  o=vec4(j,1.0); return; }\n" +
-      " vec3 c=shade(base,n,uSun,lit);\n" +
+      " vec3 c=shade(base,n,uSun,lit); float skyK=1.0;\n" +
+      // Lit rooms: the sky's share as much as each point sees of it, the
+      // sun as the time of day lets it, each in its colour then, the lamps'
+      // own light, and at night the moon's faint fill on what sees the sky.
+      " if (uLit==1) { skyK=vSky*uMood.x; float d=max(dot(n,uSun),0.0); float up=0.5+0.5*n.z;\n" +
+      "  c=base*((0.38+0.22*up)*skyK*uSkyTint+0.55*d*(uSun.z>0.0 ? lit : 0.0)*uMood.y*uSunTint)+base*vLamp*uMood.z\n" +
+      "   +base*uMoon*vSky*(0.6+0.4*up); }\n" +
       // The sky's fill reaches less into folds, creases and corners
       // (most of the darkening), and a little less sun gets in there too.
-      " c-=base*(0.38+0.22*(0.5+0.5*n.z))*(1.0-open)*0.85;\n" +
+      " c-=base*(0.38+0.22*(0.5+0.5*n.z))*(1.0-open)*0.85*skyK;\n" +
       " c*=mix(0.82,1.0,open);\n" +
       // Cloth glows softly toward its silhouette in its own colour, as
       // fibres catch light edge-on (the app's FABRIC sheen), and its
@@ -2372,13 +2546,20 @@ var CadYamFashion = (function () {
       // Indoors (walking under a roof or ceiling) the sun and sky reach
       // only through openings; light bounced round the room fills it,
       // most on the ceiling, which only bounced light reaches.
-      " c+=base*uFill*(0.34-0.12*(0.5+0.5*n.z));\n" +
+      // (Baked light already holds that bounce, so a lit room skips it.)
+      " if (uLit==0) c+=base*uFill*(0.34-0.12*(0.5+0.5*n.z));\n" +
       " c*=pattern_light(vPat,vWorld,vNrm)*contact_light(vWorld,vNrm);\n" +
+      // A lit lamp's shade glows: faint by day, full at night. A lit
+      // room's window glows as the sky darkens past its lamps: not by day.
+      " if (uLit==1 && max(vGlow.r,max(vGlow.g,vGlow.b))>0.0) {\n" +
+      "  if (vGlow.a>0.5) c+=vGlow.rgb*clamp(uMood.z-uMood.x,0.0,1.0);\n" +
+      "  else c=mix(c,vGlow.rgb,clamp(uMood.z,0.0,1.0)*0.85); }\n" +
       " if (uSel>0.0 && abs(vId-uSel)<0.5) c=mix(c,vec3(1.0,0.48,0.0),0.55);\n" +
       " o=vec4(c,1.0); }");
     var depthProg = glProgram(gl,
+      // A phase of 4 or more is a plant's, kept whole by the cutaway.
       "in vec3 aPos; in float aPh; uniform mat4 uLight; out float vZ; flat out int vPh;\n" +
-      "void main(){ vZ=aPos.z; vPh=int(aPh+0.5); gl_Position=uLight*vec4(aPos,1.0); }",
+      "void main(){ int p=int(aPh+0.5); vZ=p>=4 ? -1e9 : aPos.z; vPh=p-4*(p/4); gl_Position=uLight*vec4(aPos,1.0); }",
       "in float vZ; flat in int vPh; uniform float uCut; uniform vec3 uShow; out vec4 o;\n" +
       "void main(){ if (vZ > uCut || uShow[vPh] < 0.5) discard; o=vec4(1.0); }");
     return { prog: prog, depthProg: depthProg };
@@ -2438,14 +2619,52 @@ var CadYamFashion = (function () {
     }
     // The scene drawn: the page's own, or a Fashion size the Size switch
     // picked; a dress form's body and stand left out while it is hidden.
-    var pos, col, own, pat, tph, prn, n, mesh;
+    var pos, col, own, pat, tph, prn, n, mesh, baked;
     var shownScene = data.scene, formShown = true;
     function unpack(sc) {
       var t = CadYamFashion.triangles(sc, bytes, formShown);
       pos = t.pos; col = t.col; own = t.own; pat = t.pat; tph = t.tph; prn = t.prn;
       n = pos.length / 3;
-      mesh = V.corners(pos, col, own, pat, tph, prn);
+      // Trees and plants stand whole through the cutaway (see the shaders).
+      mesh = V.keepWhole(V.corners(pos, col, own, pat, tph, prn), function (id) {
+        var whose = entities[String(id)];
+        return !!whose && whose.kindId === "plant";
+      });
+      baked = unpackLight(sc && sc.light, n);
     }
+    // The floors a building inside the drawing has: the storeys the
+    // export wrote, else found from the model. Two or more make a Floors
+    // switch.
+    function floorLevels() {
+      var told = shownScene && shownScene.floors;
+      return told && told.length ? told : V.floorLevels(own, pos, data.entities || {});
+    }
+    // Each corner's baked sky, lamplight and glow, as the shader reads
+    // them; `on` false (open sky, no lamps) when the scene has none.
+    function unpackLight(L, n) {
+      var sky = new Float32Array(n), lamp = new Float32Array(n * 3), glow = new Float32Array(n * 4);
+      var s = L ? bytes(L.sky) : null;
+      if (!s || s.length !== n) { sky.fill(1); return { on: false, sky: sky, lamp: lamp, glow: glow }; }
+      var l = bytes(L.lamp), g = bytes(L.glow);
+      for (var v = 0; v < n; v++) {
+        sky[v] = s[v] / 255;
+        for (var c = 0; c < 3; c++) lamp[v * 3 + c] = l[v * 3 + c] / 64;
+      }
+      // Only the glowing triangles are listed: index (u32), RGB, and 1 for
+      // a lit window's pane (else 0).
+      for (var at = 0; at + 8 <= g.length; at += 8) {
+        var t = g[at] | (g[at + 1] << 8) | (g[at + 2] << 16) | (g[at + 3] << 24);
+        for (var k = 0; k < 3; k++) {
+          for (var c2 = 0; c2 < 3; c2++) glow[(t * 3 + k) * 4 + c2] = g[at + 4 + c2] / 160;
+          glow[(t * 3 + k) * 4 + 3] = g[at + 7] ? 1 : 0;
+        }
+      }
+      return { on: true, sky: sky, lamp: lamp, glow: glow };
+    }
+    // The time of day the rooms are lit at, as the app's `lighting` sets
+    // it: how much sky, sun and lamplight (crates/cad-core/src/view/lighting.rs).
+    var MOODS = { day: [1.0, 1.0, 0.3], dusk: [0.3, 0.25, 0.85], night: [0.04, 0.0, 1.0] };
+    var mood = (data.scene && data.scene.light && data.scene.light.lighting) || "day";
     unpack(shownScene);
     var box = V.bounds(pos), lo = box.lo, hi = box.hi;
     var progs = modelPrograms(gl), prog = progs.prog, depthProg = progs.depthProg;
@@ -2454,7 +2673,8 @@ var CadYamFashion = (function () {
     function upload() {
       buffers.forEach(function (b) { gl.deleteBuffer(b); });
       buffers = [["aPos", pos, 3], ["aNrm", mesh.nrm, 3], ["aCol", mesh.rgb, 3], ["aId", mesh.ids, 1],
-        ["aPat", mesh.pats, 1], ["aPh", mesh.phs, 1], ["aPrint", mesh.prs, 1]].map(function (a) {
+        ["aPat", mesh.pats, 1], ["aPh", mesh.phs, 1], ["aPrint", mesh.prs, 1],
+        ["aSky", baked.sky, 1], ["aLamp", baked.lamp, 3], ["aGlow", baked.glow, 4]].map(function (a) {
         return glAttr(gl, prog, a[0], a[1], a[2]);
       });
     }
@@ -2519,7 +2739,8 @@ var CadYamFashion = (function () {
     }
     var U = {};
     ["uMvp", "uSun", "uCut", "uSel", "uPick", "uLight", "uTexel", "uShadows", "uShadowMap", "uFloor", "uHasFloor",
-      "uShow", "uTintOn", "uTint", "uTintK", "uPrints", "uPrintAt", "uFill", "uEye", "uAo", "uAoOn", "uView"].forEach(function (u) {
+      "uShow", "uTintOn", "uTint", "uTintK", "uPrints", "uPrintAt", "uFill", "uEye", "uAo", "uAoOn", "uView",
+      "uLit", "uMood", "uSkyTint", "uSunTint", "uMoon"].forEach(function (u) {
       U[u] = gl.getUniformLocation(prog, u);
     });
     var D = {
@@ -2563,7 +2784,7 @@ var CadYamFashion = (function () {
     // The drawing's own sun until the date or time moves it.
     var sunMoved = !data.scene.sun;
     function sunDir() {
-      if (!sunMoved) return V.norm(data.scene.sun);
+      if (!sunMoved) return moodSun(V.norm(data.scene.sun));
       return V.norm(CadYamSun.inPlan(S, sunDay, sunHour));
     }
     // The sun's camera: square on to the sun, framing the whole model.
@@ -2650,12 +2871,14 @@ var CadYamFashion = (function () {
       return rayGrid.nearest(o, d, cut, far);
     }
     // Walking with something overhead within a storey: under a roof or a
-    // ceiling, where the room is lit by bounced light, not open sky.
-    function indoors() {
-      if (!walk.on) return false;
-      var STOREY = 6000;
-      return nearest(eye(), [0, 0, 1], STOREY) < STOREY;
-    }
+    // ceiling, where the room is lit by bounced light, not open sky. The
+    // ray is cast once per spot (CadYamWalk.shelterCache).
+    var shelter = CadYamWalk.shelterCache();
+    function indoors() { return walk.on && shelter(eye(), cut, nearest); }
+    // The bounced-light fill the model is drawn with: 0 outside, 1 indoors,
+    // eased between by the walk's frames (see tick in html_viewer_3d_input.js).
+    var fill = 0;
+    function fillSettled() { return fill === (indoors() ? 1 : 0); }
     // True when the model hides world point `at` from `from`: something
     // stands clearly nearer along the line between them.
     function blocked(from, at) {
@@ -2700,7 +2923,12 @@ var CadYamFashion = (function () {
       function path(pts, closed) { return CadYamPins.screenPath(pts, closed, project); }
       pinNodes.forEach(function (n) {
         if (n.area) n.area.setAttribute("d", path(n.pin.region, true));
-        n.strokes.forEach(function (s, i) { s.setAttribute("d", path(n.pin.strokes[i], false)); });
+        // Walking, a pin's strokes (a tour stop's facing) would read as
+        // lines drawn across the room: only its numbered marker shows.
+        n.strokes.forEach(function (s, i) {
+          s.setAttribute("d", path(n.pin.strokes[i], false));
+          s.style.display = walk.on ? "none" : "";
+        });
         var s = project(n.pin.spot);
         n.dot.style.display = n.label.style.display = s ? "" : "none";
         if (s) {
@@ -2742,6 +2970,41 @@ var CadYamFashion = (function () {
       redraw();
     }
     var fb = null, fbTex = null, fbDepth = null, fbW = 0, fbH = 0;
+    // How open each pixel is to the sky, from this view's depth (`mvp`),
+    // about 4% of the model across (a ring's gaps, a gown's folds, a
+    // room's corners alike), left on texture unit 5 for the surface
+    // program; false when the pass could not run.
+    function renderAo(mvp) {
+      var e = eye(), f = forward();
+      var on = aoPass.render(canvas.width, canvas.height, mvp, [e[0], e[1], e[2], 1], f, size * 0.04,
+        function (m) {
+          gl.useProgram(depthProg);
+          gl.uniformMatrix4fv(D.uLight, false, m);
+          gl.uniform1f(D.uCut, cut);
+          gl.uniform3fv(D.uShow, phaseShow);
+          gl.drawArrays(gl.TRIANGLES, 0, n);
+        });
+      gl.useProgram(prog);
+      return on;
+    }
+    // The whole scene at each time of day as lit rooms show it — the sky
+    // behind the model, the colour of the sky's light and the sun's, and
+    // the moon's fill — always day's when the rooms aren't lit.
+    function skyNow() {
+      var SKIES = {
+        day: { sky: [0.86, 0.91, 0.96], skyTint: [1, 1, 1], sunTint: [1, 1, 1], moon: [0, 0, 0] },
+        dusk: { sky: [0.88, 0.64, 0.52], skyTint: [1.7, 1.45, 1.6], sunTint: [2.4, 1.3, 0.65], moon: [0, 0, 0] },
+        night: { sky: [0.05, 0.07, 0.15], skyTint: [0.7, 0.8, 1.0], sunTint: [1, 1, 1], moon: [0.07, 0.09, 0.16] }
+      };
+      return (baked.on && SKIES[mood]) || SKIES.day;
+    }
+    // The drawing's own sun `s` as the time of day shows it: for lit rooms
+    // at dusk, low in the same quarter, so it rakes in warm and long.
+    function moodSun(s) {
+      if (!(baked.on && mood === "dusk")) return s;
+      var h = Math.hypot(s[0], s[1]) || 1, low = 0.14;
+      return [s[0] / h * Math.cos(low), s[1] / h * Math.cos(low), Math.sin(low)];
+    }
     function draw(pick) {
       var w = canvas.clientWidth, h = canvas.clientHeight;
       if (!w || !h) return;
@@ -2760,26 +3023,12 @@ var CadYamFashion = (function () {
         canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
       }
       var mvp = new Float32Array(matrix(w, h));
-      var aoOn = false;
-      if (!pick) {
-        // How open each pixel is to the sky, from this view's depth, about
-        // 4% of the model across (a ring's gaps, a gown's folds, a room's
-        // corners alike).
-        var e = eye(), f = forward();
-        aoOn = aoPass.render(canvas.width, canvas.height, mvp, [e[0], e[1], e[2], 1], f, size * 0.04,
-          function (m) {
-            gl.useProgram(depthProg);
-            gl.uniformMatrix4fv(D.uLight, false, m);
-            gl.uniform1f(D.uCut, cut);
-            gl.uniform3fv(D.uShow, phaseShow);
-            gl.drawArrays(gl.TRIANGLES, 0, n);
-          });
-        gl.useProgram(prog);
-      }
+      var aoOn = !pick && renderAo(mvp);
       gl.uniform1i(U.uAoOn, aoOn ? 1 : 0);
       gl.uniform2f(U.uView, canvas.width, canvas.height);
       gl.viewport(0, 0, canvas.width, canvas.height);
-      if (pick) gl.clearColor(0, 0, 0, 1); else gl.clearColor(0.86, 0.91, 0.96, 1);
+      var skies = skyNow(), bg = skies.sky;
+      if (pick) gl.clearColor(0, 0, 0, 1); else gl.clearColor(bg[0], bg[1], bg[2], 1);
       gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
       gl.uniformMatrix4fv(U.uMvp, false, mvp);
       gl.uniformMatrix4fv(U.uLight, false, light);
@@ -2790,7 +3039,16 @@ var CadYamFashion = (function () {
       gl.uniform1f(U.uCut, cut);
       gl.uniform1f(U.uSel, sel);
       gl.uniform1i(U.uPick, pick ? 1 : 0);
-      gl.uniform1f(U.uFill, indoors() ? 1 : 0);
+      // Out of the walk the dollhouse has no fill; walking, a fill still
+      // easing keeps the walk's frames coming until it settles.
+      if (!walk.on) fill = 0;
+      else if (!pick && !fillSettled()) startWalking();
+      gl.uniform1f(U.uFill, fill);
+      gl.uniform1i(U.uLit, baked.on ? 1 : 0);
+      gl.uniform3fv(U.uMood, MOODS[mood] || MOODS.day);
+      gl.uniform3fv(U.uSkyTint, skies.skyTint);
+      gl.uniform3fv(U.uSunTint, skies.sunTint);
+      gl.uniform3fv(U.uMoon, skies.moon);
       gl.uniform3fv(U.uShow, phaseShow);
       gl.uniform3fv(U.uTintOn, tintOn);
       gl.uniform3fv(U.uTint, tints);
@@ -3082,8 +3340,9 @@ var CadYamFashion = (function () {
       last = now;
       var keys = keysHeld();
       advance(keys, dt);
+      fill = CadYamWalk.fillToward(fill, indoors(), dt);
       draw(false);
-      var moving = walk.velocity[0] || walk.velocity[1] || walk.spin || CadYamWalk.inAir(walk);
+      var moving = walk.velocity[0] || walk.velocity[1] || walk.spin || CadYamWalk.inAir(walk) || !fillSettled();
       if (walk.on && (keys.ahead || keys.aside || keys.turn || keys.rise || moving)) {
         requestAnimationFrame(tick);
       } else {
@@ -3128,13 +3387,38 @@ var CadYamFashion = (function () {
         return false;
       }
       walk.at = [at[0], at[1], 0];
-      walk.floor = floorAt(at[0], at[1], at[2]);
-      walk.yaw = cam.yaw + Math.PI; walk.pitch = 0; walk.velocity = [0, 0]; walk.spin = 0;
+      // A start picked on a roof is inside the house under it, on its
+      // ground floor, not up on the roof.
+      var id = pickAt(cx, cy);
+      var onRoof = !!id && !!entities[id] && entities[id].kindId === "roof";
+      var from = CadYamWalk.startHeight(at[2], onRoof, onRoof ? ground.surfaces(at[0], at[1], cut) : []);
+      standAt(walk.at, floorAt(at[0], at[1], from), cam.yaw + Math.PI);
+      return true;
+    }
+    // Start walking at plan spot `at` on `floor`, facing `yaw`: standing
+    // still and level, and told how to move.
+    function standAt(at, floor, yaw) {
+      walk.at = at; walk.floor = floor; walk.yaw = yaw;
+      walk.pitch = 0; walk.velocity = [0, 0]; walk.spin = 0; walk.lift = 0; walk.flying = false;
       CadYamWalk.land(walk, W);
       walk.on = true; spaceFlies = true;
       setPlacing(false);
+      hint();
       redraw();
-      return true;
+    }
+    // A tour stop: stand at pin `p`'s spot, on the floor at its height (so
+    // a pin upstairs puts you upstairs), facing as CadYamWalk.tourStop says.
+    function walkTo(p) {
+      var stop = CadYamWalk.tourStop(p, centre);
+      if (stop) standAt(stop.at, floorAt(stop.at[0], stop.at[1], stop.from), stop.yaw);
+    }
+    // While walking, a line on how to move, gone after a few seconds.
+    var hintTimer = 0;
+    function hint() {
+      prompt.textContent = CadYamWalk.hintText(touchy());
+      prompt.style.display = "";
+      clearTimeout(hintTimer);
+      hintTimer = setTimeout(function () { if (!placing) prompt.style.display = "none"; }, 6000);
     }
     var walkButton = action(tools, "Walk through", function (b) {
       if (walk.on) {
@@ -3153,8 +3437,36 @@ var CadYamFashion = (function () {
     speed.value = pace;
     speed.addEventListener("change", function () { pace = Number(speed.value); speed.blur(); });
     field(tools, "Speed", speed);
+    // A building with two or more floors gets a Floors switch: Outside, or
+    // one floor at a time — the roof and everything above that floor taken
+    // off the building (trees stay whole) and the view brought in on it —
+    // so its rooms show without walking. It stands in for the cutaway.
+    var levels = floorLevels();
+    var floorPick = levels.length >= 2 ? floorSwitch(V.floorNames(levels), showFloor) : null;
+    if (floorPick) {
+      section.appendChild(floorPick);
+      // The walk prompt sits under the switch rather than on it.
+      prompt.style.top = "52px";
+    }
+    // Show floor `i` of `levels` with everything above it cut away and the
+    // view brought in over the building at a downward angle; or, for -1,
+    // the whole model from outside.
+    function showFloor(i) {
+      if (i < 0) {
+        cut = V.cutHeight(false, floor, hi[2]);
+      } else {
+        cut = V.floorCut(levels, i);
+        var b = V.planBox(own, pos, data.entities || {});
+        if (b && !walk.on) {
+          framePin(V.boxPin(b, levels[i], 900));
+          cam.pitch = Math.max(cam.pitch, 0.75);
+        }
+      }
+      shadowKey = null;
+      redraw();
+    }
     // Only a model with storeys to see into has a cutaway worth offering.
-    if (V.hasCutaway(floor, hi[2])) {
+    if (!floorPick && V.hasCutaway(floor, hi[2])) {
       var cutBox = chip(tools, "Cutaway", el("input", { type: "checkbox" }));
       cutBox.addEventListener("change", function () {
         cut = V.cutHeight(cutBox.checked, floor, hi[2]);
@@ -3184,6 +3496,17 @@ var CadYamFashion = (function () {
       sunMoved = true;
       redraw();
     });
+    // Rooms baked with their lamps and daylight can be shown at day, dusk
+    // or night.
+    if (baked.on) {
+      var moodSel = el("select", { "aria-label": "Lighting" });
+      [["day", "Day"], ["dusk", "Dusk"], ["night", "Night"]].forEach(function (m) {
+        moodSel.appendChild(el("option", { value: m[0] }, m[1]));
+      });
+      moodSel.value = mood;
+      moodSel.addEventListener("change", function () { mood = moodSel.value; moodSel.blur(); redraw(); });
+      field(tools, "Lighting", moodSel);
+    }
     var shadowBox = chip(tools, "Shadows", el("input", { type: "checkbox" }));
     shadowBox.checked = shadows;
     shadowBox.addEventListener("change", function () { shadows = shadowBox.checked; redraw(); });
@@ -3230,6 +3553,7 @@ var CadYamFashion = (function () {
     return {
       select: function (id) { sel = id != null ? Number(id) + 1 : 0; redraw(); },
       frame: framePin,
+      walkTo: walkTo,
       show: function (view, k) {
         var u = V.phaseUniforms(view);
         phaseShow = u.show;
@@ -3250,5 +3574,5 @@ var CadYamFashion = (function () {
   if (data.scene) setMode("3d");
 })();
 </script>
-</body>
+<p style="position:fixed;left:12px;bottom:10px;margin:0;font:12px system-ui,sans-serif;color:#555;background:rgba(255,255,255,.85);padding:4px 8px;border-radius:6px;z-index:5">Paintings: Monet, Seurat, Hokusai, Hiroshige, Cassatt, Caillebotte, Van Gogh — Art Institute of Chicago, public domain (CC0)</p></body>
 </html>

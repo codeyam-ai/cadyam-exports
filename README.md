@@ -26,7 +26,7 @@ Static site hosting interactive 2D + 3D HTML drawings exported from CadYam.
 - **[Heirloom Walnut & White Oak Craftsman Sideboard](heirloom-craftsman-sideboard.html)** — Woodworking & Furniture (Exported 5 November 2026)
 - **[The Height Limit of Trees](trees-exhibit.html)** — Data Stories (Exported 6 November 2026)
 - **[Luxury House Pond](luxuryhousepond.html)** — Landscape & Garden (Exported 5 November 2026)
-- **[Grand Courtyard Residence & Loft Renovation](architectural-loft-renovation.html)** — Interior & Architecture (Exported 5 November 2026)
+- **[Grand Courtyard Residence — an opened-up plan hung with Monet, Seurat, Hokusai and Cassatt](architectural-loft-renovation.html)** — Interior Design (Exported 23 November 2026)
 - **[Floral Dress](floral-dress.html)** — Fashion (Exported 5 November 2026)
 - **[Camel Melton Overcoat — double-breasted, peak lapels](camel-overcoat.html)** — Fashion (Exported 22 November 2026)
 - **[Tweed Sport Coat — elbow patches, navy gabardine trousers](tweed-sport-coat.html)** — Fashion (Exported 22 November 2026)
