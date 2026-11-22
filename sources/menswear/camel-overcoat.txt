@@ -1,0 +1,14 @@
+# Camel Melton Overcoat — double-breasted, peak lapels
+# CadYam Fashion. Run these lines in order in a fresh Fashion drawing
+# (or paste them into the command line). Piece ids assume a fresh drawing.
+form body male
+block coat overcoat double peak lapel 4" 0,0
+collar
+block sleeve
+fabric all melton
+pocket flap at 6",-5" 7"
+buttons 3 1 -2.25",-6" -2.25",1.5"
+block trousers
+fabric 29 36 flannel
+fabric 29 36 color #5d6066
+fabric 1 8 15 18 color #b8875a

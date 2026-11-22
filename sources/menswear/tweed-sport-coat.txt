@@ -1,0 +1,16 @@
+# Tweed Sport Coat — navy gabardine trousers
+# CadYam Fashion. Run these lines in order in a fresh Fashion drawing.
+# Piece ids assume a fresh drawing. (The elbow-patch line has no visible
+# effect yet; see the "Every cloth looks like itself" plan.)
+form body male
+block coat sport 0,0
+collar
+block sleeve
+fabric all tweed
+pocket welt at 5",10"
+pocket flap at 6",-5"
+patch elbow brown corduroy
+buttons 2 3/4 0,-2" 0,2"
+block trousers
+fabric 30 37 gabardine
+fabric 30 37 color #3b4250
