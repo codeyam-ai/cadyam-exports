@@ -4383,7 +4383,7 @@
     {
       "seq": 124,
       "source": "typed",
-      "raw": "assemble 29 at 112,38,69mm stand turn 90",
+      "raw": "assemble 29 at 112,36.8,69mm stand turn 90",
       "action": {
         "apply": {
           "v": 3,
@@ -4391,7 +4391,7 @@
           "id": 29,
           "attrs": {
             "assembly": {
-              "text": "at 112,38,69 stand turn 90"
+              "text": "at 112,36.8,69 stand turn 90"
             }
           }
         }
@@ -4400,7 +4400,7 @@
     {
       "seq": 125,
       "source": "typed",
-      "raw": "assemble 30 at 112,38,44mm lay",
+      "raw": "assemble 30 at 112,36.8,44mm lay",
       "action": {
         "apply": {
           "v": 3,
@@ -4408,7 +4408,7 @@
           "id": 30,
           "attrs": {
             "assembly": {
-              "text": "at 112,38,44"
+              "text": "at 112,36.8,44"
             }
           }
         }
@@ -4417,7 +4417,7 @@
     {
       "seq": 126,
       "source": "typed",
-      "raw": "assemble 31 at 15,31.5,70mm stand turn 90",
+      "raw": "assemble 31 at 15,33.2,70mm stand turn 90",
       "action": {
         "apply": {
           "v": 3,
@@ -4425,7 +4425,7 @@
           "id": 31,
           "attrs": {
             "assembly": {
-              "text": "at 15,31.5,70 stand turn 90"
+              "text": "at 15,33.2,70 stand turn 90"
             }
           }
         }
@@ -4434,7 +4434,7 @@
     {
       "seq": 127,
       "source": "typed",
-      "raw": "assemble 32 at 15,31.5,45mm lay",
+      "raw": "assemble 32 at 15,33.2,45mm lay",
       "action": {
         "apply": {
           "v": 3,
@@ -4442,7 +4442,7 @@
           "id": 32,
           "attrs": {
             "assembly": {
-              "text": "at 15,31.5,45"
+              "text": "at 15,33.2,45"
             }
           }
         }
