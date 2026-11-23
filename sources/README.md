@@ -23,7 +23,7 @@ reopened in CadYam, improved and re-exported.
 | staunton-chess-set.html | `staunton-chess-set/gen_chess.py` |
 | shorai-an-tea-garden.html | `shorai-an-tea-garden/gen_tea.py` (Landscape) |
 | meridian-pocket-watch.html | `meridian-pocket-watch/gen_watch.py` |
-| camel-overcoat.html, tweed-sport-coat.html | `menswear/*.txt` (Fashion command lines) |
+| camel-overcoat.html, tweed-sport-coat.html, denim-trucker.html | `menswear/*.txt` (Fashion command lines) |
 | architectural-loft-renovation.html (Grand Courtyard Residence) | `grand-courtyard-residence/` (drawing, generator, paintings in `art/`) |
 | pecking-bird-automaton.html | `laser-automaton/` (assembled drawing; `gen_auto.py` writes the flat kit, `assemble.txt` stands it up and wires the crank) |
 

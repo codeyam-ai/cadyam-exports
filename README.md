@@ -4,6 +4,7 @@ Static site hosting interactive 2D + 3D HTML drawings exported from CadYam.
 
 ## Exports
 
+- **[Selvedge Denim Trucker Jacket and Khaki Chinos](denim-trucker.html)** — Fashion (Exported 23 November 2026)
 - **[The Pecking Bird — a laser-cut automaton you can crank](pecking-bird-automaton.html)** — Laser & CNC Cutting (Exported 23 November 2026)
 - **[The Meridian Pocket Watch](meridian-pocket-watch.html)** — Forms (Exported 20 November 2026)
 - **[The Staunton Chess Set — Printable](staunton-chess-set.html)** — Forms (Exported 20 November 2026)
