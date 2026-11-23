@@ -1,7 +1,7 @@
 {
   "format": "cadyam-scenario",
   "version": 1,
-  "title": "bookcase",
+  "title": "bookcase2",
   "app": "woodworking",
   "document": {
     "next_id": 1,
@@ -11,8 +11,7 @@
     {
       "seq": 1,
       "source": "typed",
-      "raw": "board 0,0 0.875,54 stock Custom thickness 0.875 species walnut part Left Side part_id SL view Front",
-      "actor": "script",
+      "raw": "board 0,0 0.875,54 stock Custom thickness 0.875 species walnut finish oil part Left Side part_id SL view Front",
       "action": {
         "apply": {
           "v": 3,
@@ -28,6 +27,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -62,8 +64,7 @@
     {
       "seq": 2,
       "source": "typed",
-      "raw": "board 50,0 62,54 stock Custom thickness 0.875 species walnut part Left Side part_id SL view End",
-      "actor": "script",
+      "raw": "board 50,0 62,54 stock Custom thickness 0.875 species walnut finish oil part Left Side part_id SL view End",
       "action": {
         "apply": {
           "v": 3,
@@ -79,6 +80,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -113,8 +117,7 @@
     {
       "seq": 3,
       "source": "typed",
-      "raw": "board 35.125,0 36,54 stock Custom thickness 0.875 species walnut part Right Side part_id SR view Front",
-      "actor": "script",
+      "raw": "board 35.125,0 36,54 stock Custom thickness 0.875 species walnut finish oil part Right Side part_id SR view Front",
       "action": {
         "apply": {
           "v": 3,
@@ -130,6 +133,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -164,8 +170,7 @@
     {
       "seq": 4,
       "source": "typed",
-      "raw": "board 50,0 62,54 stock Custom thickness 0.875 species walnut part Right Side part_id SR view End",
-      "actor": "script",
+      "raw": "board 50,0 62,54 stock Custom thickness 0.875 species walnut finish oil part Right Side part_id SR view End",
       "action": {
         "apply": {
           "v": 3,
@@ -181,6 +186,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -215,8 +223,7 @@
     {
       "seq": 5,
       "source": "typed",
-      "raw": "board 0.875,4 35.125,4.875 stock Custom thickness 0.875 species walnut part Bottom Shelf part_id B view Front joint mortise joint_depth 0.875",
-      "actor": "script",
+      "raw": "board 0.875,4 35.125,4.875 stock Custom thickness 0.875 species walnut finish oil part Bottom Shelf part_id B view Front joint mortise and tenon joint_depth 0.875",
       "action": {
         "apply": {
           "v": 3,
@@ -232,6 +239,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -266,8 +276,7 @@
     {
       "seq": 6,
       "source": "typed",
-      "raw": "board 50.5,4 61.75,4.875 stock Custom thickness 0.875 species walnut part Bottom Shelf part_id B view End joint mortise joint_depth 0.875",
-      "actor": "script",
+      "raw": "board 50.5,4 61.75,4.875 stock Custom thickness 0.875 species walnut finish oil part Bottom Shelf part_id B view End joint mortise and tenon joint_depth 0.875",
       "action": {
         "apply": {
           "v": 3,
@@ -283,6 +292,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -317,8 +329,7 @@
     {
       "seq": 7,
       "source": "typed",
-      "raw": "board 0.875,16.5 35.125,17.375 stock Custom thickness 0.875 species walnut part Lower Shelf part_id S1 view Front joint Dado joint_depth 0.375",
-      "actor": "script",
+      "raw": "board 0.875,16.5 35.125,17.375 stock Custom thickness 0.875 species walnut finish oil part Lower Shelf part_id S1 view Front joint Dado joint_depth 0.375",
       "action": {
         "apply": {
           "v": 3,
@@ -334,6 +345,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -368,8 +382,7 @@
     {
       "seq": 8,
       "source": "typed",
-      "raw": "board 50.5,16.5 61.75,17.375 stock Custom thickness 0.875 species walnut part Lower Shelf part_id S1 view End joint Dado joint_depth 0.375",
-      "actor": "script",
+      "raw": "board 50.5,16.5 61.75,17.375 stock Custom thickness 0.875 species walnut finish oil part Lower Shelf part_id S1 view End joint Dado joint_depth 0.375",
       "action": {
         "apply": {
           "v": 3,
@@ -385,6 +398,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -419,8 +435,7 @@
     {
       "seq": 9,
       "source": "typed",
-      "raw": "board 0.875,28.5 35.125,29.375 stock Custom thickness 0.875 species walnut part Middle Shelf part_id S2 view Front joint Dado joint_depth 0.375",
-      "actor": "script",
+      "raw": "board 0.875,28.5 35.125,29.375 stock Custom thickness 0.875 species walnut finish oil part Middle Shelf part_id S2 view Front joint Dado joint_depth 0.375",
       "action": {
         "apply": {
           "v": 3,
@@ -436,6 +451,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -470,8 +488,7 @@
     {
       "seq": 10,
       "source": "typed",
-      "raw": "board 50.5,28.5 61.75,29.375 stock Custom thickness 0.875 species walnut part Middle Shelf part_id S2 view End joint Dado joint_depth 0.375",
-      "actor": "script",
+      "raw": "board 50.5,28.5 61.75,29.375 stock Custom thickness 0.875 species walnut finish oil part Middle Shelf part_id S2 view End joint Dado joint_depth 0.375",
       "action": {
         "apply": {
           "v": 3,
@@ -487,6 +504,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -521,8 +541,7 @@
     {
       "seq": 11,
       "source": "typed",
-      "raw": "board 0.875,40.5 35.125,41.375 stock Custom thickness 0.875 species walnut part Upper Shelf part_id S3 view Front joint Dado joint_depth 0.375",
-      "actor": "script",
+      "raw": "board 0.875,40.5 35.125,41.375 stock Custom thickness 0.875 species walnut finish oil part Upper Shelf part_id S3 view Front joint Dado joint_depth 0.375",
       "action": {
         "apply": {
           "v": 3,
@@ -538,6 +557,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -572,8 +594,7 @@
     {
       "seq": 12,
       "source": "typed",
-      "raw": "board 50.5,40.5 61.75,41.375 stock Custom thickness 0.875 species walnut part Upper Shelf part_id S3 view End joint Dado joint_depth 0.375",
-      "actor": "script",
+      "raw": "board 50.5,40.5 61.75,41.375 stock Custom thickness 0.875 species walnut finish oil part Upper Shelf part_id S3 view End joint Dado joint_depth 0.375",
       "action": {
         "apply": {
           "v": 3,
@@ -589,6 +610,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -624,7 +648,6 @@
       "seq": 13,
       "source": "typed",
       "raw": "polyline 0.875,4 35.125,4 35.125,0.75 33.698,0.978 32.271,1.203 30.844,1.42 29.417,1.625 27.99,1.815 26.562,1.987 25.135,2.138 23.708,2.266 22.281,2.367 20.854,2.44 19.427,2.485 18,2.5 16.573,2.485 15.146,2.44 13.719,2.367 12.292,2.266 10.865,2.138 9.438,1.987 8.01,1.815 6.583,1.625 5.156,1.42 3.729,1.203 2.302,0.978 0.875,0.75 close",
-      "actor": "script",
       "action": {
         "apply": {
           "v": 1,
@@ -750,7 +773,6 @@
       "seq": 14,
       "source": "typed",
       "raw": "make board last",
-      "actor": "script",
       "action": {
         "apply": {
           "v": 5,
@@ -765,14 +787,16 @@
     {
       "seq": 15,
       "source": "typed",
-      "raw": "set last stock Custom thickness 0.875 species walnut part Kick Rail part_id K view Front joint mortise joint_depth 0.75",
-      "actor": "script",
+      "raw": "set last stock Custom thickness 0.875 species walnut finish oil part Kick Rail part_id K view Front joint mortise and tenon joint_depth 0.75",
       "action": {
         "apply": {
           "v": 3,
           "op": "set_attributes",
           "id": 13,
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "joint": {
               "choice": "Mortise and tenon"
             },
@@ -804,8 +828,7 @@
     {
       "seq": 16,
       "source": "typed",
-      "raw": "board 50.5,0.75 51.375,4 stock Custom thickness 0.875 species walnut part Kick Rail part_id K view End joint mortise joint_depth 0.75",
-      "actor": "script",
+      "raw": "board 50.5,0.75 51.375,4 stock Custom thickness 0.875 species walnut finish oil part Kick Rail part_id K view End joint mortise and tenon joint_depth 0.75",
       "action": {
         "apply": {
           "v": 3,
@@ -821,6 +844,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -855,8 +881,7 @@
     {
       "seq": 17,
       "source": "typed",
-      "raw": "board -0.75,4 0,4.875 stock Custom thickness 0.75 species walnut part Through Tenon L1 part_id TNL0 view Front",
-      "actor": "script",
+      "raw": "board -0.75,4 0,4.875 stock Custom thickness 0.75 species walnut finish oil part Through Tenon L1 part_id TNL0 view Front",
       "action": {
         "apply": {
           "v": 3,
@@ -872,6 +897,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -906,8 +934,7 @@
     {
       "seq": 18,
       "source": "typed",
-      "raw": "board 51.5,4 54,4.875 stock Custom thickness 0.75 species walnut part Through Tenon L1 part_id TNL0 view End",
-      "actor": "script",
+      "raw": "board 51.5,4 54,4.875 stock Custom thickness 0.75 species walnut finish oil part Through Tenon L1 part_id TNL0 view End",
       "action": {
         "apply": {
           "v": 3,
@@ -923,6 +950,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -957,8 +987,7 @@
     {
       "seq": 19,
       "source": "typed",
-      "raw": "board -0.75,4 0,4.875 stock Custom thickness 0.75 species walnut part Through Tenon L2 part_id TNL1 view Front",
-      "actor": "script",
+      "raw": "board -0.75,4 0,4.875 stock Custom thickness 0.75 species walnut finish oil part Through Tenon L2 part_id TNL1 view Front",
       "action": {
         "apply": {
           "v": 3,
@@ -974,6 +1003,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -1008,8 +1040,7 @@
     {
       "seq": 20,
       "source": "typed",
-      "raw": "board 58,4 60.5,4.875 stock Custom thickness 0.75 species walnut part Through Tenon L2 part_id TNL1 view End",
-      "actor": "script",
+      "raw": "board 58,4 60.5,4.875 stock Custom thickness 0.75 species walnut finish oil part Through Tenon L2 part_id TNL1 view End",
       "action": {
         "apply": {
           "v": 3,
@@ -1025,6 +1056,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -1059,8 +1093,7 @@
     {
       "seq": 21,
       "source": "typed",
-      "raw": "board 36,4 36.75,4.875 stock Custom thickness 0.75 species walnut part Through Tenon R1 part_id TNR0 view Front",
-      "actor": "script",
+      "raw": "board 36,4 36.75,4.875 stock Custom thickness 0.75 species walnut finish oil part Through Tenon R1 part_id TNR0 view Front",
       "action": {
         "apply": {
           "v": 3,
@@ -1076,6 +1109,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -1110,8 +1146,7 @@
     {
       "seq": 22,
       "source": "typed",
-      "raw": "board 51.5,4 54,4.875 stock Custom thickness 0.75 species walnut part Through Tenon R1 part_id TNR0 view End",
-      "actor": "script",
+      "raw": "board 51.5,4 54,4.875 stock Custom thickness 0.75 species walnut finish oil part Through Tenon R1 part_id TNR0 view End",
       "action": {
         "apply": {
           "v": 3,
@@ -1127,6 +1162,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -1161,8 +1199,7 @@
     {
       "seq": 23,
       "source": "typed",
-      "raw": "board 36,4 36.75,4.875 stock Custom thickness 0.75 species walnut part Through Tenon R2 part_id TNR1 view Front",
-      "actor": "script",
+      "raw": "board 36,4 36.75,4.875 stock Custom thickness 0.75 species walnut finish oil part Through Tenon R2 part_id TNR1 view Front",
       "action": {
         "apply": {
           "v": 3,
@@ -1178,6 +1215,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -1212,8 +1252,7 @@
     {
       "seq": 24,
       "source": "typed",
-      "raw": "board 58,4 60.5,4.875 stock Custom thickness 0.75 species walnut part Through Tenon R2 part_id TNR1 view End",
-      "actor": "script",
+      "raw": "board 58,4 60.5,4.875 stock Custom thickness 0.75 species walnut finish oil part Through Tenon R2 part_id TNR1 view End",
       "action": {
         "apply": {
           "v": 3,
@@ -1229,6 +1268,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -1263,8 +1305,7 @@
     {
       "seq": 25,
       "source": "typed",
-      "raw": "board 0.875,51.5 35.125,54 stock Custom thickness 0.875 species walnut part Top Rail part_id TR view Front joint mortise joint_depth 0.75",
-      "actor": "script",
+      "raw": "board 0.875,51.5 35.125,54 stock Custom thickness 0.875 species walnut finish oil part Top Rail part_id TR view Front joint mortise and tenon joint_depth 0.75",
       "action": {
         "apply": {
           "v": 3,
@@ -1280,6 +1321,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -1314,8 +1358,7 @@
     {
       "seq": 26,
       "source": "typed",
-      "raw": "board 50.5,51.5 51.375,54 stock Custom thickness 0.875 species walnut part Top Rail part_id TR view End joint mortise joint_depth 0.75",
-      "actor": "script",
+      "raw": "board 50.5,51.5 51.375,54 stock Custom thickness 0.875 species walnut finish oil part Top Rail part_id TR view End joint mortise and tenon joint_depth 0.75",
       "action": {
         "apply": {
           "v": 3,
@@ -1331,6 +1374,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -1365,8 +1411,7 @@
     {
       "seq": 27,
       "source": "typed",
-      "raw": "board -1,54 37,55 stock Custom thickness 1 species walnut part Top part_id TP view Front joint Breadboard",
-      "actor": "script",
+      "raw": "board -1,54 37,55 stock Custom thickness 1 species walnut finish oil part Top part_id TP view Front joint Breadboard",
       "action": {
         "apply": {
           "v": 3,
@@ -1382,6 +1427,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -1416,8 +1464,7 @@
     {
       "seq": 28,
       "source": "typed",
-      "raw": "board 49,54 62,55 stock Custom thickness 1 species walnut part Top part_id TP view End joint Breadboard",
-      "actor": "script",
+      "raw": "board 49,54 62,55 stock Custom thickness 1 species walnut finish oil part Top part_id TP view End joint Breadboard",
       "action": {
         "apply": {
           "v": 3,
@@ -1433,6 +1480,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -1467,8 +1517,7 @@
     {
       "seq": 29,
       "source": "typed",
-      "raw": "board 0.5,0.75 5.5,54 stock Custom thickness 0.5 species walnut part Back Board 1 part_id BK1 view Front joint Rabbet joint_depth 0.375",
-      "actor": "script",
+      "raw": "board 0.5,0.75 5.5,54 stock Custom thickness 0.5 species walnut finish oil part Back Board 1 part_id BK1 view Front joint Rabbet joint_depth 0.375",
       "action": {
         "apply": {
           "v": 3,
@@ -1484,6 +1533,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -1518,8 +1570,7 @@
     {
       "seq": 30,
       "source": "typed",
-      "raw": "board 61.75,0.75 62,54 stock Custom thickness 0.5 species walnut part Back Board 1 part_id BK1 view End joint Rabbet joint_depth 0.375",
-      "actor": "script",
+      "raw": "board 61.75,0.75 62,54 stock Custom thickness 0.5 species walnut finish oil part Back Board 1 part_id BK1 view End joint Rabbet joint_depth 0.375",
       "action": {
         "apply": {
           "v": 3,
@@ -1535,6 +1586,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -1569,8 +1623,7 @@
     {
       "seq": 31,
       "source": "typed",
-      "raw": "board 5.5,0.75 10.5,54 stock Custom thickness 0.5 species walnut part Back Board 2 part_id BK2 view Front joint Rabbet joint_depth 0.375",
-      "actor": "script",
+      "raw": "board 5.5,0.75 10.5,54 stock Custom thickness 0.5 species walnut finish oil part Back Board 2 part_id BK2 view Front joint Rabbet joint_depth 0.375",
       "action": {
         "apply": {
           "v": 3,
@@ -1586,6 +1639,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -1620,8 +1676,7 @@
     {
       "seq": 32,
       "source": "typed",
-      "raw": "board 61.75,0.75 62,54 stock Custom thickness 0.5 species walnut part Back Board 2 part_id BK2 view End joint Rabbet joint_depth 0.375",
-      "actor": "script",
+      "raw": "board 61.75,0.75 62,54 stock Custom thickness 0.5 species walnut finish oil part Back Board 2 part_id BK2 view End joint Rabbet joint_depth 0.375",
       "action": {
         "apply": {
           "v": 3,
@@ -1637,6 +1692,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -1671,8 +1729,7 @@
     {
       "seq": 33,
       "source": "typed",
-      "raw": "board 10.5,0.75 15.5,54 stock Custom thickness 0.5 species walnut part Back Board 3 part_id BK3 view Front joint Rabbet joint_depth 0.375",
-      "actor": "script",
+      "raw": "board 10.5,0.75 15.5,54 stock Custom thickness 0.5 species walnut finish oil part Back Board 3 part_id BK3 view Front joint Rabbet joint_depth 0.375",
       "action": {
         "apply": {
           "v": 3,
@@ -1688,6 +1745,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -1722,8 +1782,7 @@
     {
       "seq": 34,
       "source": "typed",
-      "raw": "board 61.75,0.75 62,54 stock Custom thickness 0.5 species walnut part Back Board 3 part_id BK3 view End joint Rabbet joint_depth 0.375",
-      "actor": "script",
+      "raw": "board 61.75,0.75 62,54 stock Custom thickness 0.5 species walnut finish oil part Back Board 3 part_id BK3 view End joint Rabbet joint_depth 0.375",
       "action": {
         "apply": {
           "v": 3,
@@ -1739,6 +1798,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -1773,8 +1835,7 @@
     {
       "seq": 35,
       "source": "typed",
-      "raw": "board 15.5,0.75 20.5,54 stock Custom thickness 0.5 species walnut part Back Board 4 part_id BK4 view Front joint Rabbet joint_depth 0.375",
-      "actor": "script",
+      "raw": "board 15.5,0.75 20.5,54 stock Custom thickness 0.5 species walnut finish oil part Back Board 4 part_id BK4 view Front joint Rabbet joint_depth 0.375",
       "action": {
         "apply": {
           "v": 3,
@@ -1790,6 +1851,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -1824,8 +1888,7 @@
     {
       "seq": 36,
       "source": "typed",
-      "raw": "board 61.75,0.75 62,54 stock Custom thickness 0.5 species walnut part Back Board 4 part_id BK4 view End joint Rabbet joint_depth 0.375",
-      "actor": "script",
+      "raw": "board 61.75,0.75 62,54 stock Custom thickness 0.5 species walnut finish oil part Back Board 4 part_id BK4 view End joint Rabbet joint_depth 0.375",
       "action": {
         "apply": {
           "v": 3,
@@ -1841,6 +1904,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -1875,8 +1941,7 @@
     {
       "seq": 37,
       "source": "typed",
-      "raw": "board 20.5,0.75 25.5,54 stock Custom thickness 0.5 species walnut part Back Board 5 part_id BK5 view Front joint Rabbet joint_depth 0.375",
-      "actor": "script",
+      "raw": "board 20.5,0.75 25.5,54 stock Custom thickness 0.5 species walnut finish oil part Back Board 5 part_id BK5 view Front joint Rabbet joint_depth 0.375",
       "action": {
         "apply": {
           "v": 3,
@@ -1892,6 +1957,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -1926,8 +1994,7 @@
     {
       "seq": 38,
       "source": "typed",
-      "raw": "board 61.75,0.75 62,54 stock Custom thickness 0.5 species walnut part Back Board 5 part_id BK5 view End joint Rabbet joint_depth 0.375",
-      "actor": "script",
+      "raw": "board 61.75,0.75 62,54 stock Custom thickness 0.5 species walnut finish oil part Back Board 5 part_id BK5 view End joint Rabbet joint_depth 0.375",
       "action": {
         "apply": {
           "v": 3,
@@ -1943,6 +2010,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -1977,8 +2047,7 @@
     {
       "seq": 39,
       "source": "typed",
-      "raw": "board 25.5,0.75 30.5,54 stock Custom thickness 0.5 species walnut part Back Board 6 part_id BK6 view Front joint Rabbet joint_depth 0.375",
-      "actor": "script",
+      "raw": "board 25.5,0.75 30.5,54 stock Custom thickness 0.5 species walnut finish oil part Back Board 6 part_id BK6 view Front joint Rabbet joint_depth 0.375",
       "action": {
         "apply": {
           "v": 3,
@@ -1994,6 +2063,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -2028,8 +2100,7 @@
     {
       "seq": 40,
       "source": "typed",
-      "raw": "board 61.75,0.75 62,54 stock Custom thickness 0.5 species walnut part Back Board 6 part_id BK6 view End joint Rabbet joint_depth 0.375",
-      "actor": "script",
+      "raw": "board 61.75,0.75 62,54 stock Custom thickness 0.5 species walnut finish oil part Back Board 6 part_id BK6 view End joint Rabbet joint_depth 0.375",
       "action": {
         "apply": {
           "v": 3,
@@ -2045,6 +2116,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -2079,8 +2153,7 @@
     {
       "seq": 41,
       "source": "typed",
-      "raw": "board 30.5,0.75 35.5,54 stock Custom thickness 0.5 species walnut part Back Board 7 part_id BK7 view Front joint Rabbet joint_depth 0.375",
-      "actor": "script",
+      "raw": "board 30.5,0.75 35.5,54 stock Custom thickness 0.5 species walnut finish oil part Back Board 7 part_id BK7 view Front joint Rabbet joint_depth 0.375",
       "action": {
         "apply": {
           "v": 3,
@@ -2096,6 +2169,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -2130,8 +2206,7 @@
     {
       "seq": 42,
       "source": "typed",
-      "raw": "board 61.75,0.75 62,54 stock Custom thickness 0.5 species walnut part Back Board 7 part_id BK7 view End joint Rabbet joint_depth 0.375",
-      "actor": "script",
+      "raw": "board 61.75,0.75 62,54 stock Custom thickness 0.5 species walnut finish oil part Back Board 7 part_id BK7 view End joint Rabbet joint_depth 0.375",
       "action": {
         "apply": {
           "v": 3,
@@ -2147,6 +2222,9 @@
           },
           "kind": "board",
           "attrs": {
+            "finish": {
+              "text": "oil"
+            },
             "grain": {
               "choice": "Along length"
             },
@@ -2182,13 +2260,15 @@
   "view": {
     "camera": {
       "center": [
-        4000.0,
-        2500.0
+        774.6999999999999,
+        698.5
       ],
-      "px_per_mm": 0.08
+      "px_per_mm": 0.2835395575553056
     },
     "fit_on_load": false,
-    "selection": [],
+    "selection": [
+      40
+    ],
     "tool": "select",
     "pending": [],
     "cursor": null,
@@ -2205,44 +2285,9 @@
       {
         "id": 1,
         "at_seq": 42,
-        "agent": "script",
+        "agent": "claude-code",
         "tone": "result",
-        "text": "Added 40 parts, in 42 edits.",
-        "digest": "40 parts · Parts 0 → 20 · +1 buy problems",
-        "headline": "Added 40 parts",
-        "groups": [
-          {
-            "label": "Parts",
-            "count": 40,
-            "names": [
-              "part #1",
-              "part #2",
-              "part #3",
-              "part #4",
-              "part #5",
-              "part #6",
-              "part #7",
-              "part #8",
-              "part #9",
-              "part #10",
-              "part #11",
-              "part #12",
-              "part #13",
-              "part #14",
-              "part #15",
-              "part #16",
-              "part #17",
-              "part #18",
-              "part #19",
-              "part #20",
-              "part #21",
-              "part #22",
-              "part #23",
-              "part #24"
-            ]
-          }
-        ],
-        "since_seq": 0
+        "text": "Exported walnut-bookcase.html"
       }
     ]
   },

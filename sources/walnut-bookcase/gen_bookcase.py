@@ -28,7 +28,7 @@ def f(v):
 
 
 def board(x0, y0, x1, y1, pid, part, view, thick, extra=""):
-    C.append(f"board {f(x0)},{f(y0)} {f(x1)},{f(y1)} stock Custom thickness {f(thick)} species {SP} "
+    C.append(f"board {f(x0)},{f(y0)} {f(x1)},{f(y1)} stock Custom thickness {f(thick)} species {SP} finish oil "
              f"part {part} part_id {pid} view {view}" + (f" {extra}" if extra else ""))
 
 
@@ -38,6 +38,7 @@ def both(front, end, pid, part, thick, extra=""):
     board(EX + d0, y0, EX + d1, y1, pid, part, "End", thick, extra)
 
 
+C.append("app woodworking")
 C.append("units imperial")
 
 # Sides: full height, full depth, standing on the floor.
@@ -46,7 +47,7 @@ for pid, part, x in (("SL", "Left Side", 0.0), ("SR", "Right Side", W - T)):
 
 # Shelves let into the sides in 3/8" dados; the bottom shelf tenons through.
 inner0, inner1 = T, W - T
-shelves = [(4.0, "B", "Bottom Shelf", "joint mortise joint_depth 0.875"),
+shelves = [(4.0, "B", "Bottom Shelf", "joint mortise and tenon joint_depth 0.875"),
            (16.5, "S1", "Lower Shelf", "joint Dado joint_depth 0.375"),
            (28.5, "S2", "Middle Shelf", "joint Dado joint_depth 0.375"),
            (40.5, "S3", "Upper Shelf", "joint Dado joint_depth 0.375")]
@@ -65,8 +66,8 @@ for i in range(1, 24):
 arch.append((inner0, 0.75))
 C.append("polyline " + " ".join(f"{f(x)},{f(y)}" for x, y in arch) + " close")
 C.append("make board last")
-C.append(f"set last stock Custom thickness {f(T)} species {SP} part Kick Rail part_id K view Front joint mortise joint_depth 0.75")
-board(EX + 0.5, 0.75, EX + 1.375, 4.0, "K", "Kick Rail", "End", T, "joint mortise joint_depth 0.75")
+C.append(f"set last stock Custom thickness {f(T)} species {SP} finish oil part Kick Rail part_id K view Front joint mortise and tenon joint_depth 0.75")
+board(EX + 0.5, 0.75, EX + 1.375, 4.0, "K", "Kick Rail", "End", T, "joint mortise and tenon joint_depth 0.75")
 
 # Through-tenons: the bottom shelf's tenons stand 3/4" proud of each side,
 # two per side, the Arts & Crafts tell.
@@ -76,7 +77,7 @@ for side, (x0, x1) in (("L", (-0.75, 0.0)), ("R", (W, W + 0.75))):
 
 # Top rail under the top, across the front.
 both((inner0, H - 2.5, inner1, H), (0.5, H - 2.5, 1.375, H), "TR", "Top Rail", T,
-     "joint mortise joint_depth 0.75")
+     "joint mortise and tenon joint_depth 0.75")
 
 # Top: overhangs front and both ends, flush at the back, breadboarded ends.
 both((-TOP_OVER, H, W + TOP_OVER, H + TOP_T), (-TOP_OVER, H, D, H + TOP_T), "TP", "Top", TOP_T,
