@@ -1,7 +1,7 @@
 {
   "format": "cadyam-scenario",
   "version": 1,
-  "title": "pecking-bird",
+  "title": "pb",
   "app": "cutting",
   "document": {
     "next_id": 1,
@@ -2457,7 +2457,7 @@
     {
       "seq": 46,
       "source": "typed",
-      "raw": "circle 123,146 r 5",
+      "raw": "circle 123,129 r 5",
       "action": {
         "apply": {
           "v": 1,
@@ -2466,7 +2466,7 @@
             "kind": "circle",
             "center": [
               123.0,
-              146.0
+              129.0
             ],
             "radius": 5.0
           }
@@ -2547,7 +2547,7 @@
     {
       "seq": 50,
       "source": "typed",
-      "raw": "circle 138,146 r 5",
+      "raw": "circle 138,129 r 5",
       "action": {
         "apply": {
           "v": 1,
@@ -2556,7 +2556,7 @@
             "kind": "circle",
             "center": [
               138.0,
-              146.0
+              129.0
             ],
             "radius": 5.0
           }
@@ -4230,7 +4230,7 @@
     {
       "seq": 115,
       "source": "typed",
-      "raw": "assemble 51 on 63 along -58",
+      "raw": "assemble 51 on 63 along -56",
       "action": {
         "apply": {
           "v": 3,
@@ -4238,7 +4238,7 @@
           "id": 51,
           "attrs": {
             "assembly": {
-              "text": "on 63 along -58"
+              "text": "on 63 along -56"
             }
           }
         }
@@ -4281,7 +4281,7 @@
     {
       "seq": 118,
       "source": "typed",
-      "raw": "assemble 57 on 63 along 57",
+      "raw": "assemble 57 on 63 along 60.5",
       "action": {
         "apply": {
           "v": 3,
@@ -4289,7 +4289,7 @@
           "id": 57,
           "attrs": {
             "assembly": {
-              "text": "on 63 along 57"
+              "text": "on 63 along 60.5"
             }
           }
         }
@@ -4417,7 +4417,7 @@
     {
       "seq": 126,
       "source": "typed",
-      "raw": "assemble 31 at 15,31.5,66mm stand turn 90",
+      "raw": "assemble 31 at 15,31.5,70mm stand turn 90",
       "action": {
         "apply": {
           "v": 3,
@@ -4425,7 +4425,7 @@
           "id": 31,
           "attrs": {
             "assembly": {
-              "text": "at 15,31.5,66 stand turn 90"
+              "text": "at 15,31.5,70 stand turn 90"
             }
           }
         }
@@ -4434,7 +4434,7 @@
     {
       "seq": 127,
       "source": "typed",
-      "raw": "assemble 32 at 15,31.5,41mm lay",
+      "raw": "assemble 32 at 15,31.5,45mm lay",
       "action": {
         "apply": {
           "v": 3,
@@ -4442,7 +4442,7 @@
           "id": 32,
           "attrs": {
             "assembly": {
-              "text": "at 15,31.5,41"
+              "text": "at 15,31.5,45"
             }
           }
         }
@@ -4642,16 +4642,7 @@
     "log_open": false,
     "command_text": "",
     "command_error": null,
-    "command_echo": null,
-    "feed": [
-      {
-        "id": 1,
-        "at_seq": 137,
-        "agent": "claude-code",
-        "tone": "result",
-        "text": "Exported pecking-bird-automaton.html"
-      }
-    ]
+    "command_echo": null
   },
   "kinds": "cutting"
 }

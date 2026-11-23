@@ -6,10 +6,10 @@ turn 63
 assemble 6 on 63 along 52
 assemble 8 on 63 along -45
 assemble 17 on 63 along 10
-assemble 51 on 63 along -58
+assemble 51 on 63 along -56
 assemble 53 on 63 along -30
 assemble 55 on 63 along 35
-assemble 57 on 63 along 57
+assemble 57 on 63 along 60.5
 assemble 59 on 63 along -64
 assemble 61 on 63 along -67
 assemble 10 on 63 along 64
@@ -18,8 +18,8 @@ assemble 27 on 24 right at 0,18.5,0mm
 # Followers: rods with round feet riding the cams, up through the perch slots.
 assemble 29 at 112,38,69mm stand turn 90
 assemble 30 at 112,38,44mm lay
-assemble 31 at 15,31.5,66mm stand turn 90
-assemble 32 at 15,31.5,41mm lay
+assemble 31 at 15,31.5,70mm stand turn 90
+assemble 32 at 15,31.5,45mm lay
 follows 29 6
 follows 30 6
 follows 31 8

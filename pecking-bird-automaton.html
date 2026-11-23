@@ -12,8 +12,8 @@
 <meta property="og:title" content="The Pecking Bird — a laser-cut automaton you can crank">
 <meta property="og:description" content="Interactive 3D model &amp; 2D plan — Laser &amp; CNC Cutting · Exported 23 November 2026">
 <meta property="og:url" content="https://codeyam-ai.github.io/cadyam-exports/pecking-bird-automaton.html">
-<meta property="og:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/pecking-bird-automaton.jpg?v=166db94a">
-<meta property="og:image:secure_url" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/pecking-bird-automaton.jpg?v=166db94a">
+<meta property="og:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/pecking-bird-automaton.jpg?v=51ac497f">
+<meta property="og:image:secure_url" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/pecking-bird-automaton.jpg?v=51ac497f">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1920">
 <meta property="og:image:height" content="1200">
@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The Pecking Bird — a laser-cut automaton you can crank">
 <meta name="twitter:description" content="Interactive 3D model &amp; 2D plan — Laser &amp; CNC Cutting · Exported 23 November 2026">
-<meta name="twitter:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/pecking-bird-automaton.jpg?v=166db94a">
+<meta name="twitter:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/pecking-bird-automaton.jpg?v=51ac497f">
 <meta name="twitter:image:alt" content="The Pecking Bird — a laser-cut automaton you can crank — 3D model preview">
 <!-- cadyam-social-meta:end -->
 <style>
@@ -204,7 +204,7 @@ body.touch.walking #walk-pad { display: block; }
 <header>
 <a data-back-to-demos href="./" title="All CadYam demos" style="flex:none;align-self:center;margin-right:10px;padding:5px 10px;border-radius:99px;font:600 12px/1.2 -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;text-decoration:none;white-space:nowrap;color:inherit;border:1px solid color-mix(in srgb,currentColor 22%,transparent)">← <span>All demos</span></a><style data-back-to-demos>@media (max-width: 560px) {[data-back-to-demos] span { display: none; } }</style>
 <a class="logo" href="https://codeyam.com/apps/cadyam" target="_blank" rel="noopener" title="Made with CadYam" aria-label="CadYam"><svg viewBox="64 64 896 896" width="34" height="34" aria-hidden="true"><defs><linearGradient id="cadyam-logo-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2E8BF5"/><stop offset="1" stop-color="#0D66D0"/></linearGradient></defs><rect x="64" y="64" width="896" height="896" rx="200" fill="url(#cadyam-logo-bg)"/><path d="M300 742V462L512 302L724 462V742Z" fill="#fff" fill-opacity=".14" stroke="#fff" stroke-width="30" stroke-linejoin="round"/><g fill="#FF9A3C" stroke="#fff" stroke-width="16"><circle cx="300" cy="742" r="40"/><circle cx="724" cy="742" r="40"/><circle cx="512" cy="302" r="40"/></g></svg></a>
-<div class="brand"><h1>pecking-bird</h1><p class="byline">CadYam · Laser &amp; CNC Cutting · Exported 23 November 2026</p></div>
+<div class="brand"><h1>pb</h1><p class="byline">CadYam · Laser &amp; CNC Cutting · Exported 23 November 2026</p></div>
 <nav class="modes"><button data-mode="2d">2D</button><button data-mode="3d">3D</button><button data-mode="split">Split<span class="wide"> (2D + 3D)</span></button></nav>
 </header>
 <main>
@@ -219,142 +219,22 @@ body.touch.walking #walk-pad { display: block; }
 </section>
 <aside id="inspector" hidden></aside>
 </main>
-<script src="assets/pecking-bird-automaton-data.js?v=65c025a4"></script>
+<script src="assets/pecking-bird-automaton-data.js?v=b4bc001f"></script>
 <script>
-var FINISH_GLSL = "// Surface finishes, as CadYam's own 3D view works them out per pixel\n// (crates/app/src/ui/view3d/finish.rs): the same patterns, sizes and hash\n// noise, from the world point (mm) and the face's normal alone. `pattern`\n// is the face's Pattern::code (crates/cad-core/src/finish_pattern.rs).\nfloat hash(int x, int y){\n uint h=(uint(x)*0x9E3779B1u)^(uint(y)*0x85EBCA77u);\n h^=h>>15u; h*=0x2C1B3C6Du; h^=h>>12u; h*=0x297A2D39u; h^=h>>15u;\n return float(h>>8u)/16777216.0; }\nfloat noise(float x, float y){\n float fx=floor(x), fy=floor(y); int ix=int(fx), iy=int(fy);\n float u=x-fx, v=y-fy; u=u*u*(3.0-2.0*u); v=v*v*(3.0-2.0*v);\n float top=hash(ix,iy)+(hash(ix+1,iy)-hash(ix,iy))*u;\n float bottom=hash(ix,iy+1)+(hash(ix+1,iy+1)-hash(ix,iy+1))*u;\n return top+(bottom-top)*v; }\nfloat joint(float at, float size, float gap, float dark){\n float d=max(min(at,size-at),0.0); return dark+(1.0-dark)*clamp((d-gap/2.0)/gap,0.0,1.0); }\nfloat running_bond(float s, float t, float w, float h, float gap){\n float row=floor(t/h); s+=mod(row,2.0)<0.5 ? 0.0 : w/2.0; float col=floor(s/w);\n float tone=1.0+0.10*(hash(int(col),int(row))-0.5);\n return tone*joint(s-col*w,w,gap,0.72)*joint(t-row*h,h,gap,0.72); }\nconst float BOARD=140.0; const float BOARD_RUN=2400.0;\n// A sloped face's (along the eave, up the slope) coordinates; x and y on a\n// level face.\nvec2 slope_frame(vec3 p, vec3 n){\n float h=length(n.xy); if (h<1e-3) return p.xy;\n return vec2((-n.y*p.x+n.x*p.y)/h, -(n.x*p.x+n.y*p.y)*n.z/h+p.z*h); }\nfloat pattern_light(int pattern, vec3 p, vec3 n){\n bool flat_=abs(n.z)>0.7;\n float s=flat_ ? p.x : p.x*abs(n.y)+p.y*abs(n.x); float t=flat_ ? p.y : p.z;\n if (pattern==1) {\n  float grain=1.0+0.05*(noise(s/600.0,t/25.0)-0.5); if (!flat_) return grain;\n  float row=floor(t/BOARD); float across=t-row*BOARD;\n  float along=s+hash(int(row),7)*BOARD_RUN; float run=floor(along/BOARD_RUN); float end=along-run*BOARD_RUN;\n  float tone=1.0+0.10*(hash(int(row),int(run))-0.5);\n  return grain*tone*joint(across,BOARD,5.0,0.62)*joint(end,BOARD_RUN,4.0,0.75); }\n if (pattern==2) return 1.0+0.16*(noise(s/900.0,t/900.0)-0.5)+0.10*(noise(s/140.0,t/140.0)-0.5)+0.08*(noise(s/30.0,t/30.0)-0.5);\n if (pattern==3) {\n  float clump=noise(p.x/300.0+p.z/500.0,p.y/300.0-p.z/400.0);\n  return (0.72+0.28*smoothstep(0.25,0.6,clump))*(1.0+0.14*(noise(s/60.0,t/60.0)-0.5)); }\n if (pattern==4) return running_bond(s,t,400.0,200.0,6.0);\n if (pattern==5) return running_bond(s,t,215.0,75.0,5.0);\n if (pattern==6) return joint(mod(s,300.0),300.0,2.5,0.84)*joint(mod(t,300.0),300.0,2.5,0.84);\n if (pattern==7) return 1.0+0.08*(noise(s/90.0,t/90.0)-0.5)+0.08*(noise(s/18.0,t/18.0)-0.5);\n if (pattern==8) {\n  vec2 st=slope_frame(p,n); s=st.x; t=st.y;\n  float course=floor(t/127.0); float up=t-course*127.0; float off=mod(course,2.0)<0.5 ? 0.0 : 152.0;\n  float tab=floor((s+off)/305.0); float across=mod(s+off,305.0);\n  float tone=1.0+0.14*(hash(int(course),int(tab))-0.5);\n  return tone*joint(up,127.0,9.0,0.66)*joint(across,305.0,4.0,0.8); }\n if (pattern==9) {\n  float wave=sin((s*0.8+t*0.6)/140.0+3.0*noise(s/700.0,t/700.0));\n  return wave>0.82 ? 1.13 : (wave< -0.5 ? 0.95 : 1.0); }\n if (pattern==11) return 1.0+0.06*(noise(s/12.0,t/12.0)-0.5);\n if (pattern==12) {\n  float cs=floor(s/2.5), ct=floor(t/2.5); int ci=int(cs), cj=int(ct); float h=hash(ci,cj);\n  if (h<0.66) return 1.0+0.03*(noise(s/9.0,t/9.0)-0.5);\n  float ox=hash(ci,cj+7)*1.2+0.65, oy=hash(ci+7,cj)*1.2+0.65; float dx=s-cs*2.5-ox, dy=t-ct*2.5-oy;\n  float r=0.45+0.35*hash(cj,ci); if (dx*dx+dy*dy>r*r) return 1.0; return h<0.85 ? 0.62 : 0.82; }\n if (pattern==13) {\n  float u=abs(s/3.0-trunc(s/3.0))-0.5, v=abs(t/3.0-trunc(t/3.0))-0.5;\n  return sqrt(u*u+v*v)*3.0<0.85 ? 0.3 : 1.0; }\n if (pattern>=16) {\n  int a=min(pattern-16,2); float along=p[a]; float across=p[(a+1)%3]+p[(a+2)%3];\n  if (abs(n[a])>0.7) return 0.84+0.06*(noise(across/4.0,along/4.0)-0.5);\n  float wobble=2.0*noise(along/900.0,across/60.0);\n  return 1.0+0.09*(noise(along/500.0,across/2.5+wobble)-0.5)+0.04*(noise(along/80.0,across/12.0)-0.5); }\n return 1.0; }\n// Up to a fifth darker at a wall's foot, easing out by knee height.\nfloat contact_light(vec3 p, vec3 n){\n if (uHasFloor==0 || abs(n.z)>0.5) return 1.0;\n return 1.0-0.2*(1.0-smoothstep(0.0,450.0,max(p.z-uFloor,0.0))); }\n";
+var FINISH_GLSL = "// Surface finishes, as CadYam's own 3D view works them out per pixel\n// (crates/app/src/ui/view3d/finish.rs): the same patterns, sizes and hash\n// noise, from the world point (mm) and the face's normal alone. `pattern`\n// is the face's Pattern::code (crates/cad-core/src/finish_pattern.rs).\nfloat hash(int x, int y){\n uint h=(uint(x)*0x9E3779B1u)^(uint(y)*0x85EBCA77u);\n h^=h>>15u; h*=0x2C1B3C6Du; h^=h>>12u; h*=0x297A2D39u; h^=h>>15u;\n return float(h>>8u)/16777216.0; }\nfloat noise(float x, float y){\n float fx=floor(x), fy=floor(y); int ix=int(fx), iy=int(fy);\n float u=x-fx, v=y-fy; u=u*u*(3.0-2.0*u); v=v*v*(3.0-2.0*v);\n float top=hash(ix,iy)+(hash(ix+1,iy)-hash(ix,iy))*u;\n float bottom=hash(ix,iy+1)+(hash(ix+1,iy+1)-hash(ix,iy+1))*u;\n return top+(bottom-top)*v; }\nfloat joint(float at, float size, float gap, float dark){\n float d=max(min(at,size-at),0.0); return dark+(1.0-dark)*clamp((d-gap/2.0)/gap,0.0,1.0); }\nfloat running_bond(float s, float t, float w, float h, float gap){\n float row=floor(t/h); s+=mod(row,2.0)<0.5 ? 0.0 : w/2.0; float col=floor(s/w);\n float tone=1.0+0.10*(hash(int(col),int(row))-0.5);\n return tone*joint(s-col*w,w,gap,0.72)*joint(t-row*h,h,gap,0.72); }\nconst float BOARD=140.0; const float BOARD_RUN=2400.0;\n// A sloped face's (along the eave, up the slope) coordinates; x and y on a\n// level face.\nvec2 slope_frame(vec3 p, vec3 n){\n float h=length(n.xy); if (h<1e-3) return p.xy;\n return vec2((-n.y*p.x+n.x*p.y)/h, -(n.x*p.x+n.y*p.y)*n.z/h+p.z*h); }\n// Patterned wood floors' planks: 3.5\" wide, five times as long; parquet\n// squares of four.\nconst float PLANK=90.0; const float PLANK_RUN=5.0; const float PARQUET=4.0;\nfloat plank(float along, float across, float len, float i, float j){\n float tone=1.0+0.12*(hash(int(i),int(j)+11)-0.5);\n float grain=1.0+0.05*(noise(along/300.0,across/12.0)-0.5);\n return tone*grain*joint(along,len,3.0,0.66)*joint(across,PLANK,3.0,0.66); }\nfloat herringbone(float s, float t){\n float k=0.70710677/PLANK; float a=(s+t)*k, b=(t-s)*k; float x=floor(a), y=floor(b);\n float n=PLANK_RUN; float r=mod(x-y,2.0*n);\n if (r<n) { float x0=x-r; return plank((a-x0)*PLANK,(b-y)*PLANK,n*PLANK,x0,y); }\n float y0=y-(2.0*n-1.0-r); return plank((b-y0)*PLANK,(a-x)*PLANK,n*PLANK,x,y0+500.0); }\nfloat chevron(float s, float t){\n float half_=PLANK_RUN*PLANK*0.70710677; float col=floor(s/(2.0*half_)); float x=s-col*2.0*half_;\n float xl=x<half_ ? x : 2.0*half_-x; float side=x<half_ ? 0.0 : 1.0;\n float w=(t-xl)*0.70710677; float row=floor(w/PLANK);\n return plank(xl*1.4142135,w-row*PLANK,PLANK_RUN*PLANK,row,col*2.0+side); }\nfloat parquet(float s, float t){\n float side=PARQUET*PLANK; float i=floor(s/side), j=floor(t/side); float u=s-i*side, v=t-j*side;\n bool turned=mod(i+j,2.0)>=1.0; float along=turned ? v : u; float across=turned ? u : v;\n float row=floor(across/PLANK); return plank(along,across-row*PLANK,side,i*7.0+row,j); }\nfloat pattern_light(int pattern, vec3 p, vec3 n){\n bool flat_=abs(n.z)>0.7;\n float s=flat_ ? p.x : p.x*abs(n.y)+p.y*abs(n.x); float t=flat_ ? p.y : p.z;\n if (pattern==1) {\n  float grain=1.0+0.05*(noise(s/600.0,t/25.0)-0.5); if (!flat_) return grain;\n  float row=floor(t/BOARD); float across=t-row*BOARD;\n  float along=s+hash(int(row),7)*BOARD_RUN; float run=floor(along/BOARD_RUN); float end=along-run*BOARD_RUN;\n  float tone=1.0+0.10*(hash(int(row),int(run))-0.5);\n  return grain*tone*joint(across,BOARD,5.0,0.62)*joint(end,BOARD_RUN,4.0,0.75); }\n if (pattern==2) return 1.0+0.16*(noise(s/900.0,t/900.0)-0.5)+0.10*(noise(s/140.0,t/140.0)-0.5)+0.08*(noise(s/30.0,t/30.0)-0.5);\n if (pattern==3) {\n  float clump=noise(p.x/300.0+p.z/500.0,p.y/300.0-p.z/400.0);\n  return (0.72+0.28*smoothstep(0.25,0.6,clump))*(1.0+0.14*(noise(s/60.0,t/60.0)-0.5)); }\n if (pattern==4) return running_bond(s,t,400.0,200.0,6.0);\n if (pattern==5) return running_bond(s,t,215.0,75.0,5.0);\n if (pattern==6) return joint(mod(s,300.0),300.0,2.5,0.84)*joint(mod(t,300.0),300.0,2.5,0.84);\n if (pattern==7) return 1.0+0.08*(noise(s/90.0,t/90.0)-0.5)+0.08*(noise(s/18.0,t/18.0)-0.5);\n if (pattern==8) {\n  vec2 st=slope_frame(p,n); s=st.x; t=st.y;\n  float course=floor(t/127.0); float up=t-course*127.0; float off=mod(course,2.0)<0.5 ? 0.0 : 152.0;\n  float tab=floor((s+off)/305.0); float across=mod(s+off,305.0);\n  float tone=1.0+0.14*(hash(int(course),int(tab))-0.5);\n  return tone*joint(up,127.0,9.0,0.66)*joint(across,305.0,4.0,0.8); }\n if (pattern==9) {\n  float wave=sin((s*0.8+t*0.6)/140.0+3.0*noise(s/700.0,t/700.0));\n  return wave>0.82 ? 1.13 : (wave< -0.5 ? 0.95 : 1.0); }\n if (pattern==11) return 1.0+0.06*(noise(s/12.0,t/12.0)-0.5);\n if (pattern==12) {\n  float cs=floor(s/2.5), ct=floor(t/2.5); int ci=int(cs), cj=int(ct); float h=hash(ci,cj);\n  if (h<0.66) return 1.0+0.03*(noise(s/9.0,t/9.0)-0.5);\n  float ox=hash(ci,cj+7)*1.2+0.65, oy=hash(ci+7,cj)*1.2+0.65; float dx=s-cs*2.5-ox, dy=t-ct*2.5-oy;\n  float r=0.45+0.35*hash(cj,ci); if (dx*dx+dy*dy>r*r) return 1.0; return h<0.85 ? 0.62 : 0.82; }\n if (pattern==13) {\n  float u=abs(s/3.0-trunc(s/3.0))-0.5, v=abs(t/3.0-trunc(t/3.0))-0.5;\n  return sqrt(u*u+v*v)*3.0<0.85 ? 0.3 : 1.0; }\n if (pattern>=20 && pattern<=22) {\n  if (!flat_) return 1.0+0.05*(noise(s/600.0,t/25.0)-0.5);\n  if (pattern==20) return herringbone(s,t);\n  if (pattern==21) return chevron(s,t);\n  return parquet(s,t); }\n if (pattern>=16) {\n  int a=min(pattern-16,2); float along=p[a]; float across=p[(a+1)%3]+p[(a+2)%3];\n  if (abs(n[a])>0.7) return 0.84+0.06*(noise(across/4.0,along/4.0)-0.5);\n  float wobble=2.0*noise(along/900.0,across/60.0);\n  return 1.0+0.09*(noise(along/500.0,across/2.5+wobble)-0.5)+0.04*(noise(along/80.0,across/12.0)-0.5); }\n return 1.0; }\n// Up to a fifth darker at a wall's foot, easing out by knee height.\nfloat contact_light(vec3 p, vec3 n){\n if (uHasFloor==0 || abs(n.z)>0.5) return 1.0;\n return 1.0-0.2*(1.0-smoothstep(0.0,450.0,max(p.z-uFloor,0.0))); }\n";
 var JEWEL_GLSL = "// Jewellery under a jeweller's studio light: polished metal (finish codes\n// 30 to 39, mirror to matte) and cut stones (40), as export/html_jewel.rs\n// codes them. Read by the model's fragment shader (html_viewer_3d.js) as\n// JEWEL_GLSL; it uses that shader's vWorld and uSun.\n//\n// A jeweller's studio, as a polished metal or a cut stone reflects it: a\n// white sweep with three soft boxes, and a few black cards and a dark\n// horizon that draw the crisp dark lines polished metal needs to read as\n// metal. A facet flashes bright or dark as it turns.\nvec3 studio(vec3 r){ float up=r.z; float az=atan(r.y,r.x);\n vec3 c=mix(vec3(0.62,0.62,0.64),vec3(1.05,1.05,1.07),smoothstep(-0.6,0.6,up));\n c+=vec3(2.4)*smoothstep(0.90,0.98,dot(r,normalize(vec3(0.55,-0.6,0.62))));\n c+=vec3(1.9)*smoothstep(0.88,0.97,dot(r,normalize(vec3(-0.75,-0.25,0.45))));\n c+=vec3(1.5)*smoothstep(0.86,0.96,dot(r,normalize(vec3(0.1,0.85,0.55))));\n float card=smoothstep(0.16,0.04,abs(sin(az*1.5+0.7)))*smoothstep(-0.35,0.0,up)*smoothstep(0.65,0.35,up);\n c*=1.0-0.65*card;\n c*=1.0-0.85*exp(-pow((up+0.08)*11.0,2.0));\n return c; }\nvec3 tonemap(vec3 c){ return vec3(1.0)-exp(-c*1.6); }\n// A stone's body colour from its base: a coloured stone (ruby, sapphire)\n// holds its colour deeply, as light that travels through it is tinted\n// twice over; a near-white diamond stays white.\nvec3 gemBody(vec3 base){\n float white=smoothstep(0.75,0.9,min(base.r,min(base.g,base.b)));\n return mix(pow(base,vec3(1.7))*1.25,base,white); }\nvec3 jewel(int pat, vec3 base, vec3 n, vec3 v, float lit){\n float nv=clamp(dot(n,v),0.0,1.0); vec3 r=reflect(-v,n);\n if (pat==40) {\n// A stone: its facets mirror the studio (more at grazing angles), and\n// light bounced inside through the pavilion comes back out of each facet\n// as one bright or dark flat — with a little fire.\n  float fr=0.17+0.83*pow(1.0-nv,5.0);\n  vec3 t=refract(-v,n,1.0/2.42); if (dot(t,t)<1e-4) t=r;\n// Each facet sends its light back out along its own two paths through the\n// pavilion (from the facet's orientation, so it stays put as the stone\n// turns and flashes as the view does). Keyed on the facet's plane (its\n// normal and its distance along it), which is the same all across one\n// facet and differs stone to stone.\n  vec3 nq=floor(n*48.0+0.5)/48.0; float po=floor(dot(n,vWorld)*6.0+0.5);\n  vec3 h3=fract(sin(vec3(dot(nq,vec3(12.99,78.23,37.72))+po*1.7,dot(nq,vec3(39.35,11.13,83.11))+po*2.3,dot(nq,vec3(73.16,52.27,9.41))+po*3.1))*43758.55)-0.5;\n  vec3 b1=normalize(reflect(t,normalize(n+1.1*h3)));\n  vec3 b2=normalize(reflect(t,normalize(n-0.9*h3.zxy)));\n  vec3 inner=0.5*(studio(b1)+studio(b2)); inner=pow(inner*0.6,vec3(1.8))*2.2+0.12;\n// A cut stone is a mosaic: some facets send back the bright studio, others\n// the dark of the camera and the setting.\n  float lightFacet=max(step(0.4,fract(h3.x*7.13+h3.y*3.7+0.5)),smoothstep(0.62,0.9,nv));\n  inner*=mix(0.2,1.45,lightFacet);\n  float h=fract(dot(nq,vec3(12.9898,78.233,37.719))*43.7+dot(v,n)*2.3);\n  vec3 fire=0.5+0.5*cos(6.2832*(h+vec3(0.0,0.33,0.67)));\n  float tableish=smoothstep(0.8,0.95,nv);\n  vec3 body=gemBody(base);\n  vec3 c=inner*mix(body,body*fire*1.6,(0.07+0.1*lightFacet)*(1.0-tableish))*1.1+studio(r)*fr*0.9;\n  return tonemap(c); }\n// A metal: the studio in its own colour, the edge whitening toward grazing\n// (Schlick), softened by its roughness, with the sun's glint.\n float rough=float(pat-30)/9.0;\n vec3 F=base+(vec3(1.0)-base)*pow(1.0-nv,5.0);\n vec3 env=mix(studio(r),studio(normalize(r+n)),rough*0.85);\n vec3 c=env*F*(0.7+0.3*lit);\n c+=F*pow(max(dot(r,uSun),0.0),mix(600.0,24.0,rough))*2.5*lit;\n return tonemap(c); }\n";
-// The exported viewer's walk-through, apart from the page so it can be
-// run on its own: the floor under a spot and the app's `Walk::advance`.
-// Lengths are mm, angles degrees, times seconds.
-var CadYamWalk = (function () {
+var DAYLIGHT_GLSL = "// Daylight as the app's HD view draws it, for a walk through a room: glass\n// (pattern 20, as export/html_scene.rs codes it) and the day's share of the\n// sky. Read by the model's fragment shader (html_viewer_3d.js) as\n// DAYLIGHT_GLSL; it uses that shader's uSun, uSkyCol, uLit, uMood and vGlow.\n//\n// How far into the day the sky's light is: none at dusk and night, all by\n// full day. By day a lit room is never darker than daylight leaves an unlit\n// one indoors; only from dusk does its baked sky share darken it.\nfloat day_share(vec3 mood){ return clamp((mood.x-0.3)/0.7,0.0,1.0); }\n// A pane of glass seen from v: a dim body tint with the sky and ground\n// mirrored in it, weakly face on and strongly at a glance (Schlick, 4% head\n// on), and the sun's glint. A lit room's pane still glows as the sky darkens.\n// Its alpha is how much it hides of what lies beyond.\nvec4 glass(vec3 base, vec3 n, vec3 v, float lit, float open){\n vec3 r=reflect(-v,n);\n float f=0.04+0.96*pow(1.0-max(dot(n,v),0.0),5.0);\n vec3 env=mix(vec3(0.17,0.19,0.15),uSkyCol,smoothstep(-0.15,0.35,r.z));\n vec3 g=mix(base*0.45*(0.6+0.4*open),env,clamp(f*2.5+0.12,0.0,1.0));\n g+=vec3(1.0,0.97,0.92)*pow(max(dot(n,normalize(uSun+v)),0.0),200.0)*0.8*lit;\n float a=clamp(0.55+f*0.4,0.0,1.0);\n if (uLit==1 && vGlow.a>0.5) { float k=clamp(uMood.z-uMood.x,0.0,1.0); g+=vGlow.rgb*k; a=max(a,k); }\n return vec4(g,a); }\n";
+// The exported viewer's ray grid, apart from the walk so it can be run on
+// its own: every triangle of a model bucketed into a 3D grid, built in one
+// go or a slice at a time between frames. Lengths are mm.
+var CadYamRays = (function () {
   "use strict";
-  // The highest step up a walker takes without climbing onto a roof.
-  var STEP_UP = 600;
-
-  function approach(v, target, by) { return Math.abs(target - v) <= by ? target : v + by * Math.sign(target - v); }
-
-  // The walkable surfaces of a model (`pos`: each triangle's corners, Z-up):
-  // triangles facing up, bucketed by plan cell so following the floor
-  // stays cheap on a large site.
-  function ground(pos, size) {
-    var cell = Math.max(1000, size / 128), grid = {};
-    for (var g = 0; g < pos.length / 9; g++) {
-      var q = g * 9;
-      var ux = pos[q + 3] - pos[q], uy = pos[q + 4] - pos[q + 1], uz = pos[q + 5] - pos[q + 2];
-      var vx = pos[q + 6] - pos[q], vy = pos[q + 7] - pos[q + 1], vz = pos[q + 8] - pos[q + 2];
-      var nz = ux * vy - uy * vx, l = Math.hypot(uy * vz - uz * vy, uz * vx - ux * vz, nz);
-      if (!l || Math.abs(nz / l) < 0.6) continue;
-      var x0 = Math.floor(Math.min(pos[q], pos[q + 3], pos[q + 6]) / cell), x1 = Math.floor(Math.max(pos[q], pos[q + 3], pos[q + 6]) / cell);
-      var y0 = Math.floor(Math.min(pos[q + 1], pos[q + 4], pos[q + 7]) / cell), y1 = Math.floor(Math.max(pos[q + 1], pos[q + 4], pos[q + 7]) / cell);
-      for (var gx = x0; gx <= x1; gx++) for (var gy = y0; gy <= y1; gy++) (grid[gx + "," + gy] = grid[gx + "," + gy] || []).push(g);
-    }
-    // Heights of the surfaces at plan point (x, y), up to the cutaway.
-    function surfaces(x, y, cut) {
-      var out = [], list = grid[Math.floor(x / cell) + "," + Math.floor(y / cell)] || [];
-      list.forEach(function (g) {
-        var q = g * 9;
-        var ax = pos[q], ay = pos[q + 1], bx = pos[q + 3], by = pos[q + 4], cx = pos[q + 6], cy = pos[q + 7];
-        var d = (by - cy) * (ax - cx) + (cx - bx) * (ay - cy);
-        if (!d) return;
-        var l1 = ((by - cy) * (x - cx) + (cx - bx) * (y - cy)) / d;
-        var l2 = ((cy - ay) * (x - cx) + (ax - cx) * (y - cy)) / d;
-        var l3 = 1 - l1 - l2;
-        if (l1 < -1e-6 || l2 < -1e-6 || l3 < -1e-6) return;
-        var z = l1 * pos[q + 2] + l2 * pos[q + 5] + l3 * pos[q + 8];
-        if (z <= cut) out.push(z);
-      });
-      return out;
-    }
-    // The floor someone standing at `from` would stand on at (x, y): the
-    // highest surface no more than a step above it, so a slope or a deck
-    // carries them up but a roof or a ceiling doesn't.
-    function floorAt(x, y, from, cut) {
-      var best = null;
-      surfaces(x, y, cut).forEach(function (z) { if (z <= from + STEP_UP && (best === null || z > best)) best = z; });
-      return best === null ? from : best;
-    }
-    return { surfaces: surfaces, floorAt: floorAt };
-  }
-
-  // Move `walk` `ahead` mm forward and `aside` mm right, stepping onto the
-  // floor there (`floorAt(x, y, from)`): up a slope or a deck's step, down
-  // off an edge.
-  // Off the floor, the feet keep their height: the floor beneath is found
-  // from them, so they land on whatever is below (a deck, a roof, the ground).
-  function step(walk, ahead, aside, floorAt) {
-    var x = walk.at[0] + Math.cos(walk.yaw) * ahead + Math.sin(walk.yaw) * aside;
-    var y = walk.at[1] + Math.sin(walk.yaw) * ahead - Math.cos(walk.yaw) * aside;
-    var lift = walk.lift || 0, feet = walk.floor + lift;
-    walk.floor = floorAt(x, y, feet);
-    if (lift > 0 || walk.flying) walk.lift = Math.max(0, feet - walk.floor);
-    walk.at[0] = x; walk.at[1] = y;
-  }
-
-  // Whether the walker's feet are off the floor.
-  function airborne(walk) { return (walk.lift || 0) > 0 || !!walk.flying; }
-
-  // Back on the floor, the gaze no steeper than standing allows.
-  function land(walk, W) {
-    var lim = W.max_pitch * Math.PI / 180;
-    walk.lift = 0; walk.rise = 0; walk.flying = false;
-    walk.pitch = Math.max(-lim, Math.min(lim, walk.pitch));
-  }
-
-  // The app's `Walk::climb`: a tap of Space (`keys.jump`) hops, holding it
-  // (`keys.rise` 1) flies upward, letting go hovers, Shift+Space (`rise`
-  // -1) sinks, and a double-tap while flying drops back to the floor.
-  function climb(walk, keys, dt, W) {
-    dt = Math.max(0, Math.min(W.max_dt, dt));
-    var rise = keys.rise || 0;
-    walk.lift = walk.lift || 0; walk.rise = walk.rise || 0; walk.heldFor = walk.heldFor || 0;
-    walk.sinceTap = (walk.sinceTap === undefined ? Infinity : walk.sinceTap) + dt;
-    if (keys.jump) {
-      if (walk.flying && walk.sinceTap < W.double_tap) {
-        walk.flying = false;
-        walk.heldFor = -W.hold_to_fly;
-      } else {
-        if (!airborne(walk) && rise > 0) walk.rise = W.jump_speed;
-        walk.heldFor = 0;
-      }
-      walk.sinceTap = 0;
-    } else if (rise) {
-      walk.heldFor += dt;
-    } else {
-      walk.heldFor = 0;
-    }
-    if (!walk.flying && rise > 0 && walk.heldFor >= W.hold_to_fly) walk.flying = true;
-    var r0 = walk.rise;
-    if (walk.flying) walk.rise = approach(r0, W.fly_rise * rise, W.fly_rise / W.ease * dt);
-    else if (airborne(walk) || r0 > 0) walk.rise = r0 - W.gravity * dt;
-    walk.lift += (r0 + walk.rise) / 2 * dt;
-    if (walk.lift >= W.max_lift) { walk.lift = W.max_lift; walk.rise = Math.min(walk.rise, 0); }
-    if (walk.lift <= 0 && walk.rise <= 0) land(walk, W);
-  }
-
-  // Whether the walker is still rising, falling or easing in the air.
-  function inAir(walk) { return !!walk.rise || ((walk.lift || 0) > 0 && !walk.flying); }
-
-  // The app's `Walk::advance` (pace `W`): ease the walking and turning
-  // speeds toward what the keys ask for over real time, then move. `pace`
-  // scales the walking speed (and how fast it is reached) for a big site.
-  function advance(walk, keys, dt, W, pace, floorAt) {
-    climb(walk, keys, dt, W);
-    dt = Math.max(0, Math.min(W.max_dt, dt));
-    var speed = (keys.slow ? W.slow_speed : W.speed) * pace, rate = keys.slow ? W.fine_turn_rate : W.turn_rate;
-    var len = Math.hypot(keys.ahead, keys.aside), k = len > 1 ? speed / len : speed;
-    var accel = W.speed * pace / W.ease * dt;
-    var v0 = walk.velocity;
-    walk.velocity = [approach(v0[0], keys.ahead * k, accel), approach(v0[1], keys.aside * k, accel)];
-    var spin0 = walk.spin;
-    walk.spin = approach(spin0, keys.turn * rate, W.turn_rate / W.ease * dt);
-    walk.yaw -= (spin0 + walk.spin) / 2 * dt * Math.PI / 180;
-    step(walk, (v0[0] + walk.velocity[0]) * dt / 2, (v0[1] + walk.velocity[1]) * dt / 2, floorAt);
-  }
 
   // The first and last grid cell along axis `e` (cells `k` wide from
   // `from`, the last numbered `top`) each triangle of `pos` reaches.
-  function spanAxis(pos, span, count, e, from, k, top) {
-    for (var s = 0; s < count; s++) {
+  // Triangles `first` to before `last` (all of them when not given).
+  function spanAxis(pos, span, count, e, from, k, top, first, last) {
+    for (var s = first || 0, end = last === undefined ? count : last; s < end; s++) {
       var q = s * 9 + e, v0 = pos[q], v1 = pos[q + 3], v2 = pos[q + 6];
       var a = v0 < v1 ? (v0 < v2 ? v0 : v2) : (v1 < v2 ? v1 : v2);
       var b = v0 > v1 ? (v0 > v2 ? v0 : v2) : (v1 > v2 ? v1 : v2);
@@ -366,51 +246,134 @@ var CadYamWalk = (function () {
 
   // Every triangle of a model (`pos`: each triangle's corners) bucketed into
   // a 3D grid, so a ray tests only the triangles in the cells it crosses
-  // rather than all of them: zooming toward the pointer, a double-click and
-  // whether a pin is hidden all stay quick on a large site.
+  // rather than all of them: zooming toward the pointer, a double-click,
+  // whether a pin is hidden and the walk's indoors test all stay quick on
+  // a large site.
   function rays(pos) {
-    var count = Math.floor(pos.length / 9);
-    var lo = [Infinity, Infinity, Infinity], hi = [-Infinity, -Infinity, -Infinity];
-    for (var i = 0; i < count * 9; i += 3) {
-      for (var a = 0; a < 3; a++) {
-        if (pos[i + a] < lo[a]) lo[a] = pos[i + a];
-        if (pos[i + a] > hi[a]) hi[a] = pos[i + a];
-      }
-    }
-    if (!count) return { nearest: function () { return Infinity; } };
-    // A hair of room so a ray grazing the outermost faces still enters.
+    var b = raysBuild(pos);
+    while (!b.work(Infinity));
+    return b.grid();
+  }
+
+  // A hair of room on every side of the box `lo`..`hi` (in place), so a ray
+  // grazing the outermost faces still enters.
+  function padBox(lo, hi) {
     var pad = Math.max(hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2], 1) * 1e-6;
     for (var p = 0; p < 3; p++) { lo[p] -= pad; hi[p] += pad; }
-    // About two triangles a cell, at most 128 cells along any side; a flat
-    // side (a plan with no height) gets one layer.
+  }
+
+  // The cells of a grid over the box `lo`..`hi` holding `count` triangles:
+  // about two triangles a cell, at most 128 cells along any side; a flat
+  // side (a plan with no height) gets one layer. `dim` is the cells along
+  // each axis, `step` their size.
+  function rayCells(lo, hi, count) {
     var ext = [hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2]];
     var big = Math.max(ext[0], ext[1], ext[2]) || 1, floor = big / 128;
     var cell = Math.cbrt(Math.max(ext[0], floor) * Math.max(ext[1], floor) * Math.max(ext[2], floor) / Math.max(1, count / 2));
     cell = Math.max(cell, floor);
     var dim = ext.map(function (e) { return Math.max(1, Math.min(128, Math.ceil(e / cell))); });
     var step = ext.map(function (e, a) { return (e || 1) / dim[a]; });
+    return { dim: dim, step: step, nx: dim[0], nxy: dim[0] * dim[1], cells: dim[0] * dim[1] * dim[2] };
+  }
+
+  // How many triangles a slice of the build takes before checking the clock.
+  var RAYS_CHUNK = 20000;
+  // The ray grid's build, done a slice at a time: `work(until)` carries it
+  // on until the clock (`Date.now()`) passes `until` and says whether it is
+  // finished; `grid()` is the finished grid.
+  function raysBuild(pos) {
+    var count = Math.floor(pos.length / 9);
+    var lo = [Infinity, Infinity, Infinity], hi = [-Infinity, -Infinity, -Infinity];
+    var dim, step, span, nx, nxy, cells, start, list, fill;
+    // Each phase runs over the triangles from `next`, a chunk at a time.
+    var phase = 0, next = 0, done = null;
+    var phases = [
+      // The model's box.
+      function (from, to) {
+        for (var i = from * 9; i < to * 9; i += 3) {
+          for (var a = 0; a < 3; a++) {
+            if (pos[i + a] < lo[a]) lo[a] = pos[i + a];
+            if (pos[i + a] > hi[a]) hi[a] = pos[i + a];
+          }
+        }
+      },
+      // Each triangle's span of cells, once: [x0, x1, y0, y1, z0, z1].
+      function (from, to) {
+        if (!from) size();
+        for (var e = 0; e < 3; e++) spanAxis(pos, span, count, e, lo[e], 1 / step[e], dim[e] - 1, from, to);
+      },
+      // Two passes: count each cell's triangles, then fill one flat list.
+      function (from, to) {
+        for (var g = from; g < to; g++) {
+          var h = g * 6;
+          for (var z = span[h + 4]; z <= span[h + 5]; z++)
+            for (var y = span[h + 2]; y <= span[h + 3]; y++)
+              for (var x = span[h]; x <= span[h + 1]; x++) start[z * nxy + y * nx + x + 1]++;
+        }
+      },
+      function (from, to) {
+        if (!from) {
+          for (var c = 0; c < cells; c++) start[c + 1] += start[c];
+          list = new Int32Array(start[cells]); fill = start.slice(0, cells);
+        }
+        for (var t = from; t < to; t++) {
+          var j = t * 6;
+          for (var zz = span[j + 4]; zz <= span[j + 5]; zz++)
+            for (var yy = span[j + 2]; yy <= span[j + 3]; yy++)
+              for (var xx = span[j]; xx <= span[j + 1]; xx++) list[fill[zz * nxy + yy * nx + xx]++] = t;
+        }
+      }
+    ];
+    // The grid's cells, once the box is known.
+    function size() {
+      padBox(lo, hi);
+      var g = rayCells(lo, hi, count);
+      dim = g.dim; step = g.step; nx = g.nx; nxy = g.nxy; cells = g.cells;
+      span = new Int32Array(count * 6);
+      start = new Int32Array(cells + 1);
+    }
+    function work(until) {
+      if (done) return true;
+      if (!count) { done = { nearest: function () { return Infinity; } }; return true; }
+      while (phase < phases.length) {
+        var to = Math.min(count, next + RAYS_CHUNK);
+        phases[phase](next, to);
+        next = to;
+        if (next >= count) { phase++; next = 0; }
+        if (phase < phases.length && Date.now() >= until) return false;
+      }
+      span = null; fill = null;
+      done = searcher(pos, count, lo, hi, dim, step, start, list);
+      return true;
+    }
+    return { work: work, grid: function () { return done; } };
+  }
+
+  // The ray grid built a slice at a time between frames (about `ms` ms
+  // each), starting at once, so a large model never holds the page up
+  // building it in one go; `done(grid)` gets it when it is finished, and
+  // `now()` finishes it there and then for a ray that can't wait.
+  function raysLater(pos, done, ms) {
+    var b = raysBuild(pos), timer = 0, slice = ms || 8;
+    function go() {
+      timer = 0;
+      if (b.work(Date.now() + slice)) done(b.grid());
+      else timer = setTimeout(go, 0);
+    }
+    timer = setTimeout(go, 0);
+    return {
+      now: function () {
+        if (timer) { clearTimeout(timer); timer = 0; }
+        if (!b.grid()) { b.work(Infinity); done(b.grid()); }
+        return b.grid();
+      },
+      cancel: function () { if (timer) clearTimeout(timer); timer = 0; }
+    };
+  }
+
+  // The finished ray grid's search.
+  function searcher(pos, count, lo, hi, dim, step, start, list) {
     function at(v, a) { return Math.max(0, Math.min(dim[a] - 1, Math.floor((v - lo[a]) / step[a]))); }
-    // Each triangle's span of cells, once: [x0, x1, y0, y1, z0, z1].
-    var span = new Int32Array(count * 6);
-    for (var e = 0; e < 3; e++) spanAxis(pos, span, count, e, lo[e], 1 / step[e], dim[e] - 1);
-    // Two passes: count each cell's triangles, then fill one flat list.
-    var nx = dim[0], nxy = dim[0] * dim[1];
-    var cells = nxy * dim[2], start = new Int32Array(cells + 1);
-    for (var g = 0; g < count; g++) {
-      var h = g * 6;
-      for (var z = span[h + 4]; z <= span[h + 5]; z++)
-        for (var y = span[h + 2]; y <= span[h + 3]; y++)
-          for (var x = span[h]; x <= span[h + 1]; x++) start[z * nxy + y * nx + x + 1]++;
-    }
-    for (var c = 0; c < cells; c++) start[c + 1] += start[c];
-    var list = new Int32Array(start[cells]), fill = start.slice(0, cells);
-    for (var t = 0; t < count; t++) {
-      var j = t * 6;
-      for (var zz = span[j + 4]; zz <= span[j + 5]; zz++)
-        for (var yy = span[j + 2]; yy <= span[j + 3]; yy++)
-          for (var xx = span[j]; xx <= span[j + 1]; xx++) list[fill[zz * nxy + yy * nx + xx]++] = t;
-    }
-    span = null;
     // Each triangle is tested once a ray, however many cells it spans.
     var seen = new Int32Array(count), stamp = 0;
 
@@ -480,6 +443,209 @@ var CadYamWalk = (function () {
       return (e2x * qx + e2y * qy + e2z * qz) / det;
     }
     return { nearest: nearest };
+  }
+
+  return { rays: rays, raysLater: raysLater, raysBuild: raysBuild, rayCells: rayCells, padBox: padBox, RAYS_CHUNK: RAYS_CHUNK };
+})();
+// The exported viewer's walk-through, apart from the page so it can be
+// run on its own: the floor under a spot and the app's `Walk::advance`.
+// Lengths are mm, angles degrees, times seconds.
+var CadYamWalk = (function () {
+  "use strict";
+  // The highest step up a walker takes without climbing onto a roof.
+  var STEP_UP = 600;
+
+  function approach(v, target, by) { return Math.abs(target - v) <= by ? target : v + by * Math.sign(target - v); }
+
+  // The walkable surfaces of a model (`pos`: each triangle's corners, Z-up):
+  // triangles facing up, bucketed by plan cell (one flat list of numbers,
+  // no strings or arrays per cell) so following the floor stays cheap
+  // every frame on a large site.
+  function ground(pos, size) {
+    var cell = Math.max(1000, size / 128);
+    var box = upSpans(pos, cell), b = planBuckets(box);
+    var gx0 = box.gx0, gy0 = box.gy0, nx = box.nx, ny = box.ny, start = b.start, list = b.list;
+    // The height of triangle `g` over plan point (x, y), or NaN where the
+    // point is outside it.
+    function heightOn(g, x, y) {
+      var q = g * 9;
+      var ax = pos[q], ay = pos[q + 1], bx = pos[q + 3], by = pos[q + 4], cx = pos[q + 6], cy = pos[q + 7];
+      var d = (by - cy) * (ax - cx) + (cx - bx) * (ay - cy);
+      if (!d) return NaN;
+      var l1 = ((by - cy) * (x - cx) + (cx - bx) * (y - cy)) / d;
+      var l2 = ((cy - ay) * (x - cx) + (ax - cx) * (y - cy)) / d;
+      var l3 = 1 - l1 - l2;
+      if (l1 < -1e-6 || l2 < -1e-6 || l3 < -1e-6) return NaN;
+      return l1 * pos[q + 2] + l2 * pos[q + 5] + l3 * pos[q + 8];
+    }
+    // The cell holding plan point (x, y), or -1 off the grid.
+    function cellAt(x, y) {
+      var cx = Math.floor(x / cell) - gx0, cy = Math.floor(y / cell) - gy0;
+      return cx < 0 || cy < 0 || cx >= nx || cy >= ny ? -1 : cy * nx + cx;
+    }
+    // Heights of the surfaces at plan point (x, y), up to the cutaway.
+    function surfaces(x, y, cut) {
+      var out = [], id = cellAt(x, y);
+      if (id < 0) return out;
+      for (var k = start[id]; k < start[id + 1]; k++) {
+        var z = heightOn(list[k], x, y);
+        if (z <= cut) out.push(z);
+      }
+      return out;
+    }
+    // The floor someone standing at `from` would stand on at (x, y): the
+    // highest surface no more than a step above it, so a slope or a deck
+    // carries them up but a roof or a ceiling doesn't. Called every frame
+    // of a walk, so it builds no list on the way.
+    function floorAt(x, y, from, cut) {
+      var best = null, id = cellAt(x, y);
+      if (id < 0) return from;
+      for (var k = start[id]; k < start[id + 1]; k++) {
+        var z = heightOn(list[k], x, y);
+        if (z <= cut && z <= from + STEP_UP && (best === null || z > best)) best = z;
+      }
+      return best === null ? from : best;
+    }
+    return { surfaces: surfaces, floorAt: floorAt };
+  }
+
+  // The triangles of `pos` facing up (within about 53° of level), each with
+  // the plan cells (`cell` mm square) it reaches: `up` holds
+  // [triangle, x0, x1, y0, y1] in turn; `gx0`, `gy0` is the lowest cell and
+  // `nx` by `ny` the cells from there that any of them reach (0 by 0 when
+  // none faces up).
+  function upSpans(pos, cell) {
+    var count = Math.floor(pos.length / 9);
+    var up = [], gx0 = Infinity, gy0 = Infinity, gx1 = -Infinity, gy1 = -Infinity;
+    for (var g = 0; g < count; g++) {
+      var q = g * 9;
+      var ux = pos[q + 3] - pos[q], uy = pos[q + 4] - pos[q + 1], uz = pos[q + 5] - pos[q + 2];
+      var vx = pos[q + 6] - pos[q], vy = pos[q + 7] - pos[q + 1], vz = pos[q + 8] - pos[q + 2];
+      var nz = ux * vy - uy * vx, l = Math.hypot(uy * vz - uz * vy, uz * vx - ux * vz, nz);
+      if (!l || Math.abs(nz / l) < 0.6) continue;
+      var x0 = Math.floor(Math.min(pos[q], pos[q + 3], pos[q + 6]) / cell), x1 = Math.floor(Math.max(pos[q], pos[q + 3], pos[q + 6]) / cell);
+      var y0 = Math.floor(Math.min(pos[q + 1], pos[q + 4], pos[q + 7]) / cell), y1 = Math.floor(Math.max(pos[q + 1], pos[q + 4], pos[q + 7]) / cell);
+      up.push(g, x0, x1, y0, y1);
+      if (x0 < gx0) gx0 = x0; if (x1 > gx1) gx1 = x1;
+      if (y0 < gy0) gy0 = y0; if (y1 > gy1) gy1 = y1;
+    }
+    var nx = up.length ? gx1 - gx0 + 1 : 0, ny = up.length ? gy1 - gy0 + 1 : 0;
+    return { up: up, gx0: gx0, gy0: gy0, nx: nx, ny: ny };
+  }
+
+  // The triangles of `upSpans`' answer bucketed by cell in two passes, as
+  // the ray grid does: count each cell's triangles, then fill one flat list.
+  // Cell `c`'s triangles are `list[start[c]]` to before `list[start[c + 1]]`.
+  function planBuckets(box) {
+    var up = box.up, gx0 = box.gx0, gy0 = box.gy0, nx = box.nx, cells = box.nx * box.ny;
+    var start = new Int32Array(cells + 1);
+    for (var i = 0; i < up.length; i += 5)
+      for (var cy = up[i + 3]; cy <= up[i + 4]; cy++)
+        for (var cx = up[i + 1]; cx <= up[i + 2]; cx++) start[(cy - gy0) * nx + (cx - gx0) + 1]++;
+    for (var c = 0; c < cells; c++) start[c + 1] += start[c];
+    var list = new Int32Array(start[cells]), fill = start.slice(0, cells);
+    for (var j = 0; j < up.length; j += 5)
+      for (var yy = up[j + 3]; yy <= up[j + 4]; yy++)
+        for (var xx = up[j + 1]; xx <= up[j + 2]; xx++) list[fill[(yy - gy0) * nx + (xx - gx0)]++] = up[j];
+    return { start: start, list: list };
+  }
+
+  // Move `walk` `ahead` mm forward and `aside` mm right, stepping onto the
+  // floor there (`floorAt(x, y, from)`): up a slope or a deck's step, down
+  // off an edge.
+  // Off the floor, the feet keep their height: the floor beneath is found
+  // from them, so they land on whatever is below (a deck, a roof, the ground).
+  function step(walk, ahead, aside, floorAt) {
+    var x = walk.at[0] + Math.cos(walk.yaw) * ahead + Math.sin(walk.yaw) * aside;
+    var y = walk.at[1] + Math.sin(walk.yaw) * ahead - Math.cos(walk.yaw) * aside;
+    var lift = walk.lift || 0, feet = walk.floor + lift;
+    walk.floor = floorAt(x, y, feet);
+    if (lift > 0 || walk.flying) walk.lift = Math.max(0, feet - walk.floor);
+    walk.at[0] = x; walk.at[1] = y;
+  }
+
+  // Whether the walker's feet are off the floor.
+  function airborne(walk) { return (walk.lift || 0) > 0 || !!walk.flying; }
+
+  // Back on the floor, the gaze no steeper than standing allows.
+  function land(walk, W) {
+    var lim = W.max_pitch * Math.PI / 180;
+    walk.lift = 0; walk.rise = 0; walk.flying = false;
+    walk.pitch = Math.max(-lim, Math.min(lim, walk.pitch));
+  }
+
+  // The app's `Walk::climb`: a tap of Space (`keys.jump`) hops, holding it
+  // (`keys.rise` 1) flies upward, letting go hovers, Shift+Space (`rise`
+  // -1) sinks, and a double-tap while flying drops back to the floor.
+  function climb(walk, keys, dt, W) {
+    dt = Math.max(0, Math.min(W.max_dt, dt));
+    var rise = keys.rise || 0;
+    walk.lift = walk.lift || 0; walk.rise = walk.rise || 0; walk.heldFor = walk.heldFor || 0;
+    walk.sinceTap = (walk.sinceTap === undefined ? Infinity : walk.sinceTap) + dt;
+    if (keys.jump) {
+      if (walk.flying && walk.sinceTap < W.double_tap) {
+        walk.flying = false;
+        walk.heldFor = -W.hold_to_fly;
+      } else {
+        if (!airborne(walk) && rise > 0) walk.rise = W.jump_speed;
+        walk.heldFor = 0;
+      }
+      walk.sinceTap = 0;
+    } else if (rise) {
+      walk.heldFor += dt;
+    } else {
+      walk.heldFor = 0;
+    }
+    if (!walk.flying && rise > 0 && walk.heldFor >= W.hold_to_fly) walk.flying = true;
+    var r0 = walk.rise;
+    if (walk.flying) walk.rise = approach(r0, W.fly_rise * rise, W.fly_rise / W.ease * dt);
+    else if (airborne(walk) || r0 > 0) walk.rise = r0 - W.gravity * dt;
+    walk.lift += (r0 + walk.rise) / 2 * dt;
+    if (walk.lift >= W.max_lift) { walk.lift = W.max_lift; walk.rise = Math.min(walk.rise, 0); }
+    if (walk.lift <= 0 && walk.rise <= 0) land(walk, W);
+  }
+
+  // Whether the walker is still rising, falling or easing in the air.
+  function inAir(walk) { return !!walk.rise || ((walk.lift || 0) > 0 && !walk.flying); }
+
+  // The app's `Walk::advance` (pace `W`): ease the walking and turning
+  // speeds toward what the keys ask for over real time, then move. `pace`
+  // scales the walking speed (and how fast it is reached) for a big site.
+  // A frame slower than the app's longest step (`W.max_dt`) is taken as
+  // several steps, so a hitch covers the ground its time would have and
+  // the walker goes the same distance a second at any frame rate. Only a
+  // real stall (a background tab) past `CATCH_UP` s is let go.
+  function advance(walk, keys, dt, W, pace, floorAt) {
+    dt = Math.max(0, Math.min(CATCH_UP, dt));
+    var first = true;
+    do {
+      var part = Math.min(W.max_dt, dt);
+      advanceOnce(walk, first ? keys : again(keys), part, W, pace, floorAt);
+      dt -= part;
+      first = false;
+    } while (dt > 1e-9);
+  }
+  // How long a stalled frame is still caught up, s.
+  var CATCH_UP = 0.5;
+  // The keys a catch-up step holds: the same, but a tap of Space is read once.
+  function again(keys) {
+    var k = {};
+    for (var name in keys) k[name] = keys[name];
+    k.jump = false;
+    return k;
+  }
+  function advanceOnce(walk, keys, dt, W, pace, floorAt) {
+    climb(walk, keys, dt, W);
+    dt = Math.max(0, Math.min(W.max_dt, dt));
+    var speed = (keys.slow ? W.slow_speed : W.speed) * pace, rate = keys.slow ? W.fine_turn_rate : W.turn_rate;
+    var len = Math.hypot(keys.ahead, keys.aside), k = len > 1 ? speed / len : speed;
+    var accel = W.speed * pace / W.ease * dt;
+    var v0 = walk.velocity;
+    walk.velocity = [approach(v0[0], keys.ahead * k, accel), approach(v0[1], keys.aside * k, accel)];
+    var spin0 = walk.spin;
+    walk.spin = approach(spin0, keys.turn * rate, W.turn_rate / W.ease * dt);
+    walk.yaw -= (spin0 + walk.spin) / 2 * dt * Math.PI / 180;
+    step(walk, (v0[0] + walk.velocity[0]) * dt / 2, (v0[1] + walk.velocity[1]) * dt / 2, floorAt);
   }
 
   // Corners to fit a camera to: every vertex of a small model; of a large
@@ -582,9 +748,17 @@ var CadYamWalk = (function () {
       : "Arrow keys or W A S D to walk · drag to look · Space to climb · Esc for the dollhouse";
   }
 
-  return { STEP_UP: STEP_UP, approach: approach, ground: ground, rays: rays, outline: outline, step: step, advance: advance, climb: climb, airborne: airborne, inAir: inAir, land: land,
+  // What the Options menu calls start `s`, one of `count`: plain "Start
+  // inside" for a site with one building to go into, else that building's
+  // name too.
+  function startLabel(s, count) {
+    return count > 1 ? "Start inside " + s.name : "Start inside";
+  }
+
+  // The ray grid lives in html_walk_rays.js (written in just ahead of this).
+  return { STEP_UP: STEP_UP, approach: approach, ground: ground, upSpans: upSpans, planBuckets: planBuckets, rays: CadYamRays.rays, raysLater: CadYamRays.raysLater, outline: outline, step: step, advance: advance, CATCH_UP: CATCH_UP, climb: climb, airborne: airborne, inAir: inAir, land: land,
     underRoof: underRoof, startHeight: startHeight, SHELTER_REACH: SHELTER_REACH, sheltered: sheltered, shelterCache: shelterCache, FILL_EASE: FILL_EASE, fillToward: fillToward,
-    STOP_REACH: STOP_REACH, tourStop: tourStop, hintText: hintText };
+    STOP_REACH: STOP_REACH, tourStop: tourStop, hintText: hintText, startLabel: startLabel };
 })();
 // The exported viewer's pin geometry, apart from the page so it can be run
 // on its own: what a pin covers, and its paths in the plan and over the
@@ -1161,6 +1335,19 @@ var CadYamModelView = (function () {
     return { nrm: nrm, rgb: rgb, ids: ids, pats: pats, phs: phs, prs: prs };
   }
 
+  // The stretches of triangles whose pattern is `code`, as [first corner,
+  // corner count] pairs to draw: a pass for one finish (the page's glass)
+  // draws just those, not the whole model.
+  function runsOf(pat, code) {
+    var runs = [], start = -1;
+    for (var t = 0; t <= pat.length; t++) {
+      var hit = t < pat.length && pat[t] === code;
+      if (hit && start < 0) start = t;
+      if (!hit && start >= 0) { runs.push([start * 3, (t - start) * 3]); start = -1; }
+    }
+    return runs;
+  }
+
   // Added to a corner's phase to keep it whole through the cutaway: the
   // shaders read a phase of WHOLE or more as uncut.
   var WHOLE = 4;
@@ -1441,9 +1628,11 @@ var CadYamModelView = (function () {
   }
 
   // The Floors switch's buttons: Outside, then each floor by name —
-  // Ground floor and Upstairs for two, Floor N past that.
+  // Inside for a one-storey house, Ground floor and Upstairs for two,
+  // Floor N past that.
   function floorNames(levels) {
     return ["Outside"].concat(levels.map(function (z, i) {
+      if (levels.length === 1) return "Inside";
       return i === 0 ? "Ground floor" : levels.length === 2 ? "Upstairs" : "Floor " + (i + 1);
     }));
   }
@@ -1494,7 +1683,7 @@ var CadYamModelView = (function () {
 
   return {
     sub: sub, cross: cross, norm: norm, dot: dot, basis: basis,
-    bounds: bounds, corners: corners, cornerRgb: cornerRgb, WHOLE: WHOLE, keepWhole: keepWhole, smoothNormals: smoothNormals, flatNormal: flatNormal,
+    bounds: bounds, corners: corners, runsOf: runsOf, cornerRgb: cornerRgb, WHOLE: WHOLE, keepWhole: keepWhole, smoothNormals: smoothNormals, flatNormal: flatNormal,
     home: home, orbitDir: orbitDir, eye: eye, forward: forward, lens: lens, clip: clip,
     viewMatrix: viewMatrix, lightMatrix: lightMatrix, frame: frame,
     rayDir: rayDir, depthAnchor: depthAnchor, clearance: clearance, pickPixel: pickPixel, pickedId: pickedId,
@@ -2020,8 +2209,9 @@ var CadYamAssembly = (function () {
   // The Floors switch, on the view itself rather than in a menu so a
   // visitor sees at once that they can look inside: a pill of `names`
   // (Outside first), the picked one lit. Picking button k calls
-  // `pick(k - 1)` (-1 for Outside); Outside starts picked.
-  function floorSwitch(names, pick) {
+  // `pick(k - 1)` (-1 for Outside); button `start` (Outside, 0, unless
+  // told) starts picked.
+  function floorSwitch(names, pick, start) {
     var box = el("div", { id: "floor-switch", role: "group", "aria-label": "See inside one floor" });
     var buttons = names.map(function (name, k) {
       var b = el("button", { type: "button", "data-floor": String(k - 1) }, name);
@@ -2033,7 +2223,7 @@ var CadYamAssembly = (function () {
       buttons.forEach(function (b, j) { b.classList.toggle("on", j === k); });
       pick(k - 1);
     }
-    choose(0);
+    choose(start || 0);
     return box;
   }
   // Each view's one Options button, opening a list of its settings.
@@ -2566,6 +2756,16 @@ var CadYamAssembly = (function () {
   // Jewellery's studio light: html_viewer_jewel.glsl, written into
   // JEWEL_GLSL the same way.
   var JEWEL = JEWEL_GLSL;
+  // Glass and the day's share of the sky, as the app's HD walk draws them:
+  // html_viewer_daylight.glsl, written into DAYLIGHT_GLSL the same way.
+  var DAYLIGHT = DAYLIGHT_GLSL;
+  // The pattern byte html_scene.rs gives glass (GLASS_CODE).
+  var GLASS_PAT = 29;
+  // A vertex shader's last line: the corner at `pos` while `keep` holds,
+  // else past the far plane, so the triangle is wholly clipped.
+  function clipUnless(keep, pos) {
+    return " gl_Position=(" + keep + ") ? " + pos + " : vec4(2.0,2.0,2.0,1.0); }";
+  }
   var model = make3d();
 
   // ── Show (renovations) ──────────────────────────────────────────────
@@ -2631,7 +2831,7 @@ var CadYamAssembly = (function () {
   // gl3d_shared.js, shared with Data Stories' 3D views). Every program
   // reads its corners from location 0 and phases from 1.
   function glProgram(gl, vs, fs) {
-    return CadYamGl3d.program(gl, vs, fs, { aPos: 0, aPh: 1 });
+    return CadYamGl3d.program(gl, vs, fs, { aPos: 0, aPh: 1, aPat: 2 });
   }
 
   // The model's two programs: `prog` draws it lit, shadowed, tinted and
@@ -2641,7 +2841,7 @@ var CadYamAssembly = (function () {
     var prog = glProgram(gl,
       "in vec3 aPos; in vec3 aNrm; in vec3 aCol; in float aId; in float aPat; in float aPh; in float aPrint;\n" +
       "in float aSky; in vec3 aLamp; in vec4 aGlow; in vec2 aMap;\n" +
-      "uniform mat4 uMvp; uniform mat4 uLight; uniform vec3 uSun; uniform float uTexel;\n" +
+      "uniform mat4 uMvp; uniform mat4 uLight; uniform vec3 uSun; uniform float uTexel; uniform int uGlass;\n" +
       "out vec3 vNrm; out vec3 vCol; out float vId; out vec3 vWorld; out vec4 vShadow; flat out int vPat; flat out int vPh;\n" +
       "flat out int vPrint; flat out int vWhole; out float vSky; out vec3 vLamp; out vec4 vGlow; out vec2 vMap;\n" +
       // A phase of 4 or more is a plant's: kept whole by the cutaway, which
@@ -2651,7 +2851,9 @@ var CadYamAssembly = (function () {
       // Looked up a texel or two off the face toward the sun, so a face doesn't shadow itself.
       " vec3 toward=aNrm*(dot(aNrm,uSun)<0.0 ? -1.0 : 1.0);\n" +
       " vShadow=uLight*vec4(aPos+toward*uTexel*1.5,1.0);\n" +
-      " gl_Position=uMvp*vec4(aPos,1.0); }",
+      // Glass (pattern 20) is drawn on its own, see-through, once the rest
+      // is down (uGlass 1); every other pass leaves it out.
+      clipUnless("(vPat==" + GLASS_PAT + ")==(uGlass==1)", "uMvp*vec4(aPos,1.0)"),
       "in vec3 vNrm; in vec3 vCol; in float vId; in vec3 vWorld; in vec4 vShadow; flat in int vPat; flat in int vPh; flat in int vWhole;\n" +
       "uniform vec3 uSun; uniform float uCut; uniform float uSel; uniform int uPick; uniform float uFill;\n" +
       // Baked interior light (html_scene.rs): how much sky each point sees,
@@ -2659,11 +2861,17 @@ var CadYamAssembly = (function () {
       // window), mixed by the time of day; the sky's and sun's colour then,
       // and the moon's cool fill at night.
       "in float vSky; in vec3 vLamp; in vec4 vGlow; uniform int uLit; uniform vec3 uMood;\n" +
-      "uniform vec3 uSkyTint; uniform vec3 uSunTint; uniform vec3 uMoon;\n" +
+      "uniform vec3 uSkyTint; uniform vec3 uSunTint; uniform vec3 uMoon; uniform float uLampKnee; uniform vec3 uSkyCol;\n" +
       // A big face's baked light comes from the light map instead, a
       // picture laid over it (lighting/atlas.rs): lamplight in its top
       // half, the sky seen in its bottom half; vMap.x < 0 off the map.
       "in vec2 vMap; uniform sampler2D uLightMap; uniform int uMapOn; uniform float uLampScale;\n" +
+      // The lamps' light as the time of day shows it, as Lighting::lamp_seen
+      // (view/lighting.rs): faint lamplight reads near white once the eye
+      // has adjusted to it (uLampKnee > 0, dusk); strong lamplight keeps
+      // its warmth.
+      "vec3 lampSeen(vec3 lp){ if (uLampKnee<=0.0) return lp;\n" +
+      " float lu=dot(lp,vec3(0.2126,0.7152,0.0722)); return mix(vec3(lu),lp,lu/(lu+uLampKnee)); }\n" +
       // How open each pixel is to the sky, from the occlusion pass
       // (CadYamGl3d.ao), and the canvas size to look it up by.
       "uniform sampler2D uAo; uniform int uAoOn; uniform vec2 uView;\n" +
@@ -2684,8 +2892,9 @@ var CadYamAssembly = (function () {
       "out vec4 o;\n" + FINISH + CadYamGl3d.LIGHT_GLSL +
       "float sunlit(vec3 n){ if (uShadows==0) return 1.0; return sunlit_at(uShadowMap, vShadow, n, uSun); }\n" +
       // Where the camera is, for jewellery's reflections and cloth's sheen;
-      // then jewellery's studio light (html_viewer_jewel.glsl).
-      "uniform vec3 uEye;\n" + JEWEL +
+      // then jewellery's studio light (html_viewer_jewel.glsl), and glass
+      // and the day's share of the sky (html_viewer_daylight.glsl).
+      "uniform vec3 uEye;\n" + JEWEL + DAYLIGHT +
       "void main(){ if ((vWorld.z > uCut && vWhole==0) || uShow[vPh] < 0.5) discard;\n" +
       " if (uPick==1) { float i=vId; o=vec4(mod(i,256.0),mod(floor(i/256.0),256.0),floor(i/65536.0),255.0)/255.0; return; }\n" +
       " vec3 n=normalize(gl_FrontFacing ? vNrm : -vNrm);\n" +
@@ -2695,15 +2904,17 @@ var CadYamAssembly = (function () {
       " if (vPat>=30 && vPat<=40) { vec3 j=jewel(vPat,base,n,normalize(uEye-vWorld),lit)*mix(0.55,1.0,open);\n" +
       "  if (uSel>0.0 && abs(vId-uSel)<0.5) j=mix(j,vec3(1.0,0.48,0.0),0.55);\n" +
       "  o=vec4(j,1.0); return; }\n" +
-      " vec3 c=shade(base,n,uSun,lit); float skyK=1.0;\n" +
+      // Glass, as the app's HD view draws it (html_viewer_daylight.glsl).
+      " if (vPat==" + GLASS_PAT + ") { o=glass(base,n,normalize(uEye-vWorld),lit,open); return; }\n" +
+      " vec3 c=shade(base,n,uSun,lit); float skyK=1.0; float dayK=day_share(uMood);\n" +
       // Lit rooms: the sky's share as much as each point sees of it, the
       // sun as the time of day lets it, each in its colour then, the lamps'
       // own light, and at night the moon's faint fill on what sees the sky.
       " float bSky=vSky; vec3 bLamp=vLamp;\n" +
       " if (uMapOn==1 && vMap.x>=0.0) { bLamp=texture(uLightMap, vec2(vMap.x, vMap.y*0.5)).rgb*(255.0/uLampScale);\n" +
       "  bSky=texture(uLightMap, vec2(vMap.x, 0.5+vMap.y*0.5)).r; }\n" +
-      " if (uLit==1) { skyK=bSky*uMood.x; float d=max(dot(n,uSun),0.0); float up=0.5+0.5*n.z;\n" +
-      "  c=base*((0.38+0.22*up)*skyK*uSkyTint+0.55*d*(uSun.z>0.0 ? lit : 0.0)*uMood.y*uSunTint)+base*bLamp*uMood.z\n" +
+      " if (uLit==1) { skyK=max(bSky,uFill*dayK)*uMood.x; float d=max(dot(n,uSun),0.0); float up=0.5+0.5*n.z;\n" +
+      "  c=base*((0.38+0.22*up)*skyK*uSkyTint+0.55*d*(uSun.z>0.0 ? lit : 0.0)*uMood.y*uSunTint)+base*lampSeen(bLamp*uMood.z)\n" +
       "   +base*uMoon*bSky*(0.6+0.4*up); }\n" +
       // The sky's fill reaches less into folds, creases and corners
       // (most of the darkening), and a little less sun gets in there too.
@@ -2717,8 +2928,8 @@ var CadYamAssembly = (function () {
       // Indoors (walking under a roof or ceiling) the sun and sky reach
       // only through openings; light bounced round the room fills it,
       // most on the ceiling, which only bounced light reaches.
-      // (Baked light already holds that bounce, so a lit room skips it.)
-      " if (uLit==0) c+=base*uFill*(0.34-0.12*(0.5+0.5*n.z));\n" +
+      // (Baked light holds that bounce, so a lit room takes it only by day.)
+      " c+=base*uFill*(uLit==0 ? 1.0 : dayK)*(0.34-0.12*(0.5+0.5*n.z));\n" +
       " c*=pattern_light(vPat,vWorld,vNrm)*contact_light(vWorld,vNrm);\n" +
       // A lit lamp's shade glows: faint by day, full at night. A lit
       // room's window glows as the sky darkens past its lamps: not by day.
@@ -2729,8 +2940,11 @@ var CadYamAssembly = (function () {
       " o=vec4(c,1.0); }");
     var depthProg = glProgram(gl,
       // A phase of 4 or more is a plant's, kept whole by the cutaway.
-      "in vec3 aPos; in float aPh; uniform mat4 uLight; out float vZ; flat out int vPh;\n" +
-      "void main(){ int p=int(aPh+0.5); vZ=p>=4 ? -1e9 : aPos.z; vPh=p-4*(p/4); gl_Position=uLight*vec4(aPos,1.0); }",
+      // Glass (pattern 20) casts no shadow and hides nothing from the sky,
+      // as in the app's HD view: the sun reaches the floor through a window.
+      "in vec3 aPos; in float aPh; in float aPat; uniform mat4 uLight; out float vZ; flat out int vPh;\n" +
+      "void main(){ int p=int(aPh+0.5); vZ=p>=4 ? -1e9 : aPos.z; vPh=p-4*(p/4);\n" +
+      clipUnless("int(aPat+0.5)!=" + GLASS_PAT, "uLight*vec4(aPos,1.0)"),
       "in float vZ; flat in int vPh; uniform float uCut; uniform vec3 uShow; out vec4 o;\n" +
       "void main(){ if (vZ > uCut || uShow[vPh] < 0.5) discard; o=vec4(1.0); }");
     return { prog: prog, depthProg: depthProg };
@@ -2764,7 +2978,10 @@ var CadYamAssembly = (function () {
       gl.texSubImage3D(gl.TEXTURE_2D_ARRAY, 0, 0, 0, i, tpx, tpx, 1, gl.RGBA, gl.UNSIGNED_BYTE, bytes(tile.rgba));
       printAt.set([tile.along, tile.across, tile.cos, tile.sin], i * 4);
     });
-    gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    // A mip chain, so a fine weave seen from afar averages to its colour
+    // instead of aliasing into moiré ripples.
+    gl.generateMipmap(gl.TEXTURE_2D_ARRAY);
+    gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
     gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.activeTexture(gl.TEXTURE0);
     gl.uniform1i(U.uPrints, 2);
@@ -2790,12 +3007,14 @@ var CadYamAssembly = (function () {
     }
     // The scene drawn: the page's own, or a Fashion size the Size switch
     // picked; a dress form's body and stand left out while it is hidden.
-    var pos, col, own, pat, tph, prn, cc, n, mesh, baked;
+    // `glass`: the stretches of glass triangles, drawn in a pass of their own.
+    var pos, col, own, pat, tph, prn, cc, n, mesh, baked, glass;
     var shownScene = data.scene, formShown = true;
     function unpack(sc) {
       var t = CadYamFashion.triangles(sc, bytes, formShown);
       pos = t.pos; col = t.col; own = t.own; pat = t.pat; tph = t.tph; prn = t.prn; cc = t.cc;
       n = pos.length / 3;
+      glass = V.runsOf(pat, GLASS_PAT);
       // Trees and plants stand whole through the cutaway (see the shaders).
       mesh = V.keepWhole(V.corners(pos, col, own, pat, tph, prn, cc), function (id) {
         var whose = entities[String(id)];
@@ -2880,7 +3099,7 @@ var CadYamAssembly = (function () {
       upload();
       uploadPrints(gl, (sc && sc.printTiles) || data.scene.printTiles || [], U);
       uploadLightMap(sc && sc.light);
-      rayGrid = null;
+      buildRays();
       shadowKey = null;
       redraw();
     }
@@ -2891,7 +3110,8 @@ var CadYamAssembly = (function () {
       mesh = V.corners(pos, col, own, pat, tph, prn, cc);
       gl.useProgram(prog);
       upload();
-      rayGrid = null;
+      // A pose a frame: the grid is built again only when a ray needs it.
+      dropRays();
       shadowKey = null;
       redraw();
     }
@@ -2933,7 +3153,7 @@ var CadYamAssembly = (function () {
     var U = {};
     ["uMvp", "uSun", "uCut", "uSel", "uPick", "uLight", "uTexel", "uShadows", "uShadowMap", "uFloor", "uHasFloor",
       "uShow", "uTintOn", "uTint", "uTintK", "uPrints", "uPrintAt", "uFill", "uEye", "uAo", "uAoOn", "uView",
-      "uLit", "uMood", "uSkyTint", "uSunTint", "uMoon", "uLightMap", "uMapOn", "uLampScale"].forEach(function (u) {
+      "uLit", "uMood", "uSkyTint", "uSunTint", "uMoon", "uLampKnee", "uLightMap", "uMapOn", "uLampScale", "uGlass", "uSkyCol"].forEach(function (u) {
       U[u] = gl.getUniformLocation(prog, u);
     });
     var D = {
@@ -2986,8 +3206,11 @@ var CadYamAssembly = (function () {
     function drawShadows(sun, light) {
       // A phase the Show switch hides casts no shadow.
       var key = sun.join() + "|" + cut + "|" + phaseShow.join();
+      // The sun stands still while the camera moves, so a walk or an orbit
+      // draws this once, not once a frame.
       if (key === shadowKey) return;
       shadowKey = key;
+      var bound = gl.getParameter(gl.FRAMEBUFFER_BINDING);
       gl.bindFramebuffer(gl.FRAMEBUFFER, shadowFb);
       gl.viewport(0, 0, SHADOW, SHADOW);
       gl.clear(gl.DEPTH_BUFFER_BIT);
@@ -3000,7 +3223,7 @@ var CadYamAssembly = (function () {
       gl.drawArrays(gl.TRIANGLES, 0, n);
       gl.disable(gl.POLYGON_OFFSET_FILL);
       gl.useProgram(prog);
-      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, bound);
     }
 
     // Walking sees W.fov side to side; the dollhouse 45° across the narrower side.
@@ -3059,19 +3282,45 @@ var CadYamAssembly = (function () {
     // the model below the cutaway (Infinity if it never does).
     // Only the triangles in the cells the ray crosses are tried (see
     // html_walk.js); `far` stops the search past that distance.
-    var rayGrid = null;
+    // The grid is built a slice at a time between frames from soon after
+    // the first picture (buildRays), so walking never waits on it; a ray
+    // wanted before then finishes it at once.
+    var rayGrid = null, rayBuild = null;
+    function buildRays() {
+      dropRays();
+      rayBuild = CadYamWalk.raysLater(pos, function (g) { rayGrid = g; });
+    }
+    function dropRays() {
+      if (rayBuild) rayBuild.cancel();
+      rayBuild = null;
+      rayGrid = null;
+    }
     function nearest(o, d, far) {
-      if (!rayGrid) rayGrid = CadYamWalk.rays(pos);
+      if (!rayGrid) {
+        if (!rayBuild) buildRays();
+        rayGrid = rayBuild.now();
+      }
       return rayGrid.nearest(o, d, cut, far);
     }
     // Walking with something overhead within a storey: under a roof or a
     // ceiling, where the room is lit by bounced light, not open sky. The
-    // ray is cast once per spot (CadYamWalk.shelterCache).
+    // ray is cast once per spot (CadYamWalk.shelterCache). A page with
+    // baked light already holds that bounce at dusk and night, so its rooms
+    // need no fill then: no ray, and no frames easing a fill the shader
+    // would skip. By day a baked room takes the fill (day_share), so it is
+    // never darker than daylight leaves an unbaked one.
     var shelter = CadYamWalk.shelterCache();
-    function indoors() { return walk.on && shelter(eye(), cut, nearest); }
+    function indoors() { return walk.on && (!baked.on || mood === "day") && shelter(eye(), cut, nearest); }
     // The bounced-light fill the model is drawn with: 0 outside, 1 indoors,
     // eased between by the walk's frames (see tick in html_viewer_3d_input.js).
+    // The dollhouse has none. With the roof on, its orbit never sees inside.
+    // Its roof toggles (Cutaway, Floors) cut the roof from the shadow pass
+    // too, so the rooms they open stand in the sun and sky; a fill would
+    // over-light them.
     var fill = 0;
+    // Whether the walk's frames are still coming (set by tick in
+    // html_viewer_3d_input.js): the view is drawn lighter until it stops.
+    var walkMoving = false;
     function fillSettled() { return fill === (indoors() ? 1 : 0); }
     // True when the model hides world point `at` from `from`: something
     // stands clearly nearer along the line between them.
@@ -3183,12 +3432,15 @@ var CadYamAssembly = (function () {
     }
     // The whole scene at each time of day as lit rooms show it — the sky
     // behind the model, the colour of the sky's light and the sun's, and
-    // the moon's fill — always day's when the rooms aren't lit.
+    // the moon's fill — always day's when the rooms aren't lit. `lampKnee`
+    // is how strong lamplight is where it keeps half its warm colour (0:
+    // all of it), as Lighting::lamp_seen: at dusk a room keeps its own
+    // colours away from its lamps (crates/cad-core/src/view/lighting.rs).
     function skyNow() {
       var SKIES = {
-        day: { sky: [0.86, 0.91, 0.96], skyTint: [1, 1, 1], sunTint: [1, 1, 1], moon: [0, 0, 0] },
-        dusk: { sky: [0.88, 0.64, 0.52], skyTint: [1.7, 1.45, 1.6], sunTint: [2.4, 1.3, 0.65], moon: [0, 0, 0] },
-        night: { sky: [0.05, 0.07, 0.15], skyTint: [0.7, 0.8, 1.0], sunTint: [1, 1, 1], moon: [0.07, 0.09, 0.16] }
+        day: { sky: [0.86, 0.91, 0.96], skyTint: [1, 1, 1], sunTint: [1, 1, 1], moon: [0, 0, 0], lampKnee: 0 },
+        dusk: { sky: [0.88, 0.64, 0.52], skyTint: [1.45, 1.52, 1.66], sunTint: [2.4, 1.3, 0.65], moon: [0, 0, 0], lampKnee: 0.6 },
+        night: { sky: [0.05, 0.07, 0.15], skyTint: [0.7, 0.8, 1.0], sunTint: [1, 1, 1], moon: [0.07, 0.09, 0.16], lampKnee: 0 }
       };
       return (baked.on && SKIES[mood]) || SKIES.day;
     }
@@ -3199,6 +3451,18 @@ var CadYamAssembly = (function () {
       var h = Math.hypot(s[0], s[1]) || 1, low = 0.14;
       return [s[0] / h * Math.cos(low), s[1] / h * Math.cos(low), Math.sin(low)];
     }
+    // The glass over the rest once it is down, see-through: blended, hiding
+    // nothing behind it, the canvas kept opaque. Only the glass triangles
+    // are drawn, so a walked frame costs barely more than the model.
+    function drawGlass() {
+      gl.uniform1i(U.uGlass, 1);
+      gl.enable(gl.BLEND);
+      gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ZERO, gl.ONE);
+      gl.depthMask(false);
+      glass.forEach(function (r) { gl.drawArrays(gl.TRIANGLES, r[0], r[1]); });
+      gl.depthMask(true);
+      gl.disable(gl.BLEND);
+    }
     function draw(pick) {
       var w = canvas.clientWidth, h = canvas.clientHeight;
       if (!w || !h) return;
@@ -3207,17 +3471,15 @@ var CadYamAssembly = (function () {
       // A sun below the horizon casts nothing.
       var casting = shadows && sun[2] > 0;
       var light = new Float32Array(V.lightMatrix(sun, centre, radius));
-      if (casting && !pick) {
-        var bound = gl.getParameter(gl.FRAMEBUFFER_BINDING);
-        drawShadows(sun, light);
-        gl.bindFramebuffer(gl.FRAMEBUFFER, bound);
-      }
+      if (casting && !pick) drawShadows(sun, light);
       var dpr = window.devicePixelRatio || 1;
       if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
         canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
       }
       var mvp = new Float32Array(matrix(w, h));
-      var aoOn = !pick && renderAo(mvp);
+      // Mid-walk the occlusion is left out: it is a second pass over every
+      // triangle each frame, and the walk's last, still frame puts it back.
+      var aoOn = !pick && !walkMoving && renderAo(mvp);
       gl.uniform1i(U.uAoOn, aoOn ? 1 : 0);
       gl.uniform2f(U.uView, canvas.width, canvas.height);
       gl.viewport(0, 0, canvas.width, canvas.height);
@@ -3244,11 +3506,16 @@ var CadYamAssembly = (function () {
       gl.uniform3fv(U.uSkyTint, skies.skyTint);
       gl.uniform3fv(U.uSunTint, skies.sunTint);
       gl.uniform3fv(U.uMoon, skies.moon);
+      gl.uniform1f(U.uLampKnee, skies.lampKnee);
       gl.uniform3fv(U.uShow, phaseShow);
       gl.uniform3fv(U.uTintOn, tintOn);
       gl.uniform3fv(U.uTint, tints);
       gl.uniform1f(U.uTintK, tintK);
+      gl.uniform3fv(U.uSkyCol, bg);
+      gl.uniform1i(U.uGlass, 0);
       gl.drawArrays(gl.TRIANGLES, 0, n);
+      // A pick goes through glass to what's beyond.
+      if (glass.length && !pick) drawGlass();
       if (!pick) {
         placePins(w, h);
         modelZoom.update();
@@ -3530,15 +3797,24 @@ var CadYamAssembly = (function () {
     pad.addEventListener("pointercancel", padRelease);
     window.addEventListener("keyup", function (ev) { delete held[ev.key.toLowerCase()]; if (ev.key === "Shift") delete held.shift; });
     window.addEventListener("blur", function () { held = {}; });
+    // Whether the walk wants another frame: a key held, or the walker (or
+    // the indoor light) still easing toward rest.
+    function walkGoing(keys) {
+      var moving = walk.velocity[0] || walk.velocity[1] || walk.spin || CadYamWalk.inAir(walk) || !fillSettled();
+      return walk.on && !!(keys.ahead || keys.aside || keys.turn || keys.rise || moving);
+    }
     function tick(now) {
       var dt = last ? (now - last) / 1000 : 0;
       last = now;
       var keys = keysHeld();
       advance(keys, dt);
       fill = CadYamWalk.fillToward(fill, indoors(), dt);
+      var going = walkGoing(keys);
+      // Frames still to come are drawn without the occlusion pass; the last
+      // one, standing still, with it.
+      walkMoving = going;
       draw(false);
-      var moving = walk.velocity[0] || walk.velocity[1] || walk.spin || CadYamWalk.inAir(walk) || !fillSettled();
-      if (walk.on && (keys.ahead || keys.aside || keys.turn || keys.rise || moving)) {
+      if (going) {
         requestAnimationFrame(tick);
       } else {
         looping = false;
@@ -3597,6 +3873,7 @@ var CadYamAssembly = (function () {
       walk.pitch = 0; walk.velocity = [0, 0]; walk.spin = 0; walk.lift = 0; walk.flying = false;
       CadYamWalk.land(walk, W);
       walk.on = true; spaceFlies = true;
+      walkCut();
       setPlacing(false);
       hint();
       redraw();
@@ -3618,6 +3895,7 @@ var CadYamAssembly = (function () {
     var walkButton = action(tools, "Walk through", function (b) {
       if (walk.on) {
         walk.on = false; spaceFlies = false;
+        walkCut();
         showWalkButton();
         redraw();
         return;
@@ -3625,6 +3903,16 @@ var CadYamAssembly = (function () {
       setPlacing(!placing);
       // Out of the way of the click that places the walker.
       if (placing) b.closest("details").open = false;
+    });
+    // Start inside: in through a building's front door, so a walk can
+    // begin in rooms the roof hides from a click (one per building with a
+    // floor plan, named when there are several).
+    var starts = data.starts || [];
+    starts.forEach(function (s) {
+      action(tools, CadYamWalk.startLabel(s, starts.length), function (b) {
+        standAt([s.at[0], s.at[1], 0], floorAt(s.at[0], s.at[1], s.from), s.yaw);
+        b.closest("details").open = false;
+      });
     });
     // How fast walking goes: the app's pace, or quicker across a big site.
     var speed = el("select", { title: "Walking speed (hold Shift to go slow; Space jumps, hold it to fly upward)" });
@@ -3635,22 +3923,37 @@ var CadYamAssembly = (function () {
     // A building with two or more floors gets a Floors switch: Outside, or
     // one floor at a time — the roof and everything above that floor taken
     // off the building (trees stay whole) and the view brought in on it —
-    // so its rooms show without walking. It stands in for the cutaway.
+    // so its rooms show without walking. It stands in for the cutaway. A
+    // one-storey house the export says has a roof or ceilings over it gets
+    // Outside | Inside; an interior's page opens on Inside, looking in.
     var levels = floorLevels();
-    var floorPick = levels.length >= 2 ? floorSwitch(V.floorNames(levels), showFloor) : null;
+    var toldFloors = !!(shownScene && shownScene.floors && shownScene.floors.length);
+    var oneStorey = levels.length === 1 && toldFloors;
+    var floorShown = -1, opening = true;
+    var startFloor = oneStorey && shownScene.opensInside ? 1 : 0;
+    var floorPick = levels.length >= 2 || oneStorey
+      ? floorSwitch(V.floorNames(levels), showFloor, startFloor) : null;
+    opening = false;
     if (floorPick) {
       section.appendChild(floorPick);
       // The walk prompt sits under the switch rather than on it.
       prompt.style.top = "52px";
     }
+    // The height the model is cut at for the floor shown: walking through
+    // a one-storey house keeps its ceiling, which Inside lifts off to look
+    // in from above.
+    function floorCutNow() {
+      if (floorShown < 0 || (walk.on && oneStorey)) return V.cutHeight(false, floor, hi[2]);
+      return V.floorCut(levels, floorShown);
+    }
     // Show floor `i` of `levels` with everything above it cut away and the
     // view brought in over the building at a downward angle; or, for -1,
-    // the whole model from outside.
+    // the whole model from outside. The page opening on a floor keeps its
+    // own framing, the whole house in view.
     function showFloor(i) {
-      if (i < 0) {
-        cut = V.cutHeight(false, floor, hi[2]);
-      } else {
-        cut = V.floorCut(levels, i);
+      floorShown = i;
+      cut = floorCutNow();
+      if (i >= 0 && !opening) {
         var b = V.planBox(own, pos, data.entities || {});
         if (b && !walk.on) {
           framePin(V.boxPin(b, levels[i], 900));
@@ -3659,6 +3962,13 @@ var CadYamAssembly = (function () {
       }
       shadowKey = null;
       redraw();
+    }
+    // Walking in or out of a one-storey house puts its ceiling back or
+    // lifts it off again.
+    function walkCut() {
+      if (!floorPick) return;
+      cut = floorCutNow();
+      shadowKey = null;
     }
     // Only a model with storeys to see into has a cutaway worth offering.
     if (!floorPick && V.hasCutaway(floor, hi[2])) {
@@ -3714,6 +4024,7 @@ var CadYamAssembly = (function () {
       cam = V.home(size, centre, box);
       placeWalker();
       walk.on = false; spaceFlies = false; setPlacing(false);
+      walkCut();
       b.closest("details").open = false;
       redraw();
     });
@@ -3738,9 +4049,10 @@ var CadYamAssembly = (function () {
     // Until the visitor moves it, the view stays framed as the canvas changes.
     window.addEventListener("resize", function () { if (!cam.moved) cam.framed = false; redraw(); });
     redraw();
-    // Bucket the triangles for rays once the first picture is up, so the
-    // first zoom toward the pointer doesn't wait on it.
-    setTimeout(function () { if (!rayGrid) rayGrid = CadYamWalk.rays(pos); }, 400);
+    // Bucket the triangles for rays once the first picture is up, a slice
+    // at a time between frames, so neither the first zoom toward the
+    // pointer nor the first step of a walk waits on it.
+    setTimeout(function () { if (!rayGrid && !rayBuild) buildRays(); }, 400);
     // A Laser & CNC job: Assembled | Kit, Explode and the crank move its
     // parts (html_viewer_3d_assembly.js).
     if (data.scene && data.scene.assembly && typeof CadYamAssembly !== "undefined") {

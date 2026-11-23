@@ -94,7 +94,7 @@ circle(240, 143, 1.6)
 section("Followers: round-footed rods that ride the cams")
 for i, (x, name) in enumerate(((290, "Peck follower"), (305, "Flap follower"))):
     poly([(x, 20), (x + 6, 20), (x + 6, 66), (x + 3, 70), (x, 66)], name)
-    circle(x + 3, 26, 5, f"{name} foot")
+    circle(x + 3, 9, 5, f"{name} foot")  # cut clear of the rod; glued on its end when assembled
 
 section("The bird: body, nodding head and a flapping wing, feathers engraved")
 body = []
