@@ -30,7 +30,6 @@ Static site hosting interactive 2D + 3D HTML drawings exported from CadYam.
 - **[Luxury House Pond](luxuryhousepond.html)** — Landscape & Garden (Exported 5 November 2026)
 - **[Grand Courtyard Residence — an opened-up plan hung with Monet, Seurat, Hokusai and Cassatt](architectural-loft-renovation.html)** — Interior Design (Exported 23 November 2026)
 - **[Floral Dress](floral-dress.html)** — Fashion (Exported 5 November 2026)
-- **[Camel Melton Overcoat — double-breasted, peak lapels](camel-overcoat.html)** — Fashion (Exported 22 November 2026)
 - **[Tweed Sport Coat — elbow patches, navy gabardine trousers](tweed-sport-coat.html)** — Fashion (Exported 22 November 2026)
 - **[Walnut Arts & Crafts Bookcase — through-tenons and an arched kick rail](walnut-bookcase.html)** — Woodworking & Furniture (Exported 22 November 2026)
 - **[Twelve Junes of Bike Share](bikes-deck.html)** — Data Stories (Exported 6 November 2026)
