@@ -93,7 +93,7 @@ circle(240, 143, 1.6)
 
 section("Followers: round-footed rods that ride the cams")
 for i, (x, name) in enumerate(((290, "Peck follower"), (305, "Flap follower"))):
-    poly([(x, 20), (x + 6, 20), (x + 6, 95), (x + 3, 99), (x, 95)], name)
+    poly([(x, 20), (x + 6, 20), (x + 6, 66), (x + 3, 70), (x, 66)], name)
     circle(x + 3, 26, 5, f"{name} foot")
 
 section("The bird: body, nodding head and a flapping wing, feathers engraved")
@@ -121,10 +121,14 @@ for k in range(4):
     add(f"arc {f(x)},{f(64)} {f(x + 6)},{f(58)} {f(x + 12)},{f(64)}", "op engrave last")
 
 section("Perch, shaft spacers and the maker's plate")
-poly([(360, 150), (470, 150), (470, 158), (360, 158)], "Perch")
+poly([(352, 150), (478, 150), (478, 164), (352, 164)], "Perch")
+# slots the follower rods slide up through (over the cams 15 and 112 mm along the box; tall enough for rods set a sheet in front of or behind the bird)
+for sx in (370, 467):
+    add(f"polyline {f(sx - 3.6)},152.4 {f(sx + 3.6)},152.4 {f(sx + 3.6)},162.6 {f(sx - 3.6)},162.6 close")
 for k in range(6):
     circle(500 + (k % 3) * 14, 30 + (k // 3) * 14, 5, f"Spacer {k + 1}")
     circle(500 + (k % 3) * 14, 30 + (k // 3) * 14, 2.6)
+poly([(180, 175), (320, 175), (320, 180), (180, 180)], "Shaft")  # or a 5 mm dowel
 add('text "THE PECKING BIRD" 60,-8 6mm align centre')
 
 # nest overlaps small parts with box panels (see plan); laid out by hand instead
@@ -138,5 +142,12 @@ def _shift(line):
     return _re.sub(r"(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)",
                    lambda m: f"{f(float(m.group(1)) + DX)},{f(float(m.group(2)) + DY)}", line)
 C[:] = [_shift(l) for l in C]
+# Shaft holes through the box's left and right walls (the box panels lie at
+# x 390..460 and 470..540 on the sheet, 80 tall): 5.2 mm for a 5 mm dowel,
+# 30 mm up and centred front to back. Added after the shift so they stay in
+# the panels.
+for hx in (425, 505):
+    C.append(f"circle {hx},30 r 2.6")
+    C.append("set last name Shaft hole")
 open(OUT, "w").write("\n".join(C) + "\n")
 print(f"wrote {OUT}: {len(C)} lines")

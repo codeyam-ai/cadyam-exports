@@ -1,0 +1,34 @@
+# Assembly and motion for the Pecking Bird, run after gen_auto.py's kit.
+# Shaft through the left wall's hole, across the box and out the right wall.
+assemble 63 through 65 along 60
+turn 63
+# On the shaft: cams, drive gear, spacers, the crank wheel and arm outside.
+assemble 6 on 63 along 52
+assemble 8 on 63 along -45
+assemble 17 on 63 along 10
+assemble 51 on 63 along -58
+assemble 53 on 63 along -30
+assemble 55 on 63 along 35
+assemble 57 on 63 along 57
+assemble 59 on 63 along -64
+assemble 61 on 63 along -67
+assemble 10 on 63 along 64
+assemble 24 on 63 along 67
+assemble 27 on 24 right at 0,18.5,0mm
+# Followers: rods with round feet riding the cams, up through the perch slots.
+assemble 29 at 112,38,69mm stand turn 90
+assemble 30 at 112,38,44mm lay
+assemble 31 at 15,31.5,66mm stand turn 90
+assemble 32 at 15,31.5,41mm lay
+follows 29 6
+follows 30 6
+follows 31 8
+follows 32 8
+# The perch across the box top, the bird standing on it, the head a sheet
+# behind the body on a neck pin, the wing a sheet in front on a shoulder pin.
+assemble 48 at 60,35,81.5mm lay
+assemble 33 on 48 top stand
+assemble 35 at 104,38,107mm stand
+assemble 38 at 52,31.5,104mm stand
+pivot 35 at 92,38,107mm follows 29
+pivot 38 at 40,31.5,104mm follows 31
