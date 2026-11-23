@@ -2,12 +2,9 @@ app fashion
 # Selvedge denim trucker jacket over khaki chinos, on the men's form.
 form body male
 block trucker 0,0
-block sleeve 40",0
-collar point
 fabric all selvedge denim
 topstitch
-delete 18
 block trousers slim 60",-30"
-fabric 53 60 cotton twill
-fabric 53 60 color #b9a27a
+fabric 55 62 cotton twill
+fabric 55 62 color #b9a27a
 form fabric
