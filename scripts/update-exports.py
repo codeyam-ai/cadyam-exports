@@ -416,6 +416,7 @@ NOINDEX = '<meta name="robots" content="noindex, nofollow">'
 # and the #hash that links straight to it.
 CATEGORIES = [
     ("Forms", "3D Objects & Jewellery", "objects"),
+    ("3D Modeling", "Sculpture & Pavilions", "modeling"),
     ("Fashion", "Fashion", "fashion"),
     ("Woodworking & Furniture", "Furniture", "furniture"),
     ("Landscape & Garden", "Landscapes & Homes", "landscapes"),
@@ -426,6 +427,7 @@ CATEGORIES = [
 # Each kind's colour, on its filter pill and its cards' label.
 CATEGORY_COLOURS = {
     "objects": "#7c4dff",
+    "modeling": "#3b5bdb",
     "fashion": "#d63384",
     "furniture": "#b7791f",
     "landscapes": "#2f9e44",
