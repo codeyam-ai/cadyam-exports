@@ -42,7 +42,7 @@ def circle(x, y, r, name=None, op="cut"):
         add(f"op {op} last")
 
 
-add("units mm", "sheet birch_3mm", "kerf 0.15mm", "gap 3mm")
+add("app cutting", "units mm", "sheet birch_3mm", "kerf 0.15mm", "gap 3mm")
 
 section("The frame: a finger-jointed open box the mechanism sits in")
 add("box 120x70x80mm open at 0,0")

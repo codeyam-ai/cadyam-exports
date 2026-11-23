@@ -25,7 +25,7 @@ reopened in CadYam, improved and re-exported.
 | meridian-pocket-watch.html | `meridian-pocket-watch/gen_watch.py` |
 | camel-overcoat.html, tweed-sport-coat.html | `menswear/*.txt` (Fashion command lines) |
 | architectural-loft-renovation.html (Grand Courtyard Residence) | `grand-courtyard-residence/` (drawing, generator, paintings in `art/`) |
-| (not yet published) | `laser-automaton/gen_auto.py` (Laser & CNC) |
+| pecking-bird-automaton.html | `laser-automaton/` (assembled drawing; `gen_auto.py` writes the flat kit) |
 
 Pages not listed here (the dresses and suit, the data stories and decks,
 the vineyard, town centre, pond house, sideboard and coffee table) were made

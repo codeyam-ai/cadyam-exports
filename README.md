@@ -4,6 +4,7 @@ Static site hosting interactive 2D + 3D HTML drawings exported from CadYam.
 
 ## Exports
 
+- **[The Pecking Bird — a laser-cut automaton you can crank](pecking-bird-automaton.html)** — Laser & CNC Cutting (Exported 23 November 2026)
 - **[The Meridian Pocket Watch](meridian-pocket-watch.html)** — Forms (Exported 20 November 2026)
 - **[The Staunton Chess Set — Printable](staunton-chess-set.html)** — Forms (Exported 20 November 2026)
 - **[Shōrai-an Tea Garden](shorai-an-tea-garden.html)** — Landscape & Garden (Exported 20 November 2026)
