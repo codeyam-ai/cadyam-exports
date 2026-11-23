@@ -406,6 +406,7 @@ PREFERRED_ORDER = [
 # card on the index page, and ask search engines not to list them.
 UNLISTED = {
     "farm-house.html",
+    "impulsor-replica.html",
 }
 
 NOINDEX = '<meta name="robots" content="noindex, nofollow">'
