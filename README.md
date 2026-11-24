@@ -4,6 +4,8 @@ Static site hosting interactive 2D + 3D HTML drawings exported from CadYam.
 
 ## Exports
 
+- **[Bichito lila en la colina](bichito-lila-en-la-colina.html)**: 3D Modeling (Exported 24 November 2026)
+
 - **[Nube: a smiling cloud pavilion in welded steel mesh](nube-cloud-pavilion.html)**: 3D Modeling (Exported 23 November 2026)
 - **[The Pecking Bird — a laser-cut automaton you can crank](pecking-bird-automaton.html)** — Laser & CNC Cutting (Exported 23 November 2026)
 - **[The Meridian Pocket Watch](meridian-pocket-watch.html)** — Forms (Exported 20 November 2026)
