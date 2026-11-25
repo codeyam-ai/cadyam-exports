@@ -7,22 +7,22 @@
 <meta name="generator" content="CadYam">
 <title>Impulsor — a photo-fitted replica built in CadYam Forms</title>
 <!-- cadyam-social-meta:start -->
-<meta name="description" content="Interactive 3D model &amp; 2D plan — Forms · Exported 25 November 2026">
+<meta name="description" content="Interactive 3D model &amp; 2D plan — Version 7.2 · CadYam · Forms · Exported 25 November 2026">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="CadYam Exports">
 <meta property="og:title" content="Impulsor — a photo-fitted replica built in CadYam Forms">
-<meta property="og:description" content="Interactive 3D model &amp; 2D plan — Forms · Exported 25 November 2026">
+<meta property="og:description" content="Interactive 3D model &amp; 2D plan — Version 7.2 · CadYam · Forms · Exported 25 November 2026">
 <meta property="og:url" content="https://codeyam-ai.github.io/cadyam-exports/impulsor-replica.html">
-<meta property="og:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/impulsor-replica.jpg?v=180c1e6a">
-<meta property="og:image:secure_url" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/impulsor-replica.jpg?v=180c1e6a">
+<meta property="og:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/impulsor-replica.jpg?v=9fc7f593">
+<meta property="og:image:secure_url" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/impulsor-replica.jpg?v=9fc7f593">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1600">
 <meta property="og:image:height" content="840">
 <meta property="og:image:alt" content="Impulsor — a photo-fitted replica built in CadYam Forms — 3D model preview">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Impulsor — a photo-fitted replica built in CadYam Forms">
-<meta name="twitter:description" content="Interactive 3D model &amp; 2D plan — Forms · Exported 25 November 2026">
-<meta name="twitter:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/impulsor-replica.jpg?v=180c1e6a">
+<meta name="twitter:description" content="Interactive 3D model &amp; 2D plan — Version 7.2 · CadYam · Forms · Exported 25 November 2026">
+<meta name="twitter:image" content="https://codeyam-ai.github.io/cadyam-exports/thumbnails/impulsor-replica.jpg?v=9fc7f593">
 <meta name="twitter:image:alt" content="Impulsor — a photo-fitted replica built in CadYam Forms — 3D model preview">
 <!-- cadyam-social-meta:end -->
 <style>
@@ -205,7 +205,7 @@ body.touch.walking #walk-pad { display: block; }
 <header>
 <a data-back-to-demos href="./" title="All CadYam demos" style="flex:none;align-self:center;margin-right:10px;padding:5px 10px;border-radius:99px;font:600 12px/1.2 -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;text-decoration:none;white-space:nowrap;color:inherit;border:1px solid color-mix(in srgb,currentColor 22%,transparent)">← <span>All demos</span></a><style data-back-to-demos>@media (max-width: 560px) {[data-back-to-demos] span { display: none; } }</style>
 <a class="logo" href="https://codeyam.com/apps/cadyam" target="_blank" rel="noopener" title="Made with CadYam" aria-label="CadYam"><svg viewBox="64 64 896 896" width="34" height="34" aria-hidden="true"><defs><linearGradient id="cadyam-logo-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2E8BF5"/><stop offset="1" stop-color="#0D66D0"/></linearGradient></defs><rect x="64" y="64" width="896" height="896" rx="200" fill="url(#cadyam-logo-bg)"/><path d="M300 742V462L512 302L724 462V742Z" fill="#fff" fill-opacity=".14" stroke="#fff" stroke-width="30" stroke-linejoin="round"/><g fill="#FF9A3C" stroke="#fff" stroke-width="16"><circle cx="300" cy="742" r="40"/><circle cx="724" cy="742" r="40"/><circle cx="512" cy="302" r="40"/></g></svg></a>
-<div class="brand"><h1>Impulsor replica</h1><p class="byline">CadYam · Forms · Exported 25 November 2026</p></div>
+<div class="brand"><h1>Impulsor replica</h1><p class="byline">Version 7.2 · CadYam · Forms · Exported 25 November 2026</p></div>
 <nav class="modes"><button data-mode="2d">2D</button><button data-mode="3d">3D</button><button data-mode="split">Split<span class="wide"> (2D + 3D)</span></button></nav>
 </header>
 <main>
@@ -220,7 +220,7 @@ body.touch.walking #walk-pad { display: block; }
 </section>
 <aside id="inspector" hidden></aside>
 </main>
-<script src="assets/impulsor-replica-data.js?v=1aeae7d7"></script>
+<script src="assets/impulsor-replica-data.js?v=dc5a822f"></script>
 <script>
 var FINISH_GLSL = "// Surface finishes, as CadYam's own 3D view works them out per pixel\n// (crates/app/src/ui/view3d/finish.rs): the same patterns, sizes and hash\n// noise, from the world point (mm) and the face's normal alone. `pattern`\n// is the face's Pattern::code (crates/cad-core/src/finish_pattern.rs).\nfloat hash(int x, int y){\n uint h=(uint(x)*0x9E3779B1u)^(uint(y)*0x85EBCA77u);\n h^=h>>15u; h*=0x2C1B3C6Du; h^=h>>12u; h*=0x297A2D39u; h^=h>>15u;\n return float(h>>8u)/16777216.0; }\nfloat noise(float x, float y){\n float fx=floor(x), fy=floor(y); int ix=int(fx), iy=int(fy);\n float u=x-fx, v=y-fy; u=u*u*(3.0-2.0*u); v=v*v*(3.0-2.0*v);\n float top=hash(ix,iy)+(hash(ix+1,iy)-hash(ix,iy))*u;\n float bottom=hash(ix,iy+1)+(hash(ix+1,iy+1)-hash(ix,iy+1))*u;\n return top+(bottom-top)*v; }\nfloat joint(float at, float size, float gap, float dark){\n float d=max(min(at,size-at),0.0); return dark+(1.0-dark)*clamp((d-gap/2.0)/gap,0.0,1.0); }\nfloat running_bond(float s, float t, float w, float h, float gap){\n float row=floor(t/h); s+=mod(row,2.0)<0.5 ? 0.0 : w/2.0; float col=floor(s/w);\n float tone=1.0+0.10*(hash(int(col),int(row))-0.5);\n return tone*joint(s-col*w,w,gap,0.72)*joint(t-row*h,h,gap,0.72); }\nconst float BOARD=140.0; const float BOARD_RUN=2400.0;\n// A sloped face's (along the eave, up the slope) coordinates; x and y on a\n// level face.\nvec2 slope_frame(vec3 p, vec3 n){\n float h=length(n.xy); if (h<1e-3) return p.xy;\n return vec2((-n.y*p.x+n.x*p.y)/h, -(n.x*p.x+n.y*p.y)*n.z/h+p.z*h); }\n// Patterned wood floors' planks: 3.5\" wide, five times as long; parquet\n// squares of four.\nconst float PLANK=90.0; const float PLANK_RUN=5.0; const float PARQUET=4.0;\nfloat plank(float along, float across, float len, float i, float j){\n float tone=1.0+0.12*(hash(int(i),int(j)+11)-0.5);\n float grain=1.0+0.05*(noise(along/300.0,across/12.0)-0.5);\n return tone*grain*joint(along,len,3.0,0.66)*joint(across,PLANK,3.0,0.66); }\nfloat herringbone(float s, float t){\n float k=0.70710677/PLANK; float a=(s+t)*k, b=(t-s)*k; float x=floor(a), y=floor(b);\n float n=PLANK_RUN; float r=mod(x-y,2.0*n);\n if (r<n) { float x0=x-r; return plank((a-x0)*PLANK,(b-y)*PLANK,n*PLANK,x0,y); }\n float y0=y-(2.0*n-1.0-r); return plank((b-y0)*PLANK,(a-x)*PLANK,n*PLANK,x,y0+500.0); }\nfloat chevron(float s, float t){\n float half_=PLANK_RUN*PLANK*0.70710677; float col=floor(s/(2.0*half_)); float x=s-col*2.0*half_;\n float xl=x<half_ ? x : 2.0*half_-x; float side=x<half_ ? 0.0 : 1.0;\n float w=(t-xl)*0.70710677; float row=floor(w/PLANK);\n return plank(xl*1.4142135,w-row*PLANK,PLANK_RUN*PLANK,row,col*2.0+side); }\nfloat parquet(float s, float t){\n float side=PARQUET*PLANK; float i=floor(s/side), j=floor(t/side); float u=s-i*side, v=t-j*side;\n bool turned=mod(i+j,2.0)>=1.0; float along=turned ? v : u; float across=turned ? u : v;\n float row=floor(across/PLANK); return plank(along,across-row*PLANK,side,i*7.0+row,j); }\n// Subway tile at its real size (crates/cad-core/src/tile_layout.rs):\n// `code` is size*4+bond — sizes 3x6, 2x8, 4x12 inches; bonds running,\n// stack, herringbone, vertical — with 1/16\" light grout and a bevel.\nfloat subway(int code, float s, float t){\n int sz=code/4; int bond=code-sz*4;\n float l=sz==0 ? 152.4 : (sz==1 ? 203.2 : 304.8); float w=sz==0 ? 76.2 : (sz==1 ? 50.8 : 101.6);\n float u, ul, v, vl; int i, j;\n if (bond==2) {\n  float nn=floor(l/w+0.5); float k=0.70710677/w; float a=(s+t)*k, b=(t-s)*k; float x=floor(a), y=floor(b);\n  float r=mod(x-y,2.0*nn);\n  if (r<nn) { float x0=x-r; u=(a-x0)*w; ul=nn*w; v=(b-y)*w; vl=w; i=int(x0); j=int(y); }\n  else { float y0=y-(2.0*nn-1.0-r); u=(a-x)*w; ul=w; v=(b-y0)*w; vl=nn*w; i=int(x); j=int(y0)+500; }\n } else {\n  float cw=bond==3 ? w : l; float ch=bond==3 ? l : w;\n  if (bond==0 && mod(floor(t/w),2.0)>=0.5) s+=l/2.0;\n  float col=floor(s/cw), row=floor(t/ch); u=s-col*cw; ul=cw; v=t-row*ch; vl=ch; i=int(col); j=int(row);\n }\n float grout=joint(u,ul,1.5875,0.8)*joint(v,vl,1.5875,0.8);\n float bevel=vl-v<3.0 ? 1.06 : (v<3.0 ? 0.93 : 1.0);\n return (1.0+0.04*(hash(i,j)-0.5))*bevel*grout; }\nfloat pattern_light(int pattern, vec3 p, vec3 n){\n bool flat_=abs(n.z)>0.7;\n float s=flat_ ? p.x : p.x*abs(n.y)+p.y*abs(n.x); float t=flat_ ? p.y : p.z;\n if (pattern==1) {\n  float grain=1.0+0.05*(noise(s/600.0,t/25.0)-0.5); if (!flat_) return grain;\n  float row=floor(t/BOARD); float across=t-row*BOARD;\n  float along=s+hash(int(row),7)*BOARD_RUN; float run=floor(along/BOARD_RUN); float end=along-run*BOARD_RUN;\n  float tone=1.0+0.10*(hash(int(row),int(run))-0.5);\n  return grain*tone*joint(across,BOARD,5.0,0.62)*joint(end,BOARD_RUN,4.0,0.75); }\n if (pattern==2) return 1.0+0.16*(noise(s/900.0,t/900.0)-0.5)+0.10*(noise(s/140.0,t/140.0)-0.5)+0.08*(noise(s/30.0,t/30.0)-0.5);\n if (pattern==3) {\n  float clump=noise(p.x/300.0+p.z/500.0,p.y/300.0-p.z/400.0);\n  return (0.72+0.28*smoothstep(0.25,0.6,clump))*(1.0+0.14*(noise(s/60.0,t/60.0)-0.5)); }\n if (pattern==4) return running_bond(s,t,400.0,200.0,6.0);\n if (pattern==5) return running_bond(s,t,215.0,75.0,5.0);\n if (pattern==6) return joint(mod(s,300.0),300.0,2.5,0.84)*joint(mod(t,300.0),300.0,2.5,0.84);\n if (pattern==7) return 1.0+0.08*(noise(s/90.0,t/90.0)-0.5)+0.08*(noise(s/18.0,t/18.0)-0.5);\n if (pattern==8) {\n  vec2 st=slope_frame(p,n); s=st.x; t=st.y;\n  float course=floor(t/127.0); float up=t-course*127.0; float off=mod(course,2.0)<0.5 ? 0.0 : 152.0;\n  float tab=floor((s+off)/305.0); float across=mod(s+off,305.0);\n  float tone=1.0+0.14*(hash(int(course),int(tab))-0.5);\n  return tone*joint(up,127.0,9.0,0.66)*joint(across,305.0,4.0,0.8); }\n if (pattern==9) {\n  float wave=sin((s*0.8+t*0.6)/140.0+3.0*noise(s/700.0,t/700.0));\n  return wave>0.82 ? 1.13 : (wave< -0.5 ? 0.95 : 1.0); }\n if (pattern==11) return 1.0+0.06*(noise(s/12.0,t/12.0)-0.5);\n if (pattern==12) {\n  float cs=floor(s/2.5), ct=floor(t/2.5); int ci=int(cs), cj=int(ct); float h=hash(ci,cj);\n  if (h<0.66) return 1.0+0.03*(noise(s/9.0,t/9.0)-0.5);\n  float ox=hash(ci,cj+7)*1.2+0.65, oy=hash(ci+7,cj)*1.2+0.65; float dx=s-cs*2.5-ox, dy=t-ct*2.5-oy;\n  float r=0.45+0.35*hash(cj,ci); if (dx*dx+dy*dy>r*r) return 1.0; return h<0.85 ? 0.62 : 0.82; }\n if (pattern==13) {\n  float u=abs(s/3.0-trunc(s/3.0))-0.5, v=abs(t/3.0-trunc(t/3.0))-0.5;\n  return sqrt(u*u+v*v)*3.0<0.85 ? 0.3 : 1.0; }\n if (pattern>=48 && pattern<=59) return subway(pattern-48,s,t);\n if (pattern>=20 && pattern<=22) {\n  if (!flat_) return 1.0+0.05*(noise(s/600.0,t/25.0)-0.5);\n  if (pattern==20) return herringbone(s,t);\n  if (pattern==21) return chevron(s,t);\n  return parquet(s,t); }\n if (pattern>=16) {\n  int a=min(pattern-16,2); float along=p[a]; float across=p[(a+1)%3]+p[(a+2)%3];\n  if (abs(n[a])>0.7) return 0.84+0.06*(noise(across/4.0,along/4.0)-0.5);\n  float wobble=2.0*noise(along/900.0,across/60.0);\n  return 1.0+0.09*(noise(along/500.0,across/2.5+wobble)-0.5)+0.04*(noise(along/80.0,across/12.0)-0.5); }\n return 1.0; }\n// Up to a fifth darker at a wall's foot, easing out by knee height.\nfloat contact_light(vec3 p, vec3 n){\n if (uHasFloor==0 || abs(n.z)>0.5) return 1.0;\n return 1.0-0.2*(1.0-smoothstep(0.0,450.0,max(p.z-uFloor,0.0))); }\n";
 var JEWEL_GLSL = "// Jewellery under a jeweller's studio light: polished metal (finish codes\n// 30 to 39, mirror to matte) and cut stones (40), as export/html_jewel.rs\n// codes them. Read by the model's fragment shader (html_viewer_3d.js) as\n// JEWEL_GLSL; it uses that shader's vWorld and uSun.\n//\n// A jeweller's studio, as a polished metal or a cut stone reflects it: a\n// white sweep with three soft boxes, and a few black cards and a dark\n// horizon that draw the crisp dark lines polished metal needs to read as\n// metal. A facet flashes bright or dark as it turns.\nvec3 studio(vec3 r){ float up=r.z; float az=atan(r.y,r.x);\n vec3 c=mix(vec3(0.62,0.62,0.64),vec3(1.05,1.05,1.07),smoothstep(-0.6,0.6,up));\n c+=vec3(2.4)*smoothstep(0.90,0.98,dot(r,normalize(vec3(0.55,-0.6,0.62))));\n c+=vec3(1.9)*smoothstep(0.88,0.97,dot(r,normalize(vec3(-0.75,-0.25,0.45))));\n c+=vec3(1.5)*smoothstep(0.86,0.96,dot(r,normalize(vec3(0.1,0.85,0.55))));\n float card=smoothstep(0.16,0.04,abs(sin(az*1.5+0.7)))*smoothstep(-0.35,0.0,up)*smoothstep(0.65,0.35,up);\n c*=1.0-0.65*card;\n c*=1.0-0.85*exp(-pow((up+0.08)*11.0,2.0));\n return c; }\nvec3 tonemap(vec3 c){ return vec3(1.0)-exp(-c*1.6); }\n// A stone's body colour from its base: a coloured stone (ruby, sapphire)\n// holds its colour deeply, as light that travels through it is tinted\n// twice over; a near-white diamond stays white.\nvec3 gemBody(vec3 base){\n float white=smoothstep(0.75,0.9,min(base.r,min(base.g,base.b)));\n return mix(pow(base,vec3(1.7))*1.25,base,white); }\nvec3 jewel(int pat, vec3 base, vec3 n, vec3 v, float lit){\n float nv=clamp(dot(n,v),0.0,1.0); vec3 r=reflect(-v,n);\n if (pat==40) {\n// A stone: its facets mirror the studio (more at grazing angles), and\n// light bounced inside through the pavilion comes back out of each facet\n// as one bright or dark flat — with a little fire.\n  float fr=0.17+0.83*pow(1.0-nv,5.0);\n  vec3 t=refract(-v,n,1.0/2.42); if (dot(t,t)<1e-4) t=r;\n// Each facet sends its light back out along its own two paths through the\n// pavilion (from the facet's orientation, so it stays put as the stone\n// turns and flashes as the view does). Keyed on the facet's plane (its\n// normal and its distance along it), which is the same all across one\n// facet and differs stone to stone.\n  vec3 nq=floor(n*48.0+0.5)/48.0; float po=floor(dot(n,vWorld)*6.0+0.5);\n  vec3 h3=fract(sin(vec3(dot(nq,vec3(12.99,78.23,37.72))+po*1.7,dot(nq,vec3(39.35,11.13,83.11))+po*2.3,dot(nq,vec3(73.16,52.27,9.41))+po*3.1))*43758.55)-0.5;\n  vec3 b1=normalize(reflect(t,normalize(n+1.1*h3)));\n  vec3 b2=normalize(reflect(t,normalize(n-0.9*h3.zxy)));\n  vec3 inner=0.5*(studio(b1)+studio(b2)); inner=pow(inner*0.6,vec3(1.8))*2.2+0.12;\n// A cut stone is a mosaic: some facets send back the bright studio, others\n// the dark of the camera and the setting.\n  float lightFacet=max(step(0.4,fract(h3.x*7.13+h3.y*3.7+0.5)),smoothstep(0.62,0.9,nv));\n  inner*=mix(0.2,1.45,lightFacet);\n  float h=fract(dot(nq,vec3(12.9898,78.233,37.719))*43.7+dot(v,n)*2.3);\n  vec3 fire=0.5+0.5*cos(6.2832*(h+vec3(0.0,0.33,0.67)));\n  float tableish=smoothstep(0.8,0.95,nv);\n  vec3 body=gemBody(base);\n  vec3 c=inner*mix(body,body*fire*1.6,(0.07+0.1*lightFacet)*(1.0-tableish))*1.1+studio(r)*fr*0.9;\n  return tonemap(c); }\n// A metal: the studio in its own colour, the edge whitening toward grazing\n// (Schlick), softened by its roughness, with the sun's glint.\n float rough=float(pat-30)/9.0;\n vec3 F=base+(vec3(1.0)-base)*pow(1.0-nv,5.0);\n vec3 env=mix(studio(r),studio(normalize(r+n)),rough*0.85);\n vec3 c=env*F*(0.7+0.3*lit);\n c+=F*pow(max(dot(r,uSun),0.0),mix(600.0,24.0,rough))*2.5*lit;\n return tonemap(c); }\n";
@@ -1703,16 +1703,6 @@ var CadYamModelView = (function () {
     return { show: show, tintOn: tintOn, tints: tints };
   }
 
-  // The scene the Loadout switch shows for the loadout named `name`: its
-  // own scene, else `page` (the page's scene, which the shown loadout and
-  // "As drawn" carry as null).
-  function loadoutScene(list, name, page) {
-    for (var i = 0; i < list.length; i++) {
-      if (list[i].name === name) return list[i].scene || page;
-    }
-    return page;
-  }
-
   return {
     sub: sub, cross: cross, norm: norm, dot: dot, basis: basis,
     bounds: bounds, corners: corners, runsOf: runsOf, cornerRgb: cornerRgb, WHOLE: WHOLE, keepWhole: keepWhole, smoothNormals: smoothNormals, flatNormal: flatNormal,
@@ -1724,7 +1714,79 @@ var CadYamModelView = (function () {
     pinView: pinView, pinYaws: pinYaws, walkAngles: walkAngles, mixList: mixList, blendSky: blendSky,
     isSite: isSite, walkStart: walkStart, hasCutaway: hasCutaway, cutHeight: cutHeight,
     floorLevels: floorLevels, floorNames: floorNames, floorCut: floorCut, planBox: planBox, boxPin: boxPin,
-    phaseUniforms: phaseUniforms, loadoutScene: loadoutScene
+    phaseUniforms: phaseUniforms
+  };
+})();
+// A Forms page's Loadout switch: the scene each loadout shows, rebuilt
+// from its delta against the page's own scene where it stores only what
+// differs (`html_loadout_delta.rs`), and base64 decoding shared with the
+// viewer.
+var CadYamLoadoutView = (function () {
+  "use strict";
+
+  // Each per-triangle array a packed scene carries, with its bytes per
+  // triangle (as `html_loadout_delta.rs` writes them).
+  var PER_TRIANGLE = [["positions", 36], ["colors", 3], ["owners", 4], ["patterns", 1],
+    ["phases", 1], ["prints", 1], ["cornerColors", 9], ["forms", 1]];
+
+  // The scene the Loadout switch shows for the loadout named `name`: built
+  // from its `delta` against `page` when it has one, else its own scene,
+  // else `page` (the page's scene, which the shown loadout and "As drawn"
+  // carry as null).
+  function loadoutScene(list, name, page) {
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].name !== name) continue;
+      if (list[i].delta) return deltaScene(list[i].delta, page);
+      return list[i].scene || page;
+    }
+    return page;
+  }
+
+  // A loadout's scene from its delta: the page's triangles in each `keep`
+  // run, then its own (`add`), every array as decoded bytes; the rest
+  // (sun, floor, print tiles) is the loadout's own.
+  function deltaScene(delta, page) {
+    var add = delta.add, out = {};
+    Object.keys(add).forEach(function (k) { out[k] = add[k]; });
+    PER_TRIANGLE.forEach(function (f) {
+      var name = f[0];
+      if (add[name] == null || page[name] == null) return;
+      out[name] = spliceRuns(unpack64(page[name]), delta.keep, unpack64(add[name]), f[1]);
+    });
+    return out;
+  }
+
+  // How many triangles the half-open `keep` runs cover.
+  function keptCount(keep) {
+    var n = 0;
+    keep.forEach(function (r) { n += r[1] - r[0]; });
+    return n;
+  }
+
+  // The `w`-byte triangles of `from` in each `keep` run, in order, then
+  // `own`'s bytes, as one array.
+  function spliceRuns(from, keep, own, w) {
+    var bytes = new Uint8Array(keptCount(keep) * w + own.length), at = 0;
+    keep.forEach(function (r) {
+      bytes.set(from.subarray(r[0] * w, r[1] * w), at);
+      at += (r[1] - r[0]) * w;
+    });
+    bytes.set(own, at);
+    return bytes;
+  }
+
+  // Base64 text as bytes; bytes already decoded (a loadout's rebuilt
+  // arrays) pass through.
+  function unpack64(b64) {
+    if (typeof b64 !== "string") return b64;
+    var s = atob(b64), out = new Uint8Array(s.length);
+    for (var i = 0; i < s.length; i++) out[i] = s.charCodeAt(i);
+    return out;
+  }
+
+  return {
+    loadoutScene: loadoutScene, deltaScene: deltaScene, keptCount: keptCount,
+    spliceRuns: spliceRuns, unpack64: unpack64
   };
 })();
 // CadYam's shared WebGL2 pieces for 3D on a web page, used by both the
@@ -1963,7 +2025,9 @@ var CadYamLightMap = (function () {
   // The map's picture (`M.png`, base64) decoded and bound to texture
   // unit `unit`, unflipped and smoothly sampled; `ready()` once it is.
   // Skipped when `still()` says by then the page has moved on to another.
-  function upload(gl, M, unit, still, ready) {
+  // With `mip`, sampled from a mip chain, so a fine picture (a Forms
+  // model's paint) seen from afar averages instead of shimmering.
+  function upload(gl, M, unit, still, ready, mip) {
     var img = new Image();
     img.onload = function () {
       if (!still()) return;
@@ -1972,7 +2036,8 @@ var CadYamLightMap = (function () {
       gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
       gl.pixelStorei(gl.UNPACK_COLORSPACE_CONVERSION_WEBGL, gl.NONE);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB8, gl.RGB, gl.UNSIGNED_BYTE, img);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      if (mip) gl.generateMipmap(gl.TEXTURE_2D);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, mip ? gl.LINEAR_MIPMAP_LINEAR : gl.LINEAR);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
@@ -1982,7 +2047,23 @@ var CadYamLightMap = (function () {
     img.src = "data:image/png;base64," + M.png;
   }
 
-  return { uvs: uvs, upload: upload };
+  // A loader for a Forms model's photo or scheme paint (`P`: `{ png }`,
+  // or none) on texture unit `unit`, mip-mapped: `show(false)` at once
+  // while a new picture decodes or when there is none, `show(true)` once
+  // it is bound. The same picture again is left as it is, and a picture
+  // replaced before it decoded is never bound.
+  function paintUploader(gl, unit, show) {
+    var current = { png: null };
+    return function (P) {
+      if (P && P.png === current.png) return;
+      var mine = (current = { png: P ? P.png : null });
+      show(false);
+      if (!P) return;
+      upload(gl, P, unit, function () { return current === mine; }, function () { show(true); }, true);
+    };
+  }
+
+  return { uvs: uvs, upload: upload, paintUploader: paintUploader };
 })();
 // The exported viewer's dress form, apart from the page so it can be run on
 // its own: a Fashion scene's triangles with or without the form, and what
@@ -2852,11 +2933,9 @@ var CadYamAssembly = (function () {
     showView(data.phases.views.filter(function (v) { return v.name === data.phases.view; })[0] || data.phases.views[0]);
   }
 
-  function bytes(b64) {
-    var s = atob(b64), out = new Uint8Array(s.length);
-    for (var i = 0; i < s.length; i++) out[i] = s.charCodeAt(i);
-    return out;
-  }
+  // Base64 text as bytes; a loadout's rebuilt arrays pass through.
+  // (A declaration, so `make3d` above can call it as the page loads.)
+  function bytes(b64) { return CadYamLoadoutView.unpack64(b64); }
 
   // ── The model's WebGL resources ─────────────────────────────────────
   // A linked WebGL2 program from vertex and fragment GLSL bodies (see
@@ -2872,14 +2951,14 @@ var CadYamAssembly = (function () {
   function modelPrograms(gl) {
     var prog = glProgram(gl,
       "in vec3 aPos; in vec3 aNrm; in vec3 aCol; in float aId; in float aPat; in float aPh; in float aPrint;\n" +
-      "in float aSky; in vec3 aLamp; in vec4 aGlow; in vec2 aMap;\n" +
+      "in float aSky; in vec3 aLamp; in vec4 aGlow; in vec2 aMap; in vec2 aPaint;\n" +
       "uniform mat4 uMvp; uniform mat4 uLight; uniform vec3 uSun; uniform float uTexel; uniform int uGlass;\n" +
       "out vec3 vNrm; out vec3 vCol; out float vId; out vec3 vWorld; out vec4 vShadow; flat out int vPat; flat out int vPh;\n" +
-      "flat out int vPrint; flat out int vWhole; out float vSky; out vec3 vLamp; out vec4 vGlow; out vec2 vMap;\n" +
+      "flat out int vPrint; flat out int vWhole; out float vSky; out vec3 vLamp; out vec4 vGlow; out vec2 vMap; out vec2 vPaint;\n" +
       // A phase of 4 or more is a plant's: kept whole by the cutaway, which
       // cuts buildings.
       "void main(){ vNrm=aNrm; vCol=aCol; vId=aId; vWorld=aPos; vPat=int(aPat+0.5); int p=int(aPh+0.5); vPh=p-4*(p/4); vWhole=p/4; vPrint=int(aPrint+0.5);\n" +
-      " vSky=aSky; vLamp=aLamp; vGlow=aGlow; vMap=aMap;\n" +
+      " vSky=aSky; vLamp=aLamp; vGlow=aGlow; vMap=aMap; vPaint=aPaint;\n" +
       // Looked up a texel or two off the face toward the sun, so a face doesn't shadow itself.
       " vec3 toward=aNrm*(dot(aNrm,uSun)<0.0 ? -1.0 : 1.0);\n" +
       " vShadow=uLight*vec4(aPos+toward*uTexel*1.5,1.0);\n" +
@@ -2921,6 +3000,12 @@ var CadYamAssembly = (function () {
       " vec2 p=a.z>=max(a.x,a.y) ? w.xy : (a.x>=a.y ? w.zy : w.zx);\n" +
       " vec2 u=vec2(p.x*q.z-p.y*q.w, p.x*q.w+p.y*q.z);\n" +
       " return texture(uPrints, vec3(u.x/q.x, -u.y/q.y, float(vPrint-1))).rgb; }\n" +
+      // A Forms solid painted from photos or a paint scheme wears its
+      // texture, laid on as the app lays it (photo_atlas.rs; v up, the
+      // picture's top row first); vPaint.x < 0 off it.
+      "in vec2 vPaint; uniform sampler2D uPaint; uniform int uPaintOn;\n" +
+      "vec3 own_colour(){ if (uPaintOn==1 && vPaint.x>=0.0) return texture(uPaint, vec2(vPaint.x, 1.0-vPaint.y)).rgb;\n" +
+      " return vCol; }\n" +
       "out vec4 o;\n" + FINISH + CadYamGl3d.LIGHT_GLSL +
       "float sunlit(vec3 n){ if (uShadows==0) return 1.0; return sunlit_at(uShadowMap, vShadow, n, uSun); }\n" +
       // Where the camera is, for jewellery's reflections and cloth's sheen;
@@ -2937,7 +3022,7 @@ var CadYamAssembly = (function () {
       " if (uPick==1) { float i=vId; o=vec4(mod(i,256.0),mod(floor(i/256.0),256.0),floor(i/65536.0),255.0)/255.0; return; }\n" +
       " vec3 n=normalize(gl_FrontFacing ? vNrm : -vNrm);\n" +
       " float lit=uSun.z>0.0 && dot(n,uSun)>0.0 ? sunlit(n) : 0.0;\n" +
-      " vec3 base=mix(print_colour(vWorld,vNrm,vCol),uTint[vPh],uTintOn[vPh]*uTintK);\n" +
+      " vec3 base=mix(print_colour(vWorld,vNrm,own_colour()),uTint[vPh],uTintOn[vPh]*uTintK);\n" +
       " float open=openness();\n" +
       " if (vPat>=30 && vPat<=40) { vec3 j=jewel(vPat,base,n,normalize(uEye-vWorld),lit)*mix(0.55,1.0,open);\n" +
       "  if (uSel>0.0 && abs(vId-uSel)<0.5) j=mix(j,vec3(1.0,0.48,0.0),0.55);\n" +
@@ -3046,7 +3131,7 @@ var CadYamAssembly = (function () {
     // The scene drawn: the page's own, or a Fashion size the Size switch
     // picked; a dress form's body and stand left out while it is hidden.
     // `glass`: the stretches of glass triangles, drawn in a pass of their own.
-    var pos, col, own, pat, tph, prn, cc, n, mesh, baked, glass;
+    var pos, col, own, pat, tph, prn, cc, n, mesh, baked, glass, paintUv;
     var shownScene = data.scene, formShown = true;
     function unpack(sc) {
       var t = CadYamFashion.triangles(sc, bytes, formShown);
@@ -3059,6 +3144,9 @@ var CadYamAssembly = (function () {
         return !!whose && whose.kindId === "plant";
       });
       baked = unpackLight(sc && sc.light, n);
+      // Where each painted corner lies on the paint (packed as the light
+      // map's places are); -1 off it.
+      paintUv = CadYamLightMap.uvs(sc && sc.paint ? bytes(sc.paint.uv) : null, n);
     }
     // The floors a building inside the drawing has: the storeys the
     // export wrote, else found from the model. Two or more make a Floors
@@ -3110,6 +3198,14 @@ var CadYamAssembly = (function () {
         redraw();
       });
     }
+    // A Forms model's photo or scheme paint on unit 4 once it has decoded
+    // (until then, and with none, its triangles keep their colours).
+    var uploadPaint = CadYamLightMap.paintUploader(gl, 4, function (on) {
+      gl.useProgram(prog);
+      gl.uniform1i(U.uPaint, 4);
+      gl.uniform1i(U.uPaintOn, on ? 1 : 0);
+      if (on) redraw();
+    });
     // The time of day the rooms are lit at, as the app's `lighting` sets
     // it: how much sky, sun and lamplight (crates/cad-core/src/view/lighting.rs).
     var MOODS = { day: [1.0, 1.0, 0.3], dusk: [0.3, 0.25, 0.85], night: [0.04, 0.0, 1.0] };
@@ -3123,7 +3219,8 @@ var CadYamAssembly = (function () {
       buffers.forEach(function (b) { gl.deleteBuffer(b); });
       buffers = [["aPos", pos, 3], ["aNrm", mesh.nrm, 3], ["aCol", mesh.rgb, 3], ["aId", mesh.ids, 1],
         ["aPat", mesh.pats, 1], ["aPh", mesh.phs, 1], ["aPrint", mesh.prs, 1],
-        ["aSky", baked.sky, 1], ["aLamp", baked.lamp, 3], ["aGlow", baked.glow, 4], ["aMap", baked.map, 2]].map(function (a) {
+        ["aSky", baked.sky, 1], ["aLamp", baked.lamp, 3], ["aGlow", baked.glow, 4], ["aMap", baked.map, 2],
+        ["aPaint", paintUv, 2]].map(function (a) {
         return glAttr(gl, prog, a[0], a[1], a[2]);
       });
     }
@@ -3137,6 +3234,7 @@ var CadYamAssembly = (function () {
       upload();
       uploadPrints(gl, (sc && sc.printTiles) || data.scene.printTiles || [], U);
       uploadLightMap(sc && sc.light);
+      uploadPaint(sc && sc.paint);
       buildRays();
       shadowKey = null;
       redraw();
@@ -3201,7 +3299,7 @@ var CadYamAssembly = (function () {
       list.forEach(function (l) { sel.appendChild(el("option", { value: l.name }, l.name)); });
       sel.value = L.shown;
       sel.addEventListener("change", function () {
-        reload(V.loadoutScene(list, sel.value, data.scene));
+        reload(CadYamLoadoutView.loadoutScene(list, sel.value, data.scene));
         sel.blur();
       });
       document.getElementById("model-tools").appendChild(sel);
@@ -3209,7 +3307,8 @@ var CadYamAssembly = (function () {
     var U = {};
     ["uMvp", "uSun", "uCut", "uSel", "uPick", "uLight", "uTexel", "uShadows", "uShadowMap", "uFloor", "uHasFloor",
       "uShow", "uTintOn", "uTint", "uTintK", "uPrints", "uPrintAt", "uFill", "uEye", "uAo", "uAoOn", "uView",
-      "uLit", "uMood", "uSkyTint", "uSunTint", "uMoon", "uLampKnee", "uLightMap", "uMapOn", "uLampScale", "uGlass", "uSkyCol", "uHi", "uDim"].forEach(function (u) {
+      "uLit", "uMood", "uSkyTint", "uSunTint", "uMoon", "uLampKnee", "uLightMap", "uMapOn", "uLampScale", "uGlass", "uSkyCol", "uHi", "uDim",
+      "uPaint", "uPaintOn"].forEach(function (u) {
       U[u] = gl.getUniformLocation(prog, u);
     });
     var D = {
@@ -3220,6 +3319,7 @@ var CadYamAssembly = (function () {
     gl.uniform1i(U.uShadowMap, 1);
     uploadPrints(gl, data.scene.printTiles || [], U);
     uploadLightMap(data.scene.light);
+    uploadPaint(data.scene.paint);
     gl.uniform1f(U.uFloor, data.scene.floor == null ? 0 : data.scene.floor);
     gl.uniform1i(U.uHasFloor, data.scene.floor == null ? 0 : 1);
     gl.enable(gl.DEPTH_TEST);
