@@ -3235,6 +3235,1099 @@
           "fps": 30
         }
       }
+    },
+    {
+      "seq": 83,
+      "source": "click",
+      "action": {
+        "apply": {
+          "v": 58,
+          "op": "relink_media",
+          "id": 2,
+          "location": "~/workspace/codeyam/cadyam-exports/sources/nadia-field-notes-before-after/stickers/new-york.png"
+        }
+      }
+    },
+    {
+      "seq": 84,
+      "source": "click",
+      "action": {
+        "apply": {
+          "v": 58,
+          "op": "relink_media",
+          "id": 3,
+          "location": "~/workspace/codeyam/cadyam-exports/sources/nadia-field-notes-before-after/stickers/rocket.png"
+        }
+      }
+    },
+    {
+      "seq": 85,
+      "source": "click",
+      "action": {
+        "apply": {
+          "v": 58,
+          "op": "relink_media",
+          "id": 4,
+          "location": "~/workspace/codeyam/cadyam-exports/sources/nadia-field-notes-before-after/stickers/software.png"
+        }
+      }
+    },
+    {
+      "seq": 86,
+      "source": "click",
+      "action": {
+        "apply": {
+          "v": 58,
+          "op": "relink_media",
+          "id": 5,
+          "location": "~/workspace/codeyam/cadyam-exports/sources/nadia-field-notes-before-after/stickers/north-star.png"
+        }
+      }
+    },
+    {
+      "seq": 87,
+      "source": "click",
+      "action": {
+        "apply": {
+          "v": 58,
+          "op": "relink_media",
+          "id": 6,
+          "location": "~/workspace/codeyam/cadyam-exports/sources/nadia-field-notes-before-after/stickers/travel.png"
+        }
+      }
+    },
+    {
+      "seq": 88,
+      "source": "click",
+      "action": {
+        "apply": {
+          "v": 58,
+          "op": "relink_media",
+          "id": 7,
+          "location": "~/workspace/codeyam/cadyam-exports/sources/nadia-field-notes-before-after/stickers/runner.png"
+        }
+      }
+    },
+    {
+      "seq": 89,
+      "source": "click",
+      "action": {
+        "apply": {
+          "v": 58,
+          "op": "relink_media",
+          "id": 8,
+          "location": "~/workspace/codeyam/cadyam-exports/sources/nadia-field-notes-before-after/stickers/climb.png"
+        }
+      }
+    },
+    {
+      "seq": 90,
+      "source": "click",
+      "action": {
+        "apply": {
+          "v": 58,
+          "op": "relink_media",
+          "id": 9,
+          "location": "~/workspace/codeyam/cadyam-exports/sources/nadia-field-notes-before-after/stickers/surf.png"
+        }
+      }
+    },
+    {
+      "seq": 91,
+      "source": "click",
+      "action": {
+        "apply": {
+          "v": 58,
+          "op": "relink_media",
+          "id": 10,
+          "location": "~/workspace/codeyam/cadyam-exports/sources/nadia-field-notes-before-after/stickers/curious.png"
+        }
+      }
+    },
+    {
+      "seq": 92,
+      "source": "click",
+      "action": {
+        "apply": {
+          "v": 58,
+          "op": "relink_media",
+          "id": 11,
+          "location": "~/workspace/codeyam/cadyam-exports/sources/nadia-field-notes-before-after/stickers/notebook.png"
+        }
+      }
+    },
+    {
+      "seq": 93,
+      "source": "click",
+      "action": {
+        "apply": {
+          "v": 58,
+          "op": "relink_media",
+          "id": 12,
+          "location": "~/workspace/codeyam/cadyam-exports/sources/nadia-field-notes-before-after/stickers/car.png"
+        }
+      }
+    },
+    {
+      "seq": 94,
+      "source": "click",
+      "action": {
+        "apply": {
+          "v": 58,
+          "op": "relink_media",
+          "id": 13,
+          "location": "~/workspace/codeyam/cadyam-exports/sources/nadia-field-notes-before-after/stickers/graduate.png"
+        }
+      }
+    },
+    {
+      "seq": 95,
+      "source": "click",
+      "action": {
+        "apply": {
+          "v": 58,
+          "op": "relink_media",
+          "id": 14,
+          "location": "~/workspace/codeyam/cadyam-exports/sources/nadia-field-notes-before-after/stickers/fencing.png"
+        }
+      }
+    },
+    {
+      "seq": 96,
+      "source": "typed",
+      "raw": "relink 1 \"~/Downloads/1 raw - iPhone original.MOV\"",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 58,
+          "op": "relink_media",
+          "id": 1,
+          "location": "~/Downloads/1 raw - iPhone original.MOV",
+          "found": {
+            "content_hash": "d3744b22c10d657cd33c2a2947190b03b78ad1577d4453359fb4cfe3dcd6fae2",
+            "bytes": 96703389,
+            "duration": 83.73833333333333,
+            "fps": 30.0,
+            "size": [
+              1080,
+              1920
+            ],
+            "audio": true
+          }
+        }
+      }
+    },
+    {
+      "seq": 97,
+      "source": "typed",
+      "raw": "captions area big at 66% size 165% font crimson color #ffffff",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611280310,
+          "op": "video",
+          "edit": "set_captions",
+          "area": {
+            "op": "set",
+            "area": {
+              "name": "big",
+              "at": 660,
+              "size": 165,
+              "color": [
+                255,
+                255,
+                255
+              ],
+              "font": "crimson"
+            }
+          },
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 98,
+      "source": "typed",
+      "raw": "caption @1:49 part @1:51 area big",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611280310,
+          "op": "video",
+          "edit": "edit_caption",
+          "media": 1,
+          "word": 49,
+          "fix": "area_part",
+          "to": {
+            "media": 1,
+            "word": 51
+          },
+          "area": "big",
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 99,
+      "source": "typed",
+      "raw": "caption @1:62 part @1:64 area big",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611280310,
+          "op": "video",
+          "edit": "edit_caption",
+          "media": 1,
+          "word": 62,
+          "fix": "area_part",
+          "to": {
+            "media": 1,
+            "word": 64
+          },
+          "area": "big",
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 100,
+      "source": "typed",
+      "raw": "caption @1:105 part @1:106 area big",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611280310,
+          "op": "video",
+          "edit": "edit_caption",
+          "media": 1,
+          "word": 105,
+          "fix": "area_part",
+          "to": {
+            "media": 1,
+            "word": 106
+          },
+          "area": "big",
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 101,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 100
+    },
+    {
+      "seq": 102,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 99
+    },
+    {
+      "seq": 103,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 98
+    },
+    {
+      "seq": 104,
+      "source": "typed",
+      "raw": "caption @1:49 part @1:51 area big",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611280310,
+          "op": "video",
+          "edit": "edit_caption",
+          "media": 1,
+          "word": 49,
+          "fix": "area_part",
+          "to": {
+            "media": 1,
+            "word": 51
+          },
+          "area": "big",
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 105,
+      "source": "typed",
+      "raw": "caption @1:62 part @1:64 area big",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611280310,
+          "op": "video",
+          "edit": "edit_caption",
+          "media": 1,
+          "word": 62,
+          "fix": "area_part",
+          "to": {
+            "media": 1,
+            "word": 64
+          },
+          "area": "big",
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 106,
+      "source": "typed",
+      "raw": "caption @1:105 part @1:106 area big",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611280310,
+          "op": "video",
+          "edit": "edit_caption",
+          "media": 1,
+          "word": 105,
+          "fix": "area_part",
+          "to": {
+            "media": 1,
+            "word": 106
+          },
+          "area": "big",
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 107,
+      "source": "typed",
+      "raw": "caption @1:182 part @1:183 area big",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611280310,
+          "op": "video",
+          "edit": "edit_caption",
+          "media": 1,
+          "word": 182,
+          "fix": "area_part",
+          "to": {
+            "media": 1,
+            "word": 183
+          },
+          "area": "big",
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 108,
+      "source": "typed",
+      "raw": "captions mark \"Field Notes\" color #ffb26b font marker size 115%",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611272315,
+          "op": "video",
+          "edit": "set_captions",
+          "mark": {
+            "phrase": "Field Notes",
+            "look": {
+              "color": [
+                255,
+                178,
+                107
+              ],
+              "font": "marker",
+              "size": 115
+            }
+          },
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 109,
+      "source": "typed",
+      "raw": "captions mark \"CodeYam\" color #5ab4ff font mono weight bold",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611272315,
+          "op": "video",
+          "edit": "set_captions",
+          "mark": {
+            "phrase": "CodeYam",
+            "look": {
+              "color": [
+                90,
+                180,
+                255
+              ],
+              "font": "mono",
+              "weight": "bold"
+            }
+          },
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 110,
+      "source": "typed",
+      "raw": "captions mark \"New York\" color #ff8a8a font bebas size 130%",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611272315,
+          "op": "video",
+          "edit": "set_captions",
+          "mark": {
+            "phrase": "New York",
+            "look": {
+              "color": [
+                255,
+                138,
+                138
+              ],
+              "font": "bebas",
+              "size": 130
+            }
+          },
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 111,
+      "source": "typed",
+      "raw": "caption @1:185 at 64%",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611122145,
+          "op": "video",
+          "edit": "edit_caption",
+          "media": 1,
+          "word": 185,
+          "fix": "place",
+          "at": 640,
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 112,
+      "source": "typed",
+      "raw": "caption @1:185 style @1:185 color #ffd400 font marker size 220%",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611272315,
+          "op": "video",
+          "edit": "edit_caption",
+          "media": 1,
+          "word": 185,
+          "fix": "word_style",
+          "to": {
+            "media": 1,
+            "word": 185
+          },
+          "look": {
+            "color": [
+              255,
+              212,
+              0
+            ],
+            "font": "marker",
+            "size": 220
+          },
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 113,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 112
+    },
+    {
+      "seq": 114,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 111
+    },
+    {
+      "seq": 115,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 110
+    },
+    {
+      "seq": 116,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 109
+    },
+    {
+      "seq": 117,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 108
+    },
+    {
+      "seq": 118,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 107
+    },
+    {
+      "seq": 119,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 106
+    },
+    {
+      "seq": 120,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 105
+    },
+    {
+      "seq": 121,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 104
+    },
+    {
+      "seq": 122,
+      "source": "typed",
+      "raw": "caption @1:49 part @1:51 area big",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611280310,
+          "op": "video",
+          "edit": "edit_caption",
+          "media": 1,
+          "word": 49,
+          "fix": "area_part",
+          "to": {
+            "media": 1,
+            "word": 51
+          },
+          "area": "big",
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 123,
+      "source": "typed",
+      "raw": "caption @1:69 part @1:71 area big",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611280310,
+          "op": "video",
+          "edit": "edit_caption",
+          "media": 1,
+          "word": 69,
+          "fix": "area_part",
+          "to": {
+            "media": 1,
+            "word": 71
+          },
+          "area": "big",
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 124,
+      "source": "typed",
+      "raw": "caption @1:119 part @1:120 area big",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611280310,
+          "op": "video",
+          "edit": "edit_caption",
+          "media": 1,
+          "word": 119,
+          "fix": "area_part",
+          "to": {
+            "media": 1,
+            "word": 120
+          },
+          "area": "big",
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 125,
+      "source": "typed",
+      "raw": "caption @1:207 part @1:208 area big",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611280310,
+          "op": "video",
+          "edit": "edit_caption",
+          "media": 1,
+          "word": 207,
+          "fix": "area_part",
+          "to": {
+            "media": 1,
+            "word": 208
+          },
+          "area": "big",
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 126,
+      "source": "typed",
+      "raw": "caption @1:220 at 64%",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611122145,
+          "op": "video",
+          "edit": "edit_caption",
+          "media": 1,
+          "word": 220,
+          "fix": "place",
+          "at": 640,
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 127,
+      "source": "typed",
+      "raw": "caption @1:220 style @1:220 color #ffd400 font marker size 220%",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611272315,
+          "op": "video",
+          "edit": "edit_caption",
+          "media": 1,
+          "word": 220,
+          "fix": "word_style",
+          "to": {
+            "media": 1,
+            "word": 220
+          },
+          "look": {
+            "color": [
+              255,
+              212,
+              0
+            ],
+            "font": "marker",
+            "size": 220
+          },
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 128,
+      "source": "typed",
+      "raw": "captions mark \"Field Notes\" color #ffb26b font marker size 115%",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611272315,
+          "op": "video",
+          "edit": "set_captions",
+          "mark": {
+            "phrase": "Field Notes",
+            "look": {
+              "color": [
+                255,
+                178,
+                107
+              ],
+              "font": "marker",
+              "size": 115
+            }
+          },
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 129,
+      "source": "typed",
+      "raw": "captions mark \"CodeYam\" color #5ab4ff font mono weight bold",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611272315,
+          "op": "video",
+          "edit": "set_captions",
+          "mark": {
+            "phrase": "CodeYam",
+            "look": {
+              "color": [
+                90,
+                180,
+                255
+              ],
+              "font": "mono",
+              "weight": "bold"
+            }
+          },
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 130,
+      "source": "typed",
+      "raw": "captions mark \"New York\" color #ff8a8a font bebas size 130%",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611272315,
+          "op": "video",
+          "edit": "set_captions",
+          "mark": {
+            "phrase": "New York",
+            "look": {
+              "color": [
+                255,
+                138,
+                138
+              ],
+              "font": "bebas",
+              "size": 130
+            }
+          },
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 131,
+      "source": "script",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2610281400,
+          "op": "post_feed",
+          "item": {
+            "id": 75,
+            "at_seq": 130,
+            "agent": "claude-code",
+            "tone": "result",
+            "text": "Key phrases jump into a big serif line on her shirt while the rest stays below. Field Notes is handwritten, CodeYam is in code type, New York in bold poster letters, and her closing Welcome sits on its own.",
+            "title": "Nadia's captions now split, move and change typeface",
+            "view": {
+              "pane": "dollhouse"
+            },
+            "details": [
+              "Claude Code is connected through a different CadYam build than this window, so some of its tools may not match. Restart Claude Code's CadYam connection (in Claude Code, run /mcp and reconnect cadyam)."
+            ],
+            "since_seq": 95
+          }
+        }
+      }
+    },
+    {
+      "seq": 132,
+      "source": "typed",
+      "raw": "caption @1:121 part @1:121 area big",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611280310,
+          "op": "video",
+          "edit": "edit_caption",
+          "media": 1,
+          "word": 121,
+          "fix": "area_part",
+          "to": {
+            "media": 1,
+            "word": 121
+          },
+          "area": "big",
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 133,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 132
+    },
+    {
+      "seq": 134,
+      "source": "typed",
+      "raw": "caption @1:116 text \"I'm generally a…\"",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611122145,
+          "op": "video",
+          "edit": "edit_caption",
+          "media": 1,
+          "word": 116,
+          "fix": "text",
+          "text": "I'm generally a…",
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 135,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 134
+    },
+    {
+      "seq": 136,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 131
+    },
+    {
+      "seq": 137,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 130
+    },
+    {
+      "seq": 138,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 129
+    },
+    {
+      "seq": 139,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 128
+    },
+    {
+      "seq": 140,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 127
+    },
+    {
+      "seq": 141,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 126
+    },
+    {
+      "seq": 142,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 125
+    },
+    {
+      "seq": 143,
+      "source": "typed",
+      "actor": "claude-code",
+      "action": "undo",
+      "target": 124
+    },
+    {
+      "seq": 144,
+      "source": "typed",
+      "raw": "caption @1:119 part @1:121 area big",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611280310,
+          "op": "video",
+          "edit": "edit_caption",
+          "media": 1,
+          "word": 119,
+          "fix": "area_part",
+          "to": {
+            "media": 1,
+            "word": 121
+          },
+          "area": "big",
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 145,
+      "source": "typed",
+      "raw": "caption @1:207 part @1:208 area big",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611280310,
+          "op": "video",
+          "edit": "edit_caption",
+          "media": 1,
+          "word": 207,
+          "fix": "area_part",
+          "to": {
+            "media": 1,
+            "word": 208
+          },
+          "area": "big",
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 146,
+      "source": "typed",
+      "raw": "caption @1:220 at 64%",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611122145,
+          "op": "video",
+          "edit": "edit_caption",
+          "media": 1,
+          "word": 220,
+          "fix": "place",
+          "at": 640,
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 147,
+      "source": "typed",
+      "raw": "caption @1:220 style @1:220 color #ffd400 font marker size 220%",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611272315,
+          "op": "video",
+          "edit": "edit_caption",
+          "media": 1,
+          "word": 220,
+          "fix": "word_style",
+          "to": {
+            "media": 1,
+            "word": 220
+          },
+          "look": {
+            "color": [
+              255,
+              212,
+              0
+            ],
+            "font": "marker",
+            "size": 220
+          },
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 148,
+      "source": "typed",
+      "raw": "captions mark \"Field Notes\" color #ffb26b font marker size 115%",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611272315,
+          "op": "video",
+          "edit": "set_captions",
+          "mark": {
+            "phrase": "Field Notes",
+            "look": {
+              "color": [
+                255,
+                178,
+                107
+              ],
+              "font": "marker",
+              "size": 115
+            }
+          },
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 149,
+      "source": "typed",
+      "raw": "captions mark \"CodeYam\" color #5ab4ff font mono weight bold",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611272315,
+          "op": "video",
+          "edit": "set_captions",
+          "mark": {
+            "phrase": "CodeYam",
+            "look": {
+              "color": [
+                90,
+                180,
+                255
+              ],
+              "font": "mono",
+              "weight": "bold"
+            }
+          },
+          "fps": 30
+        }
+      }
+    },
+    {
+      "seq": 150,
+      "source": "typed",
+      "raw": "captions mark \"New York\" color #ff8a8a font bebas size 130%",
+      "actor": "claude-code",
+      "action": {
+        "apply": {
+          "v": 2611272315,
+          "op": "video",
+          "edit": "set_captions",
+          "mark": {
+            "phrase": "New York",
+            "look": {
+              "color": [
+                255,
+                138,
+                138
+              ],
+              "font": "bebas",
+              "size": 130
+            }
+          },
+          "fps": 30
+        }
+      }
     }
   ],
   "view": {
@@ -3251,7 +4344,7 @@
     "pending": [],
     "cursor": null,
     "video": {
-      "playhead": 192,
+      "playhead": 2286,
       "clip": 2,
       "bin": 14,
       "px_per_second": 60.0,
@@ -12600,148 +13693,6 @@
     "batch_note": "Claude Code is connected through a different CadYam build than this window, so some of its tools may not match. Restart Claude Code's CadYam connection (in Claude Code, run /mcp and reconnect cadyam).",
     "feed": [
       {
-        "id": 2,
-        "at_seq": 26,
-        "agent": "claude-code",
-        "tone": "result",
-        "text": "Rendered the video"
-      },
-      {
-        "id": 3,
-        "at_seq": 26,
-        "agent": "claude-code",
-        "tone": "result",
-        "text": "Rendered the video"
-      },
-      {
-        "id": 4,
-        "at_seq": 26,
-        "agent": "claude-code",
-        "tone": "result",
-        "text": "Rendered the video"
-      },
-      {
-        "id": 5,
-        "at_seq": 26,
-        "agent": "claude-code",
-        "tone": "result",
-        "text": "Rendered the video"
-      },
-      {
-        "id": 6,
-        "at_seq": 26,
-        "agent": "claude-code",
-        "tone": "result",
-        "text": "Rendered the video"
-      },
-      {
-        "id": 8,
-        "at_seq": 32,
-        "agent": "claude-code",
-        "tone": "result",
-        "text": "Made 5 changes, most recently: Set the video's title; Set the video's description; Made the thumbnail from 00:00:02:00 reading “Nadia's Field Notes”; Set clip 1's noise reduction: medium.",
-        "since_seq": 27
-      },
-      {
-        "id": 9,
-        "at_seq": 32,
-        "agent": "claude-code",
-        "tone": "result",
-        "text": "Rendered the video"
-      },
-      {
-        "id": 10,
-        "at_seq": 32,
-        "agent": "claude-code",
-        "tone": "result",
-        "text": "Rendered the video"
-      },
-      {
-        "id": 11,
-        "at_seq": 32,
-        "agent": "claude-code",
-        "tone": "result",
-        "text": "Rendered the video"
-      },
-      {
-        "id": 12,
-        "at_seq": 32,
-        "agent": "claude-code",
-        "tone": "result",
-        "text": "Rendered the video"
-      },
-      {
-        "id": 13,
-        "at_seq": 32,
-        "agent": "claude-code",
-        "tone": "result",
-        "text": "Rendered the video"
-      },
-      {
-        "id": 14,
-        "at_seq": 32,
-        "agent": "claude-code",
-        "tone": "result",
-        "text": "Rendered the video"
-      },
-      {
-        "id": 15,
-        "at_seq": 33,
-        "agent": "claude-code",
-        "tone": "result",
-        "text": "Made 1 change: Export loudness: −14 LUFS (social).",
-        "since_seq": 32
-      },
-      {
-        "id": 16,
-        "at_seq": 33,
-        "agent": "claude-code",
-        "tone": "result",
-        "text": "Rendered the video"
-      },
-      {
-        "id": 17,
-        "at_seq": 33,
-        "agent": "claude-code",
-        "tone": "result",
-        "text": "Rendered the video"
-      },
-      {
-        "id": 18,
-        "at_seq": 33,
-        "agent": "claude-code",
-        "tone": "result",
-        "text": "Rendered the video"
-      },
-      {
-        "id": 19,
-        "at_seq": 33,
-        "agent": "claude-code",
-        "tone": "result",
-        "text": "Rendered the video"
-      },
-      {
-        "id": 20,
-        "at_seq": 33,
-        "agent": "claude-code",
-        "tone": "result",
-        "text": "Rendered the video"
-      },
-      {
-        "id": 21,
-        "at_seq": 33,
-        "agent": "claude-code",
-        "tone": "result",
-        "text": "Rendered the video"
-      },
-      {
-        "id": 22,
-        "at_seq": 33,
-        "agent": "claude-code",
-        "tone": "result",
-        "text": "Rendered the video"
-      },
-      {
         "id": 23,
         "at_seq": 33,
         "agent": "claude-code",
@@ -12829,13 +13780,6 @@
         "kind": "batch_outcome"
       },
       {
-        "id": 36,
-        "at_seq": 40,
-        "agent": "",
-        "text": "Claude Code is connected through a different CadYam build than this window, so some of its tools may not match. Restart Claude Code's CadYam connection (in Claude Code, run /mcp and reconnect cadyam).",
-        "kind": "batch_outcome"
-      },
-      {
         "id": 38,
         "at_seq": 41,
         "agent": "claude-code",
@@ -12857,8 +13801,280 @@
         "tone": "result",
         "text": "Made 20 changes.",
         "since_seq": 44
+      },
+      {
+        "id": 42,
+        "at_seq": 26,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 43,
+        "at_seq": 26,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 44,
+        "at_seq": 26,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 45,
+        "at_seq": 26,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 46,
+        "at_seq": 26,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 47,
+        "at_seq": 32,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Made 5 changes, most recently: Set the video's title; Set the video's description; Made the thumbnail from 00:00:02:00 reading “Nadia's Field Notes”; Set clip 1's noise reduction: medium.",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 48,
+        "at_seq": 32,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 49,
+        "at_seq": 32,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 50,
+        "at_seq": 32,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 51,
+        "at_seq": 32,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 52,
+        "at_seq": 32,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 53,
+        "at_seq": 32,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 54,
+        "at_seq": 33,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Made 1 change: Export loudness: −14 LUFS (social).",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 55,
+        "at_seq": 33,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 56,
+        "at_seq": 33,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 57,
+        "at_seq": 33,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 58,
+        "at_seq": 33,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 59,
+        "at_seq": 33,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 60,
+        "at_seq": 33,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 61,
+        "at_seq": 33,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 62,
+        "at_seq": 33,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 63,
+        "at_seq": 33,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 64,
+        "at_seq": 33,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 65,
+        "at_seq": 34,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Made 1 change: Export loudness: −13 LUFS.",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 66,
+        "at_seq": 34,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 67,
+        "at_seq": 34,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 68,
+        "at_seq": 34,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 69,
+        "at_seq": 34,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 70,
+        "at_seq": 36,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Made 1 change: Captions: at 82%.",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 71,
+        "at_seq": 38,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Made 2 changes: Captions: at 80%; Captions: at 82%.",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 72,
+        "at_seq": 41,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Rendered the video to nadias-field-notes-intro-final.mp4",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 73,
+        "at_seq": 44,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Made 2 changes: Set clip 1's look: warm 0 contrast 100% saturation 100%; Set clip 1's look: exposure -0.25 saturation 75%.",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 74,
+        "at_seq": 82,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Made 20 changes.",
+        "drawing": "nadias-field-notes"
+      },
+      {
+        "id": 76,
+        "at_seq": 150,
+        "agent": "claude-code",
+        "tone": "result",
+        "text": "Made 9 changes.",
+        "since_seq": 131
       }
     ],
-    "feed_seen": 37
+    "feed_seen": 71
   }
 }
