@@ -26,6 +26,7 @@ reopened in CadYam, improved and re-exported.
 | tweed-sport-coat.html | `menswear/*.txt` (Fashion command lines; camel-overcoat.txt and denim-trucker.txt are parked until garments drape and render like Marvelous Designer) |
 | architectural-loft-renovation.html (Grand Courtyard Residence) | `grand-courtyard-residence/` (drawing, generator, paintings in `art/`) |
 | pecking-bird-automaton.html | `laser-automaton/` (assembled drawing; `gen_auto.py` writes the flat kit, `assemble.txt` stands it up and wires the crank) |
+| nadia-field-notes-before-after.html | `nadia-field-notes-before-after/` (Video project; `make_stickers.py` draws the 15 word-pinned stickers in `stickers/`; the raw iPhone take is not included, relink it with media add) |
 
 Pages not listed here (the dresses and suit, the data stories and decks,
 the vineyard, town centre, pond house, sideboard and coffee table) were made
